@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Converters;
 using Raven.Client.Documents;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -36,6 +37,7 @@ namespace BusinessAssociates
                       FindIdentityProperty = m => m.Name == "_databaseId"
                   }
               };
+
             store.Conventions.RegisterAsyncIdConvention<InternalAssociate>(
                 (dbName, entity) => Task.FromResult("InternalAssociate/" + entity.Id));
             store.Initialize();
@@ -45,7 +47,9 @@ namespace BusinessAssociates
             services.AddScoped<IInternalAssociateRepository, InternalAssociateRepository>();
             services.AddScoped<InternalAssociatesApplicationService>();
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+                options.SerializerSettings.Converters.Add(new StringEnumConverter()));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
