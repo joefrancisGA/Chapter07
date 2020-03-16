@@ -30,6 +30,14 @@ namespace BusinessAssociates.Domain
 
         public InternalAssociate() { }
 
+        public InternalAssociate(InternalAssociateId id)
+        {
+            Apply(new Events.InternalAssociateCreated
+            {
+                Id = id
+            });
+        }
+
         public InternalAssociate(AssociateId id, string longName, string shortName, bool isParent, 
             InternalAssociateType internalAssociateType, Status status)
         {

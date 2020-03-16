@@ -67,8 +67,8 @@ namespace BusinessAssociates.Infrastructure
         public InternalAssociate Load(AssociateId id)
         {
             string sql =
-                "SELECT DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, [Status] FROM BusinessAssociate" +
-                " WHERE DUNSNumber = " + id.Value;
+                "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, [Status] FROM BusinessAssociate" +
+                " WHERE ID = " + id.Value;
 
             string connString = "Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True";
 
@@ -80,15 +80,19 @@ namespace BusinessAssociates.Infrastructure
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        return new InternalAssociate
-                        {
-                            DUNSNumber = DUNSNumber.Create(Convert.ToInt32(reader[0])),
-                            LongName = LongName.Create(reader[1].ToString()),
-                            ShortName = ShortName.Create(reader[2].ToString()),
-                            IsParent = Convert.ToBoolean(reader[3]),
-                            InternalAssociateType = (InternalAssociateType) reader[4],
-                            Status = (Status) reader[5]
-                        };
+                        if (!reader.Read())
+                            return null;
+
+                        InternalAssociate internalAssociate = new InternalAssociate(new InternalAssociateId(Convert.ToInt32(reader[0])));
+
+                        internalAssociate.DUNSNumber = DUNSNumber.Create(Convert.ToInt32(reader[1]));
+                        internalAssociate.LongName = LongName.Create(reader[2].ToString());
+                        internalAssociate.ShortName = ShortName.Create(reader[3].ToString());
+                        internalAssociate.IsParent = Convert.ToBoolean(reader[4]);
+                        internalAssociate.InternalAssociateType = (InternalAssociateType) reader[5];
+                        internalAssociate.Status = (Status) reader[6];
+
+                        return internalAssociate;
                     }
                 }
             }
