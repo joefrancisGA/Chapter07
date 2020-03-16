@@ -30,14 +30,14 @@ namespace BusinessAssociates
             var store = new DocumentStore
               {
                   Urls = new[] {"http://localhost:8080"},
-                  Database = "Marketplace_Chapter6",
+                  Database = "EGMS",
                   Conventions =
                   {
                       FindIdentityProperty = m => m.Name == "_databaseId"
                   }
               };
             store.Conventions.RegisterAsyncIdConvention<Domain.InternalAssociate>(
-                (dbName, entity) => Task.FromResult("InternalAssociate/" + entity.Id.ToString()));
+                (dbName, entity) => Task.FromResult("InternalAssociate/" + entity.Id));
             store.Initialize();
 
             services.AddScoped(c => store.OpenAsyncSession());

@@ -10,6 +10,6 @@
     <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Marketplace.Framework\BusinessAssociates.Framework.csproj" />
+    <ProjectReference Include="..\BusinessAssociates.Framework\BusinessAssociates.Framework.csproj" />
   </ItemGroup>
 </Project>

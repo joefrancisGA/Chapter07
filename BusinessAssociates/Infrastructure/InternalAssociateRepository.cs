@@ -1,9 +1,9 @@
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
 using BusinessAssociates.Domain;
 using BusinessAssociates.Domain.Enums;
+using Raven.Client;
 
 
 namespace BusinessAssociates.Infrastructure
@@ -24,6 +24,7 @@ namespace BusinessAssociates.Infrastructure
 
             // TO DO:  Fix the connection string query through dependency injection
             //ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings["BusinessAssociates"];
+
 
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
@@ -46,7 +47,7 @@ namespace BusinessAssociates.Infrastructure
 
         public bool Exists(AssociateId id)
         {
-            string sql = "SELECT DUNSNumber FROM BusinessAssociates WHERE DUNSNumber = " + id.Value;
+            string sql = "SELECT DUNSNumber FROM BusinessAssociate WHERE DUNSNumber = " + id.Value;
 
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
@@ -81,14 +82,16 @@ namespace BusinessAssociates.Infrastructure
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        Domain.InternalAssociate internalAssociate = new Domain.InternalAssociate();
+                        Domain.InternalAssociate internalAssociate = new Domain.InternalAssociate
+                        {
+                            DUNSNumber = Convert.ToInt32(reader[0]),
+                            LongName = reader[1].ToString(),
+                            ShortName = reader[2].ToString(),
+                            IsParent = Convert.ToBoolean(reader[3]),
+                            InternalAssociateType = (InternalAssociateType) reader[4],
+                            Status = (Status) reader[5]
+                        };
 
-                        internalAssociate.DUNSNumber = Convert.ToInt32(reader[0]);
-                        internalAssociate.LongName = reader[1].ToString();
-                        internalAssociate.ShortName = reader[2].ToString();
-                        internalAssociate.IsParent = Convert.ToBoolean(reader[3]);
-                        internalAssociate.InternalAssociateType = (InternalAssociateType) reader[4];
-                        internalAssociate.Status = (Status) reader[5];
 
                         return internalAssociate;
                     }
