@@ -19,9 +19,49 @@ namespace BusinessAssociates.Api
             return Ok();
         }
 
-        [Route("text")]
+        [Route("longname")]
         [HttpPut]
-        public async Task<IActionResult> Put(InternalAssociates.V1.UpdateText request)
+        public async Task<IActionResult> Put(InternalAssociates.V1.UpdateLongName request)
+        {
+            await _applicationService.Handle(request);
+            return Ok();
+        }
+
+        [Route("dunsnumber")]
+        [HttpPut]
+        public async Task<IActionResult> Put(InternalAssociates.V1.UpdateDUNSNumber request)
+        {
+            await _applicationService.Handle(request);
+            return Ok();
+        }
+
+        [Route("internalassociatetype")]
+        [HttpPut]
+        public async Task<IActionResult> Put(InternalAssociates.V1.UpdateInternalAssociateType request)
+        {
+            await _applicationService.Handle(request);
+            return Ok();
+        }
+
+        [Route("shortname")]
+        [HttpPut]
+        public async Task<IActionResult> Put(InternalAssociates.V1.UpdateShortName request)
+        {
+            await _applicationService.Handle(request);
+            return Ok();
+        }
+
+        [Route("status")]
+        [HttpPut]
+        public async Task<IActionResult> Put(InternalAssociates.V1.UpdateStatus request)
+        {
+            await _applicationService.Handle(request);
+            return Ok();
+        }
+
+        [Route("isparent")]
+        [HttpPut]
+        public async Task<IActionResult> Put(InternalAssociates.V1.UpdateIsParent request)
         {
             await _applicationService.Handle(request);
             return Ok();

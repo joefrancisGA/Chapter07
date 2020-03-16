@@ -66,9 +66,6 @@ namespace BusinessAssociates.Infrastructure
 
         public InternalAssociate Load(AssociateId id)
         {
-            //  insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status])
-            //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
-
             string sql =
                 "SELECT DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, [Status] FROM BusinessAssociate" +
                 " WHERE DUNSNumber = " + id.Value;
@@ -83,16 +80,15 @@ namespace BusinessAssociates.Infrastructure
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        InternalAssociate internalAssociate = new InternalAssociate();
-
-                        internalAssociate.DUNSNumber = DUNSNumber.Create(Convert.ToInt32(reader[0]));
-                        internalAssociate.LongName = LongName.Create(reader[1].ToString());
-                        internalAssociate.ShortName = ShortName.Create(reader[2].ToString());
-                        internalAssociate.IsParent = Convert.ToBoolean(reader[3]);
-                        internalAssociate.InternalAssociateType = (InternalAssociateType) reader[4];
-                        internalAssociate.Status = (Status) reader[5];
-                        
-                        return internalAssociate;
+                        return new InternalAssociate
+                        {
+                            DUNSNumber = DUNSNumber.Create(Convert.ToInt32(reader[0])),
+                            LongName = LongName.Create(reader[1].ToString()),
+                            ShortName = ShortName.Create(reader[2].ToString()),
+                            IsParent = Convert.ToBoolean(reader[3]),
+                            InternalAssociateType = (InternalAssociateType) reader[4],
+                            Status = (Status) reader[5]
+                        };
                     }
                 }
             }
