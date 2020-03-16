@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BusinessAssociates.Infrastructure;
 using BusinessAssociates.Projections;
 using BusinessAssociates.Queries;
@@ -10,7 +7,7 @@ using Serilog;
 
 namespace BusinessAssociates.Api
 {
-    [Route("/ad")]
+    [Route("/internalassociate")]
     public class InternalAssociatesQueryApi : Controller
     {
         private static ILogger _log = Log.ForContext<InternalAssociatesQueryApi>();

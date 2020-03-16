@@ -1,9 +1,7 @@
 using System;
-using System.Configuration;
 using System.Data.SqlClient;
 using BusinessAssociates.Domain;
 using BusinessAssociates.Domain.Enums;
-using Raven.Client;
 
 
 namespace BusinessAssociates.Infrastructure

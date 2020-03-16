@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using BusinessAssociates.Domain.Enums;
-using EGMS.BusinessAssociate.Domain;
 
 namespace BusinessAssociates.Domain
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using BusinessAssociates.Framework;
+﻿using BusinessAssociates.Framework;
 
 namespace BusinessAssociates.Domain
 {
