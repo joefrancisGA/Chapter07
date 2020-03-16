@@ -36,7 +36,7 @@ namespace BusinessAssociates
                       FindIdentityProperty = m => m.Name == "_databaseId"
                   }
               };
-            store.Conventions.RegisterAsyncIdConvention<Domain.InternalAssociate>(
+            store.Conventions.RegisterAsyncIdConvention<InternalAssociate>(
                 (dbName, entity) => Task.FromResult("InternalAssociate/" + entity.Id));
             store.Initialize();
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessAssociates.Infrastructure;
-using BusinessAssociates.InternalAssociate;
 using BusinessAssociates.Projections;
+using BusinessAssociates.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 

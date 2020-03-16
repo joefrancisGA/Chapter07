@@ -25,7 +25,7 @@ namespace BusinessAssociates.Api
                     if (_repository.Exists(cmd.DUNSNumber))
                         throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
 
-                    var internalAssociate = new Domain.InternalAssociate(new AssociateId(cmd.DUNSNumber), cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.InternalAssociateType, cmd.Status);
+                    var internalAssociate = new InternalAssociate(new AssociateId(cmd.DUNSNumber), cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.InternalAssociateType, cmd.Status);
 
                     _repository.Add(internalAssociate);
                     //await _unitOfWork.Commit();
@@ -40,7 +40,7 @@ namespace BusinessAssociates.Api
             }
         }
 
-        private async Task HandleUpdate(long internalAssociateId, Action<Domain.InternalAssociate> operation)
+        private async Task HandleUpdate(long internalAssociateId, Action<InternalAssociate> operation)
         {
             var internalAssociate = _repository.Load(internalAssociateId);
             if (internalAssociate == null)

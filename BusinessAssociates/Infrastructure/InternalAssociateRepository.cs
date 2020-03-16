@@ -13,7 +13,7 @@ namespace BusinessAssociates.Infrastructure
 
         static string ConnectionString = "Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True";
 
-        public void Add(Domain.InternalAssociate entity)
+        public void Add(InternalAssociate entity)
         {
             //  insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status])
             //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
@@ -63,7 +63,7 @@ namespace BusinessAssociates.Infrastructure
             }
         }
 
-        public Domain.InternalAssociate Load(AssociateId id)
+        public InternalAssociate Load(AssociateId id)
         {
             //  insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status])
             //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
@@ -82,7 +82,7 @@ namespace BusinessAssociates.Infrastructure
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        Domain.InternalAssociate internalAssociate = new Domain.InternalAssociate
+                        InternalAssociate internalAssociate = new InternalAssociate
                         {
                             DUNSNumber = Convert.ToInt32(reader[0]),
                             LongName = reader[1].ToString(),

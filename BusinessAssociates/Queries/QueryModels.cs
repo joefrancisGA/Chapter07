@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BusinessAssociates.InternalAssociate
+﻿namespace BusinessAssociates.Queries
 {
     public static class QueryModels
     {
