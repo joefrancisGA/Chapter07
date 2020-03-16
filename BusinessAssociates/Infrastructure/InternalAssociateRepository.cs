@@ -2,6 +2,7 @@ using System;
 using System.Data.SqlClient;
 using BusinessAssociates.Domain;
 using BusinessAssociates.Domain.Enums;
+using BusinessAssociates.Domain.ValueObjects;
 
 
 namespace BusinessAssociates.Infrastructure
@@ -31,8 +32,10 @@ namespace BusinessAssociates.Infrastructure
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@DUNSNumber", entity.Id.Value);
-                    cmd.Parameters.AddWithValue("@LongName", entity.LongName);
-                    cmd.Parameters.AddWithValue("@ShortName", entity.ShortName);
+                    cmd.Parameters.AddWithValue("@LongName", entity.LongName.Value);
+                    cmd.Parameters.AddWithValue("@ShortName", entity.ShortName.Value);
+
+                    // Because the associate is internal, we can assume this property is always true
                     cmd.Parameters.AddWithValue("@IsInternal", true);
                     cmd.Parameters.AddWithValue("@IsParent", entity.IsParent);
                     cmd.Parameters.AddWithValue("@BusinessAssociateType", (int)entity.InternalAssociateType);
@@ -80,17 +83,15 @@ namespace BusinessAssociates.Infrastructure
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        InternalAssociate internalAssociate = new InternalAssociate
-                        {
-                            DUNSNumber = Convert.ToInt32(reader[0]),
-                            LongName = reader[1].ToString(),
-                            ShortName = reader[2].ToString(),
-                            IsParent = Convert.ToBoolean(reader[3]),
-                            InternalAssociateType = (InternalAssociateType) reader[4],
-                            Status = (Status) reader[5]
-                        };
+                        InternalAssociate internalAssociate = new InternalAssociate();
 
-
+                        internalAssociate.DUNSNumber = DUNSNumber.Create(Convert.ToInt32(reader[0]));
+                        internalAssociate.LongName = LongName.Create(reader[1].ToString());
+                        internalAssociate.ShortName = ShortName.Create(reader[2].ToString());
+                        internalAssociate.IsParent = Convert.ToBoolean(reader[3]);
+                        internalAssociate.InternalAssociateType = (InternalAssociateType) reader[4];
+                        internalAssociate.Status = (Status) reader[5];
+                        
                         return internalAssociate;
                     }
                 }

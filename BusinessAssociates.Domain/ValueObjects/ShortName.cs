@@ -1,4 +1,5 @@
-﻿using BusinessAssociates.Framework;
+﻿using System.Dynamic;
+using BusinessAssociates.Framework;
 
 namespace BusinessAssociates.Domain.ValueObjects
 {
@@ -9,6 +10,11 @@ namespace BusinessAssociates.Domain.ValueObjects
         private ShortName(string value)
         {
             Value = value;
+        }
+
+        public static ShortName Create(string value)
+        {
+            return new ShortName(value);
         }
 
         public static implicit operator string(ShortName shortName)

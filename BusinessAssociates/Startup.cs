@@ -11,7 +11,6 @@ using Newtonsoft.Json.Converters;
 using Raven.Client.Documents;
 using Swashbuckle.AspNetCore.Swagger;
 
-// ReSharper disable UnusedMember.Global
 
 namespace BusinessAssociates
 {
@@ -47,6 +46,7 @@ namespace BusinessAssociates
             services.AddScoped<IInternalAssociateRepository, InternalAssociateRepository>();
             services.AddScoped<InternalAssociatesApplicationService>();
 
+            // Tye converter is to get Swagger to show enum values
             services.AddMvc().AddJsonOptions(options =>
                 options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 

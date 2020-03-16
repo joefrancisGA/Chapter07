@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BusinessAssociates.Domain.Enums;
+using BusinessAssociates.Domain.ValueObjects;
 using BusinessAssociates.Framework;
 
 namespace BusinessAssociates.Domain
@@ -9,9 +10,9 @@ namespace BusinessAssociates.Domain
         public Status Status { get; set; }
 
 
-        public int DUNSNumber { get; set; }
-        public string LongName { get; set; }
-        public string ShortName { get; set; }
+        public DUNSNumber DUNSNumber { get; set; }
+        public LongName LongName { get; set; }
+        public ShortName ShortName { get; set; }
 
         // Collections
         public List<OperatingContext> OperatingContexts { get; set; }
@@ -44,8 +45,8 @@ namespace BusinessAssociates.Domain
             };
 
             Id = id;
-            LongName = longName;
-            ShortName = shortName;
+            LongName = LongName.Create(longName);
+            ShortName = ShortName.Create(shortName);
             IsParent = isParent;
             InternalAssociateType = internalAssociateType;
             Status = status;

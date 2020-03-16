@@ -1,4 +1,5 @@
 ﻿
+using System.Dynamic;
 using BusinessAssociates.Framework;
 
 namespace BusinessAssociates.Domain.ValueObjects
@@ -11,6 +12,11 @@ namespace BusinessAssociates.Domain.ValueObjects
         private DUNSNumber(int value)
         {
             Value = value;
+        }
+
+        public static DUNSNumber Create(int value)
+        {
+            return new DUNSNumber(value);
         }
 
         public int Value { get; }

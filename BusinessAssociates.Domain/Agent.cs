@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using BusinessAssociates.Domain;
 using BusinessAssociates.Domain.Enums;
 using BusinessAssociates.Domain.ValueObjects;
-using EGMS.BusinessAssociate.Domain.ValueObjects;
 
-namespace EGMS.BusinessAssociate.Domain
+namespace BusinessAssociates.Domain
 {
     public class Agent : ExternalAssociate
     {

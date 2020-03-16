@@ -2,7 +2,7 @@
 
 using BusinessAssociates.Framework;
 
-namespace EGMS.BusinessAssociate.Domain.ValueObjects
+namespace BusinessAssociates.Domain.ValueObjects
 {
     public class LongName : Value<LongName>
     {
@@ -11,6 +11,11 @@ namespace EGMS.BusinessAssociate.Domain.ValueObjects
         private LongName(string value)
         {
             Value = value;
+        }
+
+        public static LongName Create(string longName)
+        {
+            return new LongName(longName);
         }
 
         public static implicit operator string(LongName longName)

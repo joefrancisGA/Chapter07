@@ -3,7 +3,6 @@ using BusinessAssociates.Domain.Enums;
 using BusinessAssociates.Domain.ValueObjects;
 using BusinessAssociates.Framework;
 using EGMS.BusinessAssociate.Domain;
-using EGMS.BusinessAssociate.Domain.ValueObjects;
 
 namespace BusinessAssociates.Domain
 {

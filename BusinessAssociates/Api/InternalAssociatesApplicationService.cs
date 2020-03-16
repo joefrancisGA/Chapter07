@@ -6,6 +6,7 @@ using BusinessAssociates.Framework;
 
 namespace BusinessAssociates.Api
 {
+    // The application service is only used by the command API at the moment, but it can be used 
     public class InternalAssociatesApplicationService : IApplicationService
     {
         private readonly IInternalAssociateRepository _repository;
