@@ -1,4 +1,5 @@
-﻿using BusinessAssociates.Framework;
+﻿using System;
+using BusinessAssociates.Framework;
 
 namespace BusinessAssociates.Domain
 {
@@ -8,8 +9,8 @@ namespace BusinessAssociates.Domain
 
         public AssociateId(long value)
         {
-            //if (value == default)
-            //    throw new ArgumentNullException(nameof(value), "InternalAssociate id cannot be empty");
+            if (value == default)
+                throw new ArgumentNullException(nameof(value), "InternalAssociate id cannot be empty");
             
             Value = value;
         }

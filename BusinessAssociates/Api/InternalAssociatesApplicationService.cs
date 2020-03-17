@@ -23,6 +23,8 @@ namespace BusinessAssociates.Api
         {
             switch (command)
             {
+
+                // TO DO:  Are we throwing an event here?
                 case InternalAssociates.V1.Create cmd:
 
                     if (_repository.Exists(cmd.DUNSNumber))
@@ -37,27 +39,27 @@ namespace BusinessAssociates.Api
                     break;
 
                 case InternalAssociates.V1.UpdateDUNSNumber cmd:
-                    await HandleUpdate(cmd.Id, c => c.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber)));
+                    _repository.UpdateDUNSNumber(HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber))).Result);
                     break;
 
                 case InternalAssociates.V1.UpdateInternalAssociateType cmd:
-                    await HandleUpdate(cmd.Id, c => c.UpdateInternalAssociateType(cmd.InternalAssociateType));
+                    _repository.UpdateInternalAssociateType(HandleUpdate(cmd.Id, ia => ia.UpdateInternalAssociateType(cmd.InternalAssociateType)).Result);
                     break;
 
                 case InternalAssociates.V1.UpdateLongName cmd:
-                    await HandleUpdate(cmd.Id, c => c.UpdateLongName(LongName.Create(cmd.LongName)));
+                    _repository.UpdateLongName(HandleUpdate(cmd.Id, ia => ia.UpdateLongName(LongName.Create(cmd.LongName))).Result);
                     break;
 
                 case InternalAssociates.V1.UpdateIsParent cmd:
-                    await HandleUpdate(cmd.Id, c => c.UpdateIsParent(cmd.IsParent));
+                    _repository.UpdateIsParent(HandleUpdate(cmd.Id, ia => ia.UpdateIsParent(cmd.IsParent)).Result);
                     break;
 
                 case InternalAssociates.V1.UpdateStatus cmd:
-                    await HandleUpdate(cmd.Id, c => c.UpdateStatus(cmd.Status));
+                    _repository.UpdateStatus(HandleUpdate(cmd.Id, ia => ia.UpdateStatus(cmd.Status)).Result);
                     break;
 
                 case InternalAssociates.V1.UpdateShortName cmd:
-                    await HandleUpdate(cmd.Id, c => c.UpdateShortName(ShortName.Create(cmd.ShortName)));
+                    _repository.UpdateShortName(HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName))).Result);
                     break;
 
                 default:
@@ -66,15 +68,17 @@ namespace BusinessAssociates.Api
         }
 
 #pragma warning disable 1998
-        private async Task HandleUpdate(long internalAssociateId, Action<InternalAssociate> operation)
+        private async Task<InternalAssociate> HandleUpdate(long internalAssociateId, Action<InternalAssociate> operation)
 #pragma warning restore 1998
         {
-            var internalAssociate = _repository.Load(internalAssociateId);
+            InternalAssociate internalAssociate = _repository.Load(internalAssociateId);
 
             if (internalAssociate == null)
                 throw new InvalidOperationException($"Entity with id {internalAssociateId} cannot be found");
 
             operation(internalAssociate);
+
+            return internalAssociate;
 
             //await _unitOfWork.Commit();
         }

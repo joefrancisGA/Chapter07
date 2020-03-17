@@ -31,7 +31,7 @@ namespace BusinessAssociates.Infrastructure
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
-                    cmd.Parameters.AddWithValue("@DUNSNumber", entity.Id.Value);
+                    cmd.Parameters.AddWithValue("@DUNSNumber", entity.DUNSNumber.Value);
                     cmd.Parameters.AddWithValue("@LongName", entity.LongName.Value);
                     cmd.Parameters.AddWithValue("@ShortName", entity.ShortName.Value);
 
@@ -40,6 +40,114 @@ namespace BusinessAssociates.Infrastructure
                     cmd.Parameters.AddWithValue("@IsParent", entity.IsParent);
                     cmd.Parameters.AddWithValue("@BusinessAssociateType", (int)entity.InternalAssociateType);
                     cmd.Parameters.AddWithValue("@Status", (int)entity.Status);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateDUNSNumber(InternalAssociate entity)
+        {
+            string sql = "UPDATE BusinessAssociate SET DUNSNumber = @DUNSNumber WHERE Id = @Id";
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@DUNSNumber", entity.DUNSNumber.Value);
+                    cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+      
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateInternalAssociateType(InternalAssociate entity)
+        {
+            string sql = "UPDATE BusinessAssociate SET BusinessAssociateType = @BusinessAssociateType WHERE Id = @Id";
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@BusinessAssociateType", (int)entity.InternalAssociateType);
+                    cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateLongName(InternalAssociate entity)
+        {
+            string sql = "UPDATE BusinessAssociate SET LongName = @LongName WHERE Id = @Id";
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@LongName", entity.LongName.Value);
+                    cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateIsParent(InternalAssociate entity)
+        {
+            string sql = "UPDATE BusinessAssociate SET IsParent = @IsParent WHERE Id = @Id";
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IsParent", entity.IsParent);
+                    cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateStatus(InternalAssociate entity)
+        {
+            string sql = "UPDATE BusinessAssociate SET Status = @Status WHERE Id = @Id";
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Status", (int)entity.Status);
+                    cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateShortName(InternalAssociate entity)
+        {
+            string sql = "UPDATE BusinessAssociate SET ShortName = @ShortName WHERE Id = @Id";
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ShortName", entity.ShortName.Value);
+                    cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -56,7 +164,7 @@ namespace BusinessAssociates.Infrastructure
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader()) 
                     {
                         return reader.HasRows;
                     }
