@@ -2,9 +2,9 @@
 {
     public enum PhoneType
     {
-        OFFICE = 1,
-        MOBILE = 2,
-        HOME = 3,
-        FAX = 4
+        Office = 1,
+        Mobile = 2,
+        Home = 3,
+        Fax = 4
     }
 }

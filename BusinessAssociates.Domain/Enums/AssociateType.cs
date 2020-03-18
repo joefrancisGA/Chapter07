@@ -8,6 +8,9 @@
         ExternalSelfProvider = 4,
         ExternalCustomerProvider = 5,
         ExternalRegulatedUtilityProvider = 6,
-        ExternalAssetManagerProvider = 7
+        ExternalAssetManagerProvider = 7,
+        SubordinateRegulatedProvider = 8,
+        SubordinateUtilityProvider = 9,
+        SubordinateDistinctUtilityProvider = 10
     }
 }

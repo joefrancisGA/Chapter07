@@ -3,8 +3,8 @@
     // Covers CompanyStatus, OperatingContextStatus, BusinessAssociateStatus
     public enum Status
     {
-        PENDING = 1,
-        ACTIVE = 2,
-        INACTIVE = 3
+        Pending = 1,
+        Active = 2,
+        Inactive = 3
     }
 }
