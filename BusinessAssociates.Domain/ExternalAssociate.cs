@@ -11,20 +11,20 @@ namespace BusinessAssociates.Domain
         public Status Status { get; set; }
 
         public ExternalAssociate(DUNSNumber dunsNumber, LongName longName, ShortName shortName,
-            ExternalAssociateType externalBusinessAssociateType) 
+            AssociateType externalBusinessAssociateType) 
         {
             DUNSNumber = dunsNumber;
             LongName = longName;
             ShortName = shortName;
-            ExternalBusinessAssociateType = externalBusinessAssociateType;
+            ExternalAssociateType = externalBusinessAssociateType;
         }
 
         public ExternalAssociate(AssociateId id, string longName, string shortName, bool isParent,
-            ExternalAssociateType externalAssociateType, Status status)
+            AssociateType externalAssociateType, Status status)
         {
             Events.ExternalAssociateCreated internalAssociateCreated = new Events.ExternalAssociateCreated
             {
-                Id = id,
+                Id = id.Value,
                 LongName = longName,
                 ShortName = shortName,
                 IsParent = isParent,
@@ -66,8 +66,6 @@ namespace BusinessAssociates.Domain
             ExternalOperatingContexts.Add(context);
         }
 
-        public new long Id { get; set; }
-
         public bool IsParent { get; set; }
 
         protected override void When(object @event)
@@ -99,7 +97,7 @@ namespace BusinessAssociates.Domain
                     break;
 
                 case Events.ExternalAssociateTypeUpdated e:
-                    ExternalAssociateType = (ExternalAssociateType)e.ExternalAssociateType;
+                    ExternalAssociateType = (AssociateType)e.ExternalAssociateType;
                     break;
             }
 
@@ -113,12 +111,12 @@ namespace BusinessAssociates.Domain
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) =>
             Apply(new Events.ExternalAssociateDUNSNumberUpdated
                 {
-                    Id = Id,
+                    Id = Id.Value,
                     DUNSNumber = dunsNumber
                 }
             );
 
-        public void UpdateExternalAssociateType(ExternalAssociateType externalAssociateType) =>
+        public void UpdateExternalAssociateType(AssociateType externalAssociateType) =>
             Apply(new Events.ExternalAssociateTypeUpdated
                 {
                     Id = Id,
@@ -159,12 +157,11 @@ namespace BusinessAssociates.Domain
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
         public ShortName ShortName { get; set; }
-        public ExternalAssociateType ExternalAssociateType { get; set; }
+        public AssociateType ExternalAssociateType { get; set; }
 
 
         // Properties unique to external business associates
         public List<OperatingContext> ExternalOperatingContexts;
-        public ExternalAssociateType ExternalBusinessAssociateType { get; set; }
         public List<ExternalAssociate> PredecessorBusinessAssociates { get; set; }
         public List<AgentRelationship> AgentRelationships { get; set; }
     }

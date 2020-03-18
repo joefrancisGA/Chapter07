@@ -3,7 +3,7 @@
     public enum CountryCode
     {
         USA = 1,
-        CANADA = 2,
-        MEXICO = 3
+        Canada = 2,
+        Mexico = 3
     }
 }

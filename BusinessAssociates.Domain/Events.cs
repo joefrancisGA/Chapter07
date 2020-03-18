@@ -6,11 +6,12 @@ namespace BusinessAssociates.Domain
     {
         public class InternalAssociateCreated
         {
-            public long Id { get; set; }
+            public int Id { get; set; }
+
             public string LongName { get; set; }
             public string ShortName { get; set; }
             public bool IsParent { get; set; }
-            public InternalAssociateType InternalAssociateType { get; set; }
+            public AssociateType InternalAssociateType { get; set; }
             public Status Status { get; set; }
         }
 
@@ -52,17 +53,19 @@ namespace BusinessAssociates.Domain
 
         public class ExternalAssociateCreated
         {
-            public long Id { get; set; }
+            public int Id { get; set; }
+
             public string LongName { get; set; }
             public string ShortName { get; set; }
             public bool IsParent { get; set; }
-            public ExternalAssociateType ExternalAssociateType { get; set; }
+            public AssociateType ExternalAssociateType { get; set; }
             public Status Status { get; set; }
         }
 
         public class ExternalAssociateDUNSNumberUpdated
         {
-            public long Id { get; set; }
+            public int Id { get; set; }
+
             public int DUNSNumber { get; set; }
         }
 

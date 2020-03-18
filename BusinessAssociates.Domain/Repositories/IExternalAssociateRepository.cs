@@ -1,3 +1,5 @@
+using BusinessAssociates.Domain.ValueObjects;
+
 namespace BusinessAssociates.Domain.Repositories
 {
     public interface IExternalAssociateRepository

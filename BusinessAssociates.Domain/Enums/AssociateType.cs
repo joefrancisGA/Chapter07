@@ -2,8 +2,12 @@
 {
     public enum AssociateType
     {
-        Billing = 1,
-        Curtailment = 2,
-        Physical = 3
+        InternalParent = 1,
+        InternalOperatingCompany = 2,
+        InternalLDCFacility = 3,
+        ExternalSelfProvider = 4,
+        ExternalCustomerProvider = 5,
+        ExternalRegulatedUtilityProvider = 6,
+        ExternalAssetManagerProvider = 7
     }
 }

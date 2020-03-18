@@ -9,8 +9,8 @@ namespace BusinessAssociates.Domain
 
         public bool IsInternal { get; set; }
         public bool IDMSAccountExists { get; set; }
-        public IDMSAccountStatus IDMSAccountStatus { get; set; }
+        public bool IDMSAccountActive { get; set; }
         public bool EGMSConfigured { get; set; }
-        public EGMSAccountStatus EGMSAccountStatus { get; set; }
+        public bool IsActive { get; set; }
     }
 }

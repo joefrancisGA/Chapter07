@@ -2,10 +2,10 @@
 {
     public enum CertificationStatus
     {
-        CERTIFIED = 1,
-        DECERTIFIED = 2,
+        Certified = 1,
+        Decertified = 2,
 
         // JOEF added NOT_CERTIFIED to cover a specification gap
-        NOT_CERTIFIED = 3
+        NotCertified = 3
     }
 }

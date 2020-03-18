@@ -14,7 +14,7 @@ namespace BusinessAssociates.Domain
         public ShortName ShortName { get; set; }
 
         // Properties unique to Internal Business Associate
-        public InternalAssociateType InternalAssociateType { get; set; }
+        public AssociateType InternalAssociateType { get; set; }
 
 
         // Collections
@@ -34,16 +34,17 @@ namespace BusinessAssociates.Domain
         {
             Apply(new Events.InternalAssociateCreated
             {
-                Id = id
+                Id = id.Value
             });
         }
 
+        // TO DO:  Skip the ID before creating the Internal Associate
         public InternalAssociate(AssociateId id, string longName, string shortName, bool isParent, 
-            InternalAssociateType internalAssociateType, Status status)
+            AssociateType internalAssociateType, Status status)
         {
             Events.InternalAssociateCreated internalAssociateCreated = new Events.InternalAssociateCreated
             {
-                Id = id,
+                Id = id.Value,
                 LongName = longName,
                 ShortName = shortName,
                 IsParent = isParent,
@@ -52,6 +53,7 @@ namespace BusinessAssociates.Domain
             };
 
             Id = id;
+            DUNSNumber = DUNSNumber.Create(id.Value);
             LongName = LongName.Create(longName);
             ShortName = ShortName.Create(shortName);
             IsParent = isParent;
@@ -62,53 +64,47 @@ namespace BusinessAssociates.Domain
         }
 
 
-        public void UpdateDUNSNumber(DUNSNumber dunsNumber) =>
-            Apply(new Events.InternalAssociateDUNSNumberUpdated
-                {
-                    Id = Id,
-                    DUNSNumber = dunsNumber
-                }
-            );
+        public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.InternalAssociateDUNSNumberUpdated
+            {
+                Id = Id,
+                DUNSNumber = dunsNumber
+            }
+        );
 
-        public void UpdateInternalAssociateType(InternalAssociateType internalAssociateType) =>
-            Apply(new Events.InternalAssociateTypeUpdated
-                {
-                    Id = Id,
-                    InternalAssociateType = (int)internalAssociateType
-                }
-            );
+        public void UpdateInternalAssociateType(AssociateType internalAssociateType) => Apply(new Events.InternalAssociateTypeUpdated
+            {
+                Id = Id,
+                InternalAssociateType = (int)internalAssociateType
+            }
+        );
 
-        public void UpdateLongName(LongName longName) =>
-            Apply(new Events.InternalAssociateLongNameUpdated
-                {
-                    Id = Id,
-                    LongName = longName.Value
-                }
-            );
+        public void UpdateLongName(LongName longName) => Apply(new Events.InternalAssociateLongNameUpdated
+            {
+                Id = Id,
+                LongName = longName.Value
+            }
+        );
 
-        public void UpdateIsParent(bool isParent) =>
-            Apply(new Events.InternalAssociateIsParentUpdated
-                {
-                    Id = Id,
-                    IsParent = isParent
-                }
-            );
+        public void UpdateIsParent(bool isParent) => Apply(new Events.InternalAssociateIsParentUpdated
+            {
+                Id = Id,
+                IsParent = isParent
+            }
+        );
 
-        public void UpdateStatus(Status status) =>
-            Apply(new Events.InternalAssociateStatusUpdated
-                {
-                    Id = Id,
-                    Status = (int)status
-                }
-            );
+        public void UpdateStatus(Status status) => Apply(new Events.InternalAssociateStatusUpdated
+            {
+                Id = Id,
+                Status = (int)status
+            }
+        );
 
-        public void UpdateShortName(ShortName shortName) =>
-            Apply(new Events.InternalAssociateShortNameUpdated
-                {
-                    Id = Id,
-                    ShortName = shortName.Value
-                }
-            );
+        public void UpdateShortName(ShortName shortName) => Apply(new Events.InternalAssociateShortNameUpdated
+            {
+                Id = Id,
+                ShortName = shortName.Value
+            }
+        );
 
         protected override void When(object @event)
         {
@@ -139,7 +135,7 @@ namespace BusinessAssociates.Domain
                     break;
 
                 case Events.InternalAssociateTypeUpdated e:
-                    InternalAssociateType = (InternalAssociateType) e.InternalAssociateType;
+                    InternalAssociateType = (AssociateType) e.InternalAssociateType;
                     break;
             }
         }

@@ -198,7 +198,7 @@ namespace BusinessAssociates.Infrastructure
                         internalAssociate.LongName = LongName.Create(reader[2].ToString());
                         internalAssociate.ShortName = ShortName.Create(reader[3].ToString());
                         internalAssociate.IsParent = Convert.ToBoolean(reader[4]);
-                        internalAssociate.InternalAssociateType = (InternalAssociateType) reader[5];
+                        internalAssociate.InternalAssociateType = (AssociateType) reader[5];
                         internalAssociate.Status = (Status) reader[6];
 
                         return internalAssociate;

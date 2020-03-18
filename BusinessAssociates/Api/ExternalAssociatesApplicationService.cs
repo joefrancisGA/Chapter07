@@ -69,10 +69,10 @@ namespace BusinessAssociates.Api
         }
 
 #pragma warning disable 1998
-        private async Task<ExternalAssociate> HandleUpdate(long externalAssociateId, Action<ExternalAssociate> operation)
+        private async Task<ExternalAssociate> HandleUpdate(int externalAssociateId, Action<ExternalAssociate> operation)
 #pragma warning restore 1998
         {
-            ExternalAssociate externalAssociate = _repository.Load(externalAssociateId);
+            ExternalAssociate externalAssociate = _repository.Load(new AssociateId(externalAssociateId));
 
             if (externalAssociate == null)
                 throw new InvalidOperationException($"Entity with id {externalAssociateId} cannot be found");

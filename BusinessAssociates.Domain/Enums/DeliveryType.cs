@@ -2,5 +2,7 @@
 {
     public enum DeliveryType
     {
+        Firm = 1,
+        Interruptible = 2
     }
 }

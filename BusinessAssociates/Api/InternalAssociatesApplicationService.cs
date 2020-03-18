@@ -69,7 +69,7 @@ namespace BusinessAssociates.Api
         }
 
 #pragma warning disable 1998
-        private async Task<InternalAssociate> HandleUpdate(long internalAssociateId, Action<InternalAssociate> operation)
+        private async Task<InternalAssociate> HandleUpdate(int internalAssociateId, Action<InternalAssociate> operation)
 #pragma warning restore 1998
         {
             InternalAssociate internalAssociate = _repository.Load(internalAssociateId);
