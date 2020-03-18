@@ -1,6 +1,4 @@
-﻿
-using System.Dynamic;
-using BusinessAssociates.Framework;
+﻿using BusinessAssociates.Framework;
 
 namespace BusinessAssociates.Domain.ValueObjects
 {

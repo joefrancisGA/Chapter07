@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using BusinessAssociates.Domain.Enums;
-using BusinessAssociates.Domain.ValueObjects;
+﻿using BusinessAssociates.Domain.Enums;
 
 namespace BusinessAssociates.Domain
 {

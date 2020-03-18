@@ -1,7 +1,4 @@
-﻿using System;
-using BusinessAssociates.Domain.Enums;
-
-namespace BusinessAssociates.Domain
+﻿namespace BusinessAssociates.Domain
 {
     public class UserContactDisplayRules
     {

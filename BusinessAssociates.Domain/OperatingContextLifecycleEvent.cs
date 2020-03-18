@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BusinessAssociates.Domain
+﻿namespace BusinessAssociates.Domain
 {
     public class OperatingContextLifecycleEvent
     {

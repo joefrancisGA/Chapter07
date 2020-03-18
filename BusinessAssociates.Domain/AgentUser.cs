@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using BusinessAssociates.Domain.Enums;
-using BusinessAssociates.Domain.ValueObjects;
-
-namespace BusinessAssociates.Domain
+﻿namespace BusinessAssociates.Domain
 {
     public class AgentUser
     {
