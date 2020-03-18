@@ -16,7 +16,5 @@ namespace BusinessAssociates.Domain
         }
 
         public Agent() { }
-
-        public ICollection<Agent> ExternalAssociateAgents { get; set; }
     }
 }

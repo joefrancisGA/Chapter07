@@ -2,6 +2,7 @@ using System;
 using System.Data.SqlClient;
 using BusinessAssociates.Domain;
 using BusinessAssociates.Domain.Enums;
+using BusinessAssociates.Domain.Repositories;
 using BusinessAssociates.Domain.ValueObjects;
 
 

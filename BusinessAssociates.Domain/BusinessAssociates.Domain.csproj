@@ -4,10 +4,9 @@
     <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="ActingBAOperatingContext.cs" />
+    <Compile Remove="Agent.cs" />
     <Compile Remove="EGMSAssociate.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessAssociates.Framework\BusinessAssociates.Framework.csproj" />

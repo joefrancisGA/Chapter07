@@ -9,12 +9,12 @@ using BusinessAssociates.Framework;
 namespace BusinessAssociates.Api
 {
     // The application service is only used by the command API at the moment, but it can be used 
-    public class InternalAssociatesApplicationService : IApplicationService
+    public class ExternalAssociatesApplicationService : IApplicationService
     {
-        private readonly IInternalAssociateRepository _repository;
+        private readonly IExternalAssociateRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public InternalAssociatesApplicationService(IInternalAssociateRepository repository, IUnitOfWork unitOfWork)
+        public ExternalAssociatesApplicationService(IExternalAssociateRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -26,40 +26,40 @@ namespace BusinessAssociates.Api
             {
 
                 // TO DO:  Are we throwing an event here?
-                case InternalAssociates.V1.Create cmd:
+                case ExternalAssociates.V1.Create cmd:
 
                     if (_repository.Exists(cmd.DUNSNumber))
                         throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
 
-                    InternalAssociate internalAssociate = new InternalAssociate(new AssociateId(cmd.DUNSNumber), cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.InternalAssociateType, cmd.Status);
+                    ExternalAssociate externalAssociate = new ExternalAssociate(new AssociateId(cmd.DUNSNumber), cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.ExternalAssociateType, cmd.Status);
 
-                    _repository.Add(internalAssociate);
+                    _repository.Add(externalAssociate);
 
                     // We don't need a unit of work pattern until we move to entity framework
                     //await _unitOfWork.Commit();
                     break;
 
-                case InternalAssociates.V1.UpdateDUNSNumber cmd:
+                case ExternalAssociates.V1.UpdateDUNSNumber cmd:
                     _repository.UpdateDUNSNumber(HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber))).Result);
                     break;
 
-                case InternalAssociates.V1.UpdateInternalAssociateType cmd:
-                    _repository.UpdateInternalAssociateType(HandleUpdate(cmd.Id, ia => ia.UpdateInternalAssociateType(cmd.InternalAssociateType)).Result);
+                case ExternalAssociates.V1.UpdateExternalAssociateType cmd:
+                    _repository.UpdateInternalAssociateType(HandleUpdate(cmd.Id, ia => ia.UpdateExternalAssociateType(cmd.ExternalAssociateType)).Result);
                     break;
 
-                case InternalAssociates.V1.UpdateLongName cmd:
+                case ExternalAssociates.V1.UpdateLongName cmd:
                     _repository.UpdateLongName(HandleUpdate(cmd.Id, ia => ia.UpdateLongName(LongName.Create(cmd.LongName))).Result);
                     break;
 
-                case InternalAssociates.V1.UpdateIsParent cmd:
+                case ExternalAssociates.V1.UpdateIsParent cmd:
                     _repository.UpdateIsParent(HandleUpdate(cmd.Id, ia => ia.UpdateIsParent(cmd.IsParent)).Result);
                     break;
 
-                case InternalAssociates.V1.UpdateStatus cmd:
+                case ExternalAssociates.V1.UpdateStatus cmd:
                     _repository.UpdateStatus(HandleUpdate(cmd.Id, ia => ia.UpdateStatus(cmd.Status)).Result);
                     break;
 
-                case InternalAssociates.V1.UpdateShortName cmd:
+                case ExternalAssociates.V1.UpdateShortName cmd:
                     _repository.UpdateShortName(HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName))).Result);
                     break;
 
@@ -69,17 +69,17 @@ namespace BusinessAssociates.Api
         }
 
 #pragma warning disable 1998
-        private async Task<InternalAssociate> HandleUpdate(long internalAssociateId, Action<InternalAssociate> operation)
+        private async Task<ExternalAssociate> HandleUpdate(long externalAssociateId, Action<ExternalAssociate> operation)
 #pragma warning restore 1998
         {
-            InternalAssociate internalAssociate = _repository.Load(internalAssociateId);
+            ExternalAssociate externalAssociate = _repository.Load(externalAssociateId);
 
-            if (internalAssociate == null)
-                throw new InvalidOperationException($"Entity with id {internalAssociateId} cannot be found");
+            if (externalAssociate == null)
+                throw new InvalidOperationException($"Entity with id {externalAssociateId} cannot be found");
 
-            operation(internalAssociate);
+            operation(externalAssociate);
 
-            return internalAssociate;
+            return externalAssociate;
 
             //await _unitOfWork.Commit();
         }

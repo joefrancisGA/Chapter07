@@ -1,4 +1,4 @@
-namespace BusinessAssociates.Domain
+namespace BusinessAssociates.Domain.Repositories
 {
     public interface IInternalAssociateRepository
     {

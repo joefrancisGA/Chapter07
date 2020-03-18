@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using BusinessAssociates.Domain;
 
-namespace EGMS.BusinessAssociate.Domain
+namespace BusinessAssociates.Domain
 {
     public class AgentRelationship
     {
-        public AgentRelationship(ExternalAssociate principal, Agent agent) : this()
+        public AgentRelationship(ExternalAssociate principal, ExternalAssociate agent) : this()
         {
             Principal = principal;
             Agent = agent;
@@ -20,16 +19,21 @@ namespace EGMS.BusinessAssociate.Domain
         public long Id { get; set; }
 
         public ExternalAssociate Principal { get; set; }
-        public Agent Agent { get; set; }
+        public ExternalAssociate Agent { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; }
 
-        public List<UserOperatingContext> AgentUserList
-        {
-            get; set;
-        }
+        // Collections
+        public List<UserOperatingContext> AgentUserList { get; set; }
 
-        public ICollection<Agent> ExternalAssociateAgents { get; set; }
+
+        public void AddAgentUser()
+        {
+            if (AgentUserList == null)
+            {
+                AgentUserList = new List<UserOperatingContext>();
+            }
+        }
     }
 }

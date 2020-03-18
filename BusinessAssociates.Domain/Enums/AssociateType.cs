@@ -1,6 +1,6 @@
 ﻿namespace BusinessAssociates.Domain.Enums
 {
-    public enum AddressType
+    public enum AssociateType
     {
         Billing = 1,
         Curtailment = 2,

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using BusinessAssociates.Api;
 using BusinessAssociates.Domain;
+using BusinessAssociates.Domain.Repositories;
 using BusinessAssociates.Framework;
 using BusinessAssociates.Infrastructure;
 using Microsoft.AspNetCore.Builder;

@@ -21,7 +21,7 @@ namespace BusinessAssociates.Domain
         public List<OperatingContext> OperatingContexts { get; set; }
         public IEnumerable<User> Users { get; set; }
         public IEnumerable<Contact> Contacts { get; set; }
-        private List<AssetManagerRelationship> AssetManagerRelationships { get; set; }
+        private List<AgentRelationship> AssetManagerRelationships { get; set; }
 
         // It is questionable whether we need this property
         // If the InternalBusinessAssociateType is Parent or OperatingCompany, 
