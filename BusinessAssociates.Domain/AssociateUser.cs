@@ -1,8 +1,10 @@
-﻿namespace BusinessAssociates.Domain
+﻿using BusinessAssociates.Domain.ValueObjects;
+
+namespace BusinessAssociates.Domain
 {
     public class AssociateUser
     {
-        public int AssociateId { get; set; }
-        public int UserId { get; set; }
+        public AssociateId AssociateId { get; set; }
+        public DatabaseId UserId { get; set; }
     }
 }

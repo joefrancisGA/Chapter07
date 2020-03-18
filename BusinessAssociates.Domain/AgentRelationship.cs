@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BusinessAssociates.Domain.ValueObjects;
 
 namespace BusinessAssociates.Domain
 {
@@ -16,7 +17,7 @@ namespace BusinessAssociates.Domain
             AgentUserList = new List<UserOperatingContext>();
         }
 
-        public long Id { get; set; }
+        public DatabaseId Id { get; set; }
 
         public ExternalAssociate Principal { get; set; }
         public ExternalAssociate Agent { get; set; }

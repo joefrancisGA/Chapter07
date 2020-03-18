@@ -119,41 +119,40 @@ namespace BusinessAssociates.Domain
         public void UpdateExternalAssociateType(AssociateType externalAssociateType) =>
             Apply(new Events.ExternalAssociateTypeUpdated
                 {
-                    Id = Id,
+                    Id = Id.Value,
                     ExternalAssociateType = (int)externalAssociateType
                 }
             );
 
         public void UpdateLongName(LongName longName) => Apply(new Events.ExternalAssociateLongNameUpdated
                 {
-                    Id = Id,
+                    Id = Id.Value,
                     LongName = longName.Value
                 }
             );
 
         public void UpdateIsParent(bool isParent) => Apply(new Events.ExternalAssociateIsParentUpdated
                 {
-                    Id = Id,
+                    Id = Id.Value,
                     IsParent = isParent
                 }
             );
 
         public void UpdateStatus(Status status) => Apply(new Events.ExternalAssociateStatusUpdated
                 {
-                    Id = Id,
+                    Id = Id.Value,
                     Status = (int)status
                 }
             );
 
         public void UpdateShortName(ShortName shortName) => Apply(new Events.ExternalAssociateShortNameUpdated
-                {
-                    Id = Id,
-                    ShortName = shortName.Value
-                }
-            );
+            {
+                Id = Id.Value,
+                ShortName = shortName.Value
+            }
+        );
 
-
-
+        
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
         public ShortName ShortName { get; set; }

@@ -1,11 +1,12 @@
 ﻿using System;
 using BusinessAssociates.Domain.Enums;
+using BusinessAssociates.Domain.ValueObjects;
 
 namespace BusinessAssociates.Domain
 {
     public class Certification
     {
-        public long Id { get; set; }
+        public DatabaseId Id { get; set; }
 
 
         public bool IsInherited { get; set; }

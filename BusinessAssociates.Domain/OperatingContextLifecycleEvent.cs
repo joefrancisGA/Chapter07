@@ -1,8 +1,10 @@
-﻿namespace BusinessAssociates.Domain
+﻿using BusinessAssociates.Domain.ValueObjects;
+
+namespace BusinessAssociates.Domain
 {
     public class OperatingContextLifecycleEvent
     {
-        public int OperatingContextId { get; set; }
-        public int LifecycleEventId { get; set; }
+        public DatabaseId OperatingContextId { get; set; }
+        public DatabaseId LifecycleEventId { get; set; }
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace BusinessAssociates.Domain
+﻿using BusinessAssociates.Domain.ValueObjects;
+
+namespace BusinessAssociates.Domain
 {
     public class RolePermission
     {
-        public int RoleId { get; set; }
-        public int PermissionId { get; set; }
+        public DatabaseId RoleId { get; set; }
+        public DatabaseId PermissionId { get; set; }
     }
 }

@@ -1,16 +1,20 @@
-﻿namespace BusinessAssociates.Domain
+﻿using BusinessAssociates.Domain.ValueObjects;
+
+namespace BusinessAssociates.Domain
 {
     public class Contact
     {
-        public int Id { get; set; }
+        public DatabaseId Id { get; set; }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Title { get; set; }
+        public FirstName FirstName { get; set; }
+        public LastName LastName { get; set; }
+        public Title Title { get; set; }
+
         public User User { get; set; }
-        public int PrimaryPhoneId { get; set; }
-        public int PrimaryEmailId { get; set; }
-        public int PrimaryAddressId { get; set; }
+        public DatabaseId PrimaryPhoneId { get; set; }
+        public DatabaseId PrimaryEmailId { get; set; }
+        public DatabaseId PrimaryAddressId { get; set; }
+
         public bool IsActive { get; set; }
     }
 }

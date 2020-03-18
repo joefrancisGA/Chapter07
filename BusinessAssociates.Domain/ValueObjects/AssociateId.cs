@@ -11,7 +11,7 @@ namespace BusinessAssociates.Domain.ValueObjects
         public AssociateId(int value)
         {
             if (value == default)
-                throw new ArgumentNullException(nameof(value), "InternalAssociate id cannot be empty");
+                throw new ArgumentNullException(nameof(value), "Associate id cannot be empty");
             
             Value = value;
         }

@@ -1,8 +1,10 @@
-﻿namespace BusinessAssociates.Domain
+﻿using BusinessAssociates.Domain.ValueObjects;
+
+namespace BusinessAssociates.Domain
 {
     public class ContactPhone
     {
-        public int ContactId { get; set; }
-        public int EMailId { get; set; }
+        public DatabaseId ContactId { get; set; }
+        public DatabaseId PhoneId { get; set; }
     }
 }

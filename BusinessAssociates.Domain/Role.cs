@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using BusinessAssociates.Domain.ValueObjects;
 
 namespace BusinessAssociates.Domain
 {
     public class Role
     {
-        public int Id { get; set; }
+        public DatabaseId Id { get; set; }
 
-        public string RoleName { get; set; }
-        public string RoleDescription { get; set; }
+        public RoleName RoleName { get; set; }
+        public RoleDescription RoleDescription { get; set; }
 
         // Collections
         public IEnumerable<Permission> Permissions { get; set; }

@@ -66,42 +66,42 @@ namespace BusinessAssociates.Domain
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.InternalAssociateDUNSNumberUpdated
             {
-                Id = Id,
+                Id = Id.Value,
                 DUNSNumber = dunsNumber
             }
         );
 
         public void UpdateInternalAssociateType(AssociateType internalAssociateType) => Apply(new Events.InternalAssociateTypeUpdated
             {
-                Id = Id,
+                Id = Id.Value,
                 InternalAssociateType = (int)internalAssociateType
             }
         );
 
         public void UpdateLongName(LongName longName) => Apply(new Events.InternalAssociateLongNameUpdated
             {
-                Id = Id,
+                Id = Id.Value,
                 LongName = longName.Value
             }
         );
 
         public void UpdateIsParent(bool isParent) => Apply(new Events.InternalAssociateIsParentUpdated
             {
-                Id = Id,
+                Id = Id.Value,
                 IsParent = isParent
             }
         );
 
         public void UpdateStatus(Status status) => Apply(new Events.InternalAssociateStatusUpdated
             {
-                Id = Id,
+                Id = Id.Value,
                 Status = (int)status
             }
         );
 
         public void UpdateShortName(ShortName shortName) => Apply(new Events.InternalAssociateShortNameUpdated
             {
-                Id = Id,
+                Id = Id.Value,
                 ShortName = shortName.Value
             }
         );

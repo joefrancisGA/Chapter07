@@ -1,8 +1,10 @@
-﻿namespace BusinessAssociates.Domain
+﻿using BusinessAssociates.Domain.ValueObjects;
+
+namespace BusinessAssociates.Domain
 {
     public class UserContactDisplayRules
     {
-        public int Id { get; set; }
+        public DatabaseId Id { get; set; }
 
         public bool IsInternal { get; set; }
         public bool IDMSAccountExists { get; set; }

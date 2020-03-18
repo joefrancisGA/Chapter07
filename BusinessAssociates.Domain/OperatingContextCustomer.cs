@@ -1,8 +1,10 @@
-﻿namespace BusinessAssociates.Domain
+﻿using BusinessAssociates.Domain.ValueObjects;
+
+namespace BusinessAssociates.Domain
 {
     public class OperatingContextCustomer
     {
-        public int OperatingContextId { get; set; }
-        public int CustomerId { get; set; }
+        public DatabaseId OperatingContextId { get; set; }
+        public DatabaseId CustomerId { get; set; }
     }
 }

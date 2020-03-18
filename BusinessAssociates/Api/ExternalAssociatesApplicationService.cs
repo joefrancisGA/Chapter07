@@ -6,6 +6,7 @@ using BusinessAssociates.Domain.Repositories;
 using BusinessAssociates.Domain.ValueObjects;
 using BusinessAssociates.Framework;
 
+// TO DO:  Consider sequences for IDs
 namespace BusinessAssociates.Api
 {
     // The application service is only used by the command API at the moment, but it can be used 

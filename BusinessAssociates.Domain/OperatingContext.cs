@@ -1,14 +1,18 @@
 ﻿using System;
 using BusinessAssociates.Domain.Enums;
+using BusinessAssociates.Domain.ValueObjects;
 
 namespace BusinessAssociates.Domain
 {
     public abstract class OperatingContext
     {
-        public int Id { get; set; }
+        public DatabaseId Id { get; set; }
+
         public OperatingContextType OperatingContextType { get; set; }
-        public int FacilityId { get; set; }
-        public int ThirdPartySupplierId { get; set; }
+        public DatabaseId FacilityId { get; set; }
+        public DatabaseId ThirdPartySupplierId { get; set; }
+
+        // TO DO:  Not sure what to do with the type for LegacyId
         public int LegacyId { get; set; }
         public ProviderType ProviderType { get; set; }
         public AssociateType ActingBATypeID { get; set; }
