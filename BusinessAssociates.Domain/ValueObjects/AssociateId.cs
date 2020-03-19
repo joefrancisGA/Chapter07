@@ -16,7 +16,7 @@ namespace BusinessAssociates.Domain.ValueObjects
             Value = value;
         }
 
-        public static implicit operator long(AssociateId self) => self.Value;
+        public static implicit operator int(AssociateId self) => self.Value;
         public static implicit operator AssociateId(int value) => new AssociateId(value);
 
         public override string ToString() => Value.ToString();

@@ -16,7 +16,7 @@ namespace BusinessAssociates.Domain.ValueObjects
             Value = value;
         }
 
-        public static implicit operator long(DatabaseId self) => self.Value;
+        public static implicit operator int(DatabaseId self) => self.Value;
         public static implicit operator DatabaseId(int value) => new DatabaseId(value);
 
         public override string ToString() => Value.ToString();

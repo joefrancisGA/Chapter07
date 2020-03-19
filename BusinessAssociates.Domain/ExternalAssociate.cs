@@ -22,7 +22,7 @@ namespace BusinessAssociates.Domain
         public ExternalAssociate(AssociateId id, string longName, string shortName, bool isParent,
             AssociateType externalAssociateType, Status status)
         {
-            Events.ExternalAssociateCreated internalAssociateCreated = new Events.ExternalAssociateCreated
+            Events.Events.ExternalAssociateCreated internalAssociateCreated = new Events.Events.ExternalAssociateCreated
             {
                 Id = id.Value,
                 LongName = longName,
@@ -72,31 +72,31 @@ namespace BusinessAssociates.Domain
         {
             switch (@event)
             {
-                case Events.ExternalAssociateCreated e:
+                case Events.Events.ExternalAssociateCreated e:
                     Id = new AssociateId(e.Id);
                     break;
 
-                case Events.ExternalAssociateDUNSNumberUpdated e:
+                case Events.Events.ExternalAssociateDUNSNumberUpdated e:
                     DUNSNumber = DUNSNumber.Create(e.DUNSNumber);
                     break;
 
-                case Events.ExternalAssociateIsParentUpdated e:
+                case Events.Events.ExternalAssociateIsParentUpdated e:
                     IsParent = e.IsParent;
                     break;
 
-                case Events.ExternalAssociateLongNameUpdated e:
+                case Events.Events.ExternalAssociateLongNameUpdated e:
                     LongName = LongName.Create(e.LongName);
                     break;
 
-                case Events.ExternalAssociateShortNameUpdated e:
+                case Events.Events.ExternalAssociateShortNameUpdated e:
                     ShortName = ShortName.Create(e.ShortName);
                     break;
 
-                case Events.ExternalAssociateStatusUpdated e:
+                case Events.Events.ExternalAssociateStatusUpdated e:
                     Status = (Status)e.Status;
                     break;
 
-                case Events.ExternalAssociateTypeUpdated e:
+                case Events.Events.ExternalAssociateTypeUpdated e:
                     ExternalAssociateType = (AssociateType)e.ExternalAssociateType;
                     break;
             }
@@ -109,7 +109,7 @@ namespace BusinessAssociates.Domain
         }
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) =>
-            Apply(new Events.ExternalAssociateDUNSNumberUpdated
+            Apply(new Events.Events.ExternalAssociateDUNSNumberUpdated
                 {
                     Id = Id.Value,
                     DUNSNumber = dunsNumber
@@ -117,35 +117,35 @@ namespace BusinessAssociates.Domain
             );
 
         public void UpdateExternalAssociateType(AssociateType externalAssociateType) =>
-            Apply(new Events.ExternalAssociateTypeUpdated
+            Apply(new Events.Events.ExternalAssociateTypeUpdated
                 {
                     Id = Id.Value,
                     ExternalAssociateType = (int)externalAssociateType
                 }
             );
 
-        public void UpdateLongName(LongName longName) => Apply(new Events.ExternalAssociateLongNameUpdated
+        public void UpdateLongName(LongName longName) => Apply(new Events.Events.ExternalAssociateLongNameUpdated
                 {
                     Id = Id.Value,
                     LongName = longName.Value
                 }
             );
 
-        public void UpdateIsParent(bool isParent) => Apply(new Events.ExternalAssociateIsParentUpdated
+        public void UpdateIsParent(bool isParent) => Apply(new Events.Events.ExternalAssociateIsParentUpdated
                 {
                     Id = Id.Value,
                     IsParent = isParent
                 }
             );
 
-        public void UpdateStatus(Status status) => Apply(new Events.ExternalAssociateStatusUpdated
+        public void UpdateStatus(Status status) => Apply(new Events.Events.ExternalAssociateStatusUpdated
                 {
                     Id = Id.Value,
                     Status = (int)status
                 }
             );
 
-        public void UpdateShortName(ShortName shortName) => Apply(new Events.ExternalAssociateShortNameUpdated
+        public void UpdateShortName(ShortName shortName) => Apply(new Events.Events.ExternalAssociateShortNameUpdated
             {
                 Id = Id.Value,
                 ShortName = shortName.Value

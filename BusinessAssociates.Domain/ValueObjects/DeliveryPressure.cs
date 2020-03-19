@@ -16,7 +16,7 @@ namespace BusinessAssociates.Domain.ValueObjects
             Value = value;
         }
 
-        public static implicit operator long(DeliveryPressure self) => self.Value;
+        public static implicit operator int(DeliveryPressure self) => self.Value;
         public static implicit operator DeliveryPressure(int value) => new DeliveryPressure(value);
 
         public override string ToString() => Value.ToString();

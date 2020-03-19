@@ -7,8 +7,7 @@ namespace BusinessAssociates.Infrastructure
 {
     public static class RequestHandler
     {
-        public static async Task<IActionResult> HandleCommand<T>(
-            T request, Func<T, Task> handler, ILogger log)
+        public static async Task<IActionResult> HandleCommand<T>(T request, Func<T, Task> handler, ILogger log)
         {
             try
             {
@@ -27,8 +26,7 @@ namespace BusinessAssociates.Infrastructure
             }
         }
 
-        public static IActionResult HandleQuery<TModel>(
-            Func<TModel> query, ILogger log)
+        public static IActionResult HandleQuery<TModel>(Func<TModel> query, ILogger log)
         {
             try
             {

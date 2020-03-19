@@ -4,7 +4,14 @@
     {
         public class GetInternalAssociates
         {
-            public long InternalAssociateId { get; set; }
+            public int InternalAssociateId { get; set; }
+            public int Page { get; set; }
+            public int PageSize { get; set; }
+        }
+
+        public class GetAssociates
+        {
+            public int AssociateId { get; set; }
             public int Page { get; set; }
             public int PageSize { get; set; }
         }

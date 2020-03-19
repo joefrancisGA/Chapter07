@@ -10,5 +10,10 @@ namespace BusinessAssociates.Queries
             this IEnumerable<ReadModels.InternalAssociateDetails> items,
             QueryModels.GetInternalAssociates query)
             => items.FirstOrDefault(x => x.Id == query.InternalAssociateId);
+
+        public static ReadModels.AssociateDetails Query(
+            this IEnumerable<ReadModels.AssociateDetails> items,
+            QueryModels.GetAssociates query)
+            => items.FirstOrDefault(x => x.Id == query.AssociateId);
     }
 }

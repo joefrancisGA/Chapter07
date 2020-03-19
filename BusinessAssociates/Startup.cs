@@ -40,12 +40,17 @@ namespace BusinessAssociates
 
             store.Conventions.RegisterAsyncIdConvention<InternalAssociate>(
                 (dbName, entity) => Task.FromResult("InternalAssociate/" + entity.Id));
+            store.Conventions.RegisterAsyncIdConvention<Associate>(
+                (dbName, entity) => Task.FromResult("Associate/" + entity.Id));
             store.Initialize();
+
 
             services.AddScoped(c => store.OpenAsyncSession());
             services.AddScoped<IUnitOfWork, RavenDbUnitOfWork>();
             services.AddScoped<IInternalAssociateRepository, InternalAssociateRepository>();
             services.AddScoped<InternalAssociatesApplicationService>();
+            services.AddScoped<IAssociateRepository, AssociateRepository>();
+            services.AddScoped<AssociatesApplicationService>();
 
             // Tye converter is to get Swagger to show enum values
             services.AddMvc().AddJsonOptions(options =>
@@ -56,7 +61,7 @@ namespace BusinessAssociates
                 c.SwaggerDoc("v1",
                     new Info
                     {
-                        Title = "InternalAssociates",
+                        Title = "Business Associates",
                         Version = "v1"
                     });
             });
