@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data.Common;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 using BusinessAssociates.Api;
 using BusinessAssociates.Domain;
 using BusinessAssociates.Domain.Repositories;
@@ -38,19 +40,19 @@ namespace BusinessAssociates
                   }
               };
 
-            store.Conventions.RegisterAsyncIdConvention<InternalAssociate>(
-                (dbName, entity) => Task.FromResult("InternalAssociate/" + entity.Id));
             store.Conventions.RegisterAsyncIdConvention<Associate>(
                 (dbName, entity) => Task.FromResult("Associate/" + entity.Id));
             store.Initialize();
 
 
+            const string connectionString =
+                "Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True"; 
+
             services.AddScoped(c => store.OpenAsyncSession());
             services.AddScoped<IUnitOfWork, RavenDbUnitOfWork>();
-            services.AddScoped<IInternalAssociateRepository, InternalAssociateRepository>();
-            services.AddScoped<InternalAssociatesApplicationService>();
             services.AddScoped<IAssociateRepository, AssociateRepository>();
             services.AddScoped<AssociatesApplicationService>();
+            services.AddScoped<DbConnection>(c => new SqlConnection(connectionString));
 
             // Tye converter is to get Swagger to show enum values
             services.AddMvc().AddJsonOptions(options =>

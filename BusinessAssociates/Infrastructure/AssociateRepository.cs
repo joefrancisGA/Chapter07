@@ -161,9 +161,7 @@ namespace BusinessAssociates.Infrastructure
                 "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, [Status] FROM BusinessAssociate" +
                 " WHERE ID = " + id.Value;
 
-            string connString = "Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True";
-
-            using (SqlConnection conn = new SqlConnection(connString))
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 conn.Open();
 

@@ -26,11 +26,11 @@ namespace BusinessAssociates.Infrastructure
             }
         }
 
-        public static IActionResult HandleQuery<TModel>(Func<TModel> query, ILogger log)
+        public static async Task<IActionResult> HandleQuery<TModel>(Func<Task<TModel>> query, ILogger log)
         {
             try
             {
-                return new OkObjectResult(query());
+                return new OkObjectResult(await query());
             }
             catch (Exception e)
             {
@@ -42,5 +42,6 @@ namespace BusinessAssociates.Infrastructure
                 });
             }
         }
+
     }
 }

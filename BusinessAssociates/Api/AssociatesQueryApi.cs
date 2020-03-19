@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Data.Common;
+using System.Threading.Tasks;
 using BusinessAssociates.Infrastructure;
-using BusinessAssociates.Projections;
 using BusinessAssociates.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -10,14 +10,19 @@ namespace BusinessAssociates.Api
     [Route("/associate")]
     public class AssociatesQueryApi : Controller
     {
-        private static ILogger _log = Log.ForContext<AssociatesQueryApi>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<AssociatesQueryApi>();
 
-        private readonly IEnumerable<ReadModels.AssociateDetails> _items;
+        private readonly DbConnection _connection;
 
-        public AssociatesQueryApi(IEnumerable<ReadModels.AssociateDetails> items) => _items = items;
+        public AssociatesQueryApi(DbConnection connection) => _connection = connection;
 
         [HttpGet]
-        public IActionResult Get(QueryModels.GetAssociates request)
-            => RequestHandler.HandleQuery(() => _items.Query(request), _log);
+        [Route("list")]
+        public Task<IActionResult> Get(QueryModels.GetAssociates request)
+            => RequestHandler.HandleQuery(() => _connection.Query(request), Log);
+
+        [HttpGet]
+        public Task<IActionResult> Get(QueryModels.GetAssociate request)
+            => RequestHandler.HandleQuery(() => _connection.Query(request), Log);
     }
 }
