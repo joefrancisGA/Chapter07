@@ -6,7 +6,7 @@ namespace BusinessAssociates.Domain
 {
     public class AgentRelationship
     {
-        public AgentRelationship(ExternalAssociate principal, ExternalAssociate agent) : this()
+        public AgentRelationship(Associate principal,Associate agent) : this()
         {
             Principal = principal;
             Agent = agent;
@@ -19,8 +19,8 @@ namespace BusinessAssociates.Domain
 
         public DatabaseId Id { get; set; }
 
-        public ExternalAssociate Principal { get; set; }
-        public ExternalAssociate Agent { get; set; }
+        public Associate Principal { get; set; }
+        public Associate Agent { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; }

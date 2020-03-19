@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Threading.Tasks;
 using BusinessAssociates.Api;
 using BusinessAssociates.Domain;
@@ -50,9 +49,9 @@ namespace BusinessAssociates
 
             services.AddScoped(c => store.OpenAsyncSession());
             services.AddScoped<IUnitOfWork, RavenDbUnitOfWork>();
-            services.AddScoped<IAssociateRepository, AssociateRepository>();
+            services.AddTransient(_ => new EGMSDb(connectionString));
+            services.AddScoped<IAssociateRepository>(x => new AssociateRepository(x.GetRequiredService<EGMSDb>()));
             services.AddScoped<AssociatesApplicationService>();
-            services.AddScoped<DbConnection>(c => new SqlConnection(connectionString));
 
             // Tye converter is to get Swagger to show enum values
             services.AddMvc().AddJsonOptions(options =>
