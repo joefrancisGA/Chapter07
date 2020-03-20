@@ -27,32 +27,15 @@ namespace BusinessAssociates
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //var store = new DocumentStore
-            //  {
-            //      Urls = new[] {"http://localhost:8080"},
-            //      Database = "EGMS",
-            //      Conventions =
-            //      {
-            //          FindIdentityProperty = m => m.Name == "_databaseId"
-            //      }
-            //  };
-
-            //store.Conventions.RegisterAsyncIdConvention<Associate>(
-            //    (dbName, entity) => Task.FromResult("Associate/" + entity.Id));
-            //store.Initialize();
-
-
             const string connectionString =
                 "Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True"; 
 
-            //services.AddScoped(c => store.OpenAsyncSession());
-            //services.AddScoped<IUnitOfWork, RavenDbUnitOfWork>();
             services.AddScoped<DbConnection>(c => new SqlConnection(connectionString));
             services.AddTransient(_ => new EGMSDb(connectionString));
             services.AddScoped<IAssociateRepository>(x => new AssociateRepository(x.GetRequiredService<EGMSDb>()));
             services.AddScoped<AssociatesApplicationService>();
 
-            // Tye converter is to get Swagger to show enum values
+            // Type converter is to get Swagger to show enum values
             services.AddMvc().AddJsonOptions(options =>
                 options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
