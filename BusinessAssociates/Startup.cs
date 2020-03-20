@@ -1,17 +1,14 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
-using System.Threading.Tasks;
 using BusinessAssociates.Api;
-using BusinessAssociates.Domain;
 using BusinessAssociates.Domain.Repositories;
-using BusinessAssociates.Framework;
 using BusinessAssociates.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
-using Raven.Client.Documents;
+//using Raven.Client.Documents;
 using Swashbuckle.AspNetCore.Swagger;
 
 
@@ -30,26 +27,26 @@ namespace BusinessAssociates
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var store = new DocumentStore
-              {
-                  Urls = new[] {"http://localhost:8080"},
-                  Database = "EGMS",
-                  Conventions =
-                  {
-                      FindIdentityProperty = m => m.Name == "_databaseId"
-                  }
-              };
+            //var store = new DocumentStore
+            //  {
+            //      Urls = new[] {"http://localhost:8080"},
+            //      Database = "EGMS",
+            //      Conventions =
+            //      {
+            //          FindIdentityProperty = m => m.Name == "_databaseId"
+            //      }
+            //  };
 
-            store.Conventions.RegisterAsyncIdConvention<Associate>(
-                (dbName, entity) => Task.FromResult("Associate/" + entity.Id));
-            store.Initialize();
+            //store.Conventions.RegisterAsyncIdConvention<Associate>(
+            //    (dbName, entity) => Task.FromResult("Associate/" + entity.Id));
+            //store.Initialize();
 
 
             const string connectionString =
                 "Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True"; 
 
-            services.AddScoped(c => store.OpenAsyncSession());
-            services.AddScoped<IUnitOfWork, RavenDbUnitOfWork>();
+            //services.AddScoped(c => store.OpenAsyncSession());
+            //services.AddScoped<IUnitOfWork, RavenDbUnitOfWork>();
             services.AddScoped<DbConnection>(c => new SqlConnection(connectionString));
             services.AddTransient(_ => new EGMSDb(connectionString));
             services.AddScoped<IAssociateRepository>(x => new AssociateRepository(x.GetRequiredService<EGMSDb>()));
