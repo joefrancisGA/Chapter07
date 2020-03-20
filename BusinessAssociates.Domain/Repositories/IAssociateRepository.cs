@@ -8,6 +8,8 @@ namespace BusinessAssociates.Domain.Repositories
 
         void Add(Associate entity);
 
+        void Delete(Associate entity);
+
         void UpdateDUNSNumber(Associate entity);
 
         void UpdateAssociateType(Associate entity);

@@ -43,6 +43,20 @@ namespace BusinessAssociates.Infrastructure
             }
         }
 
+        public void Delete(Associate entity)
+        {
+            using (SqlCommand cmd = Db.Connection.CreateCommand())
+            {
+                cmd.CommandText = "DELETE BusinessAssociate WHERE Id = @Id";
+                Db.Connection.Open();
+
+                cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // TO DO: Use numeric constants below
         Associate IAssociateRepository.Load(AssociateId id)
         {
             using (SqlCommand cmd = Db.Connection.CreateCommand())

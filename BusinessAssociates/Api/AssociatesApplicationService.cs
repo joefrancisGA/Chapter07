@@ -32,13 +32,19 @@ namespace BusinessAssociates.Api
                     if (_repository.Exists(cmd.DUNSNumber))
                         throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
 
-                    Associate internalAssociate = new Associate(new AssociateId(cmd.DUNSNumber), cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
+                    Associate associate = new Associate(new AssociateId(cmd.DUNSNumber), cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
 
-                    _repository.Add(internalAssociate);
+                    _repository.Add(associate);
 
                     // We don't need a unit of work pattern until we move to entity framework
                     //await _unitOfWork.Commit();
                     break;
+
+
+                case Associates.V1.Delete cmd:
+                    _repository.Delete(new Associate(new AssociateId(cmd.Id)));
+                    break;
+
 
                 case Associates.V1.UpdateDUNSNumber cmd:
                     _repository.UpdateDUNSNumber(HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber))).Result);

@@ -19,6 +19,13 @@ namespace BusinessAssociates.Api
             return Ok();
         }
 
+        [HttpDelete]
+        public async Task<IActionResult> Delete(Associates.V1.Delete request)
+        {
+            await _applicationService.Handle(request);
+            return Ok();
+        }
+
         [Route("longname")]
         [HttpPut]
         public async Task<IActionResult> Put(Associates.V1.UpdateLongName request)
