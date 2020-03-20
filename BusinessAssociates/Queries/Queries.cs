@@ -13,7 +13,7 @@ namespace BusinessAssociates.Queries
         public static Task<IEnumerable<ReadModels.AssociateListItem>> Query(this DbConnection connection, QueryModels.GetAssociates query)
             => connection.QueryAsync<ReadModels.AssociateListItem>(
                 "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, [Status] FROM BusinessAssociate" +
-                " WHERE Status = @Status LIMIT @PageSize OFFSET @Offset",
+                " WHERE Status = @Status ORDER BY ID OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY", 
             new
             {
                 Status = (int)Status.Active,
