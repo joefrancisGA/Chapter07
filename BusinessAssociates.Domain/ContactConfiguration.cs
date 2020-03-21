@@ -1,13 +1,12 @@
 ﻿using System;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class ContactConfiguration
+    public class ContactConfiguration : Entity<DatabaseId>
     {
-        public DatabaseId Id { get; set; }
-
         public DatabaseId ContactId { get; set; }
         public DatabaseId FacilityId { get; set; }
         public ContactType ContactType { get; set; }
@@ -16,5 +15,14 @@ namespace EGMS.BusinessAssociates.Domain
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        public ContactConfiguration(Action<object> applier) : base(applier)
+        {
+        }
+
+        protected override void When(object @event)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

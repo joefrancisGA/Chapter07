@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class AgentRelationship
+    public class AgentRelationship : Entity<DatabaseId>
     {
-        public AgentRelationship(Associate principal,Associate agent) : this()
-        {
-            Principal = principal;
-            Agent = agent;
-        }
-
-        public AgentRelationship()
-        {
-            AgentUserList = new List<UserOperatingContext>();
-        }
-
-        public DatabaseId Id { get; set; }
+        //public AgentRelationship(Associate principal, Associate agent)
+        //{
+        //    Principal = principal;
+        //    Agent = agent;
+        //}
 
         public Associate Principal { get; set; }
         public Associate Agent { get; set; }
@@ -35,6 +29,15 @@ namespace EGMS.BusinessAssociates.Domain
             {
                 AgentUserList = new List<UserOperatingContext>();
             }
+        }
+
+        public AgentRelationship(Action<object> applier) : base(applier)
+        {
+        }
+
+        protected override void When(object @event)
+        {
+            throw new NotImplementedException();
         }
     }
 }

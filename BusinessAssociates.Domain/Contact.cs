@@ -1,11 +1,11 @@
-﻿using EGMS.BusinessAssociates.Domain.ValueObjects;
+﻿using System;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Contact
+    public class Contact : Entity<DatabaseId>
     {
-        public DatabaseId Id { get; set; }
-
         public FirstName FirstName { get; set; }
         public LastName LastName { get; set; }
         public Title Title { get; set; }
@@ -16,5 +16,14 @@ namespace EGMS.BusinessAssociates.Domain
         public DatabaseId PrimaryAddressId { get; set; }
 
         public bool IsActive { get; set; }
+
+        public Contact(Action<object> applier) : base(applier)
+        {
+        }
+
+        protected override void When(object @event)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

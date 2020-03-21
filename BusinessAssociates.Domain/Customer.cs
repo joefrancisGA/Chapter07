@@ -1,13 +1,12 @@
 ﻿using System;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Customer
+    public class Customer : Entity<DatabaseId>
     {
-        public DatabaseId Id { get; set; }
-
         public CustomerType CustomerType { get; set; }
         public DeliveryType DeliveryType { get; set; }
         public DUNSNumber DUNSNumber { get; set; }
@@ -50,5 +49,14 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsFederal { get; set; }
         public DateTime TurnOnDate { get; set; }
         public DateTime TurnOffDate { get; set; }
+
+        public Customer(Action<object> applier) : base(applier)
+        {
+        }
+
+        protected override void When(object @event)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

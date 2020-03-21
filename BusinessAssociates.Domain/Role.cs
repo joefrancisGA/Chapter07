@@ -1,16 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Role
+    public class Role : Entity<DatabaseId>
     {
-        public DatabaseId Id { get; set; }
-
         public RoleName RoleName { get; set; }
         public RoleDescription RoleDescription { get; set; }
 
         // Collections
         public IEnumerable<Permission> Permissions { get; set; }
+
+        public Role(Action<object> applier) : base(applier)
+        {
+        }
+
+        protected override void When(object @event)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
