@@ -1,13 +1,12 @@
 ﻿using System;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Address
+    public class Address : Entity<DatabaseId>
     {
-        public DatabaseId Id { get; set; }
-
         public AddressType AddressType { get; set; }
         public AddressLine Address1 { get; set; }
         public AddressLine Address2 { get; set; }
@@ -23,5 +22,14 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime EndDate { get; set; }
         public bool IsPrimary { get; set; }
         public bool IsActive { get; set; }
+
+        public Address(Action<object> applier) : base(applier)
+        {
+        }
+
+        protected override void When(object @event)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

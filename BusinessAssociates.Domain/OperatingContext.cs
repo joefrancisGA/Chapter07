@@ -1,13 +1,12 @@
 ﻿using System;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public abstract class OperatingContext
+    public abstract class OperatingContext : Entity<DatabaseId>
     {
-        public DatabaseId Id { get; set; }
-
         public OperatingContextType OperatingContextType { get; set; }
         public DatabaseId FacilityId { get; set; }
         public DatabaseId ThirdPartySupplierId { get; set; }
@@ -27,5 +26,9 @@ namespace EGMS.BusinessAssociates.Domain
         public EMail PrimaryEmail { get; set; }
         public Phone PrimaryPhone { get; set; }
         public Address PrimaryAddress { get; set; }
+
+        protected OperatingContext(Action<object> applier) : base(applier)
+        {
+        }
     }
 }
