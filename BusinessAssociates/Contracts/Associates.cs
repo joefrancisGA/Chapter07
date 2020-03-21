@@ -1,4 +1,4 @@
-using BusinessAssociates.Domain.Enums;
+using EGMS.BusinessAssociates.Domain.Enums;
 
 namespace EGMS.BusinessAssociates.API.Contracts
 {

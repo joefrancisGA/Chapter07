@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
-namespace BusinessAssociates.Framework
+namespace EGMS.BusinessAssociates.Framework
 {
     public abstract class Value<T> where T : Value<T>
     {

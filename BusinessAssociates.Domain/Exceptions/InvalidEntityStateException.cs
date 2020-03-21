@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BusinessAssociates.Domain.Exceptions
+namespace EGMS.BusinessAssociates.Domain.Exceptions
 {
     public class InvalidEntityStateException : Exception
     {

@@ -1,4 +1,4 @@
-﻿namespace BusinessAssociates.Domain.Enums
+﻿namespace EGMS.BusinessAssociates.Domain.Enums
 {
     // TO DO:  There could be more types of operating contexts
     public enum OperatingContextType

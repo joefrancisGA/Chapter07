@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BusinessAssociates.Framework
+namespace EGMS.BusinessAssociates.Framework
 {
     public class InvalidValueException : Exception
     {

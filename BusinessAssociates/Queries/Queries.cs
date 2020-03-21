@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
-using BusinessAssociates.Domain.Enums;
 using Dapper;
 using EGMS.BusinessAssociates.API.Projections;
+using EGMS.BusinessAssociates.Domain.Enums;
 
 namespace EGMS.BusinessAssociates.API.Queries
 {

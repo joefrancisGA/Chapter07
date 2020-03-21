@@ -1,6 +1,6 @@
-using BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
 
-namespace BusinessAssociates.Domain.Repositories
+namespace EGMS.BusinessAssociates.Domain.Repositories
 {
     public interface IAssociateRepository
     {

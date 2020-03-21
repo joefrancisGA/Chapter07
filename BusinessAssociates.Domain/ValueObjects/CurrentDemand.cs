@@ -1,8 +1,7 @@
 ﻿using System;
-using BusinessAssociates.Framework;
+using EGMS.BusinessAssociates.Framework;
 
-
-namespace BusinessAssociates.Domain.ValueObjects
+namespace EGMS.BusinessAssociates.Domain.ValueObjects
 {
     public class CurrentDemand : Value<CurrentDemand>
     {

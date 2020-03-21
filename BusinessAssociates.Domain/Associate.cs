@@ -1,9 +1,9 @@
-﻿using BusinessAssociates.Domain.Enums;
-using BusinessAssociates.Domain.Exceptions;
-using BusinessAssociates.Domain.ValueObjects;
-using BusinessAssociates.Framework;
+﻿using EGMS.BusinessAssociates.Domain.Enums;
+using EGMS.BusinessAssociates.Domain.Exceptions;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
-namespace BusinessAssociates.Domain
+namespace EGMS.BusinessAssociates.Domain
 {
     public class Associate : AggregateRoot<AssociateId>
     {

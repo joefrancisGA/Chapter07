@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BusinessAssociates.Framework
+namespace EGMS.BusinessAssociates.Framework
 {
     public abstract class AggregateRoot<TId> : IInternalEventHandler
         where TId : Value<TId>

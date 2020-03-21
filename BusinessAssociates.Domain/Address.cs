@@ -1,8 +1,8 @@
 ﻿using System;
-using BusinessAssociates.Domain.Enums;
-using BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Domain.Enums;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
 
-namespace BusinessAssociates.Domain
+namespace EGMS.BusinessAssociates.Domain
 {
     public class Address
     {

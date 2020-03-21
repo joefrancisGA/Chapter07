@@ -1,4 +1,4 @@
-﻿namespace BusinessAssociates.Domain.Enums
+﻿namespace EGMS.BusinessAssociates.Domain.Enums
 {
     // TO DO:  We need to fill this out
     public enum GeographicState

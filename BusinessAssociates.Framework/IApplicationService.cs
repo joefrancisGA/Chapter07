@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace BusinessAssociates.Framework
+namespace EGMS.BusinessAssociates.Framework
 {
     public interface IApplicationService
     {

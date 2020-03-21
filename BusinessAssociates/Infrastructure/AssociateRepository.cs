@@ -1,9 +1,9 @@
 using System;
 using System.Data.SqlClient;
-using BusinessAssociates.Domain;
-using BusinessAssociates.Domain.Enums;
-using BusinessAssociates.Domain.Repositories;
-using BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Domain;
+using EGMS.BusinessAssociates.Domain.Enums;
+using EGMS.BusinessAssociates.Domain.Repositories;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
 
 namespace EGMS.BusinessAssociates.API.Infrastructure
 {

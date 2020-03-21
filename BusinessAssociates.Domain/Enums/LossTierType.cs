@@ -1,4 +1,4 @@
-﻿namespace BusinessAssociates.Domain.Enums
+﻿namespace EGMS.BusinessAssociates.Domain.Enums
 {
     // TO DO:  We need loss tier values from Southern
     public enum LossTierType

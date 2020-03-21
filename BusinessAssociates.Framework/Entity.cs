@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BusinessAssociates.Framework
+namespace EGMS.BusinessAssociates.Framework
 {
     public abstract class Entity<TId> : IInternalEventHandler
         where TId : Value<TId>

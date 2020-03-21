@@ -1,4 +1,4 @@
-﻿namespace BusinessAssociates.Domain.Enums
+﻿namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public enum ProviderType
     {

@@ -1,6 +1,6 @@
-﻿using BusinessAssociates.Domain.Enums;
+﻿using EGMS.BusinessAssociates.Domain.Enums;
 
-namespace BusinessAssociates.Domain.Events
+namespace EGMS.BusinessAssociates.Domain.Events
 {
     public static class Events
     {

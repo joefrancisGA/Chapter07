@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace BusinessAssociates.Domain.Enums
+namespace EGMS.BusinessAssociates.Domain.Enums
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum EGMSLinkType

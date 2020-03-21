@@ -1,4 +1,4 @@
-﻿namespace BusinessAssociates.Domain
+﻿namespace EGMS.BusinessAssociates.Domain
 {
     public class AgentUser
     {

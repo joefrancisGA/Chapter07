@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
-using BusinessAssociates.Domain.Repositories;
 using EGMS.BusinessAssociates.API.Api;
 using EGMS.BusinessAssociates.API.Infrastructure;
+using EGMS.BusinessAssociates.Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

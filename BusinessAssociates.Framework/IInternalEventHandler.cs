@@ -1,4 +1,4 @@
-namespace BusinessAssociates.Framework
+namespace EGMS.BusinessAssociates.Framework
 {
     public interface IInternalEventHandler
     {

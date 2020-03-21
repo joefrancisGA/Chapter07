@@ -1,6 +1,6 @@
 ﻿namespace BusinessAssociates.Tests
 {
-    public class Money_Spec
+    public class MoneySpec
     {
        
         //[Fact]

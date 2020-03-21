@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
-using BusinessAssociates.Domain;
-using BusinessAssociates.Domain.Repositories;
-using BusinessAssociates.Domain.ValueObjects;
-using BusinessAssociates.Framework;
 using EGMS.BusinessAssociates.API.Contracts;
+using EGMS.BusinessAssociates.Domain;
+using EGMS.BusinessAssociates.Domain.Repositories;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.API.Api
 {
