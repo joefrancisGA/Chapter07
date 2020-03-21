@@ -12,12 +12,12 @@ namespace EGMS.BusinessAssociates.API.Api
     public class AssociatesApplicationService : IApplicationService
     {
         private readonly IAssociateRepository _repository;
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
 
-        public AssociatesApplicationService(IAssociateRepository repository, IUnitOfWork unitOfWork)
+        public AssociatesApplicationService(IAssociateRepository repository/*, IUnitOfWork unitOfWork*/)
         {
             _repository = repository;
-            _unitOfWork = unitOfWork;
+            //_unitOfWork = unitOfWork;
         }
 
 #pragma warning disable 1998
