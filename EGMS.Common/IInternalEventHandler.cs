@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EGMS.Common
+﻿namespace EGMS.Common
 {
     public interface IInternalEventHandler
     {

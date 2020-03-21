@@ -12,19 +12,19 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
             Value = value;
         }
 
-        public static EMailAddress Create(string EMailAddress)
+        public static EMailAddress Create(string eMailAddress)
         {
-            return new EMailAddress(EMailAddress);
+            return new EMailAddress(eMailAddress);
         }
 
-        public static implicit operator string(EMailAddress EMailAddress)
+        public static implicit operator string(EMailAddress eMailAddress)
         {
-            return EMailAddress.Value;
+            return eMailAddress.Value;
         }
 
-        public static explicit operator EMailAddress(string EMailAddress)
+        public static explicit operator EMailAddress(string eMailAddress)
         {
-            return new EMailAddress(EMailAddress);
+            return new EMailAddress(eMailAddress);
         }
     }
 }
