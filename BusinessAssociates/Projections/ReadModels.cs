@@ -1,4 +1,4 @@
-﻿namespace BusinessAssociates.Projections
+﻿namespace EGMS.BusinessAssociates.API.Projections
 {
     public static class ReadModels
     {

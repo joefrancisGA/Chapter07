@@ -1,18 +1,17 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
-using BusinessAssociates.Api;
 using BusinessAssociates.Domain.Repositories;
-using BusinessAssociates.Infrastructure;
+using EGMS.BusinessAssociates.API.Api;
+using EGMS.BusinessAssociates.API.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
-//using Raven.Client.Documents;
-using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.Swagger; //using Raven.Client.Documents;
 
 
-namespace BusinessAssociates
+namespace EGMS.BusinessAssociates.API
 {
     public class Startup
     {

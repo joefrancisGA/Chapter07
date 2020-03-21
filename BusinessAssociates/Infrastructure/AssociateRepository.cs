@@ -5,8 +5,7 @@ using BusinessAssociates.Domain.Enums;
 using BusinessAssociates.Domain.Repositories;
 using BusinessAssociates.Domain.ValueObjects;
 
-
-namespace BusinessAssociates.Infrastructure
+namespace EGMS.BusinessAssociates.API.Infrastructure
 {
 
     public class AssociateRepository : IAssociateRepository

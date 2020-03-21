@@ -1,4 +1,4 @@
-﻿namespace BusinessAssociates.Queries
+﻿namespace EGMS.BusinessAssociates.API.Queries
 {
     public static class QueryModels
     {

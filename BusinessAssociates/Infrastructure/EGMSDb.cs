@@ -1,7 +1,7 @@
 using System;
 using System.Data.SqlClient;
 
-namespace BusinessAssociates.Infrastructure
+namespace EGMS.BusinessAssociates.API.Infrastructure
 {
     public class EGMSDb : IDisposable
     {

@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using BusinessAssociates.Contracts;
+using EGMS.BusinessAssociates.API.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BusinessAssociates.Api
+namespace EGMS.BusinessAssociates.API.Api
 {
     [Route("/associate")]
     public class AssociatesCommandsApi : Controller

@@ -9,6 +9,6 @@
     <Compile Remove="EGMSAssociate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessAssociates.Framework\BusinessAssociates.Framework.csproj" />
+    <ProjectReference Include="..\BusinessAssociates.Framework\EGMS.BusinessAssociates.Framework.csproj" />
   </ItemGroup>
 </Project>

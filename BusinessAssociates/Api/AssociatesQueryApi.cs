@@ -1,11 +1,11 @@
 ﻿using System.Data.Common;
 using System.Threading.Tasks;
-using BusinessAssociates.Infrastructure;
-using BusinessAssociates.Queries;
+using EGMS.BusinessAssociates.API.Infrastructure;
+using EGMS.BusinessAssociates.API.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace BusinessAssociates.Api
+namespace EGMS.BusinessAssociates.API.Api
 {
     [Route("/associate")]
     public class AssociatesQueryApi : Controller

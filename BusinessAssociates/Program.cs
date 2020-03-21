@@ -5,7 +5,7 @@ using Serilog;
 using static System.Environment;
 using static System.Reflection.Assembly;
 
-namespace BusinessAssociates
+namespace EGMS.BusinessAssociates.API
 {
     public static class Program
     {

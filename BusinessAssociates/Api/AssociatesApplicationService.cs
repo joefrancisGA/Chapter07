@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using BusinessAssociates.Contracts;
 using BusinessAssociates.Domain;
 using BusinessAssociates.Domain.Repositories;
 using BusinessAssociates.Domain.ValueObjects;
 using BusinessAssociates.Framework;
+using EGMS.BusinessAssociates.API.Contracts;
 
-namespace BusinessAssociates.Api
+namespace EGMS.BusinessAssociates.API.Api
 {
     // The application service is only used by the command API at the moment, but it can be used 
     public class AssociatesApplicationService : IApplicationService

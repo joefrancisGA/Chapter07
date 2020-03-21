@@ -1,6 +1,6 @@
 using BusinessAssociates.Domain.Enums;
 
-namespace BusinessAssociates.Contracts
+namespace EGMS.BusinessAssociates.API.Contracts
 {
     public static class Associates
     {

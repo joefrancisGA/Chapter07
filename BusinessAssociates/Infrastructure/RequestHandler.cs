@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace BusinessAssociates.Infrastructure
+namespace EGMS.BusinessAssociates.API.Infrastructure
 {
     public static class RequestHandler
     {

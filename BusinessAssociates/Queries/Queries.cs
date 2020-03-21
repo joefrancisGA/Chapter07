@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
 using System.Threading.Tasks;
 using BusinessAssociates.Domain.Enums;
-using BusinessAssociates.Projections;
 using Dapper;
+using EGMS.BusinessAssociates.API.Projections;
 
-namespace BusinessAssociates.Queries
+namespace EGMS.BusinessAssociates.API.Queries
 {
     public static class Queries
     {

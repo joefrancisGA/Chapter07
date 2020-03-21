@@ -1,4 +1,5 @@
 ﻿using BusinessAssociates.Domain.Enums;
+using BusinessAssociates.Domain.Exceptions;
 using BusinessAssociates.Domain.ValueObjects;
 using BusinessAssociates.Framework;
 
