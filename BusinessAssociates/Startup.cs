@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using EGMS.BusinessAssociates.API.Api;
 using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Domain.Repositories;

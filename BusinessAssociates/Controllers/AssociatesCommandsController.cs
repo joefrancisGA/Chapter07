@@ -2,14 +2,14 @@ using System.Threading.Tasks;
 using EGMS.BusinessAssociates.Command;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EGMS.BusinessAssociates.API.Api
+namespace EGMS.BusinessAssociates.API.Controllers
 {
     [Route("api/associate")]
-    public class AssociatesCommandsApi : Controller
+    public class AssociatesCommandsController : Controller
     {
         private readonly AssociatesApplicationService _appService;
 
-        public AssociatesCommandsApi(AssociatesApplicationService appService) => _appService = appService;
+        public AssociatesCommandsController(AssociatesApplicationService appService) => _appService = appService;
 
         [HttpPost]
         public async Task<IActionResult> Post(Commands.V1.Create request)

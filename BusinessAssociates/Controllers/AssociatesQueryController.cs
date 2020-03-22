@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.API.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace EGMS.BusinessAssociates.API.Api
+namespace EGMS.BusinessAssociates.API.Controllers
 {
     [Route("api/associate")]
     public class AssociateQueriesController : Controller

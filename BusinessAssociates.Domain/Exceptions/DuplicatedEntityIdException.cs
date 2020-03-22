@@ -1,6 +1,6 @@
 using System;
 
-namespace EGMS.BusinessAssociates.API
+namespace EGMS.BusinessAssociates.Domain.Exceptions
 {
     public class DuplicatedEntityIdException : Exception
     {

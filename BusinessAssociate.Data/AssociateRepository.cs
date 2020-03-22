@@ -5,9 +5,8 @@ using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.Repositories;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 
-namespace EGMS.BusinessAssociates.API.Infrastructure
+namespace EGMS.BusinessAssociates.Data
 {
-
     public class AssociateRepository : IAssociateRepository
     {
         internal EGMSDb Db { get; set; }
@@ -23,7 +22,7 @@ namespace EGMS.BusinessAssociates.API.Infrastructure
             //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
             using SqlCommand cmd = Db.Connection.CreateCommand();
             cmd.CommandText = "insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status]) VALUES( " +
-                              "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
+                "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
 
             Db.Connection.Open();
 
@@ -61,6 +60,7 @@ namespace EGMS.BusinessAssociates.API.Infrastructure
             Db.Connection.Open();
 
             using SqlDataReader reader = cmd.ExecuteReader();
+
             if (!reader.Read())
                 return null;
 
@@ -76,7 +76,6 @@ namespace EGMS.BusinessAssociates.API.Infrastructure
 
             return associate;
         }
-
 
         public void UpdateDUNSNumber(Associate entity)
         {
