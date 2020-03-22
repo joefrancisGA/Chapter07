@@ -21,8 +21,6 @@ namespace EGMS.BusinessAssociates.API
 
         public Startup(IWebHostEnvironment environment)
         {
-            Environment = environment;
-
             var builder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", true, true);
@@ -31,7 +29,6 @@ namespace EGMS.BusinessAssociates.API
         }
 
         private IConfiguration Configuration { get; }
-        private IWebHostEnvironment Environment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
