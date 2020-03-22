@@ -27,6 +27,11 @@ namespace EGMS.BusinessAssociates.Domain
         public Phone PrimaryPhone { get; set; }
         public Address PrimaryAddress { get; set; }
 
+        //public OperatingContext(OperatingContextType operatingContextType)
+        //{
+
+        //}
+
         protected OperatingContext(Action<object> applier) : base(applier)
         {
         }

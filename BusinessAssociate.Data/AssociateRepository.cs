@@ -18,10 +18,10 @@ namespace EGMS.BusinessAssociates.Data
 
         public void Add(Associate entity)
         {
-            //  insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status])
+            //  insert into Associate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status])
             //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status]) VALUES( " +
+            cmd.CommandText = "insert into Associate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status]) VALUES( " +
                               "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
 
             Db.Connection.Open();
@@ -42,7 +42,7 @@ namespace EGMS.BusinessAssociates.Data
         public void Delete(Associate entity)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "DELETE BusinessAssociate WHERE Id = @Id";
+            cmd.CommandText = "DELETE Associate WHERE Id = @Id";
             Db.Connection.Open();
 
             cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
@@ -54,12 +54,13 @@ namespace EGMS.BusinessAssociates.Data
         Associate IAssociateRepository.Load(AssociateId id)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, [Status] FROM BusinessAssociate" +
+            cmd.CommandText = "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, StatusId FROM Associate" +
                               " WHERE ID = " + id.Value;
 
             Db.Connection.Open();
 
             using SqlDataReader reader = cmd.ExecuteReader();
+
             if (!reader.Read())
                 return null;
 
@@ -80,7 +81,7 @@ namespace EGMS.BusinessAssociates.Data
         public void UpdateDUNSNumber(Associate entity)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "UPDATE BusinessAssociate SET DUNSNumber = @DUNSNumber WHERE Id = @Id";
+            cmd.CommandText = "UPDATE Associate SET DUNSNumber = @DUNSNumber WHERE Id = @Id";
             Db.Connection.Open();
 
             cmd.Parameters.AddWithValue("@DUNSNumber", entity.DUNSNumber.Value);
@@ -92,7 +93,7 @@ namespace EGMS.BusinessAssociates.Data
         public void UpdateAssociateType(Associate entity)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "UPDATE BusinessAssociate SET BusinessAssociateType = @BusinessAssociateType WHERE Id = @Id";
+            cmd.CommandText = "UPDATE Associate SET BusinessAssociateType = @BusinessAssociateType WHERE Id = @Id";
             Db.Connection.Open();
 
             cmd.Parameters.AddWithValue("@BusinessAssociateType", (int)entity.AssociateType);
@@ -104,7 +105,7 @@ namespace EGMS.BusinessAssociates.Data
         public void UpdateLongName(Associate entity)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "UPDATE BusinessAssociate SET LongName = @LongName WHERE Id = @Id";
+            cmd.CommandText = "UPDATE Associate SET LongName = @LongName WHERE Id = @Id";
 
             Db.Connection.Open();
 
@@ -117,7 +118,7 @@ namespace EGMS.BusinessAssociates.Data
         public void UpdateIsParent(Associate entity)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "UPDATE BusinessAssociate SET IsParent = @IsParent WHERE Id = @Id";
+            cmd.CommandText = "UPDATE Associate SET IsParent = @IsParent WHERE Id = @Id";
             Db.Connection.Open();
 
             cmd.Parameters.AddWithValue("@IsParent", entity.IsParent);
@@ -129,7 +130,7 @@ namespace EGMS.BusinessAssociates.Data
         public void UpdateStatus(Associate entity)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "UPDATE BusinessAssociate SET Status = @Status WHERE Id = @Id";
+            cmd.CommandText = "UPDATE Associate SET Status = @Status WHERE Id = @Id";
             cmd.Connection.Open();
 
             cmd.Parameters.AddWithValue("@Status", (int)entity.Status);
@@ -141,7 +142,7 @@ namespace EGMS.BusinessAssociates.Data
         public void UpdateShortName(Associate entity)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "UPDATE BusinessAssociate SET ShortName = @ShortName WHERE Id = @Id";
+            cmd.CommandText = "UPDATE Associate SET ShortName = @ShortName WHERE Id = @Id";
             cmd.Connection.Open();
 
             cmd.Parameters.AddWithValue("@ShortName", entity.ShortName.Value);
@@ -153,7 +154,7 @@ namespace EGMS.BusinessAssociates.Data
         public bool Exists(AssociateId id)
         {
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "SELECT DUNSNumber FROM BusinessAssociate WHERE DUNSNumber = " + id.Value;
+            cmd.CommandText = "SELECT DUNSNumber FROM Associate WHERE DUNSNumber = " + id.Value;
 
             Db.Connection.Open();
 
@@ -166,16 +167,14 @@ namespace EGMS.BusinessAssociates.Data
             //  insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status])
             //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
             using SqlCommand cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = "insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status]) VALUES( " +
-                              "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
 
             Db.Connection.Open();
             cmd.Transaction = Db.Connection.BeginTransaction("AddOperatingContext");
 
             try
             {
-                cmd.CommandText = "insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status]) VALUES( " +
-                                  "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
+                cmd.CommandText = "insert into OperatingContext(ActingBATypeId, CertificationId, FacilityId, IsDeactivating, LegacyId, OperatingContextTypeId, ProviderTypeId) VALUES( " +
+                                  "@ActingBATypeId, @CertificationId, @FacilityId, @IsDeactivating, @LegacyId, @OperatingContextTypeId, @ProviderTypeId)";
 
                 cmd.Parameters.AddWithValue("@ActingBATypeId", (int)entity.ActingBAType);
                 cmd.Parameters.AddWithValue("@CertificationId", entity.Certification.Id.Value);
