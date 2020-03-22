@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EGMS.BusinessAssociates.API.Api
 {
-    [Route("/associate")]
+    [Route("api/associate")]
     public class AssociatesCommandsApi : Controller
     {
         private readonly AssociatesApplicationService _applicationService;
