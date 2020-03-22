@@ -23,5 +23,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         void UpdateShortName(Associate entity);
         
         bool Exists(AssociateId id);
+
+        void AddOperatingContext(AssociateId id, OperatingContext operatingContext);
     }
 }

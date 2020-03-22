@@ -69,6 +69,9 @@ namespace EGMS.BusinessAssociates.Command
                     _repository.UpdateShortName(HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName))).Result);
                     break;
 
+                //case Commands.V1.OperatingContext cmd:
+                //    _repository.
+
                 default:
                     throw new InvalidOperationException($"Commands type {command.GetType().FullName} is unknown");
             }

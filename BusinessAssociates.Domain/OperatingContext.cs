@@ -14,7 +14,7 @@ namespace EGMS.BusinessAssociates.Domain
         // TO DO:  Not sure what to do with the type for LegacyId
         public int LegacyId { get; set; }
         public ProviderType ProviderType { get; set; }
-        public AssociateType ActingBATypeID { get; set; }
+        public AssociateType ActingBAType { get; set; }
         public Certification Certification { get; set; }
 
         // TO DO:  Do we really have a "set" of roles for the operating context?

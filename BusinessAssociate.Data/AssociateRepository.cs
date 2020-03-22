@@ -11,7 +11,7 @@ namespace EGMS.BusinessAssociates.Data
     {
         internal EGMSDb Db { get; set; }
 
-        internal AssociateRepository(EGMSDb db)
+        public AssociateRepository(EGMSDb db)
         {
             Db = db;
         }
@@ -22,7 +22,7 @@ namespace EGMS.BusinessAssociates.Data
             //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
             using SqlCommand cmd = Db.Connection.CreateCommand();
             cmd.CommandText = "insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status]) VALUES( " +
-                "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
+                              "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
 
             Db.Connection.Open();
 
@@ -60,7 +60,6 @@ namespace EGMS.BusinessAssociates.Data
             Db.Connection.Open();
 
             using SqlDataReader reader = cmd.ExecuteReader();
-
             if (!reader.Read())
                 return null;
 
@@ -76,6 +75,7 @@ namespace EGMS.BusinessAssociates.Data
 
             return associate;
         }
+
 
         public void UpdateDUNSNumber(Associate entity)
         {
@@ -159,6 +159,51 @@ namespace EGMS.BusinessAssociates.Data
 
             using SqlDataReader reader = cmd.ExecuteReader();
             return reader.HasRows;
+        }
+
+        public void AddOperatingContext(AssociateId id, OperatingContext entity)
+        {
+            //  insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status])
+            //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
+            using SqlCommand cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = "insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status]) VALUES( " +
+                              "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
+
+            Db.Connection.Open();
+            cmd.Transaction = Db.Connection.BeginTransaction("AddOperatingContext");
+
+            try
+            {
+                cmd.CommandText = "insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status]) VALUES( " +
+                                  "@DUNSNumber, @LongName, @ShortName, @IsInternal, @IsParent, @BusinessAssociateType, @Status)";
+
+                cmd.Parameters.AddWithValue("@ActingBATypeId", (int)entity.ActingBAType);
+                cmd.Parameters.AddWithValue("@CertificationId", entity.Certification.Id.Value);
+                cmd.Parameters.AddWithValue("@FacilityId", entity.FacilityId.Value);
+                cmd.Parameters.AddWithValue("@IsDeactivating", entity.IsDeactivating);
+                cmd.Parameters.AddWithValue("@LegacyId", entity.LegacyId);
+                cmd.Parameters.AddWithValue("@OperatingContextTypeId", (int)entity.OperatingContextType);
+                cmd.Parameters.AddWithValue("@ProviderTypeId", (int)entity.ProviderType);
+
+                int operatingContextId = (int)cmd.ExecuteScalar();
+
+                cmd.CommandText = "INSERT INTO AssociateOperatingContext (AssociateId, OperatingContextId) VALUES ( " +
+                                  "@AssociateId, @OperatingContextId)";
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@AssociateId", id);
+                cmd.Parameters.AddWithValue("@OperatingContextId", operatingContextId);
+
+                cmd.ExecuteNonQuery();
+
+                cmd.Transaction.Commit();
+            }
+            catch (Exception)
+            {
+                cmd.Transaction.Rollback();
+
+                throw;
+            } 
         }
     }
 }
