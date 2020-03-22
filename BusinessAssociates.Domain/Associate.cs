@@ -69,29 +69,25 @@ namespace EGMS.BusinessAssociates.Domain
         {
             Id = Id.Value,
             LongName = longName.Value
-        }
-        );
+        });
 
         public void UpdateIsParent(bool isParent) => Apply(new Events.Events.AssociateIsParentUpdated
         {
             Id = Id.Value,
             IsParent = isParent
-        }
-        );
+        });
 
         public void UpdateStatus(Status status) => Apply(new Events.Events.AssociateStatusUpdated
         {
             Id = Id.Value,
             Status = (int)status
-        }
-        );
+        });
 
         public void UpdateShortName(ShortName shortName) => Apply(new Events.Events.AssociateShortNameUpdated
         {
             Id = Id.Value,
             ShortName = shortName.Value
-        }
-        );
+        });
 
         protected override void When(object @event)
         {

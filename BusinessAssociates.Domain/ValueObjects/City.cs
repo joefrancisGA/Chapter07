@@ -1,5 +1,4 @@
-﻿
-
+﻿using System;
 using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain.ValueObjects
@@ -10,7 +9,7 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
 
         private City(string value)
         {
-            Value = value;
+            Value = value ?? throw new ArgumentException("City name must be specified");
         }
 
         public static City Create(string city)
