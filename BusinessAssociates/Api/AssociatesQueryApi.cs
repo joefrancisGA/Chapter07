@@ -11,18 +11,15 @@ namespace EGMS.BusinessAssociates.API.Api
     public class AssociateQueriesController : Controller
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<AssociateQueriesController>();
+        private readonly DbConnection _conn;
 
-        private readonly DbConnection _connection;
-
-        public AssociateQueriesController(DbConnection connection) => _connection = connection;
+        public AssociateQueriesController(DbConnection conn) => _conn = conn;
 
         [HttpGet]
         [Route("list")]
-        public Task<IActionResult> Get(QueryModels.GetAssociates request)
-            => RequestHandler.HandleQuery(() => _connection.Query(request), Log);
+        public Task<IActionResult> Get(QueryModels.GetAssociates request) => RequestHandler.HandleQuery(() => _conn.Query(request), Log);
 
         [HttpGet]
-        public Task<IActionResult> Get(QueryModels.GetAssociate request)
-            => RequestHandler.HandleQuery(() => _connection.Query(request), Log);
+        public Task<IActionResult> Get(QueryModels.GetAssociate request) => RequestHandler.HandleQuery(() => _conn.Query(request), Log);
     }
 }
