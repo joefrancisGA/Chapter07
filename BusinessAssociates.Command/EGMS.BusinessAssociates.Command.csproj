@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessAssociates.Domain\EGMS.BusinessAssociates.Domain.csproj" />
+    <ProjectReference Include="..\BusinessAssociates.Framework\EGMS.BusinessAssociates.Framework.csproj" />
+  </ItemGroup>
+</Project>

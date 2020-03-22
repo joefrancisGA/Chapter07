@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessAssociates", "Busin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{4165A9DB-563D-452C-8422-2F13E0F2CDD4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EGMS.BusinessAssociates.Command", "BusinessAssociates.Command\EGMS.BusinessAssociates.Command.csproj", "{04489C13-A502-4CCF-878C-27FB1858AC66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{ADE84FA1-3DFB-4A87-BD17-F550E80FD176}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADE84FA1-3DFB-4A87-BD17-F550E80FD176}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADE84FA1-3DFB-4A87-BD17-F550E80FD176}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04489C13-A502-4CCF-878C-27FB1858AC66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04489C13-A502-4CCF-878C-27FB1858AC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04489C13-A502-4CCF-878C-27FB1858AC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04489C13-A502-4CCF-878C-27FB1858AC66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{052039E8-FAA7-4985-A543-2BA4F683C66C} = {05ED5FD7-044A-4039-9F39-4575EF6E4AF6}
 		{E6545724-02B0-4CDF-9300-4B4F205F1D47} = {05ED5FD7-044A-4039-9F39-4575EF6E4AF6}
 		{ADE84FA1-3DFB-4A87-BD17-F550E80FD176} = {F8F995F1-D11F-401F-94E7-F3260D25B033}
+		{04489C13-A502-4CCF-878C-27FB1858AC66} = {05ED5FD7-044A-4039-9F39-4575EF6E4AF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3BF221AF-A495-45EE-81C4-988964C30CEC}

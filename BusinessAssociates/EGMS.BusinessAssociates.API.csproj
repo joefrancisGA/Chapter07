@@ -12,6 +12,7 @@
     <PackageReference Include="WebApiRouteDebugger" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessAssociates.Command\EGMS.BusinessAssociates.Command.csproj" />
     <ProjectReference Include="..\BusinessAssociates.Domain\EGMS.BusinessAssociates.Domain.csproj" />
   </ItemGroup>
 

@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using EGMS.BusinessAssociates.API.Api;
 using EGMS.BusinessAssociates.API.Infrastructure;
+using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Domain.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -69,7 +70,7 @@ namespace EGMS.BusinessAssociates.API
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Title = "Business Associates",
+                        Title = "Business Commands",
                         Version = "v1"
                     });
             });
@@ -90,7 +91,7 @@ namespace EGMS.BusinessAssociates.API
             //app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Business Associates v1"));
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Business Commands v1"));
         }
     }
 }

@@ -1,12 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using EGMS.BusinessAssociates.API.Contracts;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Repositories;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
-namespace EGMS.BusinessAssociates.API.Api
+namespace EGMS.BusinessAssociates.Command
 {
     // The application service is only used by the command API at the moment, but it can be used 
     public class AssociatesApplicationService : IApplicationService
@@ -27,7 +26,7 @@ namespace EGMS.BusinessAssociates.API.Api
             switch (command)
             {
                 // TO DO:  Are we throwing an event here?
-                case Associates.V1.Create cmd:
+                case Commands.V1.Create cmd:
 
                     if (_repository.Exists(cmd.DUNSNumber))
                         throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
@@ -41,37 +40,37 @@ namespace EGMS.BusinessAssociates.API.Api
                     break;
 
 
-                case Associates.V1.Delete cmd:
+                case Commands.V1.Delete cmd:
                     _repository.Delete(new Associate(new AssociateId(cmd.Id)));
                     break;
 
 
-                case Associates.V1.UpdateDUNSNumber cmd:
+                case Commands.V1.UpdateDUNSNumber cmd:
                     _repository.UpdateDUNSNumber(HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber))).Result);
                     break;
 
-                case Associates.V1.UpdateAssociateType cmd:
+                case Commands.V1.UpdateAssociateType cmd:
                     _repository.UpdateAssociateType(HandleUpdate(cmd.Id, ia => ia.UpdateAssociateType(cmd.AssociateType)).Result);
                     break;
 
-                case Associates.V1.UpdateLongName cmd:
+                case Commands.V1.UpdateLongName cmd:
                     _repository.UpdateLongName(HandleUpdate(cmd.Id, ia => ia.UpdateLongName(LongName.Create(cmd.LongName))).Result);
                     break;
 
-                case Associates.V1.UpdateIsParent cmd:
+                case Commands.V1.UpdateIsParent cmd:
                     _repository.UpdateIsParent(HandleUpdate(cmd.Id, ia => ia.UpdateIsParent(cmd.IsParent)).Result);
                     break;
 
-                case Associates.V1.UpdateStatus cmd:
+                case Commands.V1.UpdateStatus cmd:
                     _repository.UpdateStatus(HandleUpdate(cmd.Id, ia => ia.UpdateStatus(cmd.Status)).Result);
                     break;
 
-                case Associates.V1.UpdateShortName cmd:
+                case Commands.V1.UpdateShortName cmd:
                     _repository.UpdateShortName(HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName))).Result);
                     break;
 
                 default:
-                    throw new InvalidOperationException($"Command type {command.GetType().FullName} is unknown");
+                    throw new InvalidOperationException($"Commands type {command.GetType().FullName} is unknown");
             }
         }
 

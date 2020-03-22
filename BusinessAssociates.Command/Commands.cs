@@ -1,8 +1,8 @@
 using EGMS.BusinessAssociates.Domain.Enums;
 
-namespace EGMS.BusinessAssociates.API.Contracts
+namespace EGMS.BusinessAssociates.Command
 {
-    public static class Associates
+    public static class Commands
     {
         public static class V1
         {
