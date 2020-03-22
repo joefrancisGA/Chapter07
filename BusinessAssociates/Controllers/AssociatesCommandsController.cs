@@ -12,14 +12,14 @@ namespace EGMS.BusinessAssociates.API.Controllers
         public AssociatesCommandsController(AssociatesApplicationService appService) => _appService = appService;
 
         [HttpPost]
-        public async Task<IActionResult> Post(Commands.V1.Create request)
+        public async Task<IActionResult> Post(Commands.V1.Associate.Create request)
         {
             await _appService.Handle(request);
             return Ok();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(Commands.V1.Delete request)
+        public async Task<IActionResult> Delete(Commands.V1.Associate.Delete request)
         {
             await _appService.Handle(request);
             return Ok();
@@ -27,7 +27,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("longname")]
         [HttpPut]
-        public async Task<IActionResult> Put(Commands.V1.UpdateLongName request)
+        public async Task<IActionResult> Put(Commands.V1.Associate.UpdateLongName request)
         {
             await _appService.Handle(request);
             return Ok();
@@ -35,7 +35,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("dunsnumber")]
         [HttpPut]
-        public async Task<IActionResult> Put(Commands.V1.UpdateDUNSNumber request)
+        public async Task<IActionResult> Put(Commands.V1.Associate.UpdateDUNSNumber request)
         {
             await _appService.Handle(request);
             return Ok();
@@ -43,7 +43,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("internalassociatetype")]
         [HttpPut]
-        public async Task<IActionResult> Put(Commands.V1.UpdateAssociateType request)
+        public async Task<IActionResult> Put(Commands.V1.Associate.UpdateAssociateType request)
         {
             await _appService.Handle(request);
             return Ok();
@@ -51,7 +51,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("shortname")]
         [HttpPut]
-        public async Task<IActionResult> Put(Commands.V1.UpdateShortName request)
+        public async Task<IActionResult> Put(Commands.V1.Associate.UpdateShortName request)
         {
             await _appService.Handle(request);
             return Ok();
@@ -59,7 +59,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("status")]
         [HttpPut]
-        public async Task<IActionResult> Put(Commands.V1.UpdateStatus request)
+        public async Task<IActionResult> Put(Commands.V1.Associate.UpdateStatus request)
         {
             await _appService.Handle(request);
             return Ok();
@@ -67,7 +67,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("isparent")]
         [HttpPut]
-        public async Task<IActionResult> Put(Commands.V1.UpdateIsParent request)
+        public async Task<IActionResult> Put(Commands.V1.Associate.UpdateIsParent request)
         {
             await _appService.Handle(request);
             return Ok();
