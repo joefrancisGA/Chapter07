@@ -7,14 +7,14 @@ using Serilog;
 
 namespace EGMS.BusinessAssociates.API.Api
 {
-    [Route("/associate")]
-    public class AssociatesQueryApi : Controller
+    [Route("api/associate")]
+    public class AssociateQueriesController : Controller
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<AssociatesQueryApi>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<AssociateQueriesController>();
 
         private readonly DbConnection _connection;
 
-        public AssociatesQueryApi(DbConnection connection) => _connection = connection;
+        public AssociateQueriesController(DbConnection connection) => _connection = connection;
 
         [HttpGet]
         [Route("list")]

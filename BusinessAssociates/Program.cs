@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -9,30 +10,30 @@ namespace EGMS.BusinessAssociates.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
-        {
-            var configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+            => WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+        //var configurationBuilder = new ConfigurationBuilder()
+        //    .SetBasePath(Directory.GetCurrentDirectory())
+        //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
 
-            IConfiguration configs = configurationBuilder.Build();
+        //IConfiguration configs = configurationBuilder.Build();
 
-            string urls = configs["EGMSSettings:UseUrls"];
+        //string urls = configs["EGMSSettings:UseUrls"];
 
-            var builder = Host.CreateDefaultBuilder(args);
+        //var builder = WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
 
-            return builder.ConfigureWebHostDefaults(webBuilder =>
-            {
-                if (!string.IsNullOrEmpty(urls))
-                {
-                    webBuilder.UseUrls(urls);
-                }
-                webBuilder.UseStartup<Startup>();
-            });
-        }
+        //return builder.ConfigureWebHostDefaults(webBuilder =>
+        //{
+        //    if (!string.IsNullOrEmpty(urls))
+        //    {
+        //        webBuilder.UseUrls(urls);
+        //    }
+        //    webBuilder.UseStartup<Startup>();
+        //});
+        //}
         //static Program() =>
         //    // ReSharper disable once PossibleNullReferenceException
         //    CurrentDirectory = Path.GetDirectoryName(GetEntryAssembly().Location);

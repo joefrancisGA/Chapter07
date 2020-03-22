@@ -1,5 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using EGMS.BusinessAssociates.API.Api;
 using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Domain.Repositories;
@@ -15,10 +17,15 @@ namespace EGMS.BusinessAssociates.API
 {
     public class Startup
     {
-        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
+        public Startup(IWebHostEnvironment environment)
         {
             Environment = environment;
-            Configuration = configuration;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(environment.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            Configuration = builder.Build();
         }
 
         private IConfiguration Configuration { get; }
@@ -26,8 +33,16 @@ namespace EGMS.BusinessAssociates.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            const string connectionString =
-                "Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True"; 
+            services.AddControllers().AddJsonOptions(o =>
+            {
+                o.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                o.JsonSerializerOptions
+                    .Converters
+                    .Add(new JsonStringEnumConverter());
+            });
+
+            string connectionString = Configuration["ConnectionStrings:BusinessAssociates"];
+                //"Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True"; 
 
             services.AddScoped<DbConnection>(c => new SqlConnection(connectionString));
             services.AddTransient(_ => new EGMSDb(connectionString));
@@ -35,7 +50,7 @@ namespace EGMS.BusinessAssociates.API
             services.AddScoped<AssociatesApplicationService>();
 
             // Type converter is to get Swagger to show enum values
-            services.AddMvc();//.AddJsonOptions(options =>
+            //services.AddMvc();//.AddJsonOptions(options =>
             //    options.JsonSerializerOptions.Converters.Add(new StringEnumConverter()));
 
             services.AddSwaggerGen(c =>
@@ -58,7 +73,10 @@ namespace EGMS.BusinessAssociates.API
             
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
+            
+            app.UseEndpoints(endpoints => { endpoints.MapControllerRoute("default", "[controller]/{action=Index}/{id?}"); });
+
+            //app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Business Associates v1"));
