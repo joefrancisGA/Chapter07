@@ -18,6 +18,13 @@ namespace EGMS.BusinessAssociates.API.Controllers
             return Ok();
         }
 
+        [HttpPost("{id}/OperatingContext")]
+        public async Task<IActionResult> Post(Commands.V1.OperatingContext.Create request)
+        {
+            await _appService.Handle(request);
+            return Ok();
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(Commands.V1.Associate.Delete request)
         {
