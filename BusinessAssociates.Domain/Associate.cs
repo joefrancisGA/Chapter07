@@ -1,5 +1,8 @@
-﻿using EGMS.BusinessAssociates.Domain.Enums;
+﻿using System;
+using System.Collections.Generic;
+using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.Exceptions;
+using EGMS.BusinessAssociates.Domain.Messages;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
@@ -18,9 +21,11 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsParent { get; set; }
         public bool IsActive { get; set; }
 
+        public List<OperatingContext> OperatingContexts { get; set; }
+
         public Associate(AssociateId id)
         {
-            Apply(new Events.Events.AssociateCreated
+            Apply(new Events.AssociateCreated
             {
                 Id = id.Value
             });
@@ -30,7 +35,7 @@ namespace EGMS.BusinessAssociates.Domain
         public Associate(AssociateId id, string longName, string shortName, bool isParent,
             AssociateType associateType, Status status)
         {
-            Events.Events.AssociateCreated associateCreated = new Events.Events.AssociateCreated
+            Events.AssociateCreated associateCreated = new Events.AssociateCreated
             {
                 Id = id.Value,
                 LongName = longName,
@@ -52,73 +57,105 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
 
-        public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.Events.AssociateDUNSNumberUpdated
+        public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {
             Id = Id.Value,
             DUNSNumber = dunsNumber
         });
 
-        public void UpdateAssociateType(AssociateType associateType) => Apply(new Events.Events.AssociateTypeUpdated
+        public void UpdateAssociateType(AssociateType associateType) => Apply(new Events.AssociateTypeUpdated
         {
             Id = Id.Value,
             AssociateType = (int)associateType
 
         });
 
-        public void UpdateLongName(LongName longName) => Apply(new Events.Events.AssociateLongNameUpdated
+        public void UpdateLongName(LongName longName) => Apply(new Events.AssociateLongNameUpdated
         {
             Id = Id.Value,
             LongName = longName.Value
         });
 
-        public void UpdateIsParent(bool isParent) => Apply(new Events.Events.AssociateIsParentUpdated
+        public void UpdateIsParent(bool isParent) => Apply(new Events.AssociateIsParentUpdated
         {
             Id = Id.Value,
             IsParent = isParent
         });
 
-        public void UpdateStatus(Status status) => Apply(new Events.Events.AssociateStatusUpdated
+        public void UpdateStatus(Status status) => Apply(new Events.AssociateStatusUpdated
         {
             Id = Id.Value,
             Status = (int)status
         });
 
-        public void UpdateShortName(ShortName shortName) => Apply(new Events.Events.AssociateShortNameUpdated
+        public void UpdateShortName(ShortName shortName) => Apply(new Events.AssociateShortNameUpdated
         {
             Id = Id.Value,
             ShortName = shortName.Value
         });
 
+        public void AddOperatingContext(AssociateId associateId, OperatingContextType operatingContextType, DatabaseId facilityId, 
+            DatabaseId thirdPartySupplierId, AssociateType actingBATypeId, NullableDatabaseId certificationId, bool isDeactivating,
+            int legacyId, DatabaseId primaryAddressId, DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
+            DateTime startDate, Status status)
+        {
+            Apply(new Events.AssociateAddNewOperatingContext
+            {
+                AssociateId = associateId,
+                OperatingContextType = (int)operatingContextType,
+                FacilityId = facilityId,
+                ThirdPartySupplierId = thirdPartySupplierId, 
+                ActingBATypeId = (int)actingBATypeId,
+                CertificationId = certificationId,
+                IsDeactivating = isDeactivating, 
+                LegacyId = legacyId, 
+                PrimaryAddressId = primaryAddressId, 
+                PrimaryEmailId = primaryEmailId, 
+                PrimaryPhoneId  = primaryPhoneId, 
+                ProviderTypeId = providerTypeId, 
+                StartDate = startDate, 
+                StatusId = (int)status
+            });
+        }
+
         protected override void When(object @event)
         {
+            OperatingContext operatingContext;
+
             switch (@event)
             {
-                case Events.Events.AssociateCreated e:
+                case Events.AssociateCreated e:
                     Id = new AssociateId(e.Id);
                     break;
 
-                case Events.Events.AssociateDUNSNumberUpdated e:
+                case Events.AssociateDUNSNumberUpdated e:
                     DUNSNumber = DUNSNumber.Create(e.DUNSNumber);
                     break;
 
-                case Events.Events.AssociateIsParentUpdated e:
+                case Events.AssociateIsParentUpdated e:
                     IsParent = e.IsParent;
                     break;
 
-                case Events.Events.AssociateLongNameUpdated e:
+                case Events.AssociateLongNameUpdated e:
                     LongName = LongName.Create(e.LongName);
                     break;
 
-                case Events.Events.AssociateShortNameUpdated e:
+                case Events.AssociateShortNameUpdated e:
                     ShortName = ShortName.Create(e.ShortName);
                     break;
 
-                case Events.Events.AssociateStatusUpdated e:
+                case Events.AssociateStatusUpdated e:
                     Status = (Status)e.Status;
                     break;
 
-                case Events.Events.AssociateTypeUpdated e:
+                case Events.AssociateTypeUpdated e:
                     AssociateType = (AssociateType)e.AssociateType;
+                    break;
+
+                case Events.AssociateAddNewOperatingContext e:
+                    //operatingContext = new OperatingContext(Apply);
+                    //ApplyToEntity(operatingContext, e);
+                    //OperatingContexts.Add(operatingContext);
                     break;
             }
         }
@@ -139,5 +176,24 @@ namespace EGMS.BusinessAssociates.Domain
             if (!valid)
                 throw new InvalidEntityStateException(this, "Post-checks failed");
         }
+
+
+        public void AddOperatingContext(OperatingContext operatingContext) =>
+            Apply(new Events.AssociateAddNewOperatingContext
+                {
+                    OperatingContextType = (int)operatingContext.OperatingContextType,
+                    FacilityId = operatingContext.FacilityId,
+                    ThirdPartySupplierId = operatingContext.ThirdPartySupplierId,
+                    LegacyId = operatingContext.LegacyId,
+                    ActingBATypeId = (int)operatingContext.ActingBAType,
+                    CertificationId = operatingContext.CertificationId,
+                    StatusId = (int)operatingContext.Status,
+                    IsDeactivating = operatingContext.IsDeactivating,
+                    StartDate = operatingContext.StartDate,
+                    PrimaryEmailId = operatingContext.PrimaryEmailId,
+                    PrimaryPhoneId = operatingContext.PrimaryPhoneId,
+                    PrimaryAddressId = operatingContext.PrimaryAddressId
+                }
+            );
     }
 }

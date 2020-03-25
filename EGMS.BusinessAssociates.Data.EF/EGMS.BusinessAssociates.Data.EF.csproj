@@ -1,13 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <Compile Remove="AssociateRepository.cs" />
+    <Compile Remove="TypeConfigurations\FacilityDetailConfiguration.cs" />
+    <Compile Remove="TypeConfigurations\FacilityTypeConfiguration.cs" />
+    <Compile Remove="TypeConfigurations\FacilityTypeConfigurations.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\BusinessAssociates.Domain\EGMS.BusinessAssociates.Domain.csproj" />
     <ProjectReference Include="..\BusinessAssociates.Framework\EGMS.BusinessAssociates.Framework.csproj" />
     <ProjectReference Include="..\EGMS.BusinessAssociates.Query\EGMS.BusinessAssociates.Query.csproj" />
   </ItemGroup>
+
 </Project>

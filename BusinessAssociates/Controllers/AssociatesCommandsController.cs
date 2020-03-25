@@ -1,6 +1,10 @@
+using System;
 using System.Threading.Tasks;
+using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
 
 namespace EGMS.BusinessAssociates.API.Controllers
 {
@@ -8,18 +12,16 @@ namespace EGMS.BusinessAssociates.API.Controllers
     public class AssociatesCommandsController : Controller
     {
         private readonly AssociatesApplicationService _appService;
+        private readonly ILogger<AssociatesCommandsController> _log;
 
-        public AssociatesCommandsController(AssociatesApplicationService appService) => _appService = appService;
+        public AssociatesCommandsController(AssociatesApplicationService appService, ILogger<AssociatesCommandsController> log)
+        {
+            _appService = appService;
+            _log = log;
+        }
 
         [HttpPost]
         public async Task<IActionResult> Post(Commands.V1.Associate.Create request)
-        {
-            await _appService.Handle(request);
-            return Ok();
-        }
-
-        [HttpPost("{id}/OperatingContext")]
-        public async Task<IActionResult> Post(Commands.V1.OperatingContext.Create request)
         {
             await _appService.Handle(request);
             return Ok();
@@ -79,5 +81,35 @@ namespace EGMS.BusinessAssociates.API.Controllers
             await _appService.Handle(request);
             return Ok();
         }
+
+        [Route("operatingcontexts")]
+        [HttpPost]
+        public async Task<IActionResult> Post(Commands.V1.OperatingContext.Create request)
+        {
+            try
+            {
+                var result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
+
+                return CreatedAtAction("Post", result);
+            }
+            catch (Exception exc)
+            {
+                return new BadRequestObjectResult(
+                    new
+                    {
+                        error = exc.Message,
+                        stackTrace = exc.StackTrace
+                    });
+            }
+        }
+
+        [Route("{associateId}/operatingcontexts")]
+        [HttpPost]
+        public async Task<IActionResult> Post(int associateId, Commands.V1.OperatingContext.Create request)
+        {
+            request.AssociateId = associateId;
+            return await Post(request);
+        }
+
     }
 }

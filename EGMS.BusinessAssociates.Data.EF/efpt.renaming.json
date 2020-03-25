@@ -1,0 +1,103 @@
+[
+    {
+        "UseSchemaName": false,
+        "SchemaName": "dbo",
+        "Tables": [
+            {
+                "Name": "tblAggregatePool",
+                "NewName": "AggregatePool"
+            },
+            {
+                "Name": "tblAsset",
+                "NewName": "Asset"
+            },
+            {
+                "Name": "tblPoolType",
+                "NewName": "PoolType"
+            },
+            {
+                "Name": "tblAllocationMethod",
+                "NewName": "AllocationMethod"
+            },
+            {
+                "Name": "tblAssetType",
+                "NewName": "AssetType"
+            },
+            {
+                "Name": "tblBasicPool",
+                "NewName": "BasicPool"
+            },
+            {
+                "Name": "tblConfirmationLevel",
+                "NewName": "ConfirmationLevel"
+            },
+            {
+                "Name": "tblFacilityDetail",
+                "NewName": "FacilityDetail"
+            },
+            {
+                "Name": "tblFacilityType",
+                "NewName": "FacilityType"
+            },
+            {
+                "Name": "tblFacility",
+                "NewName": "Facility"
+            },
+            {
+                "Name": "tblLocation",
+                "NewName": "Location",
+
+                "Columns": [
+                    {
+                        "Name": "LocName",
+                        "NewName": "Name"
+                    },
+                    {
+                        "Name": "LocStreetAddress",
+                        "NewName": "StreetAddress"
+                    },
+                    {
+                        "Name": "LocStreetAddress2",
+                        "NewName": "StreetAddress2"
+                    },
+                    {
+                        "Name": "LocState",
+                        "NewName": "State"
+                    },
+                    {
+                        "Name": "LocZip",
+                        "NewName": "Zip"
+                    }
+
+                ]
+            },
+            {
+                "Name": "tblLocationType",
+                "NewName": "LocationType"
+            },
+            {
+                "Name": "tblPrimaryPool",
+                "NewName": "PrimaryPool"
+            },
+            {
+                "Name": "tblTimeZone",
+                "NewName": "FacTimeZone"
+            },
+            {
+                "Name": "tblUnitOfMeasure",
+                "NewName": "UnitOfMeasure",
+                "Columns": [
+                    {
+                        "Name": "UOMName",
+                        "NewName": "UOMName"
+                    },
+                    {
+                        "Name": "UOMDesc",
+                        "NewName": "UOMDesc"
+                    }
+                ]
+            }
+
+        ]
+    }
+]

@@ -1,6 +1,7 @@
-﻿using EGMS.BusinessAssociates.Domain.Enums;
+﻿using System;
+using EGMS.BusinessAssociates.Domain.Enums;
 
-namespace EGMS.BusinessAssociates.Domain.Events
+namespace EGMS.BusinessAssociates.Domain.Messages
 {
     public static class Events
     {
@@ -53,7 +54,22 @@ namespace EGMS.BusinessAssociates.Domain.Events
 
         public class AssociateAddNewOperatingContext
         {
+            public int AssociateId { get; set; }
+            public int OperatingContextType { get; set; }
+            public int FacilityId { get; set; }
+            public int ThirdPartySupplierId { get; set; }
 
+            // TO DO:  Not sure what to do with the type for LegacyId
+            public int LegacyId { get; set; }
+            public int ProviderTypeId { get; set; }
+            public int ActingBATypeId { get; set; }
+            public int? CertificationId { get; set; }
+            public int StatusId { get; set; }
+            public bool IsDeactivating { get; set; }
+            public DateTime StartDate { get; set; }
+            public int PrimaryEmailId { get; set; }
+            public int PrimaryPhoneId { get; set; }
+            public int PrimaryAddressId { get; set; }
         }
     }
 }

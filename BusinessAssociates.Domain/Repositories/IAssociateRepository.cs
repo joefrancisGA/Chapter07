@@ -1,10 +1,11 @@
+using System.Threading.Tasks;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 
 namespace EGMS.BusinessAssociates.Domain.Repositories
 {
     public interface IAssociateRepository
     {
-        Associate Load(AssociateId id);
+        Task<Associate> Load(AssociateId id);
 
         void Add(Associate entity);
 

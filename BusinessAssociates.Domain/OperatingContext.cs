@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public abstract class OperatingContext : Entity<DatabaseId>
+    public class OperatingContext : Entity<DatabaseId>
     {
         public OperatingContextType OperatingContextType { get; set; }
         public DatabaseId FacilityId { get; set; }
@@ -15,7 +15,7 @@ namespace EGMS.BusinessAssociates.Domain
         public int LegacyId { get; set; }
         public ProviderType ProviderType { get; set; }
         public AssociateType ActingBAType { get; set; }
-        public Certification Certification { get; set; }
+        public NullableDatabaseId CertificationId { get; set; }
 
         // TO DO:  Do we really have a "set" of roles for the operating context?
         public Role Role { get; set; }
@@ -27,13 +27,17 @@ namespace EGMS.BusinessAssociates.Domain
         public Phone PrimaryPhone { get; set; }
         public Address PrimaryAddress { get; set; }
 
-        //public OperatingContext(OperatingContextType operatingContextType)
-        //{
+        public DatabaseId PrimaryEmailId { get; set; }
+        public DatabaseId PrimaryPhoneId { get; set; }
+        public DatabaseId PrimaryAddressId { get; set; }
 
-        //}
-
-        protected OperatingContext(Action<object> applier) : base(applier)
+        public OperatingContext(Action<object> applier) : base(applier)
         {
+        }
+
+        protected override void When(object @event)
+        {
+            throw new NotImplementedException();
         }
     }
 }

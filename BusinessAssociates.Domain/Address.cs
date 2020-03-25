@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Address : Entity<DatabaseId>
+    public class Address// : Entity<DatabaseId>
     {
         public AddressType AddressType { get; set; }
         public AddressLine Address1 { get; set; }
@@ -23,13 +23,13 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsPrimary { get; set; }
         public bool IsActive { get; set; }
 
-        public Address(Action<object> applier) : base(applier)
-        {
-        }
+        //public Address(Action<object> applier) : base(applier)
+        //{
+        //}
 
-        protected override void When(object @event)
-        {
-            throw new NotImplementedException();
-        }
+        //protected override void When(object @event)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

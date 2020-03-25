@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace EGMS.BusinessAssociates.API.Infrastructure
 {
@@ -11,13 +11,13 @@ namespace EGMS.BusinessAssociates.API.Infrastructure
         {
             try
             {
-                log.Debug("Handling HTTP request of type {type}", typeof(T).Name);
+                log.LogDebug("Handling HTTP request of type {type}", typeof(T).Name);
                 await handler(request);
                 return new OkResult();
             }
             catch (Exception e)
             {
-                log.Error(e, "Error handling the command");
+                log.LogError(e, "Error handling the command");
                 return new BadRequestObjectResult(new
                 {
                     error = e.Message,
@@ -34,7 +34,7 @@ namespace EGMS.BusinessAssociates.API.Infrastructure
             }
             catch (Exception e)
             {
-                log.Error(e, "Error handling the query");
+                log.LogError(e, "Error handling the query");
                 return new BadRequestObjectResult(new
                 {
                     error = e.Message,

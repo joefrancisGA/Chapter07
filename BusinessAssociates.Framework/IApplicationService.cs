@@ -4,6 +4,6 @@ namespace EGMS.BusinessAssociates.Framework
 {
     public interface IApplicationService
     {
-        Task Handle(object command);
+        Task <object>Handle(object command);
     }
 }

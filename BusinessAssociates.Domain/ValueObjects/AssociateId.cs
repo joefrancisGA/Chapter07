@@ -15,6 +15,11 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
             Value = value;
         }
 
+        public static AssociateId FromInt(int value)
+        {
+            return new AssociateId(value);
+        }
+
         public static implicit operator int(AssociateId self) => self.Value;
         public static implicit operator AssociateId(int value) => new AssociateId(value);
 

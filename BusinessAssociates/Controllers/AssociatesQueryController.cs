@@ -3,23 +3,28 @@ using System.Threading.Tasks;
 using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.API.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
+using Microsoft.Extensions.Logging;
+
 
 namespace EGMS.BusinessAssociates.API.Controllers
 {
     [Route("api/associate")]
     public class AssociateQueriesController : Controller
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<AssociateQueriesController>();
+        private ILogger _log;
         private readonly DbConnection _conn;
 
-        public AssociateQueriesController(DbConnection conn) => _conn = conn;
+        public AssociateQueriesController(DbConnection conn, ILogger<AssociateQueriesController> log)
+        {
+            _log = log;
+            _conn = conn;
+        }
 
         [HttpGet]
         [Route("list")]
-        public Task<IActionResult> Get(QueryModels.GetAssociates request) => RequestHandler.HandleQuery(() => _conn.Query(request), Log);
+        public Task<IActionResult> Get(QueryModels.GetAssociates request) => RequestHandler.HandleQuery(() => _conn.Query(request), _log);
 
         [HttpGet]
-        public Task<IActionResult> Get(QueryModels.GetAssociate request) => RequestHandler.HandleQuery(() => _conn.Query(request), Log);
+        public Task<IActionResult> Get(QueryModels.GetAssociate request) => RequestHandler.HandleQuery(() => _conn.Query(request), _log);
     }
 }

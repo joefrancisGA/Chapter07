@@ -1,9 +1,13 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
+using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.Repositories;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
+using EGMS.BusinessAssociates.Query.ReadModels;
 
 namespace EGMS.BusinessAssociates.Command
 {
@@ -11,18 +15,22 @@ namespace EGMS.BusinessAssociates.Command
     public class AssociatesApplicationService : IApplicationService
     {
         private readonly IAssociateRepository _repository;
-        //private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public AssociatesApplicationService(IAssociateRepository repository/*, IUnitOfWork unitOfWork*/)
+        public AssociatesApplicationService(IAssociateRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
-            //_unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
 #pragma warning disable 1998
-        public async Task Handle(object command)
+        public async Task<object> Handle(object command)
 #pragma warning restore 1998
         {
+            object retVal = null;
+
             switch (command)
             {
                 // TO DO:  Are we throwing an event here?
@@ -70,21 +78,24 @@ namespace EGMS.BusinessAssociates.Command
                     break;
 
                 case Commands.V1.OperatingContext.Create cmd:
-                    //OperatingContext operatingContext = new OperatingContext(new AssociateId(cmd.DUNSNumber), cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
-
-                    //_repository.AddOperatingContext(HandleUpdate());
+                {
+                    var result = HandleAddOperatingContext(cmd);
+                    retVal = await result;
                     break;
+                }
 
                 default:
                     throw new InvalidOperationException($"Commands type {command.GetType().FullName} is unknown");
             }
+
+            return retVal;
         }
 
 #pragma warning disable 1998
         private async Task<Associate> HandleUpdate(int associateId, Action<Associate> operation)
 #pragma warning restore 1998
         {
-            Associate associate = _repository.Load(associateId);
+            Associate associate = _repository.Load(associateId).Result;
 
             if (associate == null)
                 throw new InvalidOperationException($"Entity with id {associateId} cannot be found");
@@ -94,6 +105,28 @@ namespace EGMS.BusinessAssociates.Command
             return associate;
 
             //await _unitOfWork.Commit();
+        }
+
+        private async Task<OperatingContextRM> HandleAddOperatingContext(Commands.V1.OperatingContext.Create cmd)
+        {
+            var associate = await _repository
+                .Load(AssociateId.FromInt(cmd.AssociateId));
+
+            if (associate == null)
+                throw new InvalidOperationException($"Entity with id {cmd.AssociateId} cannot be found");
+
+
+            associate.AddOperatingContext(AssociateId.FromInt(cmd.AssociateId), (OperatingContextType)cmd.OperatingContextType, cmd.FacilityId,
+                DatabaseId.FromInt(cmd.ThirdPartySupplierId), (AssociateType)cmd.ActingBATypeID, cmd.CertificationId, cmd.IsDeactivating,
+                cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId, cmd.ProviderType, cmd.StartDate, (Status)cmd.Status);
+
+            await _unitOfWork.Commit();
+
+            OperatingContext operatingContext = associate.OperatingContexts.Last();
+
+            var retVal = _mapper.Map<OperatingContextRM>(operatingContext);
+
+            return retVal;
         }
     }
 }
