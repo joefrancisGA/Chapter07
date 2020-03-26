@@ -3,11 +3,10 @@ using System.Data.SqlClient;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using AutoMapper;
-using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
-using EGMS.BusinessAssociates.Data;
 using EGMS.BusinessAssociates.Data.EF;
 using EGMS.BusinessAssociates.Domain.Repositories;
+using EGMS.BusinessAssociates.Framework;
 using EGMS.Facilities.Data.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,7 +49,7 @@ namespace EGMS.BusinessAssociates.API
             });
 
             // Just statically reference the EF automapper config for now.
-            var mappingConfig = new MapperConfiguration(mc =>
+            MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperEF(Configuration));
             });
@@ -78,17 +77,14 @@ namespace EGMS.BusinessAssociates.API
             services.AddScoped<IAssociateRepository, AssociateRepositoryEF>();
             //services.AddScoped<IAssociateRepository>(x => new AssociateRepository(x.GetRequiredService<EGMSDb>()));
             services.AddScoped<AssociatesApplicationService>();
-
-            // Type converter is to get Swagger to show enum values
-            //services.AddMvc();//.AddJsonOptions(options =>
-            //    options.JsonSerializerOptions.Converters.Add(new StringEnumConverter()));
+            services.AddScoped<IUnitOfWork, AssociateUnitOfWorkEF>();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Title = "Business Commands",
+                        Title = "Business Associates",
                         Version = "v1"
                     });
             });

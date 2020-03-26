@@ -70,8 +70,8 @@ namespace EGMS.BusinessAssociates.Data
             if (!reader.Read())
                 return null;
 
-            Associate associate = new Associate(new AssociateId(Convert.ToInt32(reader[0])))
-            {
+            Associate associate = new Associate
+            { 
                 DUNSNumber = DUNSNumber.Create(Convert.ToInt32(reader[1])),
                 LongName = LongName.Create(reader[2].ToString()),
                 ShortName = ShortName.Create(reader[3].ToString()),

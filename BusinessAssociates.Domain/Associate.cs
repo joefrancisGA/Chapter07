@@ -23,15 +23,17 @@ namespace EGMS.BusinessAssociates.Domain
 
         public List<OperatingContext> OperatingContexts { get; set; }
 
-        public Associate(AssociateId id)
-        {
-            Apply(new Events.AssociateCreated
-            {
-                Id = id.Value
-            });
-        }
+        //public Associate(AssociateId id)
+        //{
+        //    Apply(new Events.AssociateCreated
+        //    {
+        //        Id = id.Value
+        //    });
+        //}
 
-        // TO DO:  Skip the ID before creating the Associate
+        public Associate() { }
+
+        //TO DO:  Skip the ID before creating the Associate
         public Associate(AssociateId id, string longName, string shortName, bool isParent,
             AssociateType associateType, Status status)
         {
@@ -195,5 +197,28 @@ namespace EGMS.BusinessAssociates.Domain
                     PrimaryAddressId = operatingContext.PrimaryAddressId
                 }
             );
+
+        public static Associate Create(
+            ShortName shortName,
+            LongName longName,
+            AssociateType associateType,
+            bool isParent,
+            Status status)
+        {
+            var associate = new Associate();
+
+            associate.Apply(
+                new Events.AssociateCreated
+                {
+                    ShortName = shortName,
+                    LongName = longName,
+                    AssociateType = associateType,
+                    IsParent = isParent,
+                    Status = status
+                }
+            );
+
+            return associate;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 
+using System.Net.NetworkInformation;
 using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain.ValueObjects
@@ -14,6 +15,11 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
         }
 
         public static LongName Create(string longName)
+        {
+            return new LongName(longName);
+        }
+
+        public static LongName FromString(string longName)
         {
             return new LongName(longName);
         }

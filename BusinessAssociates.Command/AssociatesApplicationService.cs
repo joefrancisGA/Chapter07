@@ -9,6 +9,7 @@ using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 using EGMS.BusinessAssociates.Query.ReadModels;
 
+
 namespace EGMS.BusinessAssociates.Command
 {
     // The application service is only used by the command API at the moment, but it can be used 
@@ -48,9 +49,9 @@ namespace EGMS.BusinessAssociates.Command
                     break;
 
 
-                case Commands.V1.Associate.Delete cmd:
-                    _repository.Delete(new Associate(new AssociateId(cmd.Id)));
-                    break;
+                //case Commands.V1.Associate.Delete cmd:
+                //    _repository.Delete(new Associate(new AssociateId(cmd.Id)));
+                //    break;
 
 
                 case Commands.V1.Associate.UpdateDUNSNumber cmd:
@@ -128,5 +129,26 @@ namespace EGMS.BusinessAssociates.Command
 
             return retVal;
         }
+
+        private async Task<AssociateRM> HandleCreate(Commands.V1.Associate.Create cmd)
+        {
+            // probably should create the FacilityDetail as part of the Facility create
+            // since they are both needed, BUT - for now treating FacilityDetail as 
+            // a regular child of Facility.
+            var associate = Associate.Create(
+                ShortName.FromString(cmd.ShortName),
+                LongName.FromString(cmd.LongName), cmd.AssociateType, cmd.IsParent, cmd.Status);
+
+            _repository.Add(associate);
+
+            await _unitOfWork.Commit();
+
+            // TODO:  Dispatch Events.
+
+            var retVal = _mapper.Map<AssociateRM>(associate);
+
+            return retVal;
+        }
+
     }
 }

@@ -16,6 +16,11 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
             return new ShortName(value);
         }
 
+        public static ShortName FromString(string value)
+        {
+            return new ShortName(value);
+        }
+
         public static implicit operator string(ShortName shortName)
         {
             return shortName.Value;
