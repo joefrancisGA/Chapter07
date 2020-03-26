@@ -1,10 +1,10 @@
 ﻿using EGMS.Common.ValueTypes;
 using System;
+using EGMS.Common;
 
 namespace EGMS.Common
 {
     public abstract class Entity<TId> : IInternalEventHandler
-       where TId : EGMSValue<TId>
     {
         private readonly Action<object> _applier;
 

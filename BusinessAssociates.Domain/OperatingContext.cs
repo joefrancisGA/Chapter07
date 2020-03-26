@@ -35,9 +35,12 @@ namespace EGMS.BusinessAssociates.Domain
         {
         }
 
+        protected OperatingContext() { }
+
         protected override void When(object @event)
         {
             throw new NotImplementedException();
         }
     }
 }
+

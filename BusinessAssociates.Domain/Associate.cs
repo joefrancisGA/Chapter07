@@ -155,9 +155,9 @@ namespace EGMS.BusinessAssociates.Domain
                     break;
 
                 case Events.AssociateAddNewOperatingContext e:
-                    //operatingContext = new OperatingContext(Apply);
-                    //ApplyToEntity(operatingContext, e);
-                    //OperatingContexts.Add(operatingContext);
+                    operatingContext = new OperatingContext(Apply);
+                    ApplyToEntity(operatingContext, e);
+                    OperatingContexts.Add(operatingContext);
                     break;
             }
         }
