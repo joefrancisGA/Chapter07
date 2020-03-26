@@ -58,10 +58,10 @@ namespace EGMS.BusinessAssociates.API
             services.AddSingleton(mapper);
 
 
-            services.AddControllers().AddJsonOptions(o =>
+            services.AddControllers().AddJsonOptions(options =>
             {
-                o.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                o.JsonSerializerOptions
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.JsonSerializerOptions
                     .Converters
                     .Add(new JsonStringEnumConverter());
             });
