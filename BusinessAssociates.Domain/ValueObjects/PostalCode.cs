@@ -4,9 +4,12 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain.ValueObjects
 {
-    public class PostalCode : Value<City>
+    public class PostalCode : Value<PostalCode>
     {
         public string Value { get; }
+
+
+        public PostalCode() { }
 
         private PostalCode(string value)
         {

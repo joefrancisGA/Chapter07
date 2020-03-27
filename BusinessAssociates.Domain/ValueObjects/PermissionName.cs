@@ -4,28 +4,32 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain.ValueObjects
 {
-    public class PermissionDescription : Value<PermissionDescription>
+    public class PermissionName : Value<PermissionName>
     {
         public string Value { get; }
 
-        private PermissionDescription(string value)
+        public PermissionName()
+        {
+        }
+
+        private PermissionName(string value)
         {
             Value = value;
         }
 
-        public static PermissionDescription Create(string permissionDescription)
+        public static PermissionName Create(string permissionName)
         {
-            return new PermissionDescription(permissionDescription);
+            return new PermissionName(permissionName);
         }
 
-        public static implicit operator string(PermissionDescription permissionDescription)
+        public static implicit operator string(PermissionName permissionName)
         {
-            return permissionDescription.Value;
+            return permissionName.Value;
         }
 
-        public static explicit operator PermissionDescription(string permissionDescription)
+        public static explicit operator PermissionName(string permissionName)
         {
-            return new PermissionDescription(permissionDescription);
+            return new PermissionName(permissionName);
         }
     }
 }
