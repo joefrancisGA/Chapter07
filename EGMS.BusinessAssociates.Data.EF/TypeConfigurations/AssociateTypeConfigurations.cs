@@ -14,6 +14,7 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new PhoneConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new AddressConfiguration());
         }
     }
 }

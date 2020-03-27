@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class OperatingContext : Entity<DatabaseId>
+    public class OperatingContext : Entity<int>
     {
         public OperatingContextType OperatingContextType { get; set; }
         public DatabaseId FacilityId { get; set; }

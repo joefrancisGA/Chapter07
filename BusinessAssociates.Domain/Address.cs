@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Address : Entity<DatabaseId>
+    public class Address : Entity<int>
     {
         public AddressType AddressType { get; set; }
         public AddressLine Address1 { get; set; }
