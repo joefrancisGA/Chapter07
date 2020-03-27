@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Permission : Entity<DatabaseId>
+    public class Permission : Entity<int>
     {
         public PermissionName PermissionName { get; set; }
         public PermissionDescription PermissionDescription { get; set; }

@@ -12,9 +12,6 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
                 .HasColumnName("Id")
                 .ValueGeneratedOnAdd();
 
-            //builder.OwnsOne(address => address.Id,
-            //    cb => { cb.Property(e => e.Value).HasColumnName("Id"); });
-
             builder.HasKey(address => address.Id);
         }
     }

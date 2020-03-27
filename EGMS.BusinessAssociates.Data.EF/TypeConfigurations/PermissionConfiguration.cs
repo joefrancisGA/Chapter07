@@ -8,8 +8,11 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Permission> builder)
         {
-            builder.OwnsOne(oc => oc.Id,
-                cb => { cb.Property(e => e.Value).HasColumnName("Id"); });
+            builder.Property(oc => oc.Id)
+                .HasColumnName("Id")
+                .ValueGeneratedOnAdd();
+
+            builder.HasKey(oc => oc.Id);
         }
     }
 }

@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Phone : Entity<DatabaseId>
+    public class Phone : Entity<int>
     {
         public DatabaseId UserId { get; set; }
         public PhoneType PhoneType { get; set; }

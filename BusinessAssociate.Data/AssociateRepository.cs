@@ -214,7 +214,9 @@ namespace EGMS.BusinessAssociates.Data
 
                 cmd.Transaction.Commit();
             }
+#pragma warning disable 168
             catch (Exception ex)
+#pragma warning restore 168
             {
                 cmd.Transaction.Rollback();
 

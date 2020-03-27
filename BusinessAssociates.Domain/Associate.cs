@@ -160,8 +160,8 @@ namespace EGMS.BusinessAssociates.Domain
 
         protected override void EnsureValidState()
         {
-            var valid =
-                Id != null;// &&
+            var valid = true;
+                //Id != null;// &&
                            //State switch
                            //{
                            //    InternalAssociateState.PendingReview =>
