@@ -16,6 +16,9 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             
             builder.OwnsOne(phone => phone.PermissionDescription,
                 cb => { cb.Property(e => e.Value).HasColumnName("PermissionConfiguration"); });
+
+            builder.OwnsOne(phone => phone.PermissionName,
+                cb => { cb.Property(e => e.Value).HasColumnName("PermissionName"); });
         }
     }
 }

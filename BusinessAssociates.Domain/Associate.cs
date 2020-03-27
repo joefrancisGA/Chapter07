@@ -34,12 +34,12 @@ namespace EGMS.BusinessAssociates.Domain
         public Associate() { }
 
         //TO DO:  Skip the ID before creating the Associate
-        public Associate(AssociateId id, string longName, string shortName, bool isParent,
+        public Associate(int id, string longName, string shortName, bool isParent,
             AssociateType associateType, Status status)
         {
             Events.AssociateCreated associateCreated = new Events.AssociateCreated
             {
-                Id = id.Value,
+                Id = id,
                 LongName = longName,
                 ShortName = shortName,
                 IsParent = isParent,
@@ -48,7 +48,7 @@ namespace EGMS.BusinessAssociates.Domain
             };
 
             Id = id;
-            DUNSNumber = DUNSNumber.Create(id.Value);
+            DUNSNumber = DUNSNumber.Create(id);
             LongName = LongName.Create(longName);
             ShortName = ShortName.Create(shortName);
             IsParent = isParent;
@@ -61,15 +61,12 @@ namespace EGMS.BusinessAssociates.Domain
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {
-            Id = Id,
             DUNSNumber = dunsNumber
         });
 
         public void UpdateAssociateType(AssociateType associateType) => Apply(new Events.AssociateTypeUpdated
         {
-            Id = Id,
             AssociateType = (int)associateType
-
         });
 
         public void UpdateLongName(LongName longName) => Apply(new Events.AssociateLongNameUpdated
@@ -118,8 +115,6 @@ namespace EGMS.BusinessAssociates.Domain
 
         protected override void When(object @event)
         {
-            OperatingContext operatingContext;
-
             switch (@event)
             {
                 case Events.AssociateCreated e:
@@ -151,7 +146,7 @@ namespace EGMS.BusinessAssociates.Domain
                     break;
 
                 case Events.AssociateAddNewOperatingContext e:
-                    operatingContext = new OperatingContext(Apply);
+                    OperatingContext operatingContext = new OperatingContext(Apply);
                     ApplyToEntity(operatingContext, e);
                     OperatingContexts.Add(operatingContext);
                     break;

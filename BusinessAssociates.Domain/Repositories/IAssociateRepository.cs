@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
+
 
 namespace EGMS.BusinessAssociates.Domain.Repositories
 {
     public interface IAssociateRepository
     {
-        Task<Associate> Load(AssociateId id);
+        Task<Associate> Load(int id);
 
         void Add(Associate entity);
 
@@ -23,8 +23,8 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         void UpdateShortName(Associate entity);
         
-        bool Exists(AssociateId id);
+        bool Exists(int id);
 
-        void AddOperatingContext(AssociateId id, OperatingContext operatingContext);
+        void AddOperatingContext(int id, OperatingContext operatingContext);
     }
 }

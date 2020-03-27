@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Repositories;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.Facilities.Data.EF;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -26,10 +25,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public int GetNextAssociateId()
         {
-            var p = new SqlParameter("@result", System.Data.SqlDbType.Int);
-            p.Direction = System.Data.ParameterDirection.Output;
-            _context.Database.ExecuteSqlRaw("SET @result = NEXT VALUE FOR AssociateSequence", p);
-            var nextVal = (int)p.Value;
+            SqlParameter parameter = new SqlParameter("@result", System.Data.SqlDbType.Int)
+            {
+                Direction = System.Data.ParameterDirection.Output
+            };
+
+            _context.Database.ExecuteSqlRaw("SET @result = NEXT VALUE FOR AssociateSequence", parameter);
+            var nextVal = (int)parameter.Value;
             return nextVal;
         }
 
@@ -73,19 +75,19 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public bool Exists(AssociateId id)
+        public bool Exists(int id)
         {
             Associate associate = _context.Associates.FindAsync(id).Result;
 
             return associate != null;
         }
 
-        public void AddOperatingContext(AssociateId id, OperatingContext operatingContext)
+        public void AddOperatingContext(int id, OperatingContext operatingContext)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Associate> Load(AssociateId id)
+        public async Task<Associate> Load(int id)
         {
             var facilityEF = await _context.Associates.FindAsync(id);
 
@@ -96,14 +98,13 @@ namespace EGMS.BusinessAssociates.Data.EF
             return facility;
         }
 
-        public async Task Update(Associate facility)
+        public async Task Update(Associate associate)
         {
-            var facilityEF = await _context.Associates.FindAsync(facility.Id);
+            Associate associateEF = await _context.Associates.FindAsync(associate.Id);
 
-            if (facilityEF == null)
+            if (associateEF == null)
             {
-                // Exception?  Add it?
-                throw new Exception($"Facility { (int)facility.Id } not found for Update.");
+                throw new Exception($"Associate {associate.Id } not found for Update.");
             }
 
             //_mapper.Map<Domain.Models.Facility, Facility>(facility, facilityEF);

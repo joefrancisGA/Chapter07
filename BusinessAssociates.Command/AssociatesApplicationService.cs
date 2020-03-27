@@ -40,7 +40,7 @@ namespace EGMS.BusinessAssociates.Command
                     if (_repository.Exists(cmd.DUNSNumber))
                         throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
 
-                    Associate associate = new Associate(new AssociateId(cmd.DUNSNumber), cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
+                    Associate associate = new Associate(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
 
                     _repository.Add(associate);
 
@@ -117,7 +117,7 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Entity with id {cmd.AssociateId} cannot be found");
 
 
-            associate.AddOperatingContext(AssociateId.FromInt(cmd.AssociateId), (OperatingContextType)cmd.OperatingContextType, cmd.FacilityId,
+            associate.AddOperatingContext(cmd.AssociateId, (OperatingContextType)cmd.OperatingContextType, cmd.FacilityId,
                 DatabaseId.FromInt(cmd.ThirdPartySupplierId), (AssociateType)cmd.ActingBATypeID, cmd.CertificationId, cmd.IsDeactivating,
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId, cmd.ProviderType, cmd.StartDate, (Status)cmd.Status);
 

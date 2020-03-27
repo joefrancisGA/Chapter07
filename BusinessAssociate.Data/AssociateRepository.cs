@@ -56,12 +56,12 @@ namespace EGMS.BusinessAssociates.Data
         }
 
         // TO DO: Use numeric constants below
-        public async Task<Associate> Load(AssociateId id)
+        public async Task<Associate> Load(int id)
         {
             await using SqlConnection connection = new SqlConnection(Db.Connection.ConnectionString);
             await using SqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, StatusId FROM Associate" +
-                              " WHERE ID = " + id.Value;
+                              " WHERE ID = " + id;
 
             connection.Open();
 
@@ -163,11 +163,11 @@ namespace EGMS.BusinessAssociates.Data
             cmd.ExecuteNonQuery();
         }
 
-        public bool Exists(AssociateId id)
+        public bool Exists(int id)
         {
             using SqlConnection connection = new SqlConnection(Db.Connection.ConnectionString);
             using SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "SELECT DUNSNumber FROM Associate WHERE DUNSNumber = " + id.Value;
+            cmd.CommandText = "SELECT DUNSNumber FROM Associate WHERE DUNSNumber = " + id;
 
             connection.Open();
 
@@ -175,7 +175,7 @@ namespace EGMS.BusinessAssociates.Data
             return reader.HasRows;
         }
 
-        public void AddOperatingContext(AssociateId id, OperatingContext entity)
+        public void AddOperatingContext(int id, OperatingContext entity)
         {
             //  insert into BusinessAssociate(DUNSNumber, LongName, ShortName, IsInternal, IsParent, BusinessAssociateType, [Status])
             //      VALUES(12345678, 'Atlanta Gas Light', 'AGL', 1, 0, 1, 1)
