@@ -13,6 +13,9 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
                 .ValueGeneratedOnAdd();
 
             builder.HasKey(oc => oc.Id);
+            
+            builder.OwnsOne(phone => phone.PermissionDescription,
+                cb => { cb.Property(e => e.Value).HasColumnName("PermissionConfiguration"); });
         }
     }
 }

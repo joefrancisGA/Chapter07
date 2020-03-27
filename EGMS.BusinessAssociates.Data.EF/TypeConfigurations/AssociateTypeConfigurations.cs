@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
 {
@@ -15,6 +12,7 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             modelBuilder.ApplyConfiguration(new PhoneConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
+            modelBuilder.ApplyConfiguration(new EMailConfiguration());
         }
     }
 }

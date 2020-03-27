@@ -12,6 +12,8 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
                 .HasColumnName("Id")
                 .ValueGeneratedOnAdd();
 
+            builder.HasKey(address => address.Id);
+
             builder.OwnsOne(address => address.Address1,
                 cb => { cb.Property(e => e.Value).HasColumnName("Address1"); });
 
@@ -27,7 +29,11 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             builder.OwnsOne(address => address.Attention,
                 cb => { cb.Property(e => e.Value).HasColumnName("Attention"); });
 
-            builder.HasKey(address => address.Id);
+            builder.OwnsOne(address => address.City,
+                cb => { cb.Property(e => e.Value).HasColumnName("City"); });
+            
+            builder.OwnsOne(address => address.Comments,
+                cb => { cb.Property(e => e.Value).HasColumnName("Comments"); });
         }
     }
 }

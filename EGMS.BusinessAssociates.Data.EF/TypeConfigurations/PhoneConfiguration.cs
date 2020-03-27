@@ -16,6 +16,9 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
 
             builder.OwnsOne(phone => phone.UserId,
                 cb => { cb.Property(e => e.Value).HasColumnName("UserId"); });
+
+            builder.OwnsOne(phone => phone.Extension,
+                cb => { cb.Property(e => e.Value).HasColumnName("Extension"); });
         }
     }
 }

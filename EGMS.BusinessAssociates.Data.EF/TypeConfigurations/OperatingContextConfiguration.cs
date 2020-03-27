@@ -28,6 +28,9 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
 
             builder.OwnsOne(oc => oc.PrimaryAddressId,
                 cb => { cb.Property(e => e.Value).HasColumnName("PrimaryAddressId"); });
+
+            builder.OwnsOne(oc => oc.CertificationId,
+                cb => { cb.Property(e => e.Value).HasColumnName("CertificationId"); });
         }
     }
 }
