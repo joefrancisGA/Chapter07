@@ -17,6 +17,10 @@ namespace EGMS.BusinessAssociates.Domain
         {
         }
 
+        public Role()
+        {
+        }
+
         protected override void When(object @event)
         {
             throw new NotImplementedException();
