@@ -8,7 +8,7 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
     {
         public void Configure(EntityTypeBuilder<Associate> builder)
         {
-            builder.Property(f=>f.Id).HasColumnName("ID").ValueGeneratedOnAdd();
+            builder.Property(associate => associate.Id).HasColumnName("ID").ValueGeneratedOnAdd();
             builder.HasKey(x => x.Id);
 
             builder.OwnsOne(x => x.DUNSNumber,

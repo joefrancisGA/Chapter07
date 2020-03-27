@@ -8,6 +8,8 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public string Value { get; }
 
+        public RoleName() { }
+
         private RoleName(string value)
         {
             Value = value;

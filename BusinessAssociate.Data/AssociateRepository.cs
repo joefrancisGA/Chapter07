@@ -50,7 +50,7 @@ namespace EGMS.BusinessAssociates.Data
             cmd.CommandText = "DELETE Associate WHERE Id = @Id";
             connection.Open();
 
-            cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+            cmd.Parameters.AddWithValue("@Id", entity);
 
             cmd.ExecuteNonQuery();
         }
@@ -92,7 +92,7 @@ namespace EGMS.BusinessAssociates.Data
             connection.Open();
 
             cmd.Parameters.AddWithValue("@DUNSNumber", entity.DUNSNumber.Value);
-            cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+            cmd.Parameters.AddWithValue("@Id", entity.Id);
 
             cmd.ExecuteNonQuery();
         }
@@ -105,7 +105,7 @@ namespace EGMS.BusinessAssociates.Data
             connection.Open();
 
             cmd.Parameters.AddWithValue("@BusinessAssociateType", (int)entity.AssociateType);
-            cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+            cmd.Parameters.AddWithValue("@Id", entity.Id);
 
             cmd.ExecuteNonQuery();
         }
@@ -119,7 +119,7 @@ namespace EGMS.BusinessAssociates.Data
             connection.Open();
 
             cmd.Parameters.AddWithValue("@LongName", entity.LongName.Value);
-            cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+            cmd.Parameters.AddWithValue("@Id", entity.Id);
 
             cmd.ExecuteNonQuery();
         }
@@ -132,7 +132,7 @@ namespace EGMS.BusinessAssociates.Data
             connection.Open();
 
             cmd.Parameters.AddWithValue("@IsParent", entity.IsParent);
-            cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+            cmd.Parameters.AddWithValue("@Id", entity.Id);
 
             cmd.ExecuteNonQuery();
         }
@@ -145,7 +145,7 @@ namespace EGMS.BusinessAssociates.Data
             connection.Open();
 
             cmd.Parameters.AddWithValue("@Status", (int)entity.Status);
-            cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+            cmd.Parameters.AddWithValue("@Id", entity.Id);
 
             cmd.ExecuteNonQuery();
         }
@@ -158,7 +158,7 @@ namespace EGMS.BusinessAssociates.Data
             connection.Open();
 
             cmd.Parameters.AddWithValue("@ShortName", entity.ShortName.Value);
-            cmd.Parameters.AddWithValue("@Id", entity.Id.Value);
+            cmd.Parameters.AddWithValue("@Id", entity.Id);
 
             cmd.ExecuteNonQuery();
         }

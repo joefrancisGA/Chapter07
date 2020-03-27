@@ -8,7 +8,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Associate : AggregateRoot<AssociateId>
+    public class Associate : AggregateRoot<int>
     {
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
@@ -61,38 +61,34 @@ namespace EGMS.BusinessAssociates.Domain
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {
-            Id = Id.Value,
+            Id = Id,
             DUNSNumber = dunsNumber
         });
 
         public void UpdateAssociateType(AssociateType associateType) => Apply(new Events.AssociateTypeUpdated
         {
-            Id = Id.Value,
+            Id = Id,
             AssociateType = (int)associateType
 
         });
 
         public void UpdateLongName(LongName longName) => Apply(new Events.AssociateLongNameUpdated
         {
-            Id = Id.Value,
             LongName = longName.Value
         });
 
         public void UpdateIsParent(bool isParent) => Apply(new Events.AssociateIsParentUpdated
         {
-            Id = Id.Value,
             IsParent = isParent
         });
 
         public void UpdateStatus(Status status) => Apply(new Events.AssociateStatusUpdated
         {
-            Id = Id.Value,
             Status = (int)status
         });
 
         public void UpdateShortName(ShortName shortName) => Apply(new Events.AssociateShortNameUpdated
         {
-            Id = Id.Value,
             ShortName = shortName.Value
         });
 
