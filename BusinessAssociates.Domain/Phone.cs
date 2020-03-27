@@ -16,6 +16,8 @@ namespace EGMS.BusinessAssociates.Domain
         {
         }
 
+        public Phone() { }
+
         protected override void When(object @event)
         {
             throw new NotImplementedException();

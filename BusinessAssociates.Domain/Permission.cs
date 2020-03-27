@@ -1,8 +1,7 @@
-﻿
-
-using System;
+﻿using System;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
+
 
 namespace EGMS.BusinessAssociates.Domain
 {
@@ -15,6 +14,8 @@ namespace EGMS.BusinessAssociates.Domain
         public Permission(Action<object> applier) : base(applier)
         {
         }
+
+        public Permission() { }
 
         protected override void When(object @event)
         {
