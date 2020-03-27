@@ -7,6 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public string Value { get; }
 
+        public EMailAddress() { }
+
         private EMailAddress(string value)
         {
             Value = value;

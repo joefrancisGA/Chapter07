@@ -7,6 +7,9 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public string Value { get; }
 
+
+        public Extension() { }
+
         private Extension(string value)
         {
             Value = value;

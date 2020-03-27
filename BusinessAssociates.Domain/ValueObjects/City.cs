@@ -7,6 +7,10 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public string Value { get; }
 
+        public City()
+        {
+        }
+
         private City(string value)
         {
             Value = value ?? throw new ArgumentException("City name must be specified");
