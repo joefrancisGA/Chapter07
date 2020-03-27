@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using EGMS.BusinessAssociates.Domain;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Data.EF.TypeConfigurations;
 using EGMS.BusinessAssociates.Domain.Enums;
 
@@ -60,11 +61,7 @@ namespace EGMS.Facilities.Data.EF
                 enumerationEntry.State = EntityState.Unchanged;
             }
 
-
-            int result = await base.SaveChangesAsync(cancellationToken);
-
-            return result;
+            return await base.SaveChangesAsync(cancellationToken);
         }
-
     }
 }

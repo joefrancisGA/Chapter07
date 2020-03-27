@@ -12,9 +12,9 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
                 .HasColumnName("Id")
                 .ValueGeneratedOnAdd();
 
-            builder.HasKey(address => address.Id);
+            builder.HasKey(phone => phone.Id);
 
-            builder.OwnsOne(oc => oc.UserId,
+            builder.OwnsOne(phone => phone.UserId,
                 cb => { cb.Property(e => e.Value).HasColumnName("UserId"); });
         }
     }

@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Role : Entity<DatabaseId>
+    public class Role : Entity<int>
     {
         public RoleName RoleName { get; set; }
         public RoleDescription RoleDescription { get; set; }
