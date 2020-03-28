@@ -54,6 +54,7 @@ namespace EGMS.BusinessAssociates.Domain.Messages
 
         public class AssociateAddNewOperatingContext
         {
+            public int Id { get; set; }
             public int AssociateId { get; set; }
             public int OperatingContextType { get; set; }
             public int FacilityId { get; set; }

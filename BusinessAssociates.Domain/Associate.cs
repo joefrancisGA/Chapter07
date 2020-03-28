@@ -150,6 +150,9 @@ namespace EGMS.BusinessAssociates.Domain
                     ApplyToEntity(operatingContext, e);
                     OperatingContexts.Add(operatingContext);
                     break;
+
+                default:
+                    break;
             }
         }
 

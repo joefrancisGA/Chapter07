@@ -27,13 +27,6 @@ namespace EGMS.BusinessAssociates.API.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(Commands.V1.Associate.Delete request)
-        {
-            await _appService.Handle(request);
-            return Ok();
-        }
-
         [Route("longname")]
         [HttpPut]
         public async Task<IActionResult> Put(Commands.V1.Associate.UpdateLongName request)

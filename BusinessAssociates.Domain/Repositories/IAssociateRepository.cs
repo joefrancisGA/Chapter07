@@ -9,19 +9,8 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         void Add(Associate entity);
 
-        void Delete(Associate entity);
-
-        void UpdateDUNSNumber(Associate entity);
-
-        void UpdateAssociateType(Associate entity);
-
-        void UpdateLongName(Associate entity);
-
-        void UpdateIsParent(Associate entity);
-
-        void UpdateStatus(Associate entity);
-
-        void UpdateShortName(Associate entity);
+        // No delete for Associates
+        //void Delete(Associate entity);
         
         bool Exists(int id);
 

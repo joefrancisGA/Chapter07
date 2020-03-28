@@ -40,62 +40,23 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.Associates.Add(associate);
         }
 
-        public void Delete(Associate entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateDUNSNumber(Associate entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateAssociateType(Associate entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateLongName(Associate entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateIsParent(Associate entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateStatus(Associate entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateShortName(Associate entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public bool Exists(int id)
         {
-            Associate associate = _context.Associates.FindAsync(id).Result;
-
-            return associate != null;
+            return _context.Associates.FindAsync(id).Result != null;
         }
 
         public void AddOperatingContext(int id, OperatingContext operatingContext)
         {
-            throw new NotImplementedException();
+            Associate associate = _context.Associates.FindAsync(id).Result;
+            associate.OperatingContexts.Add(operatingContext);
         }
 
         public async Task<Associate> Load(int id)
         {
-            var facilityEF = await _context.Associates.FindAsync(id);
+            Associate associateEF = await _context.Associates.FindAsync(id);
 
-            var facility = _mapper.Map<Associate>(facilityEF);
-
-            // since we automapped it, any changes to this object will not automatically be
-            // detected by EF...
-            return facility;
+            return _mapper.Map<Associate>(associateEF);
         }
 
         public async Task Update(Associate associate)
@@ -106,8 +67,6 @@ namespace EGMS.BusinessAssociates.Data.EF
             {
                 throw new Exception($"Associate {associate.Id } not found for Update.");
             }
-
-            //_mapper.Map<Domain.Models.Facility, Facility>(facility, facilityEF);
         }
     }
 }

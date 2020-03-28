@@ -22,11 +22,6 @@ namespace EGMS.BusinessAssociates.Command
                     public Status Status { get; set; }
                 }
 
-                public class Delete
-                {
-                    public int Id { get; set; }
-                }
-
                 public class UpdateDUNSNumber
                 {
                     public int Id { get; set; }

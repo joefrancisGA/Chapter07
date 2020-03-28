@@ -45,37 +45,39 @@ namespace EGMS.BusinessAssociates.Command
                     _repository.Add(associate);
 
                     // We don't need a unit of work pattern until we move to entity framework
-                    //await _unitOfWork.Commit();
+                    await _unitOfWork.Commit();
                     break;
-
-
-                //case Commands.V1.Associate.Delete cmd:
-                //    _repository.Delete(new Associate(new AssociateId(cmd.Id)));
-                //    break;
 
 
                 case Commands.V1.Associate.UpdateDUNSNumber cmd:
-                    _repository.UpdateDUNSNumber(HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber))).Result);
+                    
+                    HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber)));
+                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateAssociateType cmd:
-                    _repository.UpdateAssociateType(HandleUpdate(cmd.Id, ia => ia.UpdateAssociateType(cmd.AssociateType)).Result);
+                    HandleUpdate(cmd.Id, ia => ia.UpdateAssociateType(cmd.AssociateType));
+                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateLongName cmd:
-                    _repository.UpdateLongName(HandleUpdate(cmd.Id, ia => ia.UpdateLongName(LongName.Create(cmd.LongName))).Result);
+                    HandleUpdate(cmd.Id, ia => ia.UpdateLongName(LongName.Create(cmd.LongName)));
+                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateIsParent cmd:
-                    _repository.UpdateIsParent(HandleUpdate(cmd.Id, ia => ia.UpdateIsParent(cmd.IsParent)).Result);
+                    HandleUpdate(cmd.Id, ia => ia.UpdateIsParent(cmd.IsParent));
+                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateStatus cmd:
-                    _repository.UpdateStatus(HandleUpdate(cmd.Id, ia => ia.UpdateStatus(cmd.Status)).Result);
+                    HandleUpdate(cmd.Id, ia => ia.UpdateStatus(cmd.Status));
+                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateShortName cmd:
-                    _repository.UpdateShortName(HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName))).Result);
+                    HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName)));
+                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.OperatingContext.Create cmd:
@@ -93,7 +95,7 @@ namespace EGMS.BusinessAssociates.Command
         }
 
 #pragma warning disable 1998
-        private async Task<Associate> HandleUpdate(int associateId, Action<Associate> operation)
+        private async void HandleUpdate(int associateId, Action<Associate> operation)
 #pragma warning restore 1998
         {
             Associate associate = _repository.Load(associateId).Result;
@@ -103,15 +105,12 @@ namespace EGMS.BusinessAssociates.Command
 
             operation(associate);
 
-            return associate;
-
-            //await _unitOfWork.Commit();
+            await _unitOfWork.Commit();
         }
 
         private async Task<OperatingContextRM> HandleAddOperatingContext(Commands.V1.OperatingContext.Create cmd)
         {
-            var associate = await _repository
-                .Load(AssociateId.FromInt(cmd.AssociateId));
+            Associate associate = await _repository.Load(AssociateId.FromInt(cmd.AssociateId));
 
             if (associate == null)
                 throw new InvalidOperationException($"Entity with id {cmd.AssociateId} cannot be found");
