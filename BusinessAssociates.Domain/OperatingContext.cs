@@ -9,11 +9,30 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class OperatingContext : Entity<int>
     {
+        protected OperatingContext()
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            EMails = new List<EMail>();
+            Phones = new List<Phone>();
+            Addresses = new List<Address>();
+            Roles = new List<Role>();
+            AssociateOperatingContexts = new List<AssociateOperatingContext>();
+        }
+
+        public OperatingContext(Action<object> applier) : base(applier)
+        {
+            Initialize();
+        }
+
         public OperatingContext(OperatingContextType operatingContextType,
             DatabaseId facilityId, DatabaseId thirdPartySupplierId, AssociateType actingBATypeId, 
             NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId, 
             DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
-            DateTime startDate, Status status)
+            DateTime startDate, Status status) : this()
         {
             OperatingContextType = operatingContextType;
             FacilityId = facilityId;
@@ -30,11 +49,6 @@ namespace EGMS.BusinessAssociates.Domain
             Status = status;
         }
 
-        public OperatingContext(Action<object> applier) : base(applier)
-        {
-        }
-
-        protected OperatingContext() { }
 
         public OperatingContextType OperatingContextType { get; set; }
         public DatabaseId FacilityId { get; set; }
@@ -65,6 +79,7 @@ namespace EGMS.BusinessAssociates.Domain
         public List<Address> Addresses { get; set; }
         public List<Role> Roles { get; set; }
         public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+
 
         protected override void When(object @event)
         {

@@ -4,12 +4,12 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class AssociateOperatingContext : Entity<DatabaseId>
+    public class AssociateOperatingContext : Entity<int>
     {
         public AssociateOperatingContext() { }
 
 
-        public AssociateOperatingContext(AssociateId associateId, int operatingContextId)
+        public AssociateOperatingContext(int associateId, int operatingContextId)
         {
             AssociateId = associateId;
             OperatingContextId = operatingContextId;
@@ -20,7 +20,7 @@ namespace EGMS.BusinessAssociates.Domain
         {
         }
 
-        public AssociateId AssociateId { get; set; }
+        public int AssociateId { get; set; }
         public Associate Associate { get; set; }
 
         public int OperatingContextId { get; set; }

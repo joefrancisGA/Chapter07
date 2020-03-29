@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -50,14 +51,14 @@ namespace EGMS.BusinessAssociates.Data.EF
         public async void AddOperatingContext(Associate associate, OperatingContext operatingContext)
         {
             await using IDbContextTransaction transaction = _context.Database.BeginTransaction();
+
             associate.OperatingContexts.Add(operatingContext);
 
             await _context.SaveChangesAsync();
 
             operatingContext = associate.OperatingContexts.Last();
 
-            AssociateOperatingContext association =
-                new AssociateOperatingContext(associate.Id, operatingContext.Id);
+            AssociateOperatingContext association = new AssociateOperatingContext(associate.Id, operatingContext.Id);
             associate.AssociateOperatingContexts.Add(association);
             operatingContext.AssociateOperatingContexts.Add(association);
 

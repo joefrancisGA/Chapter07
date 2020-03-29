@@ -10,10 +10,14 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Associate : AggregateRoot<int>
     {
-        public Associate() { }
+        public Associate()
+        {
+            OperatingContexts = new List<OperatingContext>();
+            AssociateOperatingContexts = new List<AssociateOperatingContext>();
+        }
 
         public Associate(int id, string longName, string shortName, bool isParent,
-            AssociateType associateType, Status status)
+            AssociateType associateType, Status status) : this()
         {
             Events.AssociateCreated associateCreated = new Events.AssociateCreated
             {
@@ -80,46 +84,46 @@ namespace EGMS.BusinessAssociates.Domain
             ShortName = shortName.Value
         });
 
-        public void AddOperatingContext(AssociateId associateId, OperatingContextType operatingContextType, DatabaseId facilityId, 
-            DatabaseId thirdPartySupplierId, AssociateType actingBATypeId, NullableDatabaseId certificationId, bool isDeactivating,
-            int legacyId, DatabaseId primaryAddressId, DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
-            DateTime startDate, Status status)
-        {
-            OperatingContext operatingContext = new OperatingContext(operatingContextType, facilityId, thirdPartySupplierId,
-                actingBATypeId, certificationId, isDeactivating, legacyId, primaryAddressId, primaryEmailId, primaryPhoneId,
-                providerTypeId, startDate, status);
+        //public void AddOperatingContext(AssociateId associateId, OperatingContextType operatingContextType, DatabaseId facilityId, 
+        //    DatabaseId thirdPartySupplierId, AssociateType actingBATypeId, NullableDatabaseId certificationId, bool isDeactivating,
+        //    int legacyId, DatabaseId primaryAddressId, DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
+        //    DateTime startDate, Status status)
+        //{
+        //    OperatingContext operatingContext = new OperatingContext(operatingContextType, facilityId, thirdPartySupplierId,
+        //        actingBATypeId, certificationId, isDeactivating, legacyId, primaryAddressId, primaryEmailId, primaryPhoneId,
+        //        providerTypeId, startDate, status);
 
-            if (AssociateOperatingContexts == null)
-            {
-                AssociateOperatingContexts = new List<AssociateOperatingContext>();
-            }
+        //    if (AssociateOperatingContexts == null)
+        //    {
+        //        AssociateOperatingContexts = new List<AssociateOperatingContext>();
+        //    }
 
-            if (OperatingContexts == null)
-            {
-                OperatingContexts = new List<OperatingContext>();
-            }
+        //    if (OperatingContexts == null)
+        //    {
+        //        OperatingContexts = new List<OperatingContext>();
+        //    }
 
-            OperatingContexts.Add(operatingContext);
+        //    OperatingContexts.Add(operatingContext);
 
             
-            Apply(new Events.AssociateAddNewOperatingContext
-            {
-                AssociateId = associateId,
-                OperatingContextType = (int)operatingContextType,
-                FacilityId = facilityId,
-                ThirdPartySupplierId = thirdPartySupplierId, 
-                ActingBATypeId = (int)actingBATypeId,
-                CertificationId = certificationId,
-                IsDeactivating = isDeactivating, 
-                LegacyId = legacyId, 
-                PrimaryAddressId = primaryAddressId, 
-                PrimaryEmailId = primaryEmailId, 
-                PrimaryPhoneId  = primaryPhoneId, 
-                ProviderTypeId = providerTypeId, 
-                StartDate = startDate, 
-                StatusId = (int)status
-            });
-        }
+        //    Apply(new Events.AssociateAddNewOperatingContext
+        //    {
+        //        AssociateId = associateId,
+        //        OperatingContextType = (int)operatingContextType,
+        //        FacilityId = facilityId,
+        //        ThirdPartySupplierId = thirdPartySupplierId, 
+        //        ActingBATypeId = (int)actingBATypeId,
+        //        CertificationId = certificationId,
+        //        IsDeactivating = isDeactivating, 
+        //        LegacyId = legacyId, 
+        //        PrimaryAddressId = primaryAddressId, 
+        //        PrimaryEmailId = primaryEmailId, 
+        //        PrimaryPhoneId  = primaryPhoneId, 
+        //        ProviderTypeId = providerTypeId, 
+        //        StartDate = startDate, 
+        //        StatusId = (int)status
+        //    });
+        //}
 
         protected override void When(object @event)
         {

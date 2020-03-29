@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
@@ -116,46 +115,17 @@ namespace EGMS.BusinessAssociates.Command
         {
             Associate associate = await _repository.Load(AssociateId.FromInt(cmd.AssociateId));
 
-                if (associate == null)
-                    throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");
+            if (associate == null)
+                throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");
 
-                OperatingContext operatingContext = new OperatingContext((OperatingContextType)cmd.OperatingContextType, cmd.FacilityId,
-                    cmd.ThirdPartySupplierId, (AssociateType)cmd.ActingBATypeID, cmd.CertificationId, cmd.IsDeactivating,
-                    cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
-                    cmd.ProviderType, cmd.StartDate, (Status)cmd.Status);
+            OperatingContext operatingContext = new OperatingContext((OperatingContextType)cmd.OperatingContextType, cmd.FacilityId,
+                cmd.ThirdPartySupplierId, (AssociateType)cmd.ActingBATypeID, cmd.CertificationId, cmd.IsDeactivating,
+                cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
+                cmd.ProviderType, cmd.StartDate, (Status)cmd.Status);
 
-                _repository.AddOperatingContext(associate, operatingContext);
+            _repository.AddOperatingContext(associate, operatingContext);
 
-                associate.OperatingContexts.Add(operatingContext);
- 
-
-            //using (var transaction = objectContext.Connection.BeginTransaction())
-            //{
-            //    foreach (tblTest entity in saveItems)
-            //    {
-            //        this.context.Entry(entity).State = System.Data.EntityState.Added;
-            //        this.context.Set<tblTest>().Add(entity);
-
-            //        int testId = entity.TestID;
-
-            //        ....Add another item using testId
-            //    }
-
-            //    try
-            //    {
-            //        context.SaveChanges();
-            //        transaction.Commit();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        transaction.Rollback();
-            //        objectContext.Connection.Close();
-            //        throw ex;
-            //    }
-            //}
-
-            //objectContext.Connection.Close();
-
+            associate.OperatingContexts.Add(operatingContext);
 
             return _mapper.Map<OperatingContextRM>(operatingContext);
         }

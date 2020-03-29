@@ -14,7 +14,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using EGMSDb = EGMS.BusinessAssociates.Data.EGMSDb;
 
 
 namespace EGMS.BusinessAssociates.API
