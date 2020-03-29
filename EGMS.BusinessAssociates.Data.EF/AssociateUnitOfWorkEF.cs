@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using EGMS.BusinessAssociates.Framework;
-using EGMS.Facilities.Data.EF;
 
 namespace EGMS.BusinessAssociates.Data.EF
 {

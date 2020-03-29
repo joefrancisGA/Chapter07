@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.Messages;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
@@ -8,6 +9,33 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class OperatingContext : Entity<int>
     {
+        public OperatingContext(OperatingContextType operatingContextType,
+            DatabaseId facilityId, DatabaseId thirdPartySupplierId, AssociateType actingBATypeId, 
+            NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId, 
+            DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
+            DateTime startDate, Status status)
+        {
+            OperatingContextType = operatingContextType;
+            FacilityId = facilityId;
+            ThirdPartySupplierId = thirdPartySupplierId;
+            ActingBAType = actingBATypeId;
+            CertificationId = certificationId;
+            LegacyId = legacyId;
+            PrimaryAddressId = primaryAddressId;
+            PrimaryEmailId = primaryEmailId;
+            PrimaryPhoneId = primaryPhoneId;
+            ProviderType = (ProviderType) providerTypeId.Value;
+            IsDeactivating = isDeactivating;
+            StartDate = startDate;
+            Status = status;
+        }
+
+        public OperatingContext(Action<object> applier) : base(applier)
+        {
+        }
+
+        protected OperatingContext() { }
+
         public OperatingContextType OperatingContextType { get; set; }
         public DatabaseId FacilityId { get; set; }
         public DatabaseId ThirdPartySupplierId { get; set; }
@@ -18,8 +46,7 @@ namespace EGMS.BusinessAssociates.Domain
         public AssociateType ActingBAType { get; set; }
         public NullableDatabaseId CertificationId { get; set; }
 
-        // TO DO:  Do we really have a "set" of roles for the operating context?
-        public Role Role { get; set; }
+
         public Status Status { get; set; }
 
         public bool IsDeactivating { get; set; }
@@ -32,18 +59,18 @@ namespace EGMS.BusinessAssociates.Domain
         public DatabaseId PrimaryPhoneId { get; set; }
         public DatabaseId PrimaryAddressId { get; set; }
 
-        public OperatingContext(Action<object> applier) : base(applier)
-        {
-        }
 
-        protected OperatingContext() { }
+        public List<EMail> EMails { get; set; }
+        public List<Phone> Phones { get; set; }
+        public List<Address> Addresses { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
 
         protected override void When(object @event)
         {
             switch (@event)
             { 
                 case Events.AssociateAddNewOperatingContext e:
-                    Id = new DatabaseId(e.Id);
                     break;
 
                 default:

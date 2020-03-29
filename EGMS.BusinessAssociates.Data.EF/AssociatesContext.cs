@@ -1,20 +1,17 @@
-﻿
-using System;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Threading;
+﻿using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
-using EGMS.BusinessAssociates.Domain;
+using System.Threading;
+using System.Threading.Tasks;
 using EGMS.BusinessAssociates.Data.EF.TypeConfigurations;
+using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Enums;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-
-namespace EGMS.Facilities.Data.EF
+namespace EGMS.BusinessAssociates.Data.EF
 {
-    public partial class AssociatesContext : DbContext
+    public class AssociatesContext : DbContext
     {
         private static readonly Type[] EnumerationTypes =
         {
@@ -32,7 +29,9 @@ namespace EGMS.Facilities.Data.EF
             
         }
 
-        public virtual DbSet<Associate> Associates { get; set; }
+        public DbSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+        public DbSet<Associate> Associates { get; set; }
+        public DbSet<OperatingContext> OperatingContexts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -45,12 +44,20 @@ namespace EGMS.Facilities.Data.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             AssociateTypeConfigurations.ConfigureTypes(modelBuilder);
+            modelBuilder.Entity<AssociateOperatingContext>().HasKey(aoc => new {aoc.AssociateId, aoc.OperatingContextId});
+
+            modelBuilder.Entity<AssociateOperatingContext>()
+                .HasOne(aoc => aoc.Associate)
+                .WithMany(aoc => aoc.AssociateOperatingContexts)
+                .HasForeignKey(aoc => aoc.AssociateId);
+
+            modelBuilder.Entity<AssociateOperatingContext>()
+                .HasOne(aoc => aoc.OperatingContext)
+                .WithMany(aoc => aoc.AssociateOperatingContexts)
+                .HasForeignKey(aoc => aoc.OperatingContextId);
 
             //modelBuilder.Entity<NullableDatabaseId>().HasNoKey();
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

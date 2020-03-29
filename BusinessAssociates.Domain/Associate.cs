@@ -10,30 +10,8 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Associate : AggregateRoot<int>
     {
-        public DUNSNumber DUNSNumber { get; set; }
-        public LongName LongName { get; set; }
-        public ShortName ShortName { get; set; }
-        public AssociateType AssociateType { get; set; }
-        public Status Status { get; set; }
-
-        public bool IsInternal { get; set; }
-        public bool IsDeactivating { get; set; }
-        public bool IsParent { get; set; }
-        public bool IsActive { get; set; }
-
-        public List<OperatingContext> OperatingContexts { get; set; }
-
-        //public Associate(AssociateId id)
-        //{
-        //    Apply(new Events.AssociateCreated
-        //    {
-        //        Id = id.Value
-        //    });
-        //}
-
         public Associate() { }
 
-        //TO DO:  Skip the ID before creating the Associate
         public Associate(int id, string longName, string shortName, bool isParent,
             AssociateType associateType, Status status)
         {
@@ -58,6 +36,19 @@ namespace EGMS.BusinessAssociates.Domain
             Apply(associateCreated);
         }
 
+        public DUNSNumber DUNSNumber { get; set; }
+        public LongName LongName { get; set; }
+        public ShortName ShortName { get; set; }
+        public AssociateType AssociateType { get; set; }
+        public Status Status { get; set; }
+
+        public bool IsInternal { get; set; }
+        public bool IsDeactivating { get; set; }
+        public bool IsParent { get; set; }
+        public bool IsActive { get; set; }
+
+        public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+        public List<OperatingContext> OperatingContexts { get; set; }
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {
@@ -94,6 +85,23 @@ namespace EGMS.BusinessAssociates.Domain
             int legacyId, DatabaseId primaryAddressId, DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
             DateTime startDate, Status status)
         {
+            OperatingContext operatingContext = new OperatingContext(operatingContextType, facilityId, thirdPartySupplierId,
+                actingBATypeId, certificationId, isDeactivating, legacyId, primaryAddressId, primaryEmailId, primaryPhoneId,
+                providerTypeId, startDate, status);
+
+            if (AssociateOperatingContexts == null)
+            {
+                AssociateOperatingContexts = new List<AssociateOperatingContext>();
+            }
+
+            if (OperatingContexts == null)
+            {
+                OperatingContexts = new List<OperatingContext>();
+            }
+
+            OperatingContexts.Add(operatingContext);
+
+            
             Apply(new Events.AssociateAddNewOperatingContext
             {
                 AssociateId = associateId,

@@ -43,8 +43,6 @@ namespace EGMS.BusinessAssociates.Command
                     Associate associate = new Associate(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
 
                     _repository.Add(associate);
-
-                    // We don't need a unit of work pattern until we move to entity framework
                     await _unitOfWork.Commit();
                     break;
 
@@ -81,11 +79,17 @@ namespace EGMS.BusinessAssociates.Command
                     break;
 
                 case Commands.V1.OperatingContext.Create cmd:
-                {
-                    var result = HandleAddOperatingContext(cmd);
-                    retVal = await result;
+                    try
+                    {
+                        retVal = await HandleAddOperatingContext(cmd);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
+
                     break;
-                }
 
                 default:
                     throw new InvalidOperationException($"Commands type {command.GetType().FullName} is unknown");
@@ -112,41 +116,62 @@ namespace EGMS.BusinessAssociates.Command
         {
             Associate associate = await _repository.Load(AssociateId.FromInt(cmd.AssociateId));
 
-            if (associate == null)
-                throw new InvalidOperationException($"Entity with id {cmd.AssociateId} cannot be found");
+                if (associate == null)
+                    throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");
+
+                OperatingContext operatingContext = new OperatingContext((OperatingContextType)cmd.OperatingContextType, cmd.FacilityId,
+                    cmd.ThirdPartySupplierId, (AssociateType)cmd.ActingBATypeID, cmd.CertificationId, cmd.IsDeactivating,
+                    cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
+                    cmd.ProviderType, cmd.StartDate, (Status)cmd.Status);
+
+                _repository.AddOperatingContext(associate, operatingContext);
+
+                associate.OperatingContexts.Add(operatingContext);
+ 
+
+            //using (var transaction = objectContext.Connection.BeginTransaction())
+            //{
+            //    foreach (tblTest entity in saveItems)
+            //    {
+            //        this.context.Entry(entity).State = System.Data.EntityState.Added;
+            //        this.context.Set<tblTest>().Add(entity);
+
+            //        int testId = entity.TestID;
+
+            //        ....Add another item using testId
+            //    }
+
+            //    try
+            //    {
+            //        context.SaveChanges();
+            //        transaction.Commit();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        transaction.Rollback();
+            //        objectContext.Connection.Close();
+            //        throw ex;
+            //    }
+            //}
+
+            //objectContext.Connection.Close();
 
 
-            associate.AddOperatingContext(cmd.AssociateId, (OperatingContextType)cmd.OperatingContextType, cmd.FacilityId,
-                DatabaseId.FromInt(cmd.ThirdPartySupplierId), (AssociateType)cmd.ActingBATypeID, cmd.CertificationId, cmd.IsDeactivating,
-                cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId, cmd.ProviderType, cmd.StartDate, (Status)cmd.Status);
-
-            await _unitOfWork.Commit();
-
-            OperatingContext operatingContext = associate.OperatingContexts.Last();
-
-            var retVal = _mapper.Map<OperatingContextRM>(operatingContext);
-
-            return retVal;
+            return _mapper.Map<OperatingContextRM>(operatingContext);
         }
 
         private async Task<AssociateRM> HandleCreate(Commands.V1.Associate.Create cmd)
         {
-            // probably should create the FacilityDetail as part of the Facility create
-            // since they are both needed, BUT - for now treating FacilityDetail as 
-            // a regular child of Facility.
             var associate = Associate.Create(
                 ShortName.FromString(cmd.ShortName),
                 LongName.FromString(cmd.LongName), cmd.AssociateType, cmd.IsParent, cmd.Status);
 
             _repository.Add(associate);
-
             await _unitOfWork.Commit();
 
             // TODO:  Dispatch Events.
 
-            var retVal = _mapper.Map<AssociateRM>(associate);
-
-            return retVal;
+            return _mapper.Map<AssociateRM>(associate);
         }
 
     }

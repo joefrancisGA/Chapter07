@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Repositories;
-using EGMS.Facilities.Data.EF;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace EGMS.BusinessAssociates.Data.EF
@@ -46,10 +47,23 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.Associates.FindAsync(id).Result != null;
         }
 
-        public void AddOperatingContext(int id, OperatingContext operatingContext)
+        public async void AddOperatingContext(Associate associate, OperatingContext operatingContext)
         {
-            Associate associate = _context.Associates.FindAsync(id).Result;
+            await using IDbContextTransaction transaction = _context.Database.BeginTransaction();
             associate.OperatingContexts.Add(operatingContext);
+
+            await _context.SaveChangesAsync();
+
+            operatingContext = associate.OperatingContexts.Last();
+
+            AssociateOperatingContext association =
+                new AssociateOperatingContext(associate.Id, operatingContext.Id);
+            associate.AssociateOperatingContexts.Add(association);
+            operatingContext.AssociateOperatingContexts.Add(association);
+
+            await _context.SaveChangesAsync();
+
+            transaction.Commit();
         }
 
         public async Task<Associate> Load(int id)

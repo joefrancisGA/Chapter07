@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
-using EGMS.Facilities.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

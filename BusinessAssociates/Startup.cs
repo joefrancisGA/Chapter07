@@ -7,7 +7,6 @@ using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Data.EF;
 using EGMS.BusinessAssociates.Domain.Repositories;
 using EGMS.BusinessAssociates.Framework;
-using EGMS.Facilities.Data.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

@@ -14,6 +14,6 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         
         bool Exists(int id);
 
-        void AddOperatingContext(int id, OperatingContext operatingContext);
+        void AddOperatingContext(Associate associate, OperatingContext operatingContext);
     }
 }
