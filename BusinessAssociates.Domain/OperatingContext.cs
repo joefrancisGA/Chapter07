@@ -89,7 +89,7 @@ namespace EGMS.BusinessAssociates.Domain
                     break;
 
                 default:
-                    break;
+                    throw new Exception("Unknown event " + @event);
             }
 
         }

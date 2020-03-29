@@ -75,13 +75,36 @@ namespace EGMS.BusinessAssociates.API.Controllers
             return Ok();
         }
 
-        [Route("operatingcontexts")]
+        //private async Task<IActionResult> Post(Commands.V1.OperatingContext.Create request)
+        //{
+        //    try
+        //    {
+        //        var result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
+
+        //        return CreatedAtAction("Post", result);
+        //    }
+        //    catch (Exception exc)
+        //    {
+        //        return new BadRequestObjectResult(
+        //            new
+        //            {
+        //                error = exc.Message,
+        //                stackTrace = exc.StackTrace
+        //            });
+        //    }
+        //}
+
+        [Route("{associateId}/operatingcontexts")]
         [HttpPost]
-        public async Task<IActionResult> Post(Commands.V1.OperatingContext.Create request)
+        public async Task<IActionResult> Post(int associateId, Commands.V1.OperatingContext.Create request)
         {
             try
             {
-                var result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
+                // Translating one command into another allows us to only get the Associate Id once
+                Commands.V1.OperatingContext.CreateForAssociate cmd = 
+                    new Commands.V1.OperatingContext.CreateForAssociate(associateId, request);
+
+                IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
                 return CreatedAtAction("Post", result);
             }
@@ -94,14 +117,6 @@ namespace EGMS.BusinessAssociates.API.Controllers
                         stackTrace = exc.StackTrace
                     });
             }
-        }
-
-        [Route("{associateId}/operatingcontexts")]
-        [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.OperatingContext.Create request)
-        {
-            request.AssociateId = associateId;
-            return await Post(request);
         }
 
     }

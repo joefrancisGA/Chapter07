@@ -11,7 +11,6 @@ using EGMS.BusinessAssociates.Query.ReadModels;
 
 namespace EGMS.BusinessAssociates.Command
 {
-    // The application service is only used by the command API at the moment, but it can be used 
     public class AssociatesApplicationService : IApplicationService
     {
         private readonly IAssociateRepository _repository;
@@ -29,72 +28,43 @@ namespace EGMS.BusinessAssociates.Command
         public async Task<object> Handle(object command)
 #pragma warning restore 1998
         {
-            object retVal = null;
-
             switch (command)
             {
-                // TO DO:  Are we throwing an event here?
                 case Commands.V1.Associate.Create cmd:
-
-                    if (_repository.Exists(cmd.DUNSNumber))
-                        throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
-
-                    Associate associate = new Associate(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
-
-                    _repository.Add(associate);
-                    await _unitOfWork.Commit();
-                    break;
-
+                    return HandleCreate(cmd);
 
                 case Commands.V1.Associate.UpdateDUNSNumber cmd:
-                    
                     HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber)));
-                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateAssociateType cmd:
                     HandleUpdate(cmd.Id, ia => ia.UpdateAssociateType(cmd.AssociateType));
-                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateLongName cmd:
                     HandleUpdate(cmd.Id, ia => ia.UpdateLongName(LongName.Create(cmd.LongName)));
-                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateIsParent cmd:
                     HandleUpdate(cmd.Id, ia => ia.UpdateIsParent(cmd.IsParent));
-                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateStatus cmd:
                     HandleUpdate(cmd.Id, ia => ia.UpdateStatus(cmd.Status));
-                    await _unitOfWork.Commit();
                     break;
 
                 case Commands.V1.Associate.UpdateShortName cmd:
                     HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName)));
-                    await _unitOfWork.Commit();
                     break;
 
-                case Commands.V1.OperatingContext.Create cmd:
-                    try
-                    {
-                        retVal = await HandleAddOperatingContext(cmd);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
-
-                    break;
+                case Commands.V1.OperatingContext.CreateForAssociate cmd:
+                    return HandleAddOperatingContext(cmd);
 
                 default:
                     throw new InvalidOperationException($"Commands type {command.GetType().FullName} is unknown");
             }
 
-            return retVal;
+            return null;
         }
 
 #pragma warning disable 1998
@@ -111,7 +81,7 @@ namespace EGMS.BusinessAssociates.Command
             await _unitOfWork.Commit();
         }
 
-        private async Task<OperatingContextRM> HandleAddOperatingContext(Commands.V1.OperatingContext.Create cmd)
+        private async Task<OperatingContextRM> HandleAddOperatingContext(Commands.V1.OperatingContext.CreateForAssociate cmd)
         {
             Associate associate = await _repository.Load(AssociateId.FromInt(cmd.AssociateId));
 
@@ -133,17 +103,18 @@ namespace EGMS.BusinessAssociates.Command
 
         private async Task<AssociateRM> HandleCreate(Commands.V1.Associate.Create cmd)
         {
-            var associate = Associate.Create(
-                ShortName.FromString(cmd.ShortName),
-                LongName.FromString(cmd.LongName), cmd.AssociateType, cmd.IsParent, cmd.Status);
 
+            if (_repository.Exists(cmd.DUNSNumber))
+                throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
+
+            Associate associate = new Associate(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
             _repository.Add(associate);
+
             await _unitOfWork.Commit();
 
             // TODO:  Dispatch Events.
 
             return _mapper.Map<AssociateRM>(associate);
         }
-
     }
 }

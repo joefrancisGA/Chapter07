@@ -200,15 +200,33 @@ namespace EGMS.BusinessAssociates.Command
 
             public static class OperatingContext
             {
-                public static class Address
+                public static class Address { }
+
+                public class CreateForAssociate : Create
                 {
+                    public CreateForAssociate(int associateId, Create create)
+                    {
+                        AssociateId = associateId;
+                        OperatingContextType = create.OperatingContextType;
+                        FacilityId = create.FacilityId;
+                        ThirdPartySupplierId = create.ThirdPartySupplierId;
+                        ProviderType = create.ProviderType;
+                        ActingBATypeID = create.ActingBATypeID;
+                        CertificationId = create.CertificationId;
+                        Status = create.Status;
+                        IsDeactivating = create.IsDeactivating;
+                        StartDate = create.StartDate;
+                        PrimaryEmailId = create.PrimaryEmailId;
+                        PrimaryPhoneId = create.PrimaryPhoneId;
+                        PrimaryAddressId = create.PrimaryAddressId;
+                        LegacyId = create.LegacyId;
+                    }
 
-
+                    public int AssociateId;
                 }
 
                 public class Create
                 {
-                    public int AssociateId { get; set; }
                     public int OperatingContextType { get; set; }
                     public int FacilityId { get; set; }
                     public int ThirdPartySupplierId { get; set; }
@@ -233,15 +251,9 @@ namespace EGMS.BusinessAssociates.Command
                 {
 
                 }
-
-                public class Delete
-                {
-
-                }
             }
 
             #endregion
-
         }
     }
 }

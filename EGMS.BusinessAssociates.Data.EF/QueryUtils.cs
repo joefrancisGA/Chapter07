@@ -19,7 +19,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public static IQueryable<T> ApplyBaseQuery<T>(this IQueryable<T> query, BaseQueryParams queryParams)
         {
-            if(queryParams.Page!=null && queryParams.PageSize != null)
+            if (queryParams.Page != null && queryParams.PageSize != null)
             {
                 int page = queryParams.Page.Value - 1;
                 int pageSize = queryParams.PageSize.Value;
@@ -29,14 +29,14 @@ namespace EGMS.BusinessAssociates.Data.EF
                     page = 0;
                 }
 
-                if(pageSize<0)
+                if (pageSize<0)
                 {
                     pageSize = 10;
                 }
 
                 int skip = page * pageSize;
 
-                query = query.Skip<T>(skip).Take<T>(pageSize);
+                query = query.Skip(skip).Take(pageSize);
             }
 
             return query;
