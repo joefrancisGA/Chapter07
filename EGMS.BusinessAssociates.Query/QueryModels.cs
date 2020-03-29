@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EGMS.BusinessAssociates.Query
+﻿namespace EGMS.BusinessAssociates.Query
 {
     public static class QueryModels
     {

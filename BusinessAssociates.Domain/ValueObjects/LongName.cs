@@ -1,7 +1,4 @@
-﻿
-
-using System.Net.NetworkInformation;
-using EGMS.BusinessAssociates.Framework;
+﻿using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain.ValueObjects
 {

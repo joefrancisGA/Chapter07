@@ -14,11 +14,11 @@ namespace EGMS.BusinessAssociates.Data.EF
         private readonly ILogger _log;
         private readonly IMapper _mapper;
 
-        public AssociatesQueryRepositoryEF(AssociatesContext context, ILogger<AssociatesQueryRepositoryEF> log, IMapper mapper)
+        public AssociatesQueryRepositoryEF(AssociatesContext context, ILogger log, IMapper mapper)
         {
-            this._context = context;
-            this._log = log;
-            this._mapper = mapper;
+            _context = context;
+            _log = log;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<AssociateRM>> GetFacilities(QueryModels.FacilityQueryParams queryParams)

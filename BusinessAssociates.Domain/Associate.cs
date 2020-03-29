@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.Exceptions;
 using EGMS.BusinessAssociates.Domain.Messages;

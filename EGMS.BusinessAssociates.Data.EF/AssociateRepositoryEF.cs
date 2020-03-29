@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,7 +6,6 @@ using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace EGMS.BusinessAssociates.Data.EF
@@ -15,10 +13,13 @@ namespace EGMS.BusinessAssociates.Data.EF
     public class AssociateRepositoryEF : IAssociateRepository
     {
         private readonly AssociatesContext _context;
+
+        // TO DO:  Need to use logging
+        // ReSharper disable once NotAccessedField.Local
         private readonly ILogger _log;
         private readonly IMapper _mapper;
 
-        public AssociateRepositoryEF(AssociatesContext context, ILogger<AssociateRepositoryEF> log, IMapper mapper)
+        public AssociateRepositoryEF(AssociatesContext context, ILogger log, IMapper mapper)
         {
             _context = context;
             _log = log;
@@ -80,6 +81,8 @@ namespace EGMS.BusinessAssociates.Data.EF
             {
                 throw new Exception($"Associate {associate.Id } not found for Update.");
             }
+
+            await _context.SaveChangesAsync();
         }
     }
 }

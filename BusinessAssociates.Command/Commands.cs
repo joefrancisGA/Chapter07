@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Enums;
 
 namespace EGMS.BusinessAssociates.Command
