@@ -13,6 +13,7 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new EMailConfiguration());
+            modelBuilder.ApplyConfiguration(new AssociateOperatingContextConfiguration());
         }
     }
 }

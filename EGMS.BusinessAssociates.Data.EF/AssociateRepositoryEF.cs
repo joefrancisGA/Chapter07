@@ -48,23 +48,21 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.Associates.FindAsync(id).Result != null;
         }
 
-        public async void AddOperatingContext(Associate associate, OperatingContext operatingContext)
+        public void AddOperatingContext(OperatingContext operatingContext)
         {
-            await using IDbContextTransaction transaction = _context.Database.BeginTransaction();
+            _context.OperatingContexts.Add(operatingContext);
+            _context.SaveChanges();
+        }
 
-            associate.OperatingContexts.Add(operatingContext);
+        public async void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext)
+        {
+            int operatingContextId = _context.OperatingContexts.ToList().Last().Id;
+
+            AssociateOperatingContext association = new AssociateOperatingContext(associate.Id, operatingContextId);
+
+            _context.AssociateOperatingContexts.Add(association);
 
             await _context.SaveChangesAsync();
-
-            operatingContext = associate.OperatingContexts.Last();
-
-            AssociateOperatingContext association = new AssociateOperatingContext(associate.Id, operatingContext.Id);
-            associate.AssociateOperatingContexts.Add(association);
-            operatingContext.AssociateOperatingContexts.Add(association);
-
-            await _context.SaveChangesAsync();
-
-            transaction.Commit();
         }
 
         public async Task<Associate> Load(int id)

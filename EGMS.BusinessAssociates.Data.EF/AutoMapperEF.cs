@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.Extensions.Configuration;
@@ -8,11 +7,12 @@ namespace EGMS.BusinessAssociates.Data.EF
 {
     public class AutoMapperEF : Profile
     {
+        // ReSharper disable once UnusedParameter.Local
         public AutoMapperEF(IConfiguration configuration)
         {
             CreateMap<Associate, AssociateRM>()
                 .ForMember(dst => dst.Id,
-                    opt => opt.MapFrom(src => (int) src.Id))
+                    opt => opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.DUNSNumber,
                     opt => opt.MapFrom(src => src.DUNSNumber))
                 .ForMember(dst => dst.LongName,
@@ -31,6 +31,29 @@ namespace EGMS.BusinessAssociates.Data.EF
                     opt => opt.MapFrom(src => src.IsParent))
                 .ForMember(dst => dst.Status,
                     opt => opt.MapFrom(src => (int) src.Status));
+
+
+            CreateMap<OperatingContext, OperatingContextRM>()
+                .ForMember(dst => dst.ActingBAType,
+                    opt => opt.MapFrom(src => src.ActingBAType))
+                .ForMember(dst => dst.CertificationId,
+                    opt => opt.MapFrom(src => src.CertificationId.Value))
+                .ForMember(dst => dst.FacilityId,
+                    opt => opt.MapFrom(src => src.FacilityId.Value))
+                .ForMember(dst => dst.IsDeactivating,
+                    opt => opt.MapFrom(src => src.IsDeactivating))
+                .ForMember(dst => dst.LegacyId,
+                    opt => opt.MapFrom(src => src.LegacyId))
+                .ForMember(dst => dst.OperatingContextType,
+                    opt => opt.MapFrom(src => src.OperatingContextType))
+                .ForMember(dst => dst.ProviderType,
+                    opt => opt.MapFrom(src => src.ProviderType))
+                .ForMember(dst => dst.StartDate,
+                    opt => opt.MapFrom(src => src.StartDate))
+                .ForMember(dst => dst.Status,
+                    opt => opt.MapFrom(src => src.Status))
+                .ForMember(dst => dst.ThirdPartySupplierId,
+                    opt => opt.MapFrom(src => src.ThirdPartySupplierId.Value));
         }
     }
 }

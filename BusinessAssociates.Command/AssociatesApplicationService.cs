@@ -123,7 +123,8 @@ namespace EGMS.BusinessAssociates.Command
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
                 cmd.ProviderType, cmd.StartDate, (Status)cmd.Status);
 
-            _repository.AddOperatingContext(associate, operatingContext);
+            _repository.AddOperatingContext(operatingContext);
+            _repository.AddAssociateOperatingContext(associate, operatingContext);
 
             associate.OperatingContexts.Add(operatingContext);
 

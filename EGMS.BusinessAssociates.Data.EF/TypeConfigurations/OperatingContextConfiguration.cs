@@ -20,15 +20,6 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             builder.OwnsOne(oc => oc.ThirdPartySupplierId,
                 cb => { cb.Property(e => e.Value).HasColumnName("ThirdPartySupplierId"); });
 
-            builder.OwnsOne(oc => oc.PrimaryEmailId,
-                cb => { cb.Property(e => e.Value).HasColumnName("PrimaryEMailId"); });
-            
-            builder.OwnsOne(oc => oc.PrimaryPhoneId,
-                cb => { cb.Property(e => e.Value).HasColumnName("PrimaryPhoneId"); });
-
-            builder.OwnsOne(oc => oc.PrimaryAddressId,
-                cb => { cb.Property(e => e.Value).HasColumnName("PrimaryAddressId"); });
-
             builder.OwnsOne(oc => oc.CertificationId,
                 cb => { cb.Property(e => e.Value).HasColumnName("CertificationId"); });
 
@@ -36,6 +27,15 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             builder.Property(oc => oc.OperatingContextType).HasColumnName("OperatingContextTypeId");
             builder.Property(oc => oc.ProviderType).HasColumnName("ProviderTypeId");
             builder.Property(oc => oc.Status).HasColumnName("StatusId");
+            builder.HasOne(oc => oc.PrimaryAddress)
+                .WithMany()
+                .HasForeignKey(oc => oc.PrimaryAddressId);
+            builder.HasOne(oc => oc.PrimaryEmail)
+                .WithMany()
+                .HasForeignKey(oc => oc.PrimaryEmailId);
+            builder.HasOne(oc => oc.PrimaryPhone)
+                .WithMany()
+                .HasForeignKey(oc => oc.PrimaryPhoneId);
         }
     }
 }

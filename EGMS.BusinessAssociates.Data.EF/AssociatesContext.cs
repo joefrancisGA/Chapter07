@@ -56,6 +56,8 @@ namespace EGMS.BusinessAssociates.Data.EF
                 .WithMany(aoc => aoc.AssociateOperatingContexts)
                 .HasForeignKey(aoc => aoc.OperatingContextId);
 
+            modelBuilder.Entity<Associate>().Ignore(associate => associate.OperatingContexts);
+
             //modelBuilder.Entity<NullableDatabaseId>().HasNoKey();
         }
 
