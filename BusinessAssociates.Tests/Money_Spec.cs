@@ -1,8 +1,13 @@
-﻿namespace BusinessAssociates.Tests
+﻿using System;
+using Xunit;
+
+namespace BusinessAssociates.Tests
 {
-    public class MoneySpec
+    public class Associates
     {
-       
+
+
+
         //[Fact]
         //public void Throw_when_too_many_decimal_places()
         //{
@@ -10,6 +15,6 @@
         //        Money.FromDecimal(100.123m, "EUR", CurrencyLookup)
         //    );
         //}
-        
+
     }
 }

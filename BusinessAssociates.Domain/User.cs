@@ -15,6 +15,10 @@ namespace EGMS.BusinessAssociates.Domain
         public bool HasEGMSAccess { get; set; }
         public DateTime DeactivationDate { get; set; }
 
+
+        public User() { }
+
+
         public User(Action<object> applier) : base(applier)
         {
         }

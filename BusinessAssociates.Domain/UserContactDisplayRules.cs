@@ -6,9 +6,10 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class UserContactDisplayRules : Entity<DatabaseId>
     {
-        protected override void When(object @event)
+        public UserContactDisplayRules() { }
+
+        public UserContactDisplayRules(Action<object> applier) : base(applier)
         {
-            throw new NotImplementedException();
         }
 
         public bool IsInternal { get; set; }
@@ -17,8 +18,10 @@ namespace EGMS.BusinessAssociates.Domain
         public bool EGMSConfigured { get; set; }
         public bool IsActive { get; set; }
 
-        public UserContactDisplayRules(Action<object> applier) : base(applier)
+
+        protected override void When(object @event)
         {
+            throw new NotImplementedException();
         }
     }
 }

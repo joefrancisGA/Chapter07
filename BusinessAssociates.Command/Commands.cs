@@ -224,24 +224,6 @@ namespace EGMS.BusinessAssociates.Command
                     }
 
                     public class Update { }
-                    public class Delete { }
-                    public class UpdateAddressType { }
-                    public class UpdateAddress1 { }
-                    public class UpdateAddress2 { }
-                    public class UpdateAddress3 { }
-                    public class UpdateAddress4 { }
-                    public class UpdateCity { }
-                    public class UpdateGeographicState { }
-                    public class UpdatePostalCode { }
-                    public class UpdateCountry { }
-                    public class UpdateAttention { }
-                    public class UpdateComments { }
-                    public class UpdateStartDate { }
-                    public class UpdateEndDate { }
-                    public class UpdateIsPrimary { }
-
-                    // ReSharper disable once MemberHidesStaticFromOuterClass
-                    public class UpdateIsActive { }
                 }
 
                 public class CreateForAssociate : Create
@@ -273,57 +255,6 @@ namespace EGMS.BusinessAssociates.Command
                     public int PrimaryAddressId { get; set; }
                     public bool IsActive { get; set; }
                 }
-
-
-                public class UpdateFirstName
-                {
-
-                }
-
-                public class UpdateLastName
-                {
-
-                }
-
-                public class UpdateTitle
-                {
-
-                }
-
-                public class UpdatePrimaryPhoneId
-                {
-
-                }
-
-                public class UpdatePrimaryEmailId
-                {
-
-                }
-
-                public class UpdatePrimaryAddressId
-                {
-
-                }
-
-                public class UpdateIsActive
-                {
-
-                }
-
-                public class AddPhone
-                {
-
-                }
-
-                public class AddEmail
-                {
-
-                }
-
-                public class AddAddress
-                {
-
-                }
             }
 
             public static class Customer
@@ -333,6 +264,47 @@ namespace EGMS.BusinessAssociates.Command
                     public CreateForAssociate(int associateId, Create create)
                     {
                         AssociateId = associateId;
+
+                        CustomerTypeId = create.CustomerTypeId;
+                        DeliveryTypeId = create.DeliveryTypeId;
+                        DUNSNumber = create.DUNSNumber;
+                        LongName = create.LongName;
+                        BasicPoolId = create.BasicPoolId;
+                        StatusId = create.StatusId;
+                        LDCId = create.LDCId;
+                        AccountNumber = create.AccountNumber;
+                        LossTierTypeId = create.LossTierTypeId;
+                        DeliveryLocationId = create.DeliveryLocationId;
+                        ShipperId = create.ShipperId;
+                        DeliveryPressure = create.DeliveryPressure;
+                        ContractTypeId = create.ContractTypeId;
+                        MDQ = create.MDQ;
+                        MaxHourlyInterruptible = create.MaxHourlyInterruptible;
+                        MaxDailyInterruptible = create.MaxDailyInterruptible;
+                        MaxHourlySpecifiedFirm = create.MaxHourlySpecifiedFirm;
+                        HourlyInterruptible = create.HourlyInterruptible;
+                        DailyInterruptible = create.DailyInterruptible;
+                        TotalHourlySpecifiedFirm = create.TotalHourlySpecifiedFirm;
+                        TotalDailySpecifiedFirm = create.TotalDailySpecifiedFirm;
+                        InterstateSpecifiedFirm = create.InterstateSpecifiedFirm;
+                        IntrastateSpecifiedFirm = create.IntrastateSpecifiedFirm;
+                        CurrentDemand = create.CurrentDemand;
+                        PreviousDemand = create.PreviousDemand;
+                        NominationLevelId = create.NominationLevelId;
+                        GroupTypeId = create.GroupTypeId;
+                        BalancingLevelId = create.BalancingLevelId;
+                        NAICSCode = create.NAICSCode;
+                        SICCode = create.SICCode;
+                        SICCodePercentage = create.SICCodePercentage;
+                        AlternateCustomerId = create.AlternateCustomerId;
+                        ShippersLetterFromDate = create.ShippersLetterFromDate;
+                        ShippersLetterToDate = create.ShippersLetterToDate;
+                        StartDate = create.StartDate;
+                        EndDate = create.EndDate;
+                        SS1 = create.SS1;
+                        IsFederal = create.IsFederal;
+                        TurnOnDate = create.TurnOnDate;
+                        TurnOffDate = create.TurnOffDate;
                     }
 
                     private int AssociateId { get; set; }
@@ -416,19 +388,12 @@ namespace EGMS.BusinessAssociates.Command
                     }
 
                     public class Create
-                    { public int AlternateFuelId { get; set; }
+                    { 
+                        public int AlternateFuelId { get; set; }
                     }
                 }
             }
 
-            public static class EMail
-            {
-
-            }
-
-            public static class LifecycleEvent
-            {
-            }
 
             public static class Permission
             {
@@ -438,11 +403,6 @@ namespace EGMS.BusinessAssociates.Command
                     public string PermissionDescription { get; set; }
                     public bool IsActive { get; set; }
                 }
-            }
-
-            public static class Phone
-            {
-
             }
 
             public static class Role
@@ -496,10 +456,9 @@ namespace EGMS.BusinessAssociates.Command
                 }
             }
 
-            public static class UserContactDisplayRule
-            {
+            // This is a read only model
+            //public static class UserContactDisplayRule {}
 
-            }
 
             #region OperatingContext
 
@@ -694,25 +653,6 @@ namespace EGMS.BusinessAssociates.Command
                             public int AlternateFuelId { get; set; }
                         }
                     }
-
-                    public static class OperatingContext
-                    {
-                        public class CreateForCustomer : Create
-                        {
-                            public CreateForCustomer(int customerId, Create create)
-                            {
-                                CustomerId = customerId;
-                                AlternateFuelId = create.AlternateFuelId;
-                            }
-
-                            public int CustomerId { get; set; }
-                        }
-
-                        public class Create
-                        {
-                            public int AlternateFuelId { get; set; }
-                        }
-                    }
                 }
 
                 public class CreateForAssociate : Create
@@ -753,11 +693,6 @@ namespace EGMS.BusinessAssociates.Command
                     public int PrimaryPhoneId { get; set; }
                     public int PrimaryAddressId { get; set; }
                     public int LegacyId { get; set; }
-                }
-
-                public class AssociateExisting
-                {
-
                 }
 
                 public class Update

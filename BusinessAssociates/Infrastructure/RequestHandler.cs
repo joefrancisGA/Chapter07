@@ -42,6 +42,5 @@ namespace EGMS.BusinessAssociates.API.Infrastructure
                 });
             }
         }
-
     }
 }
