@@ -7,8 +7,15 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class CustomerAlternateFuel : Entity<DatabaseId>
     {
+        public Customer Customer { get; set; }
         public DatabaseId CustomerId { get; set; }
+
         public AlternateFuelType AlternateFuel { get; set; }
+
+
+        CustomerAlternateFuel()
+        {
+        }
 
         public CustomerAlternateFuel(Action<object> applier) : base(applier)
         {

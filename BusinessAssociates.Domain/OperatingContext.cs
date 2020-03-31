@@ -45,7 +45,7 @@ namespace EGMS.BusinessAssociates.Domain
             PrimaryPhoneId = primaryPhoneId;
             ProviderType = (ProviderType) providerTypeId.Value;
             IsDeactivating = isDeactivating;
-            StartDate = (startDate != default) ? startDate : DateTime.Now;
+            StartDate = startDate != default ? startDate : DateTime.Now;
             Status = status;
         }
 
@@ -58,6 +58,8 @@ namespace EGMS.BusinessAssociates.Domain
         public int LegacyId { get; set; }
         public ProviderType ProviderType { get; set; }
         public AssociateType ActingBAType { get; set; }
+
+        public Certification Certification { get; set; }
         public NullableDatabaseId CertificationId { get; set; }
 
 

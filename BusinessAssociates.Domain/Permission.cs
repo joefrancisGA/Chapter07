@@ -11,12 +11,13 @@ namespace EGMS.BusinessAssociates.Domain
         public PermissionDescription PermissionDescription { get; set; }
         public bool IsActive { get; set; }
 
+        
+        public Permission() { }
+
         public Permission(Action<object> applier) : base(applier)
         {
         }
-
-        public Permission() { }
-
+        
         protected override void When(object @event)
         {
             throw new NotImplementedException();

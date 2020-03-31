@@ -10,17 +10,15 @@ namespace EGMS.BusinessAssociates.Domain
         public RoleName RoleName { get; set; }
         public RoleDescription RoleDescription { get; set; }
 
+
         // Collections
         public IEnumerable<Permission> Permissions { get; set; }
 
-        public Role(Action<object> applier) : base(applier)
-        {
-        }
 
-        public Role()
-        {
-        }
+        public Role() { }
 
+        public Role(Action<object> applier) : base(applier) { }
+        
         protected override void When(object @event)
         {
             throw new NotImplementedException();

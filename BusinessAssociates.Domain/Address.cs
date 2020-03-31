@@ -5,6 +5,8 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
+    // Many-to-many relationship with Contacts
+    // Many-to-many relationship with OperatingContext
     public class Address : Entity<int>
     {
         public AddressType AddressType { get; set; }

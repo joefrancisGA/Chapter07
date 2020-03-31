@@ -12,11 +12,12 @@ namespace EGMS.BusinessAssociates.Domain
         public Extension Extension { get; set; }
         public bool IsPrimary { get; set; }
 
+
+        public Phone() { }
+
         public Phone(Action<object> applier) : base(applier)
         {
         }
-
-        public Phone() { }
 
         protected override void When(object @event)
         {

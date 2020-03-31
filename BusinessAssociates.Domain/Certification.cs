@@ -12,6 +12,9 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime CertificationDateTime { get; set; }
         public DateTime DecertificationDateTime { get; set; }
 
+
+        public Certification() { }
+
         public Certification(Action<object> applier) : base(applier)
         {
         }

@@ -18,19 +18,17 @@ namespace EGMS.BusinessAssociates.Domain
         public FirstName FirstName { get; set; }
         public LastName LastName { get; set; }
         public Title Title { get; set; }
-
         public User User { get; set; }
-
 
         public DatabaseId PrimaryPhoneId { get; set; }
         public DatabaseId PrimaryEmailIdId { get; set; }
         public DatabaseId PrimaryAddressId { get; set; }
+        public bool IsActive { get; set; }
 
         public List<Phone> Phones { get; set; }
         public List<EMail> Emails { get; set; }
         public List<Address> Addresses { get; set; }
 
-        public bool IsActive { get; set; }
 
         protected override void When(object @event)
         {

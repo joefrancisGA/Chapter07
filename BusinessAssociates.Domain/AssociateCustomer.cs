@@ -6,8 +6,14 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class AssociateCustomer : Entity<DatabaseId>
     {
+        public Associate Associate { get; set; }
         public AssociateId AssociateId { get; set; }
+
+        public Customer Customer { get; set; }
         public DatabaseId CustomerId { get; set; }
+
+
+        public AssociateCustomer() { }
 
         public AssociateCustomer(Action<object> applier) : base(applier)
         {

@@ -14,20 +14,25 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public Associate Principal { get; set; }
+        public AssociateId PrincipalId { get; set; }
+
         public Associate Agent { get; set; }
+        public AssociateId AgentId { get; set; }
+
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; }
 
+
         // Collections
-        public List<UserOperatingContext> AgentUserList { get; set; }
+        public List<AgentRelationshipUser> AgentRelationshipUserList { get; set; }
 
 
         public void AddAgentUser()
         {
-            if (AgentUserList == null)
+            if (AgentRelationshipUserList == null)
             {
-                AgentUserList = new List<UserOperatingContext>();
+                AgentRelationshipUserList = new List<AgentRelationshipUser>();
             }
         }
 

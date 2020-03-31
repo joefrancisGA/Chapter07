@@ -6,8 +6,16 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class ContactEMail : Entity<DatabaseId>
     {
+        public Contact Contact { get; set; }
         public DatabaseId ContactId { get; set; }
-        public DatabaseId EMail { get; set; }
+        
+        public EMail EMail { get; set; }
+        public DatabaseId EMailId { get; set; }
+
+
+        public ContactEMail()
+        {
+        }
 
         public ContactEMail(Action<object> applier) : base(applier)
         {
