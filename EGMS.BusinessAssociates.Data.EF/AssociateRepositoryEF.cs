@@ -19,7 +19,8 @@ namespace EGMS.BusinessAssociates.Data.EF
         private readonly ILogger _log;
         private readonly IMapper _mapper;
 
-        public AssociateRepositoryEF(AssociatesContext context, ILogger log, IMapper mapper)
+        // ReSharper disable once SuggestBaseTypeForParameter
+        public AssociateRepositoryEF(AssociatesContext context, ILogger<AssociateRepositoryEF> log, IMapper mapper)
         {
             _context = context;
             _log = log;
