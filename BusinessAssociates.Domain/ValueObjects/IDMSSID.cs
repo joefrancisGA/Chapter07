@@ -8,6 +8,8 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public string Value { get; }
 
+        public IDMSSID() { }
+
         private IDMSSID(string value)
         {
             Value = value;
