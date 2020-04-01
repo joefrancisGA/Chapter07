@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class AgentRelationship : Entity<DatabaseId>
+    public class AgentRelationship : Entity<int>
     {
         public AgentRelationship() { }
 
@@ -14,7 +14,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public Associate Principal { get; set; }
-        public AssociateId PrincipalId { get; set; }
+        public int PrincipalId { get; set; }
 
         public Associate Agent { get; set; }
         public AssociateId AgentId { get; set; }

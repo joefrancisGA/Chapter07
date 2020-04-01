@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EGMS.BusinessAssociates.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
 {
@@ -14,6 +15,7 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new EMailConfiguration());
             modelBuilder.ApplyConfiguration(new AssociateOperatingContextConfiguration());
+            modelBuilder.ApplyConfiguration(new AgentRelationshipConfiguration());
         }
     }
 }

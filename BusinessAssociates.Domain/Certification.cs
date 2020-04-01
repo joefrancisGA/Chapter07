@@ -1,11 +1,10 @@
 ﻿using System;
 using EGMS.BusinessAssociates.Domain.Enums;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Certification : Entity<DatabaseId>
+    public class Certification : Entity<int>
     {
         public bool IsInherited { get; set; }
         public CertificationStatus CertificationStatus { get; set; }

@@ -51,6 +51,11 @@ namespace EGMS.BusinessAssociates.Data.EF
                 .WithMany(aoc => aoc.AssociateOperatingContexts)
                 .HasForeignKey(aoc => aoc.AssociateId);
 
+            modelBuilder.Entity<AgentRelationship>()
+                .HasOne(ar => ar.Principal)
+                .WithMany(ar => ar.AgentRelationships)
+                .HasForeignKey(ar => ar.PrincipalId);
+
             modelBuilder.Entity<AssociateOperatingContext>()
                 .HasOne(aoc => aoc.OperatingContext)
                 .WithMany(aoc => aoc.AssociateOperatingContexts)
@@ -59,6 +64,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<Associate>().Ignore(associate => associate.OperatingContexts);
 
             modelBuilder.Entity<Associate>().HasMany(associate => associate.AgentRelationships);
+            
+            modelBuilder.Entity<AgentRelationshipUser>()
+                .HasOne(ar => ar.AgentRelationship)
+                .WithMany(ar => ar.AgentRelationshipUserList)
+                .HasForeignKey(ar => ar.UserId);
 
             //modelBuilder.Entity<NullableDatabaseId>().HasNoKey();
         }

@@ -4,13 +4,13 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class AgentRelationshipUser : Entity<DatabaseId>
+    public class AgentRelationshipUser : Entity<int>
     {
         public AgentRelationship AgentRelationship { get; set; }
-        public DatabaseId AgentRelationshipId { get; set; }
+        public int AgentRelationshipId { get; set; }
 
         public User User { get; set; }
-        public DatabaseId UserId { get; set; }
+        public int UserId { get; set; }
 
         public AgentRelationshipUser()
         {
