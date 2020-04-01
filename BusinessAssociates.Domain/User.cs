@@ -4,7 +4,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class User : Entity<DatabaseId>
+    public class User : Entity<int>
     {
         public Contact Contact { get; set; }
         public IDMSSID IDMSSID { get; set; }

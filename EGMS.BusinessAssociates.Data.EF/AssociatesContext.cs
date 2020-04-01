@@ -43,34 +43,42 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            AssociateTypeConfigurations.ConfigureTypes(modelBuilder);
-            modelBuilder.Entity<AssociateOperatingContext>().HasKey(aoc => new {aoc.AssociateId, aoc.OperatingContextId});
+            try
+            {
+                AssociateTypeConfigurations.ConfigureTypes(modelBuilder);
+                modelBuilder.Entity<AssociateOperatingContext>()
+                    .HasKey(aoc => new {aoc.AssociateId, aoc.OperatingContextId});
 
-            modelBuilder.Entity<AssociateOperatingContext>()
-                .HasOne(aoc => aoc.Associate)
-                .WithMany(aoc => aoc.AssociateOperatingContexts)
-                .HasForeignKey(aoc => aoc.AssociateId);
+                modelBuilder.Entity<AssociateOperatingContext>()
+                    .HasOne(aoc => aoc.Associate)
+                    .WithMany(aoc => aoc.AssociateOperatingContexts)
+                    .HasForeignKey(aoc => aoc.AssociateId);
 
-            modelBuilder.Entity<AgentRelationship>()
-                .HasOne(ar => ar.Principal)
-                .WithMany(ar => ar.AgentRelationships)
-                .HasForeignKey(ar => ar.PrincipalId);
+                modelBuilder.Entity<AgentRelationship>()
+                    .HasOne(ar => ar.Principal)
+                    .WithMany(ar => ar.AgentRelationships)
+                    .HasForeignKey(ar => ar.PrincipalId);
 
-            modelBuilder.Entity<AssociateOperatingContext>()
-                .HasOne(aoc => aoc.OperatingContext)
-                .WithMany(aoc => aoc.AssociateOperatingContexts)
-                .HasForeignKey(aoc => aoc.OperatingContextId);
+                modelBuilder.Entity<AssociateOperatingContext>()
+                    .HasOne(aoc => aoc.OperatingContext)
+                    .WithMany(aoc => aoc.AssociateOperatingContexts)
+                    .HasForeignKey(aoc => aoc.OperatingContextId);
 
-            modelBuilder.Entity<Associate>().Ignore(associate => associate.OperatingContexts);
+                modelBuilder.Entity<Associate>().Ignore(associate => associate.OperatingContexts);
+                modelBuilder.Entity<Associate>().HasMany(associate => associate.AgentRelationships);
 
-            modelBuilder.Entity<Associate>().HasMany(associate => associate.AgentRelationships);
-            
-            modelBuilder.Entity<AgentRelationshipUser>()
-                .HasOne(ar => ar.AgentRelationship)
-                .WithMany(ar => ar.AgentRelationshipUserList)
-                .HasForeignKey(ar => ar.UserId);
+                modelBuilder.Entity<AgentRelationshipUser>()
+                    .HasOne(ar => ar.AgentRelationship)
+                    .WithMany(ar => ar.AgentRelationshipUserList)
+                    .HasForeignKey(ar => ar.UserId);
 
-            //modelBuilder.Entity<NullableDatabaseId>().HasNoKey();
+                //modelBuilder.Entity<NullableDatabaseId>().HasNoKey();
+            }
+            catch (Exception ex)
+            {
+                ex = ex;
+                throw;
+            }
         }
 
 

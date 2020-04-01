@@ -4,13 +4,13 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class ContactPhone : Entity<DatabaseId>
+    public class ContactPhone : Entity<int>
     {
         public Contact Contact { get; set; }
-        public DatabaseId ContactId { get; set; }
+        public int ContactId { get; set; }
 
         public Phone Phone { get; set; }
-        public DatabaseId PhoneId { get; set; }
+        public int PhoneId { get; set; }
 
 
         public ContactPhone() { }

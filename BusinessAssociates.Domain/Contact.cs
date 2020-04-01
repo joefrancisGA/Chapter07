@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Contact : Entity<DatabaseId>
+    public class Contact : Entity<int>
     {
         public Contact()
         {
@@ -20,12 +20,18 @@ namespace EGMS.BusinessAssociates.Domain
         public Title Title { get; set; }
         public User User { get; set; }
 
-        public DatabaseId PrimaryPhoneId { get; set; }
-        public DatabaseId PrimaryEmailIdId { get; set; }
-        public DatabaseId PrimaryAddressId { get; set; }
+        public Phone PrimaryPhone { get; set; }
+        public int PrimaryPhoneId { get; set; }
+
+        public EMail PrimaryEMail { get; set; }
+        public int PrimaryEmailId { get; set; }
+
+        public Address PrimaryAddress { get; set; }
+        public int PrimaryAddressId { get; set; }
+
         public bool IsActive { get; set; }
 
-        public List<Phone> Phones { get; set; }
+        public List<ContactPhone> ContactPhones { get; set; }
         public List<EMail> Emails { get; set; }
         public List<Address> Addresses { get; set; }
 

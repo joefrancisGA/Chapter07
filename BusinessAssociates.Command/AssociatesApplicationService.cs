@@ -31,7 +31,15 @@ namespace EGMS.BusinessAssociates.Command
             switch (command)
             {
                 case Commands.V1.Associate.Create cmd:
-                    return HandleCreate(cmd);
+                    try
+                    {
+                        return HandleCreate(cmd);
+                    }
+                    catch (Exception ex)
+                    {
+                        ex = ex;
+                        throw;
+                    }
 
                 case Commands.V1.Associate.UpdateDUNSNumber cmd:
                     HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber)));

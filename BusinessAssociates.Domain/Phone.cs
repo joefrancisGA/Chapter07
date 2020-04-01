@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
@@ -12,6 +13,7 @@ namespace EGMS.BusinessAssociates.Domain
         public Extension Extension { get; set; }
         public bool IsPrimary { get; set; }
 
+        public List<Contact> Contacts { get; set; }
 
         public Phone() { }
 
