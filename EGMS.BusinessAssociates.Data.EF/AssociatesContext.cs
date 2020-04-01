@@ -58,6 +58,8 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             modelBuilder.Entity<Associate>().Ignore(associate => associate.OperatingContexts);
 
+            modelBuilder.Entity<Associate>().HasMany(associate => associate.AgentRelationships);
+
             //modelBuilder.Entity<NullableDatabaseId>().HasNoKey();
         }
 

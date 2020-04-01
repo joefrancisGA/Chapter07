@@ -69,9 +69,17 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public async Task<Associate> Load(int id)
         {
-            Associate associateEF = await _context.Associates.FindAsync(id);
+            try
+            {
+                Associate associateEF = await _context.Associates.FindAsync(id);
 
-            return _mapper.Map<Associate>(associateEF);
+                return _mapper.Map<Associate>(associateEF);
+            }
+            catch (Exception ex)
+            {
+                ex = ex;
+                throw;
+            }
         }
 
         public async Task Update(Associate associate)
