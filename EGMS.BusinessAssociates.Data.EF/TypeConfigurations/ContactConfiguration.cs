@@ -14,6 +14,9 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
 
             builder.HasKey(contact => contact.Id);
 
+            builder.OwnsOne(contact => contact.FirstName,
+                cb => { cb.Property(e => e.Value).HasColumnName("FirstName"); });
+
             builder.HasOne(oc => oc.PrimaryPhone)
                 .WithMany()
                 .HasForeignKey(oc => oc.PrimaryPhoneId);

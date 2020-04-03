@@ -18,7 +18,7 @@ namespace EGMS.BusinessAssociates.Domain
         public FirstName FirstName { get; set; }
         public LastName LastName { get; set; }
         public Title Title { get; set; }
-        public User User { get; set; }
+ 
 
         public Phone PrimaryPhone { get; set; }
         public int PrimaryPhoneId { get; set; }

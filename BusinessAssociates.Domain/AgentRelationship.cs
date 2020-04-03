@@ -17,7 +17,7 @@ namespace EGMS.BusinessAssociates.Domain
         public int PrincipalId { get; set; }
 
         public Associate Agent { get; set; }
-        public AssociateId AgentId { get; set; }
+        public int AgentId { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

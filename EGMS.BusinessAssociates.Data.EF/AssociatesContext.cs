@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EGMS.BusinessAssociates.Data.EF.TypeConfigurations;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Enums;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -66,13 +67,23 @@ namespace EGMS.BusinessAssociates.Data.EF
 
                 modelBuilder.Entity<Associate>().Ignore(associate => associate.OperatingContexts);
                 modelBuilder.Entity<Associate>().HasMany(associate => associate.AgentRelationships);
+                modelBuilder.Entity<User>().Ignore(user => user.DepartmentCode);
+                modelBuilder.Entity<Contact>().Ignore(contact => contact.FirstName);
+                modelBuilder.Entity<Contact>().Ignore(contact => contact.LastName);
+                modelBuilder.Entity<Contact>().Ignore(contact => contact.Title);
+                modelBuilder.Entity<User>().Ignore(user => user.IDMSSID);
 
                 modelBuilder.Entity<AgentRelationshipUser>()
                     .HasOne(ar => ar.AgentRelationship)
                     .WithMany(ar => ar.AgentRelationshipUserList)
                     .HasForeignKey(ar => ar.UserId);
 
-                //modelBuilder.Entity<NullableDatabaseId>().HasNoKey();
+                modelBuilder.Entity<AssociateId>().HasNoKey();
+                modelBuilder.Entity<DepartmentCode>().HasNoKey();
+                modelBuilder.Entity<FirstName>().HasNoKey();
+                modelBuilder.Entity<IDMSSID>().HasNoKey();
+                modelBuilder.Entity<LastName>().HasNoKey();
+                modelBuilder.Entity<Title>().HasNoKey();
             }
             catch (Exception ex)
             {
