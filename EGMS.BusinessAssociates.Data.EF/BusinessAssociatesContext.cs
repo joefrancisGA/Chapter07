@@ -16,10 +16,11 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
         public virtual DbSet<AccountStatusLookup> AccountStatuses { get; set; }
-        //public virtual DbSet<AddressType> AddressTypes { get; set; }
+        public virtual DbSet<AddressTypeLookup> AddressTypes { get; set; }
+
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<AgentRelationship> AgentRelationships { get; set; }
-        //public virtual DbSet<AgentUser> AgentUsers { get; set; }
+        public virtual DbSet<AgentUser> AgentUsers { get; set; }
         //public virtual DbSet<AlternateFuelTypes> AlternateFuelTypes { get; set; }
         public virtual DbSet<AssociateCustomer> AssociateCustomers { get; set; }
         public virtual DbSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
