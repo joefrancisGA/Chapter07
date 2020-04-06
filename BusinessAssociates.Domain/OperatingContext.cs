@@ -29,7 +29,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public OperatingContext(OperatingContextType operatingContextType,
-            DatabaseId facilityId, DatabaseId thirdPartySupplierId, AssociateType actingBATypeId, 
+            DatabaseId facilityId, DatabaseId thirdPartySupplierId, AssociateTypeLookup actingBATypeId, 
             NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId, 
             DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
             DateTime startDate, Status status) : this()
@@ -57,7 +57,7 @@ namespace EGMS.BusinessAssociates.Domain
         // TO DO:  Not sure what to do with the type for LegacyId
         public int LegacyId { get; set; }
         public ProviderType ProviderType { get; set; }
-        public AssociateType ActingBAType { get; set; }
+        public AssociateTypeLookup ActingBAType { get; set; }
 
         public Certification Certification { get; set; }
         public NullableDatabaseId CertificationId { get; set; }

@@ -17,7 +17,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public Associate(int id, string longName, string shortName, bool isParent,
-            AssociateType associateType, Status status) : this()
+            AssociateTypeLookup associateType, Status status) : this()
         {
             Events.AssociateCreated associateCreated = new Events.AssociateCreated
             {
@@ -25,7 +25,7 @@ namespace EGMS.BusinessAssociates.Domain
                 LongName = longName,
                 ShortName = shortName,
                 IsParent = isParent,
-                AssociateType = associateType,
+                AssociateType = associateType.AssociateTypeId,
                 Status = status
             };
 
@@ -41,7 +41,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public static Associate Create(int id, string longName, string shortName, bool isParent,
-            AssociateType associateType, Status status)
+            AssociateTypeLookup associateType, Status status)
         {
             Associate associate = new Associate();
 
@@ -58,7 +58,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
         public ShortName ShortName { get; set; }
-        public AssociateType AssociateType { get; set; }
+        public AssociateTypeLookup AssociateType { get; set; }
         public Status Status { get; set; }
 
         public bool IsInternal { get; set; }
@@ -75,9 +75,9 @@ namespace EGMS.BusinessAssociates.Domain
             DUNSNumber = dunsNumber
         });
 
-        public void UpdateAssociateType(AssociateType associateType) => Apply(new Events.AssociateTypeUpdated
+        public void UpdateAssociateType(AssociateTypeLookup associateType) => Apply(new Events.AssociateTypeUpdated
         {
-            AssociateType = (int)associateType
+            AssociateType = associateType.AssociateTypeId
         });
 
         public void UpdateLongName(LongName longName) => Apply(new Events.AssociateLongNameUpdated
@@ -170,7 +170,7 @@ namespace EGMS.BusinessAssociates.Domain
                     break;
 
                 case Events.AssociateTypeUpdated e:
-                    AssociateType = (AssociateType)e.AssociateType;
+                    AssociateType = AssociateTypeLookup.AssociateTypes[e.AssociateType];
                     break;
 
                 case Events.AssociateAddNewOperatingContext e:
@@ -209,7 +209,7 @@ namespace EGMS.BusinessAssociates.Domain
                     FacilityId = operatingContext.FacilityId,
                     ThirdPartySupplierId = operatingContext.ThirdPartySupplierId,
                     LegacyId = operatingContext.LegacyId,
-                    ActingBATypeId = (int)operatingContext.ActingBAType,
+                    ActingBATypeId = operatingContext.ActingBAType.AssociateTypeId,
                     CertificationId = operatingContext.CertificationId,
                     StatusId = (int)operatingContext.Status,
                     IsDeactivating = operatingContext.IsDeactivating,
@@ -223,7 +223,7 @@ namespace EGMS.BusinessAssociates.Domain
         public static Associate Create(
             ShortName shortName,
             LongName longName,
-            AssociateType associateType,
+            AssociateTypeLookup associateType,
             bool isParent,
             Status status)
         {
@@ -234,7 +234,7 @@ namespace EGMS.BusinessAssociates.Domain
                 {
                     ShortName = shortName,
                     LongName = longName,
-                    AssociateType = associateType,
+                    AssociateType = associateType.AssociateTypeId,
                     IsParent = isParent,
                     Status = status
                 }

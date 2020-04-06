@@ -12,7 +12,7 @@ namespace EGMS.BusinessAssociates.Domain.Messages
             public string LongName { get; set; }
             public string ShortName { get; set; }
             public bool IsParent { get; set; }
-            public AssociateType AssociateType { get; set; }
+            public int AssociateType { get; set; }
             public Status Status { get; set; }
         }
 
