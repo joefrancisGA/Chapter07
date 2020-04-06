@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
@@ -19,6 +18,36 @@ namespace EGMS.BusinessAssociates.Domain.Enums
             IReadOnlyDictionary<int, AddressTypeLookup> AddressTypes =
                 new Dictionary<int, AddressTypeLookup>
                 {
+                    {
+                        (int) AddressTypeEnum.Billing,
+                        new AddressTypeLookup
+                        {
+                            Id = (int) AddressTypeEnum.Billing,
+                            AddressTypeId = (int) AddressTypeEnum.Billing,
+                            Name = AddressTypeName.FromString("Billing"),
+                            Desc = AddressTypeDesc.FromString("Billing Description"),
+                        }
+                    },
+                    {
+                        (int) AddressTypeEnum.Curtailment,
+                        new AddressTypeLookup
+                        {
+                            Id = (int) AddressTypeEnum.Curtailment,
+                            AddressTypeId = (int) AddressTypeEnum.Curtailment,
+                            Name = AddressTypeName.FromString("Curtailment"),
+                            Desc = AddressTypeDesc.FromString("Curtailment Description"),
+                        }
+                    },
+                    {
+                        (int) AddressTypeEnum.Physical,
+                        new AddressTypeLookup
+                        {
+                            Id = (int) AddressTypeEnum.Physical,
+                            AddressTypeId = (int) AddressTypeEnum.Physical,
+                            Name = AddressTypeName.FromString("Physical"),
+                            Desc = AddressTypeDesc.FromString("Physical Description"),
+                        }
+                    }
                 };
 
         public int AddressTypeId { get; private set; }
