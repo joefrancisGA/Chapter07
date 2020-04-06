@@ -21,7 +21,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<AgentRelationship> AgentRelationships { get; set; }
         public virtual DbSet<AgentUser> AgentUsers { get; set; }
-        //public virtual DbSet<AlternateFuelTypes> AlternateFuelTypes { get; set; }
+        public virtual DbSet<AlternateFuelTypeLookup> AlternateFuelTypes { get; set; }
         public virtual DbSet<AssociateCustomer> AssociateCustomers { get; set; }
         public virtual DbSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
         //public virtual DbSet<AssociateTypes> AssociateTypes { get; set; }
@@ -81,7 +81,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
 
-            //    entity.Property(e => e.AddressTypeDesc)
+            //    entity.Property(e => e.AlternateFuelTypeName)
             //        .IsRequired()
             //        .HasMaxLength(50)
             //        .IsUnicode(false);
@@ -124,7 +124,7 @@ namespace EGMS.BusinessAssociates.Data.EF
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.AddressType).HasColumnName("AddressTypeID");
+                //entity.Property(e => e.AddressType).HasColumnName("AddressTypeID");
 
                 entity.Property(e => e.Attention)
                     .HasMaxLength(50)

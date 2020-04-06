@@ -10,9 +10,10 @@ namespace EGMS.BusinessAssociates.Domain
         public Customer Customer { get; set; }
         public DatabaseId CustomerId { get; set; }
 
-        public AlternateFuelType AlternateFuel { get; set; }
+        public AlternateFuelTypeLookup AlternateFuel { get; set; }
 
 
+        // ReSharper disable once UnusedMember.Local
         CustomerAlternateFuel()
         {
         }
