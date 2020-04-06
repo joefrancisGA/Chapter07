@@ -10,7 +10,7 @@ namespace EGMS.BusinessAssociates.Domain
         public Role Role { get; set; }
         public DatabaseId RoleId { get; set; }
 
-        public Permission Permission { get; set; }
+        public EGMSPermission EGMSPermission { get; set; }
         public DatabaseId PermissionId { get; set; }
 
 
@@ -21,6 +21,11 @@ namespace EGMS.BusinessAssociates.Domain
         protected override void When(object @event)
         {
             throw new NotImplementedException();
+        }
+
+        public override void OnLoadInit(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
         }
     }
 }

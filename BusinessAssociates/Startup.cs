@@ -66,7 +66,7 @@ namespace EGMS.BusinessAssociates.API
 
             string connectionString = Configuration["ConnectionStrings:BusinessAssociates"];
 
-            services.AddDbContext<AssociatesContext>(opt =>
+            services.AddDbContext<BusinessAssociatesContext>(opt =>
                 opt.UseSqlServer(connectionString)
                     .EnableSensitiveDataLogging());
 
@@ -82,7 +82,7 @@ namespace EGMS.BusinessAssociates.API
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Title = "Business Associates",
+                        Title = "Business Associate",
                         Version = "v1"
                     });
             });

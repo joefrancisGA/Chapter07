@@ -12,7 +12,7 @@ namespace EGMS.BusinessAssociates.Domain
 
 
         // Collections
-        public IEnumerable<Permission> Permissions { get; set; }
+        public IEnumerable<EGMSPermission> Permissions { get; set; }
 
 
         public Role() { }
@@ -22,6 +22,11 @@ namespace EGMS.BusinessAssociates.Domain
         protected override void When(object @event)
         {
             throw new NotImplementedException();
+        }
+
+        public override void OnLoadInit(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
         }
     }
 }

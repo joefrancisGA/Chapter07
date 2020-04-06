@@ -5,16 +5,16 @@ namespace EGMS.BusinessAssociates.Data.EF
 {
     public class AssociateUnitOfWorkEF : IUnitOfWork
     {
-        private readonly AssociatesContext _context;
+        private readonly BusinessAssociatesContext _context;
 
-        public AssociateUnitOfWorkEF(AssociatesContext context)
+        public AssociateUnitOfWorkEF(BusinessAssociatesContext context)
         {
             _context = context;
         }
 
         public async Task Commit()
         {
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
         }
     }
 }

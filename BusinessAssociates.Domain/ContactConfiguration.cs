@@ -7,7 +7,9 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class ContactConfiguration : Entity<DatabaseId>
     {
+        public Contact Contact { get; set; }
         public DatabaseId ContactId { get; set; }
+
         public DatabaseId FacilityId { get; set; }
         public ContactType ContactType { get; set; }
         public Priority Priority { get; set; }
@@ -25,6 +27,11 @@ namespace EGMS.BusinessAssociates.Domain
         protected override void When(object @event)
         {
             throw new NotImplementedException();
+        }
+
+        public override void OnLoadInit(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
         }
     }
 }

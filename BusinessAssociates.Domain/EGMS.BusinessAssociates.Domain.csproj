@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessAssociates.Framework\EGMS.BusinessAssociates.Framework.csproj" />
+    <ProjectReference Include="..\EGMS.Common\EGMS.Common.csproj" />
   </ItemGroup>
 </Project>

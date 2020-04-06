@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
 {
-    class PermissionConfiguration : IEntityTypeConfiguration<Permission>
+    class PermissionConfiguration : IEntityTypeConfiguration<EGMSPermission>
     {
-        public void Configure(EntityTypeBuilder<Permission> builder)
+        public void Configure(EntityTypeBuilder<EGMSPermission> builder)
         {
             builder.Property(oc => oc.Id)
                 .HasColumnName("Id")

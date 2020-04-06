@@ -4,15 +4,24 @@ namespace EGMS.BusinessAssociates.Framework
 {
     public abstract class Entity<TId> : IInternalEventHandler
     {
+
+        protected Action<object> _parentHandler;
+
+        protected Entity(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
+        }
+
         private readonly Action<object> _applier;
         
         public TId Id { get; protected set; }
 
-        protected Entity(Action<object> applier) => _applier = applier;
 
         protected Entity() { }
 
         protected abstract void When(object @event);
+
+        public abstract void OnLoadInit(Action<object> parentHandler);
 
         protected void Apply(object @event)
         {

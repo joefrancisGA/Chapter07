@@ -12,6 +12,9 @@ namespace EGMS.BusinessAssociates.Domain
         public Customer Customer { get; set; }
         public DatabaseId CustomerId { get; set; }
 
+        public DateTime ServiceStartDate { get; set; }
+        public DateTime ServiceEndDate { get; set; }
+
 
         public AssociateCustomer() { }
 
@@ -22,6 +25,11 @@ namespace EGMS.BusinessAssociates.Domain
         protected override void When(object @event)
         {
             throw new NotImplementedException();
+        }
+
+        public override void OnLoadInit(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
         }
     }
 }

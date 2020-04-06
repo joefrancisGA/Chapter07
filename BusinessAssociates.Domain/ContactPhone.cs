@@ -23,5 +23,10 @@ namespace EGMS.BusinessAssociates.Domain
         {
             throw new NotImplementedException();
         }
+
+        public override void OnLoadInit(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
+        }
     }
 }

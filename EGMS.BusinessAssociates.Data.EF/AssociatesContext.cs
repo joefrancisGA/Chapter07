@@ -50,23 +50,23 @@ namespace EGMS.BusinessAssociates.Data.EF
                 modelBuilder.Entity<AssociateOperatingContext>()
                     .HasKey(aoc => new {aoc.AssociateId, aoc.OperatingContextId});
 
-                modelBuilder.Entity<AssociateOperatingContext>()
-                    .HasOne(aoc => aoc.Associate)
-                    .WithMany(aoc => aoc.AssociateOperatingContexts)
-                    .HasForeignKey(aoc => aoc.AssociateId);
+                //modelBuilder.Entity<AssociateOperatingContext>()
+                //    .HasOne(aoc => aoc.Associate)
+                //    .WithMany(aoc => aoc.AssociateOperatingContexts)
+                //    .HasForeignKey(aoc => aoc.AssociateId);
 
-                modelBuilder.Entity<AgentRelationship>()
-                    .HasOne(ar => ar.Principal)
-                    .WithMany(ar => ar.AgentRelationships)
-                    .HasForeignKey(ar => ar.PrincipalId);
+                //modelBuilder.Entity<AgentRelationship>()
+                //    .HasOne(ar => ar.Principal)
+                //    .WithMany(ar => ar.AgentRelationships)
+                //    .HasForeignKey(ar => ar.PrincipalId);
 
                 modelBuilder.Entity<AssociateOperatingContext>()
                     .HasOne(aoc => aoc.OperatingContext)
                     .WithMany(aoc => aoc.AssociateOperatingContexts)
                     .HasForeignKey(aoc => aoc.OperatingContextId);
 
-                modelBuilder.Entity<Associate>().Ignore(associate => associate.OperatingContexts);
-                modelBuilder.Entity<Associate>().HasMany(associate => associate.AgentRelationships);
+                //modelBuilder.Entity<Associate>().Ignore(associate => associate.OperatingContexts);
+                //modelBuilder.Entity<Associate>().HasMany(associate => associate.AgentRelationships);
                 modelBuilder.Entity<User>().Ignore(user => user.DepartmentCode);
                 modelBuilder.Entity<Contact>().Ignore(contact => contact.FirstName);
                 modelBuilder.Entity<Contact>().Ignore(contact => contact.LastName);

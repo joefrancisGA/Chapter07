@@ -22,5 +22,10 @@ namespace EGMS.BusinessAssociates.Domain
         public LifecycleEvent(Action<object> applier) : base(applier)
         {
         }
+
+        public override void OnLoadInit(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
+        }
     }
 }

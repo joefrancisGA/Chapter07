@@ -93,7 +93,11 @@ namespace EGMS.BusinessAssociates.Domain
                 default:
                     throw new Exception("Unknown event " + @event);
             }
+        }
 
+        public override void OnLoadInit(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
         }
     }
 }

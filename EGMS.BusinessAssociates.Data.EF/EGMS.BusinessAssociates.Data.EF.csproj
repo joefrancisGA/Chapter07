@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="AssociateRepository.cs" />
+    <Compile Remove="AssociatesContext.cs" />
     <Compile Remove="TypeConfigurations\FacilityDetailConfiguration.cs" />
     <Compile Remove="TypeConfigurations\FacilityTypeConfiguration.cs" />
     <Compile Remove="TypeConfigurations\FacilityTypeConfigurations.cs" />

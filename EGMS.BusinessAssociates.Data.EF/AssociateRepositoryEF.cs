@@ -12,7 +12,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 {
     public class AssociateRepositoryEF : IAssociateRepository
     {
-        private readonly AssociatesContext _context;
+        private readonly BusinessAssociatesContext _context;
 
         // TO DO:  Need to use logging
         // ReSharper disable once NotAccessedField.Local
@@ -20,7 +20,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         private readonly IMapper _mapper;
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        public AssociateRepositoryEF(AssociatesContext context, ILogger<AssociateRepositoryEF> log, IMapper mapper)
+        public AssociateRepositoryEF(BusinessAssociatesContext context, ILogger<AssociateRepositoryEF> log, IMapper mapper)
         {
             _context = context;
             _log = log;
@@ -48,17 +48,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public bool Exists(int id)
         {
 
-            Associate associate = null;
-
-            try
-            {
-                associate = _context.Associates.FindAsync(id).Result;
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-                throw;
-            }
+            Associate associate = _context.Associates.FindAsync(id).Result;
 
             return (associate != null);
         }

@@ -12,8 +12,8 @@ namespace EGMS.BusinessAssociates.Domain
     {
         public Associate()
         {
-            OperatingContexts = new List<OperatingContext>();
-            AssociateOperatingContexts = new List<AssociateOperatingContext>();
+            //OperatingContexts = new List<OperatingContext>();
+            //AssociateOperatingContexts = new List<AssociateOperatingContext>();
         }
 
         public Associate(int id, string longName, string shortName, bool isParent,
@@ -40,6 +40,21 @@ namespace EGMS.BusinessAssociates.Domain
             Apply(associateCreated);
         }
 
+        public static Associate Create(int id, string longName, string shortName, bool isParent,
+            AssociateType associateType, Status status)
+        {
+            Associate associate = new Associate();
+
+            associate.DUNSNumber = DUNSNumber.Create(id);
+            associate.LongName = LongName.Create(longName);
+            associate.ShortName = ShortName.Create(shortName);
+            associate.IsParent = isParent;
+            associate.AssociateType = associateType;
+            associate.Status = status;
+
+            return associate;
+        }
+
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
         public ShortName ShortName { get; set; }
@@ -51,9 +66,9 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsParent { get; set; }
         public bool IsActive { get; set; }
 
-        public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
-        public List<OperatingContext> OperatingContexts { get; set; }
-        public List<AgentRelationship> AgentRelationships { get; set; }
+        //public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+        //public List<OperatingContext> OperatingContexts { get; set; }
+        //public List<AgentRelationship> AgentRelationships { get; set; }
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {
@@ -161,7 +176,7 @@ namespace EGMS.BusinessAssociates.Domain
                 case Events.AssociateAddNewOperatingContext e:
                     OperatingContext operatingContext = new OperatingContext(Apply);
                     ApplyToEntity(operatingContext, e);
-                    OperatingContexts.Add(operatingContext);
+                    //OperatingContexts.Add(operatingContext);
                     break;
 
                 default:

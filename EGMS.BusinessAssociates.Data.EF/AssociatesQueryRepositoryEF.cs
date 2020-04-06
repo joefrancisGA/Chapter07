@@ -10,12 +10,12 @@ namespace EGMS.BusinessAssociates.Data.EF
 {
     public class AssociatesQueryRepositoryEF : IAssociateQueryRepository
     {
-        private readonly AssociatesContext _context;
+        private readonly BusinessAssociatesContext _context;
         // ReSharper disable once NotAccessedField.Local
         private readonly ILogger _log;
         private readonly IMapper _mapper;
 
-        public AssociatesQueryRepositoryEF(AssociatesContext context, ILogger log, IMapper mapper)
+        public AssociatesQueryRepositoryEF(BusinessAssociatesContext context, ILogger log, IMapper mapper)
         {
             _context = context;
             _log = log;

@@ -104,7 +104,7 @@ namespace EGMS.BusinessAssociates.Command
             _repository.AddOperatingContext(operatingContext);
             _repository.AddAssociateOperatingContext(associate, operatingContext);
 
-            associate.OperatingContexts.Add(operatingContext);
+            //associate.OperatingContexts.Add(operatingContext);
 
             return _mapper.Map<OperatingContextRM>(operatingContext);
         }
@@ -115,7 +115,7 @@ namespace EGMS.BusinessAssociates.Command
             if (_repository.Exists(cmd.DUNSNumber))
                 throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
 
-            Associate associate = new Associate(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
+            Associate associate = Associate.Create(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
             _repository.Add(associate);
 
             await _unitOfWork.Commit();

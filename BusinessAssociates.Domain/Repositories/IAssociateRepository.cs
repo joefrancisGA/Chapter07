@@ -9,7 +9,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         void Add(Associate entity);
 
-        // No delete for Associates
+        // No delete for Associate
         //void Delete(Associate entity);
         
         bool Exists(int id);
