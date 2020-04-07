@@ -48,7 +48,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<OperatingContextCustomer> OperatingContextCustomers { get; set; }
         public virtual DbSet<OperatingContextTypeLookup> OperatingContextTypes { get; set; }
         public virtual DbSet<OperatingContext> OperatingContexts { get; set; }
-        //public virtual DbSet<PhoneTypes> PhoneTypes { get; set; }
+        public virtual DbSet<PhoneTypeLookup> PhoneTypes { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<PredecessorBusinessAssociate> PredecessorBusinessAssociates { get; set; }
         //public virtual DbSet<ProviderTypes> ProviderTypes { get; set; }

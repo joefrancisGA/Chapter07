@@ -9,7 +9,7 @@ namespace EGMS.BusinessAssociates.Domain
     public class Phone : Entity<int>
     {
         public DatabaseId UserId { get; set; }
-        public PhoneType PhoneType { get; set; }
+        public PhoneTypeLookup PhoneType { get; set; }
         public Extension Extension { get; set; }
         public bool IsPrimary { get; set; }
 
