@@ -35,7 +35,7 @@ namespace EGMS.BusinessAssociates.Domain
         public PreviousDemand PreviousDemand { get; set;}
         public NominationLevel NominationLevel { get; set; }
         public GroupType GroupType { get; set; }
-        public BalancingLevel BalancingLevel { get; set; }
+        public BalancingLevelTypeLookup BalancingLevel { get; set; }
         public NAICSCode NAICSCode { get; set; }
         public SICCode SICCode { get; set; }
         public SICCodePercentage SICCodePercentage { get; set; }
