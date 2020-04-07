@@ -31,7 +31,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<CertificationStatusLookup> CertificationStatuses { get; set; }
         public virtual DbSet<Certification> Certifications { get; set; }
         public virtual DbSet<ContactConfiguration> ContactConfigurations { get; set; }
-        //public virtual DbSet<ContactTypes> ContactTypes { get; set; }
+        public virtual DbSet<ContactTypeLookup> ContactTypes { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         //public virtual DbSet<CountryCodes> CountryCodes { get; set; }
         public virtual DbSet<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }

@@ -11,7 +11,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DatabaseId ContactId { get; set; }
 
         public DatabaseId FacilityId { get; set; }
-        public ContactType ContactType { get; set; }
+        public ContactTypeLookup ContactType { get; set; }
         public Priority Priority { get; set; }
         public Status Status { get; set; }
         public DateTime StartDate { get; set; }
