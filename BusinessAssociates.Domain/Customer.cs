@@ -16,7 +16,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DatabaseId LDCId { get; set; }
         public AccountNumber AccountNumber { get; set; }
 
-        public LossTierType LossTier { get; set; }
+        public LossTierTypeLookup LossTier { get; set; }
         public DatabaseId DeliveryLocation { get; set; }
         public DatabaseId ShipperId { get; set; }
         public DeliveryPressure DeliveryPressure { get; set; }
@@ -34,7 +34,7 @@ namespace EGMS.BusinessAssociates.Domain
         public CurrentDemand CurrentDemand { get; set; }
         public PreviousDemand PreviousDemand { get; set;}
         public NominationLevel NominationLevel { get; set; }
-        public GroupType GroupType { get; set; }
+        public GroupTypeLookup GroupType { get; set; }
         public BalancingLevelTypeLookup BalancingLevel { get; set; }
         public NAICSCode NAICSCode { get; set; }
         public SICCode SICCode { get; set; }
