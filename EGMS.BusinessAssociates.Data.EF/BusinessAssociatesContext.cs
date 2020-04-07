@@ -24,7 +24,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<AlternateFuelTypeLookup> AlternateFuelTypes { get; set; }
         public virtual DbSet<AssociateCustomer> AssociateCustomers { get; set; }
         public virtual DbSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
-        //public virtual DbSet<AssociateTypes> AssociateTypes { get; set; }
+        public virtual DbSet<AssociateTypeLookup> AssociateTypes { get; set; }
         public virtual DbSet<AssociateUser> AssociateUsers { get; set; }
         public virtual DbSet<Associate> Associates { get; set; }
         //public virtual DbSet<BalancingLevelTypes> BalancingLevelTypes { get; set; }
@@ -270,7 +270,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             //        .HasMaxLength(255)
             //        .IsUnicode(false);
 
-            //    entity.Property(e => e.AssociateTypeName)
+            //    entity.Property(e => e.BalancingLevelTypeName)
             //        .IsRequired()
             //        .HasMaxLength(50)
             //        .IsUnicode(false);
