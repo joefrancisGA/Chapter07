@@ -19,7 +19,7 @@ namespace EGMS.BusinessAssociates.Domain
         public bool EGMSConfigured { get; set; }
         public bool IsActive { get; set; }
 
-        public EGMSAccountStatus EGMSAccountStatus {get; set; }
+        public EGMSAccountStatusLookup EGMSAccountStatus {get; set; }
 
         public EGMSLinkTypeLookup EGMSLinkType {get; set; }
 
