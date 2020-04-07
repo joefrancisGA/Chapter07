@@ -7,7 +7,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Customer : Entity<DatabaseId>
     {
-        public CustomerType CustomerType { get; set; }
+        public CustomerTypeLookup CustomerType { get; set; }
         public DeliveryType DeliveryType { get; set; }
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }

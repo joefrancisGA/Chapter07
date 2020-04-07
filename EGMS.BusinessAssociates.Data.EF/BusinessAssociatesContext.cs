@@ -35,9 +35,9 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<CountryCodeLookup> CountryCodes { get; set; }
         public virtual DbSet<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }
-        //public virtual DbSet<CustomerTypes> CustomerTypes { get; set; }
+        public virtual DbSet<CustomerTypeLookup> CustomerTypes { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
-        //public virtual DbSet<DeliveryTypes> DeliveryTypes { get; set; }
+        public virtual DbSet<DeliveryTypeLookup> DeliveryTypes { get; set; }
         //public virtual DbSet<EgmslinkTypes> EgmslinkTypes { get; set; }
         public virtual DbSet<EGMSPermission> Egmspermissions { get; set; }
         public virtual DbSet<EMail> Emails { get; set; }
@@ -149,7 +149,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
                 //entity.HasOne(d => d.AddressType)
                 //    .WithMany(p => p.Addresses)
-                //    .HasForeignKey(d => d.AddressTypeId)
+                //    .HasForeignKey(d => d.DeliveryTypeId)
                 //    .OnDelete(DeleteBehavior.ClientSetNull)
                 //    .HasConstraintName("FK_Addresses_AddressTypes");
 
@@ -528,7 +528,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
                 //entity.HasOne(d => d.CustomerType)
                 //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.CustomerTypeId)
+                //    .HasForeignKey(d => d.DeliveryTypeId)
                 //    .OnDelete(DeleteBehavior.ClientSetNull)
                 //    .HasConstraintName("FK_Customers_CustomerTypes");
 
