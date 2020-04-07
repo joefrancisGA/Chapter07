@@ -32,7 +32,7 @@ namespace EGMS.BusinessAssociates.Domain
             DatabaseId facilityId, DatabaseId thirdPartySupplierId, AssociateTypeLookup actingBATypeId, 
             NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId, 
             DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
-            DateTime startDate, Status status) : this()
+            DateTime startDate, StatusCodeLookup status) : this()
         {
             OperatingContextType = operatingContextType;
             FacilityId = facilityId;
@@ -63,7 +63,7 @@ namespace EGMS.BusinessAssociates.Domain
         public NullableDatabaseId CertificationId { get; set; }
 
 
-        public Status Status { get; set; }
+        public StatusCodeLookup Status { get; set; }
 
         public bool IsDeactivating { get; set; }
         public DateTime StartDate { get; set; }

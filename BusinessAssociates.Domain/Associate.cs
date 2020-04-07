@@ -17,7 +17,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public Associate(int id, string longName, string shortName, bool isParent,
-            AssociateTypeLookup associateType, Status status) : this()
+            AssociateTypeLookup associateType, StatusCodeLookup status) : this()
         {
             Events.AssociateCreated associateCreated = new Events.AssociateCreated
             {
@@ -41,7 +41,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public static Associate Create(int id, string longName, string shortName, bool isParent,
-            AssociateTypeLookup associateType, Status status)
+            AssociateTypeLookup associateType, StatusCodeLookup status)
         {
             Associate associate = new Associate();
 
@@ -59,7 +59,7 @@ namespace EGMS.BusinessAssociates.Domain
         public LongName LongName { get; set; }
         public ShortName ShortName { get; set; }
         public AssociateTypeLookup AssociateType { get; set; }
-        public Status Status { get; set; }
+        public StatusCodeLookup Status { get; set; }
 
         public bool IsInternal { get; set; }
         public bool IsDeactivating { get; set; }
@@ -90,9 +90,9 @@ namespace EGMS.BusinessAssociates.Domain
             IsParent = isParent
         });
 
-        public void UpdateStatus(Status status) => Apply(new Events.AssociateStatusUpdated
+        public void UpdateStatus(StatusCodeLookup status) => Apply(new Events.AssociateStatusUpdated
         {
-            Status = (int)status
+            Status = status.StatusCodeId
         });
 
         public void UpdateShortName(ShortName shortName) => Apply(new Events.AssociateShortNameUpdated
@@ -166,7 +166,7 @@ namespace EGMS.BusinessAssociates.Domain
                     break;
 
                 case Events.AssociateStatusUpdated e:
-                    Status = (Status)e.Status;
+                    Status = StatusCodeLookup.StatusCodes[e.Status];
                     break;
 
                 case Events.AssociateTypeUpdated e:
@@ -205,13 +205,13 @@ namespace EGMS.BusinessAssociates.Domain
         public void AddOperatingContext(OperatingContext operatingContext) =>
             Apply(new Events.AssociateAddNewOperatingContext
                 {
-                    OperatingContextType = (int)operatingContext.OperatingContextType,
+                    OperatingContextType = operatingContext.OperatingContextType.OperatingContextTypeId,
                     FacilityId = operatingContext.FacilityId,
                     ThirdPartySupplierId = operatingContext.ThirdPartySupplierId,
                     LegacyId = operatingContext.LegacyId,
                     ActingBATypeId = operatingContext.ActingBAType.AssociateTypeId,
                     CertificationId = operatingContext.CertificationId,
-                    StatusId = (int)operatingContext.Status,
+                    StatusId = operatingContext.Status.StatusCodeId,
                     IsDeactivating = operatingContext.IsDeactivating,
                     StartDate = operatingContext.StartDate,
                     PrimaryEmailId = operatingContext.PrimaryEmailId,
@@ -225,7 +225,7 @@ namespace EGMS.BusinessAssociates.Domain
             LongName longName,
             AssociateTypeLookup associateType,
             bool isParent,
-            Status status)
+            StatusCodeLookup status)
         {
             var associate = new Associate();
 

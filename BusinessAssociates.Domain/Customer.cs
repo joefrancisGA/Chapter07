@@ -12,7 +12,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
         public DatabaseId BasicPoolId { get; set; }
-        public Status Status { get; set; }
+        public StatusCodeLookup Status { get; set; }
         public DatabaseId LDCId { get; set; }
         public AccountNumber AccountNumber { get; set; }
 

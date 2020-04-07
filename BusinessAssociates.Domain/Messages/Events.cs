@@ -13,7 +13,7 @@ namespace EGMS.BusinessAssociates.Domain.Messages
             public string ShortName { get; set; }
             public bool IsParent { get; set; }
             public int AssociateType { get; set; }
-            public Status Status { get; set; }
+            public StatusCodeLookup Status { get; set; }
         }
 
         public class AssociateDUNSNumberUpdated

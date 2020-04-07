@@ -55,7 +55,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<RoleEGMSPermission> RoleEGMSPermissions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<StateCodeLookup> StateCodes { get; set; }
-        //public virtual DbSet<StatusCodes> StatusCodes { get; set; }
+        public virtual DbSet<StatusCodeLookup> StatusCodes { get; set; }
         public virtual DbSet<UserContactDisplayRules> UserContactDisplayRules { get; set; }
         public virtual DbSet<UserOperatingContext> UserOperatingContexts { get; set; }
         public virtual DbSet<User> Users { get; set; }
