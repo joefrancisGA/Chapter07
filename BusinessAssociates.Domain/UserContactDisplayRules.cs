@@ -21,7 +21,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public EGMSAccountStatus EGMSAccountStatus {get; set; }
 
-        public EGMSLinkType EGMSLinkType {get; set; }
+        public EGMSLinkTypeLookup EGMSLinkType {get; set; }
 
 
         protected override void When(object @event)

@@ -38,8 +38,8 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<CustomerTypeLookup> CustomerTypes { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<DeliveryTypeLookup> DeliveryTypes { get; set; }
-        //public virtual DbSet<EgmslinkTypes> EgmslinkTypes { get; set; }
-        public virtual DbSet<EGMSPermission> Egmspermissions { get; set; }
+        public virtual DbSet<EGMSLinkTypeLookup> EGMSLinkTypes { get; set; }
+        public virtual DbSet<EGMSPermission> EGMSPermissions { get; set; }
         public virtual DbSet<EMail> Emails { get; set; }
         //public virtual DbSet<GroupType> GroupTypes { get; set; }
         //public virtual DbSet<IdmslinkTypes> IdmslinkTypes { get; set; }
@@ -71,37 +71,37 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<AccountStatus>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
+            modelBuilder.Entity<AccountStatusLookup>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .ValueGeneratedNever();
 
-            //    entity.Property(e => e.AccountStatusDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
+                entity.Property(e => e.Desc)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
-            //    entity.Property(e => e.AlternateFuelTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+                //entity.Property(e => e.AlternateFuelTypeStatus)
+                //    .IsRequired()
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
+            });
 
-            //modelBuilder.Entity<AddressTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
+            modelBuilder.Entity<AddressTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .ValueGeneratedNever();
 
-            //    entity.Property(e => e.AddressTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
+                entity.Property(e => e.Desc)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
 
-            //    entity.Property(e => e.AddressTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
 
             modelBuilder.Entity<Address>(entity =>
             {
@@ -185,26 +185,26 @@ namespace EGMS.BusinessAssociates.Data.EF
                 //    .HasConstraintName("FK_AgentRelationships_Principal");
             });
 
-            //modelBuilder.Entity<AgentUser>(entity =>
-            //{
-            //    entity.Property(e => e.Id).HasColumnName("ID");
+            modelBuilder.Entity<AgentUser>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-            //    entity.Property(e => e.AgentId).HasColumnName("AgentID");
+                entity.Property(e => e.AgentId).HasColumnName("AgentID");
 
-            //    entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
-            //    entity.HasOne(d => d.Agent)
-            //        .WithMany(p => p.AgentUsers)
-            //        .HasForeignKey(d => d.AgentId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_AgentUser_Agent");
+                //entity.HasOne(d => d.Agent)
+                //    .WithMany(p => p.AgentUsers)
+                //    .HasForeignKey(d => d.AgentId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_AgentUser_Agent");
 
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.AgentUsers)
-            //        .HasForeignKey(d => d.UserId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_AgentUser_User");
-            //});
+                //entity.HasOne(d => d.User)
+                //    .WithMany(p => p.AgentUsers)
+                //    .HasForeignKey(d => d.UserId)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("FK_AgentUser_User");
+            });
 
             //modelBuilder.Entity<AlternateFuelTypes>(entity =>
             //{

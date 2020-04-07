@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
+using EGMS.BusinessAssociates.Framework;
+
+namespace EGMS.BusinessAssociates.Domain.Enums
+{
+    public class EGMSLinkTypeLookup : Entity<int>
+    {
+        public enum EGMSLinkTypeEnum
+        {
+            ConfigureUser = 1,
+            ModifyUser = 2
+        }
+
+        public static readonly
+            IReadOnlyDictionary<int, EGMSLinkTypeLookup> DeliveryTypes =
+                new Dictionary<int, EGMSLinkTypeLookup>
+                {
+                    {
+                        (int) EGMSLinkTypeEnum.ConfigureUser,
+                        new EGMSLinkTypeLookup
+                        {
+                            Id = (int) EGMSLinkTypeEnum.ConfigureUser,
+                            EGMSLinkTypeId = (int) EGMSLinkTypeEnum.ConfigureUser,
+                            Name = AddressTypeName.FromString("ConfigureUser"),
+                            Desc = AddressTypeDesc.FromString("ConfigureUser Description"),
+                        }
+                    },
+                    {
+                        (int) EGMSLinkTypeEnum.ModifyUser,
+                        new EGMSLinkTypeLookup
+                        {
+                            Id = (int) EGMSLinkTypeEnum.ModifyUser,
+                            EGMSLinkTypeId = (int) EGMSLinkTypeEnum.ModifyUser,
+                            Name = AddressTypeName.FromString("ModifyUser"),
+                            Desc = AddressTypeDesc.FromString("ModifyUser Description"),
+                        }
+                    },
+                };
+
+        public int EGMSLinkTypeId { get; private set; }
+
+        public AddressTypeName Name { get; private set; }
+        public AddressTypeDesc Desc { get; private set; }
+
+        protected EGMSLinkTypeLookup() { }
+
+        protected override void When(object @event)
+        {
+            throw new InvalidOperationException($"{nameof(DeliveryTypeLookup)} events not supported.");
+        }
+
+        public override void OnLoadInit(Action<object> parentHandler)
+        {
+            _parentHandler = parentHandler;
+        }
+    }
+}
