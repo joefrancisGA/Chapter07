@@ -28,7 +28,7 @@ namespace EGMS.BusinessAssociates.Domain
             Initialize();
         }
 
-        public OperatingContext(OperatingContextType operatingContextType,
+        public OperatingContext(OperatingContextTypeLookup operatingContextType,
             DatabaseId facilityId, DatabaseId thirdPartySupplierId, AssociateTypeLookup actingBATypeId, 
             NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId, 
             DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
@@ -50,7 +50,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
 
-        public OperatingContextType OperatingContextType { get; set; }
+        public OperatingContextTypeLookup OperatingContextType { get; set; }
         public DatabaseId FacilityId { get; set; }
         public DatabaseId ThirdPartySupplierId { get; set; }
 

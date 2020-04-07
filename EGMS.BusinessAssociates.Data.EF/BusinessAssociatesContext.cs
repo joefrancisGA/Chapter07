@@ -46,7 +46,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<LossTierTypeLookup> LossTierTypes { get; set; }
         public virtual DbSet<NominationLevelTypeLookup> NominationLevelTypes { get; set; }
         public virtual DbSet<OperatingContextCustomer> OperatingContextCustomers { get; set; }
-        //public virtual DbSet<OperatingContextTypes> OperatingContextTypes { get; set; }
+        public virtual DbSet<OperatingContextTypeLookup> OperatingContextTypes { get; set; }
         public virtual DbSet<OperatingContext> OperatingContexts { get; set; }
         //public virtual DbSet<PhoneTypes> PhoneTypes { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
