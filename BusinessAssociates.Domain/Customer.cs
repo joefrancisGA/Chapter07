@@ -33,7 +33,7 @@ namespace EGMS.BusinessAssociates.Domain
         public IntrastateSpecifiedFirm IntrastateSpecifiedFirm { get; set; }
         public CurrentDemand CurrentDemand { get; set; }
         public PreviousDemand PreviousDemand { get; set;}
-        public NominationLevel NominationLevel { get; set; }
+        public NominationLevelTypeLookup NominationLevel { get; set; }
         public GroupTypeLookup GroupType { get; set; }
         public BalancingLevelTypeLookup BalancingLevel { get; set; }
         public NAICSCode NAICSCode { get; set; }
