@@ -27,8 +27,8 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<AssociateTypeLookup> AssociateTypes { get; set; }
         public virtual DbSet<AssociateUser> AssociateUsers { get; set; }
         public virtual DbSet<Associate> Associates { get; set; }
-        //public virtual DbSet<BalancingLevelTypes> BalancingLevelTypes { get; set; }
-        //public virtual DbSet<CertificationStatuses> CertificationStatuses { get; set; }
+        public virtual DbSet<BalancingLevelTypeLookup> BalancingLevelTypes { get; set; }
+        public virtual DbSet<CertificationStatusLookup> CertificationStatuses { get; set; }
         public virtual DbSet<Certification> Certifications { get; set; }
         public virtual DbSet<ContactConfiguration> ContactConfigurations { get; set; }
         //public virtual DbSet<ContactTypes> ContactTypes { get; set; }
