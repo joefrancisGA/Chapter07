@@ -33,7 +33,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<ContactConfiguration> ContactConfigurations { get; set; }
         public virtual DbSet<ContactTypeLookup> ContactTypes { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
-        //public virtual DbSet<CountryCodes> CountryCodes { get; set; }
+        public virtual DbSet<CountryCodeLookup> CountryCodes { get; set; }
         public virtual DbSet<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }
         //public virtual DbSet<CustomerTypes> CustomerTypes { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
