@@ -51,7 +51,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public virtual DbSet<PhoneTypeLookup> PhoneTypes { get; set; }
         public virtual DbSet<Phone> Phones { get; set; }
         public virtual DbSet<PredecessorBusinessAssociate> PredecessorBusinessAssociates { get; set; }
-        //public virtual DbSet<ProviderTypes> ProviderTypes { get; set; }
+        public virtual DbSet<ProviderTypeLookup> ProviderTypes { get; set; }
         //public virtual DbSet<RoleEGMSPermission> RoleEgmspermissions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<StateCodeLookup> StateCodes { get; set; }

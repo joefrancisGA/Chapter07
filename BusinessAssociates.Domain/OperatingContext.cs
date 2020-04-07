@@ -43,7 +43,7 @@ namespace EGMS.BusinessAssociates.Domain
             PrimaryAddressId = primaryAddressId;
             PrimaryEmailId = primaryEmailId;
             PrimaryPhoneId = primaryPhoneId;
-            ProviderType = (ProviderType) providerTypeId.Value;
+            ProviderType = ProviderTypeLookup.ProviderTypes[providerTypeId];
             IsDeactivating = isDeactivating;
             StartDate = startDate != default ? startDate : DateTime.Now;
             Status = status;
@@ -56,7 +56,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         // TO DO:  Not sure what to do with the type for LegacyId
         public int LegacyId { get; set; }
-        public ProviderType ProviderType { get; set; }
+        public ProviderTypeLookup ProviderType { get; set; }
         public AssociateTypeLookup ActingBAType { get; set; }
 
         public Certification Certification { get; set; }
