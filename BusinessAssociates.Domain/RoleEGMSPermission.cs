@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class RolePermission : Entity<DatabaseId>
+    public class RoleEGMSPermission : Entity<DatabaseId>
     {
         public Role Role { get; set; }
         public DatabaseId RoleId { get; set; }
@@ -14,9 +14,9 @@ namespace EGMS.BusinessAssociates.Domain
         public DatabaseId PermissionId { get; set; }
 
 
-        public RolePermission() { }
+        public RoleEGMSPermission() { }
 
-        public RolePermission(Action<object> applier) : base(applier) { }
+        public RoleEGMSPermission(Action<object> applier) : base(applier) { }
 
         protected override void When(object @event)
         {
