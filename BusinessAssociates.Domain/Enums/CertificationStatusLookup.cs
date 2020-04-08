@@ -59,6 +59,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public BalancingLevelTypeName Name { get; private set; }
         public BalancingLevelTypeDesc Desc { get; private set; }
 
+        public List<Certification> Certifications { get; set; }
+
         protected CertificationStatusLookup() { }
 
         protected override void When(object @event)

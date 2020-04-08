@@ -143,12 +143,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Name = BalancingLevelTypeName.FromString("Other"),
                             Desc = BalancingLevelTypeDesc.FromString("Other Description"),
                         }
-                    },
-
-
-
-
-
+                    }
                 };
 
         public int ContactTypeId { get; private set; }
@@ -156,11 +151,13 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public BalancingLevelTypeName Name { get; private set; }
         public BalancingLevelTypeDesc Desc { get; private set; }
 
+        public List<ContactConfiguration> ContactConfigurations { get; set; }
+
         protected ContactTypeLookup() { }
 
         protected override void When(object @event)
         {
-            throw new InvalidOperationException($"{nameof(BalancingLevelTypeLookup)} events not supported.");
+            throw new InvalidOperationException($"{nameof(ContactTypeLookup)} events not supported.");
         }
 
         public override void OnLoadInit(Action<object> parentHandler)

@@ -7,13 +7,8 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Contact : Entity<int>
     {
-        public Contact()
-        {
-        }
-
-        public Contact(Action<object> applier) : base(applier)
-        {
-        }
+        public Contact() { }
+        public Contact(Action<object> applier) : base(applier) { }
 
         public FirstName FirstName { get; set; }
         public LastName LastName { get; set; }
@@ -34,6 +29,7 @@ namespace EGMS.BusinessAssociates.Domain
         public List<ContactPhone> ContactPhones { get; set; }
         public List<EMail> Emails { get; set; }
         public List<Address> Addresses { get; set; }
+        public List<ContactConfiguration> ContactConfigurations { get; set; }
 
 
         protected override void When(object @event)

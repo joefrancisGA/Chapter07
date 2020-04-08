@@ -7,6 +7,10 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class ContactConfiguration : Entity<DatabaseId>
     {
+        public ContactConfiguration() { }
+        public ContactConfiguration(Action<object> applier) : base(applier) { }
+
+
         public Contact Contact { get; set; }
         public DatabaseId ContactId { get; set; }
 
@@ -17,12 +21,6 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-
-        public ContactConfiguration() { }
-
-        public ContactConfiguration(Action<object> applier) : base(applier)
-        {
-        }
 
         protected override void When(object @event)
         {

@@ -201,78 +201,40 @@ namespace EGMS.BusinessAssociates.Data.EF
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Associates_StatusCodes");
             });
 
-            //modelBuilder.Entity<BalancingLevelTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
+            modelBuilder.Entity<BalancingLevelTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
-            //    entity.Property(e => e.BalancingLevelTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.BalancingLevelTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
-
-            //modelBuilder.Entity<CertificationStatuses>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.CertificationStatusDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.CertificationStatusName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<CertificationStatusLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<Certification>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.CertificationDateTime).HasColumnType("datetime");
-
                 entity.Property(e => e.DecertificationDateTime).HasColumnType("datetime");
-
-                //entity.HasOne(d => d.CertificationStatus)
-                //    .WithMany(p => p.Certifications)
-                //    .HasForeignKey(d => d.CertificationStatusId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Certifications_CertificationStatuses");
+                entity.HasOne(d => d.CertificationStatus).WithMany(p => p.Certifications).HasForeignKey(d => d.CertificationStatus)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Certifications_CertificationStatuses");
             });
 
             modelBuilder.Entity<ContactConfiguration>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
-
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
-
-                //entity.HasOne(d => d.Contact)
-                //    .WithMany(p => p.ContactConfigurations)
-                //    .HasForeignKey(d => d.ContactId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_ContactConfigurations_Contacts");
-
-                //entity.HasOne(d => d.ContactType)
-                //    .WithMany(p => p.ContactConfigurations)
-                //    .HasForeignKey(d => d.ContactTypeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_ContactConfigurations_ContactTypes");
-
-                //entity.HasOne(d => d.StatusCode)
-                //    .WithMany(p => p.ContactConfigurations)
-                //    .HasForeignKey(d => d.StatusCodeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_ContactConfigurations_StatusCodes");
+                entity.HasOne(d => d.Contact).WithMany(p => p.ContactConfigurations).HasForeignKey(d => d.ContactId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ContactConfigurations_Contacts");
+                entity.HasOne(d => d.ContactType).WithMany(p => p.ContactConfigurations).HasForeignKey(d => d.ContactId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ContactConfigurations_ContactTypes");
+                entity.HasOne(d => d.Status).WithMany(p => p.ContactConfigurations).HasForeignKey(d => d.Status)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ContactConfigurations_StatusCodes");
             });
 
             //modelBuilder.Entity<ContactTypes>(entity =>

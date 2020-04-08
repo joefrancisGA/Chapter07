@@ -59,6 +59,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeDesc Desc { get; private set; }
 
         public List<Associate> Associates { get; set; }
+        public List<ContactConfiguration> ContactConfigurations { get; set; }
 
 
         protected override void When(object @event)
