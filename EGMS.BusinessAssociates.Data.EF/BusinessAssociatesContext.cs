@@ -237,67 +237,33 @@ namespace EGMS.BusinessAssociates.Data.EF
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ContactConfigurations_StatusCodes");
             });
 
-            //modelBuilder.Entity<ContactTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.ContactTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.ContactTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<ContactTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<Contact>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Title)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.FirstName).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.LastName).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.Title).IsRequired().HasMaxLength(50).IsUnicode(false);
             });
 
-            //modelBuilder.Entity<CountryCodes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.CountryCodeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.CountryCodeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<CountryCodeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<CustomerAlternateFuel>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                //entity.HasOne(d => d.AlternateFuelType)
-                //    .WithMany(p => p.CustomerAlternateFuels)
-                //    .HasForeignKey(d => d.AlternateFuelTypeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_CustomerAlternateFuels_AlternateFuelTypes");
+                entity.HasOne(d => d.AlternateFuel).WithMany(p => p.CustomerAlternateFuels).HasForeignKey(d => d.AlternateFuel)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerAlternateFuels_AlternateFuelTypes");
 
                 //entity.HasOne(d => d.Customer)
                 //    .WithMany(p => p.CustomerAlternateFuel)

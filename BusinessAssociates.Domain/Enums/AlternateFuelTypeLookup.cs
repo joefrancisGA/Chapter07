@@ -121,6 +121,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AlternateFuelTypeName Name { get; private set; }
         public AlternateFuelTypeDesc Desc { get; private set; }
 
+        public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }
+
         protected AlternateFuelTypeLookup() { }
 
         protected override void When(object @event)
