@@ -7,6 +7,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public class AssociateTypeLookup : Entity<int>
     {
+        protected AssociateTypeLookup() { }
+
+
         public enum AssociateTypeEnum
         {
             InternalParent = 1,
@@ -132,8 +135,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AssociateTypeName Name { get; private set; }
         public AssociateTypeDesc Desc { get; private set; }
 
-        protected AssociateTypeLookup() { }
-
+        public List<Associate> Associates { get; set; }
+ 
         protected override void When(object @event)
         {
             throw new InvalidOperationException($"{nameof(AssociateTypeLookup)} events not supported.");

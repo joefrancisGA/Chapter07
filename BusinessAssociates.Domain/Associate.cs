@@ -70,6 +70,7 @@ namespace EGMS.BusinessAssociates.Domain
         public List<AgentUser> AgentUsers { get; set; }
         public List<AssociateCustomer> AssociateCustomers { get; set; }
         public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+        public List<AssociateUser> AssociateUsers { get; set; }
         //public List<OperatingContext> OperatingContexts { get; set; }
         //public List<AgentRelationship> AgentRelationships { get; set; }
 

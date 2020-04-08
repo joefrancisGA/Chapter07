@@ -6,19 +6,15 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class AssociateUser : Entity<DatabaseId>
     {
+        public AssociateUser() { }
+        public AssociateUser(Action<object> applier) : base(applier) { }
+
         public Associate Associate { get; set; }
         public AssociateId AssociateId { get; set; }
 
         public User User { get; set; }
         public DatabaseId UserId { get; set; }
 
-        public AssociateUser()
-        {
-        }
-
-        public AssociateUser(Action<object> applier) : base(applier)
-        {
-        }
 
         protected override void When(object @event)
         {

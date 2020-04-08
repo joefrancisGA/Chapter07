@@ -7,6 +7,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public class StatusCodeLookup : Entity<int>
     {
+        protected StatusCodeLookup() { }
+
+
         public enum StatusCodeEnum
         {
             Pending = 1,
@@ -55,7 +58,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 
-        protected StatusCodeLookup() { }
+        public List<Associate> Associates { get; set; }
+
 
         protected override void When(object @event)
         {

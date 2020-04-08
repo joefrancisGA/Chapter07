@@ -8,7 +8,6 @@ namespace EGMS.BusinessAssociates.Domain
     public class User : Entity<int>
     {
         public User() { }
-        
         public User(Action<object> applier) : base(applier) { }
 
         public Contact Contact { get; set; }
@@ -21,6 +20,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime DeactivationDate { get; set; }
 
         public List<AgentUser> AgentUsers { get; set; }
+        public List<AssociateUser> AssociateUsers { get; set; }
 
         protected override void When(object @event)
         {

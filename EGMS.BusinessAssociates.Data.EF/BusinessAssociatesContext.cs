@@ -167,80 +167,38 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<AssociateOperatingContext>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.HasOne(d => d.Associate)
-                    .WithMany(p => p.AssociateOperatingContexts)
-                    .HasForeignKey(d => d.AssociateId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AssociateOperatingContexts_Associates");
-
-                entity.HasOne(d => d.OperatingContext)
-                    .WithMany(p => p.AssociateOperatingContexts)
-                    .HasForeignKey(d => d.OperatingContextId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_AssociateOperatingContexts_OperatingContexts");
+                entity.HasOne(d => d.Associate).WithMany(p => p.AssociateOperatingContexts).HasForeignKey(d => d.AssociateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateOperatingContexts_Associates");
+                entity.HasOne(d => d.OperatingContext).WithMany(p => p.AssociateOperatingContexts).HasForeignKey(d => d.OperatingContextId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateOperatingContexts_OperatingContexts");
             });
 
-            //modelBuilder.Entity<AssociateTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.AssociateTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.BalancingLevelTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<AssociateTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<AssociateUser>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                //entity.HasOne(d => d.Associate)
-                //    .WithMany(p => p.AssociateUsers)
-                //    .HasForeignKey(d => d.AssociateId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_AssociateUsers_Associate");
-
-                //entity.HasOne(d => d.User)
-                //    .WithMany(p => p.AssociateUsers)
-                //    .HasForeignKey(d => d.UserId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_AssociateUsers_User");
+                entity.HasOne(d => d.Associate).WithMany(p => p.AssociateUsers).HasForeignKey(d => d.AssociateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateUsers_Associate");
+                entity.HasOne(d => d.User).WithMany(p => p.AssociateUsers).HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateUsers_User");
             });
 
             modelBuilder.Entity<Associate>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.DUNSNumber).HasColumnName("DUNSNumber");
-
-                entity.Property(e => e.LongName)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ShortName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                //entity.HasOne(d => d.AssociateType)
-                //    .WithMany(p => p.Associates)
-                //    .HasForeignKey(d => d.AssociateTypeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Associates_AssociateTypes");
-
-                //entity.HasOne(d => d.StatusCode)
-                //    .WithMany(p => p.Associates)
-                //    .HasForeignKey(d => d.StatusCodeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Associates_StatusCodes");
+                entity.Property(e => e.LongName).IsRequired().HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.ShortName).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.HasOne(d => d.AssociateType).WithMany(p => p.Associates).HasForeignKey(d => d.AssociateType)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Associates_AssociateTypes");
+                entity.HasOne(d => d.Status).WithMany(p => p.Associates).HasForeignKey(d => d.Status)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Associates_StatusCodes");
             });
 
             //modelBuilder.Entity<BalancingLevelTypes>(entity =>
