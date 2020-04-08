@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EGMS.BusinessAssociates.Data.EF
 {
-    public partial class BusinessAssociatesContext : DbContext
+    public class BusinessAssociatesContext : DbContext
     {
         public BusinessAssociatesContext()
         {
@@ -71,14 +71,13 @@ namespace EGMS.BusinessAssociates.Data.EF
         {
             modelBuilder.Entity<AccountStatusLookup>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                // ValueGeneratedNever is presumed for lookup tables
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
 
-                entity.Property(e => e.Desc)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                // It is not clear why we would need IsUnicode set to false.  Shouldn't that be the default?
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
 
+                // It is not clear whey this got stuffed into AccountStatus by EF...
                 //entity.Property(e => e.AlternateFuelTypeStatus)
                 //    .IsRequired()
                 //    .HasMaxLength(50)
@@ -87,42 +86,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             modelBuilder.Entity<AddressTypeLookup>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.Desc)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
             });
 
             modelBuilder.Entity<Address>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Address1)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Address2)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Address3)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Address4)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                //entity.Property(e => e.AddressType).HasColumnName("AddressTypeID");
+                entity.Property(e => e.Address1).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.Address2).HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.Address3).HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.Address4).HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.AddressType).HasColumnName("AddressTypeID");
 
                 entity.Property(e => e.Attention)
                     .HasMaxLength(50)
@@ -1043,6 +1019,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             OnModelCreatingPartial(modelBuilder);
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        private void OnModelCreatingPartial(ModelBuilder modelBuilder)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

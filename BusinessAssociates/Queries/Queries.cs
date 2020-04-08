@@ -15,7 +15,7 @@ namespace EGMS.BusinessAssociates.API.Queries
                 " WHERE Status = @Status ORDER BY ID OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY", 
             new
             {
-                Status = (int)Status.Active,
+                Status = (int)StatusCodeLookup.StatusCodeEnum.Active,
                 query.PageSize,
                 Offset = Offset(query.Page, query.PageSize)
             });

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
+using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.Extensions.Configuration;
 
@@ -20,7 +21,7 @@ namespace EGMS.BusinessAssociates.Data.EF
                 .ForMember(dst => dst.ShortName,
                     opt => opt.MapFrom(src => (string) src.ShortName))
                 .ForMember(dst => dst.AssociateType,
-                    opt => opt.MapFrom(src => (int) src.AssociateType))
+                    opt => opt.MapFrom(src => src.AssociateType.AssociateTypeId))
                 .ForMember(dst => dst.IsActive,
                     opt => opt.MapFrom(src => src.IsActive))
                 .ForMember(dst => dst.IsDeactivating,
@@ -30,7 +31,7 @@ namespace EGMS.BusinessAssociates.Data.EF
                 .ForMember(dst => dst.IsParent,
                     opt => opt.MapFrom(src => src.IsParent))
                 .ForMember(dst => dst.Status,
-                    opt => opt.MapFrom(src => (int) src.Status));
+                    opt => opt.MapFrom(src => src.Status.StatusCodeId));
 
 
             CreateMap<OperatingContext, OperatingContextRM>()

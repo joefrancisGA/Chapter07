@@ -7,7 +7,7 @@ namespace EGMS.BusinessAssociates.Domain
     public class Certification : Entity<int>
     {
         public bool IsInherited { get; set; }
-        public CertificationStatus CertificationStatus { get; set; }
+        public CertificationStatusLookup CertificationStatus { get; set; }
         public DateTime CertificationDateTime { get; set; }
         public DateTime DecertificationDateTime { get; set; }
 

@@ -17,8 +17,8 @@ namespace EGMS.BusinessAssociates.Command
                     public string LongName { get; set; }
                     public string ShortName { get; set; }
                     public bool IsParent { get; set; }
-                    public AssociateType AssociateType { get; set; }
-                    public Status Status { get; set; }
+                    public int AssociateType { get; set; }
+                    public int Status { get; set; }
                 }
 
                 public class UpdateDUNSNumber
@@ -48,13 +48,13 @@ namespace EGMS.BusinessAssociates.Command
                 public class UpdateAssociateType
                 {
                     public int Id { get; set; }
-                    public AssociateType AssociateType { get; set; }
+                    public int AssociateType { get; set; }
                 }
 
                 public class UpdateStatus
                 {
                     public int Id { get; set; }
-                    public Status Status { get; set; }
+                    public int Status { get; set; }
                 }
             }
 

@@ -46,7 +46,7 @@ namespace EGMS.BusinessAssociates.Command
                     break;
 
                 case Commands.V1.Associate.UpdateAssociateType cmd:
-                    HandleUpdate(cmd.Id, ia => ia.UpdateAssociateType(cmd.AssociateType));
+                    HandleUpdate(cmd.Id, ia => ia.UpdateAssociateType(AssociateTypeLookup.AssociateTypes[cmd.AssociateType]));
                     break;
 
                 case Commands.V1.Associate.UpdateLongName cmd:
@@ -58,7 +58,7 @@ namespace EGMS.BusinessAssociates.Command
                     break;
 
                 case Commands.V1.Associate.UpdateStatus cmd:
-                    HandleUpdate(cmd.Id, ia => ia.UpdateStatus(cmd.Status));
+                    HandleUpdate(cmd.Id, ia => ia.UpdateStatus(StatusCodeLookup.StatusCodes[cmd.Status]));
                     break;
 
                 case Commands.V1.Associate.UpdateShortName cmd:
@@ -96,10 +96,10 @@ namespace EGMS.BusinessAssociates.Command
             if (associate == null)
                 throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");
 
-            OperatingContext operatingContext = new OperatingContext((OperatingContextType)cmd.OperatingContextType, cmd.FacilityId,
-                cmd.ThirdPartySupplierId, (AssociateType)cmd.ActingBATypeID, cmd.CertificationId, cmd.IsDeactivating,
+            OperatingContext operatingContext = new OperatingContext(OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
+                cmd.ThirdPartySupplierId, AssociateTypeLookup.AssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
-                cmd.ProviderType, cmd.StartDate, (Status)cmd.Status);
+                cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
 
             _repository.AddOperatingContext(operatingContext);
             _repository.AddAssociateOperatingContext(associate, operatingContext);
@@ -115,7 +115,8 @@ namespace EGMS.BusinessAssociates.Command
             if (_repository.Exists(cmd.DUNSNumber))
                 throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
 
-            Associate associate = Associate.Create(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, cmd.AssociateType, cmd.Status);
+            Associate associate = Associate.Create(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, 
+                AssociateTypeLookup.AssociateTypes[cmd.AssociateType], StatusCodeLookup.StatusCodes[cmd.Status]);
             _repository.Add(associate);
 
             await _unitOfWork.Commit();
