@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
@@ -7,6 +8,8 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Customer : Entity<DatabaseId>
     {
+        public Customer(Action<object> applier) : base(applier) { }
+
         public CustomerTypeLookup CustomerType { get; set; }
         public DeliveryTypeLookup DeliveryType { get; set; }
         public DUNSNumber DUNSNumber { get; set; }
@@ -50,9 +53,8 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime TurnOnDate { get; set; }
         public DateTime TurnOffDate { get; set; }
 
-        public Customer(Action<object> applier) : base(applier)
-        {
-        }
+        public List<AssociateCustomer> AssociateCustomers { get; set; }
+
 
         protected override void When(object @event)
         {

@@ -66,7 +66,10 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsParent { get; set; }
         public bool IsActive { get; set; }
 
-        //public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+
+        public List<AgentUser> AgentUsers { get; set; }
+        public List<AssociateCustomer> AssociateCustomers { get; set; }
+        public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
         //public List<OperatingContext> OperatingContexts { get; set; }
         //public List<AgentRelationship> AgentRelationships { get; set; }
 

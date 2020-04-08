@@ -12,6 +12,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
             GA = 1
         }
 
+        protected StateCodeLookup() { }
+
         public static readonly
             IReadOnlyDictionary<int, StateCodeLookup> DeliveryTypes =
                 new Dictionary<int, StateCodeLookup>
@@ -33,11 +35,11 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 
-        protected StateCodeLookup() { }
+        public List<Address> Addresses { get; set; }
 
         protected override void When(object @event)
         {
-            throw new InvalidOperationException($"{nameof(DeliveryTypeLookup)} events not supported.");
+            throw new InvalidOperationException($"{nameof(StateCodeLookup)} events not supported.");
         }
 
         public override void OnLoadInit(Action<object> parentHandler)

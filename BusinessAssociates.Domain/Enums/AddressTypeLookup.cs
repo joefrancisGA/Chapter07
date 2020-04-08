@@ -7,6 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public class AddressTypeLookup : Entity<int>
     {
+        protected AddressTypeLookup() { }
+
         public enum AddressTypeEnum
         {
             Billing = 1,
@@ -55,7 +57,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 
-        protected AddressTypeLookup() { }
+        public List<Address> Addresses { get; set; }
+
 
         protected override void When(object @event)
         {

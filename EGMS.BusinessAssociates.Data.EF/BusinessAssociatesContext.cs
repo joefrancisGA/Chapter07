@@ -99,55 +99,31 @@ namespace EGMS.BusinessAssociates.Data.EF
                 entity.Property(e => e.Address3).HasMaxLength(50).IsUnicode(false);
                 entity.Property(e => e.Address4).HasMaxLength(50).IsUnicode(false);
                 entity.Property(e => e.AddressType).HasColumnName("AddressTypeID");
-
-                entity.Property(e => e.Attention)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.City)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Comments)
-                    .HasMaxLength(2000)
-                    .IsUnicode(false);
-
+                entity.Property(e => e.Attention).HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.City).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.Property(e => e.Comments).HasMaxLength(2000).IsUnicode(false);
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
-
-                entity.Property(e => e.PostalCode)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
+                entity.Property(e => e.PostalCode).HasMaxLength(10).IsUnicode(false);
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
+                entity.HasOne(d => d.AddressType).WithMany(p => p.Addresses).HasForeignKey(d => d.AddressType)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Addresses_AddressTypes");
 
-                //entity.HasOne(d => d.AddressType)
-                //    .WithMany(p => p.Addresses)
-                //    .HasForeignKey(d => d.DeliveryTypeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Addresses_AddressTypes");
-
-                //entity.HasOne(d => d.StateCode)
-                //    .WithMany(p => p.Addresses)
-                //    .HasForeignKey(d => d.StateCodeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Addresses_StateCodes");
+                // TO DO:  Change this to StateCode
+                entity.HasOne(d => d.GeographicState).WithMany(p => p.Addresses).HasForeignKey(d => d.GeographicState)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Addresses_StateCodes");
             });
 
             modelBuilder.Entity<AgentRelationship>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.AgentId).HasColumnName("AgentID");
-
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
-
                 entity.Property(e => e.PrincipalId).HasColumnName("PrincipalID");
-
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
+                // TO DO:  Fix this in the database
                 //entity.HasOne(d => d.Agent)
-                //    .WithMany(p => p.AgentRelationshipsAgent)
+                //    .WithMany(p => p AgentRelationshipsAgent)
                 //    .HasForeignKey(d => d.AgentId)
                 //    .OnDelete(DeleteBehavior.ClientSetNull)
                 //    .HasConstraintName("FK_AgentRelationships_Agent");
@@ -162,70 +138,41 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<AgentUser>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.AgentId).HasColumnName("AgentID");
-
                 entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                //entity.HasOne(d => d.Agent)
-                //    .WithMany(p => p.AgentUsers)
-                //    .HasForeignKey(d => d.AgentId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_AgentUser_Agent");
-
-                //entity.HasOne(d => d.User)
-                //    .WithMany(p => p.AgentUsers)
-                //    .HasForeignKey(d => d.UserId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_AgentUser_User");
+                entity.HasOne(d => d.Agent).WithMany(p => p.AgentUsers).HasForeignKey(d => d.AgentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AgentUser_Agent");
+                entity.HasOne(d => d.User).WithMany(p => p.AgentUsers).HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AgentUser_User");
             });
 
-            //modelBuilder.Entity<AlternateFuelTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.AlternateFuelTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.AlternateFuelTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<AlternateFuelTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<AssociateCustomer>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.ServiceEndDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ServiceStartDate).HasColumnType("datetime");
-
-                //entity.HasOne(d => d.Associate)
-                //    .WithMany(p => p.AssociateCustomers)
-                //    .HasForeignKey(d => d.AssociateId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_AssociateCustomers_Associate");
-
-                //entity.HasOne(d => d.Customer)
-                //    .WithMany(p => p.AssociateCustomer)
-                //    .HasForeignKey(d => d.CustomerId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_AssociateCustomers_Customer");
+                entity.HasOne(d => d.Associate).WithMany(p => p.AssociateCustomers).HasForeignKey(d => d.AssociateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateCustomers_Associate");
+                entity.HasOne(d => d.Customer).WithMany(p => p.AssociateCustomers).HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateCustomers_Customer");
             });
 
             modelBuilder.Entity<AssociateOperatingContext>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                //entity.HasOne(d => d.Associate)
-                //    .WithMany(p => p.AssociateOperatingContext)
-                //    .HasForeignKey(d => d.AssociateId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_AssociateOperatingContexts_Associates");
+                entity.HasOne(d => d.Associate)
+                    .WithMany(p => p.AssociateOperatingContexts)
+                    .HasForeignKey(d => d.AssociateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AssociateOperatingContexts_Associates");
 
                 entity.HasOne(d => d.OperatingContext)
                     .WithMany(p => p.AssociateOperatingContexts)
