@@ -44,6 +44,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 
+        public List<Customer> Customers { get; set; }
+
         protected DeliveryTypeLookup() { }
 
         protected override void When(object @event)

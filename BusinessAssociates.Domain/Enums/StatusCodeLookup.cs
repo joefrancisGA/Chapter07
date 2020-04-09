@@ -60,6 +60,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 
         public List<Associate> Associates { get; set; }
         public List<ContactConfiguration> ContactConfigurations { get; set; }
+        public List<Customer> Customers { get; set; }
 
 
         protected override void When(object @event)

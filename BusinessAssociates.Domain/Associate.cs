@@ -71,8 +71,8 @@ namespace EGMS.BusinessAssociates.Domain
         public List<AssociateCustomer> AssociateCustomers { get; set; }
         public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
         public List<AssociateUser> AssociateUsers { get; set; }
-        //public List<OperatingContext> OperatingContexts { get; set; }
-        //public List<AgentRelationship> AgentRelationships { get; set; }
+        public List<Customer> Customers { get; set; }
+
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {

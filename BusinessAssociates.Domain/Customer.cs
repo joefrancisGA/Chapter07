@@ -14,6 +14,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DeliveryTypeLookup DeliveryType { get; set; }
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
+        public ShortName ShortName { get; set; }
         public DatabaseId BasicPoolId { get; set; }
         public StatusCodeLookup Status { get; set; }
         public DatabaseId LDCId { get; set; }
@@ -21,7 +22,10 @@ namespace EGMS.BusinessAssociates.Domain
 
         public LossTierTypeLookup LossTier { get; set; }
         public DatabaseId DeliveryLocation { get; set; }
+
+        public Associate Shipper { get; set; }
         public DatabaseId ShipperId { get; set; }
+
         public DeliveryPressure DeliveryPressure { get; set; }
         public DatabaseId ContractTypeId { get; set; }
         public MDQ MDQ { get; set; }
@@ -54,6 +58,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime TurnOffDate { get; set; }
 
         public List<AssociateCustomer> AssociateCustomers { get; set; }
+        public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }
 
 
         protected override void When(object @event)

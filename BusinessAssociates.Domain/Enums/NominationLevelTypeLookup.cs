@@ -55,6 +55,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public BalancingLevelTypeName Name { get; private set; }
         public BalancingLevelTypeDesc Desc { get; private set; }
 
+        public List<Customer> Customers { get; set; }
+
         protected NominationLevelTypeLookup() { }
 
         protected override void When(object @event)

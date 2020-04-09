@@ -264,129 +264,58 @@ namespace EGMS.BusinessAssociates.Data.EF
                 entity.Property(e => e.Id).HasColumnName("ID");
                 entity.HasOne(d => d.AlternateFuel).WithMany(p => p.CustomerAlternateFuels).HasForeignKey(d => d.AlternateFuel)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerAlternateFuels_AlternateFuelTypes");
-
-                //entity.HasOne(d => d.Customer)
-                //    .WithMany(p => p.CustomerAlternateFuel)
-                //    .HasForeignKey(d => d.CustomerId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_CustomerAlternateFuels_Customers");
+                entity.HasOne(d => d.Customer).WithMany(p => p.CustomerAlternateFuels).HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerAlternateFuels_Customers");
             });
 
-            //modelBuilder.Entity<CustomerTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.CustomerTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.CustomerTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<CustomerTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.AccountNumber)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
+                entity.Property(e => e.AccountNumber).HasMaxLength(255).IsUnicode(false);
                 entity.Property(e => e.DUNSNumber).HasColumnName("DUNSNumber");
-
                 entity.Property(e => e.LDCId).HasColumnName("LDCId");
-
-                entity.Property(e => e.LongName)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
+                entity.Property(e => e.LongName).IsRequired().HasMaxLength(255).IsUnicode(false);
                 entity.Property(e => e.MDQ).HasColumnName("MDQ");
-
                 entity.Property(e => e.NAICSCode).HasColumnName("NAICSCode");
-
                 entity.Property(e => e.ShippersLetterFromDate).HasColumnType("datetime");
-
-                //entity.Property(e => e.ShortName)
-                //    .IsRequired()
-                //    .HasMaxLength(50)
-                //    .IsUnicode(false);
-
+                entity.Property(e => e.ShortName).IsRequired().HasMaxLength(50).IsUnicode(false);
                 entity.Property(e => e.SICCode).HasColumnName("SICCode");
-
                 entity.Property(e => e.SICCodePercentage).HasColumnName("SICCodePercentage");
-
                 entity.Property(e => e.SS1).HasColumnName("SS1");
-
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
-
                 entity.Property(e => e.TurnOffDate).HasColumnType("datetime");
-
                 entity.Property(e => e.TurnOnDate).HasColumnType("datetime");
-
-                //entity.HasOne(d => d.BalancingLevel)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.BalancingLevelId)
-                //    .HasConstraintName("FK_Customers_BalancingLevelTypes");
-
-                //entity.HasOne(d => d.CustomerType)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.DeliveryTypeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Customers_CustomerTypes");
-
-                //entity.HasOne(d => d.DeliveryType)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.DeliveryTypeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Customers_DeliveryTypes");
-
-                //entity.HasOne(d => d.GroupType)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.GroupTypeId)
-                //    .HasConstraintName("FK_Customers_GroupTypes");
-
-                //entity.HasOne(d => d.LossTierType)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.LossTierTypeId)
-                //    .HasConstraintName("FK_Customers_LossTierTypes");
-
-                //entity.HasOne(d => d.NominationLevel)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.NominationLevelId)
-                //    .HasConstraintName("FK_Customers_NominationLevelTypes");
-
-                //entity.HasOne(d => d.Shipper)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.ShipperId)
-                //    .HasConstraintName("FK_Customers_Shippers");
-
-                //entity.HasOne(d => d.StatusCode)
-                //    .WithMany(p => p.Customers)
-                //    .HasForeignKey(d => d.StatusCodeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_Customers_StatusCodes");
+                entity.HasOne(d => d.BalancingLevel).WithMany(p => p.Customers).HasForeignKey(d => d.BalancingLevel)
+                    .HasConstraintName("FK_Customers_BalancingLevelTypes");
+                entity.HasOne(d => d.CustomerType).WithMany(p => p.Customers).HasForeignKey(d => d.CustomerType)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Customers_CustomerTypes");
+                entity.HasOne(d => d.DeliveryType).WithMany(p => p.Customers).HasForeignKey(d => d.DeliveryType)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Customers_DeliveryTypes");
+                entity.HasOne(d => d.GroupType).WithMany(p => p.Customers).HasForeignKey(d => d.GroupType)
+                    .HasConstraintName("FK_Customers_GroupTypes");
+                entity.HasOne(d => d.LossTier).WithMany(p => p.Customers).HasForeignKey(d => d.LossTier)
+                    .HasConstraintName("FK_Customers_LossTierTypes");
+                entity.HasOne(d => d.NominationLevel).WithMany(p => p.Customers).HasForeignKey(d => d.NominationLevel)
+                    .HasConstraintName("FK_Customers_NominationLevelTypes");
+                entity.HasOne(d => d.Shipper).WithMany(p => p.Customers).HasForeignKey(d => d.ShipperId)
+                    .HasConstraintName("FK_Customers_Shippers");
+                entity.HasOne(d => d.Status).WithMany(p => p.Customers).HasForeignKey(d => d.Status)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Customers_StatusCodes");
             });
 
-            //modelBuilder.Entity<DeliveryTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.DeliveryTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.DeliveryTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<DeliveryTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             //modelBuilder.Entity<EgmslinkTypes>(entity =>
             //{

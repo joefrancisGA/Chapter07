@@ -57,11 +57,13 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public BalancingLevelTypeName Name { get; private set; }
         public BalancingLevelTypeDesc Desc { get; private set; }
 
+        public List<Customer> Customers { get; set; }
+
         protected GroupTypeLookup() { }
 
         protected override void When(object @event)
         {
-            throw new InvalidOperationException($"{nameof(BalancingLevelTypeLookup)} events not supported.");
+            throw new InvalidOperationException($"{nameof(GroupTypeLookup)} events not supported.");
         }
 
         public override void OnLoadInit(Action<object> parentHandler)
