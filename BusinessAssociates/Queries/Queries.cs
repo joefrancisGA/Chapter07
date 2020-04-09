@@ -11,8 +11,8 @@ namespace EGMS.BusinessAssociates.API.Queries
     {
         public static Task<IEnumerable<ReadModels.AssociateListItem>> Query(this DbConnection connection, QueryModels.GetAssociates query)
             => connection.QueryAsync<ReadModels.AssociateListItem>(
-                "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, [Status], IsActive, IsDeactivating FROM Associate" +
-                " WHERE Status = @Status ORDER BY ID OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY", 
+                "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, AssociateTypeId, StatusCodeId, IsDeactivating FROM Associate" +
+                " WHERE StatusCodeId = @Status ORDER BY ID OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY", 
             new
             {
                 Status = (int)StatusCodeLookup.StatusCodeEnum.Active,
@@ -22,7 +22,7 @@ namespace EGMS.BusinessAssociates.API.Queries
 
         public static Task<ReadModels.AssociateDetails> Query(this DbConnection connection, QueryModels.GetAssociate query)
             => connection.QuerySingleOrDefaultAsync<ReadModels.AssociateDetails>(
-                "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, BusinessAssociateType, [Status], IsActive, IsDeactivating FROM Associate" +
+                "SELECT ID, DUNSNumber, LongName, ShortName, IsParent, AssociateTypeId, StatusCodeId, IsDeactivating FROM Associate" +
                 " WHERE ID = @Id",
             new { Id = query.AssociateId });
 

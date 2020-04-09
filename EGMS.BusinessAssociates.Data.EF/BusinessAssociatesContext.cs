@@ -7,11 +7,7 @@ namespace EGMS.BusinessAssociates.Data.EF
     public class BusinessAssociatesContext : DbContext
     {
         public BusinessAssociatesContext() { }
-
-        public BusinessAssociatesContext(DbContextOptions<BusinessAssociatesContext> options)
-            : base(options)
-        {
-        }
+        public BusinessAssociatesContext(DbContextOptions<BusinessAssociatesContext> options) : base(options) { }
 
         public virtual DbSet<AccountStatusLookup> AccountStatuses { get; set; }
         public virtual DbSet<AddressTypeLookup> AddressTypes { get; set; }
@@ -159,7 +155,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
                 entity.HasOne(d => d.Associate).WithMany(p => p.AssociateOperatingContexts).HasForeignKey(d => d.AssociateId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateOperatingContexts_Associates");
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateOperatingContexts_Associate");
                 entity.HasOne(d => d.OperatingContext).WithMany(p => p.AssociateOperatingContexts).HasForeignKey(d => d.OperatingContextId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_AssociateOperatingContexts_OperatingContexts");
             });
@@ -182,14 +178,15 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             modelBuilder.Entity<Associate>(entity =>
             {
+                entity.ToTable("Associate");
                 entity.Property(e => e.Id).HasColumnName("ID");
                 entity.Property(e => e.DUNSNumber).HasColumnName("DUNSNumber");
                 entity.Property(e => e.LongName).IsRequired().HasMaxLength(255).IsUnicode(false);
                 entity.Property(e => e.ShortName).IsRequired().HasMaxLength(50).IsUnicode(false);
                 entity.HasOne(d => d.AssociateType).WithMany(p => p.Associates).HasForeignKey(d => d.AssociateType)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Associates_AssociateTypes");
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Associate_AssociateTypes");
                 entity.HasOne(d => d.Status).WithMany(p => p.Associates).HasForeignKey(d => d.Status)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Associates_StatusCodes");
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Associate_StatusCodes");
             });
 
             modelBuilder.Entity<BalancingLevelTypeLookup>(entity =>
@@ -427,7 +424,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
                 entity.HasOne(d => d.Associate).WithMany(p => p.PredecessorAssociates).HasForeignKey(d => d.AssociateId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_PredecessorBusinessAssociates_Associates");
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_PredecessorBusinessAssociates_Associate");
 
                 entity.HasOne(d => d.Associate).WithMany(p => p.PredecessorAssociates).HasForeignKey(d => d.PredecessorAssociateId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_PredecessorBusinessAssociates_Customers");
