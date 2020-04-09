@@ -342,133 +342,66 @@ namespace EGMS.BusinessAssociates.Data.EF
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EMails_Contacts");
             });
 
-            //modelBuilder.Entity<GroupTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
+            modelBuilder.Entity<GroupTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
-            //    entity.Property(e => e.GroupTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
+            modelBuilder.Entity<IDMSLinkTypeLookup>(entity =>
+            {
+                entity.ToTable("IDMSLinkTypes");
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasColumnName("IDMLinkTypeDescription").HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasColumnName("IDMSLinkTypeName").HasMaxLength(50).IsUnicode(false);
+            });
 
-            //    entity.Property(e => e.GroupTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<LossTierTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
-            //modelBuilder.Entity<IdmslinkTypes>(entity =>
-            //{
-            //    entity.ToTable("IDMSLinkTypes");
-
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.IdmlinkTypeDescription)
-            //        .HasColumnName("IDMLinkTypeDescription")
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.IdmslinkTypeName)
-            //        .IsRequired()
-            //        .HasColumnName("IDMSLinkTypeName")
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
-
-            //modelBuilder.Entity<LossTierTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.LossTierDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.LossTierName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
-
-            //modelBuilder.Entity<NominationLevelTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.NominationLevelDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.NominationLevelName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<NominationLevelTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<OperatingContextCustomer>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                //entity.HasOne(d => d.Customer)
-                //    .WithMany(p => p.OperatingContextCustomers)
-                //    .HasForeignKey(d => d.CustomerId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_OperatingContextCustomers_Customers");
-
-                //entity.HasOne(d => d.OperatingContext)
-                //    .WithMany(p => p.OperatingContextCustomers)
-                //    .HasForeignKey(d => d.OperatingContextId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_OperatingContextCustomers_OperatingContexts");
+                entity.HasOne(d => d.Customer).WithMany(p => p.OperatingContextCustomers).HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_OperatingContextCustomers_Customers");
+                entity.HasOne(d => d.OperatingContext).WithMany(p => p.OperatingContextCustomers).HasForeignKey(d => d.OperatingContextId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_OperatingContextCustomers_OperatingContexts");
             });
 
-            //modelBuilder.Entity<OperatingContextTypes>(entity =>
-            //{
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.OperatingContextTypeDescription)
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.OperatingContextTypeName)
-            //        .IsRequired()
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<OperatingContextTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<OperatingContext>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.ActingBAType).HasColumnName("ActingBATypeId");
-
                 entity.Property(e => e.PrimaryEmailId).HasColumnName("PrimaryEMailId");
-
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
-
-                //entity.HasOne(d => d.ActingBAType)
-                //    .WithMany(p => p.OperatingContexts)
-                //    .HasForeignKey(d => d.ActingBatypeId)
-                //    .HasConstraintName("FK_OperatingContexts_ActingBAType");
-
-                //entity.HasOne(d => d.Certification)
-                //    .WithMany(p => p.OperatingContexts)
-                //    .HasForeignKey(d => d.CertificationId)
-                //    .HasConstraintName("FK_OperatingContexts_Certifications");
-
-                //entity.HasOne(d => d.OperatingContextType)
-                //    .WithMany(p => p.OperatingContexts)
-                //    .HasForeignKey(d => d.OperatingContextTypeId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_OperatingContexts_OperatingContextTypes");
-
+                entity.HasOne(d => d.ActingBAType).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.ActingBAType)
+                    .HasConstraintName("FK_OperatingContexts_ActingBAType");
+                entity.HasOne(d => d.Certification).WithMany(p => p.OperatingContexts)
+                    .HasForeignKey(d => d.CertificationId).HasConstraintName("FK_OperatingContexts_Certifications");
+                entity.HasOne(d => d.OperatingContextType)
+                    .WithMany(p => p.OperatingContexts)
+                    .HasForeignKey(d => d.OperatingContextType)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OperatingContexts_OperatingContextTypes");
                 //entity.HasOne(d => d.PrimaryAddress)
                 //    .WithMany(p => p.OperatingContexts)
                 //    .HasForeignKey(d => d.PrimaryAddressId)

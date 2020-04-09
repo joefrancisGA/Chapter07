@@ -81,6 +81,7 @@ namespace EGMS.BusinessAssociates.Domain
         public List<Address> Addresses { get; set; }
         public List<Role> Roles { get; set; }
         public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+        public List<OperatingContextCustomer> OperatingContextCustomers { get; set; }
 
 
         protected override void When(object @event)

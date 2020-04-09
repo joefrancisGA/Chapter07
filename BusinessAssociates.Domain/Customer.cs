@@ -59,6 +59,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public List<AssociateCustomer> AssociateCustomers { get; set; }
         public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }
+        public List<OperatingContextCustomer> OperatingContextCustomers { get; set; }
 
 
         protected override void When(object @event)

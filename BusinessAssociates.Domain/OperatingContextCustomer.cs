@@ -6,12 +6,13 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class OperatingContextCustomer : Entity<DatabaseId>
     {
-        public DatabaseId OperatingContextId { get; set; }
-        public DatabaseId CustomerId { get; set; }
+        public OperatingContextCustomer(Action<object> applier) : base(applier) { }
 
-        public OperatingContextCustomer(Action<object> applier) : base(applier)
-        {
-        }
+        public DatabaseId OperatingContextId { get; set; }
+        public OperatingContext OperatingContext { get; set; }
+        
+        public DatabaseId CustomerId { get; set; }
+        public Customer Customer { get; set; }
 
         protected override void When(object @event)
         {

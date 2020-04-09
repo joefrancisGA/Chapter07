@@ -68,6 +68,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public BalancingLevelTypeName Name { get; private set; }
         public BalancingLevelTypeDesc Desc { get; private set; }
 
+        public List<OperatingContext> OperatingContexts { get; set; }
+
         protected OperatingContextTypeLookup() { }
 
         protected override void When(object @event)

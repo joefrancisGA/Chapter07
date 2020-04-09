@@ -136,6 +136,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AssociateTypeDesc Desc { get; private set; }
 
         public List<Associate> Associates { get; set; }
+        public List<OperatingContext> OperatingContexts { get; set; }
  
         protected override void When(object @event)
         {
