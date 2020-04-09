@@ -6,15 +6,18 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class EMail : Entity<int>
     {
+
+        public EMail() { }
+        public EMail(Action<object> applier) : base(applier) { }
+
         public int UserId { get; set; }
         public EMailAddress EMailAddress { get; set; }
         public bool IsPrimary { get; set; }
 
-        public EMail() { }
+        public int ContactId { get; set; }
+        public Contact Contact { get; set; }
 
-        public EMail(Action<object> applier) : base(applier)
-        {
-        }
+
 
         protected override void When(object @event)
         {

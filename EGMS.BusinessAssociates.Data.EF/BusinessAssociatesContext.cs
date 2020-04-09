@@ -317,59 +317,29 @@ namespace EGMS.BusinessAssociates.Data.EF
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
             });
 
-            //modelBuilder.Entity<EgmslinkTypes>(entity =>
-            //{
-            //    entity.ToTable("EGMSLinkTypes");
-
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("ID")
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.EgmslinkTypeDescription)
-            //        .HasColumnName("EGMSLinkTypeDescription")
-            //        .HasMaxLength(255)
-            //        .IsUnicode(false);
-
-            //    entity.Property(e => e.EgmslinkTypeName)
-            //        .IsRequired()
-            //        .HasColumnName("EGMSLinkTypeName")
-            //        .HasMaxLength(50)
-            //        .IsUnicode(false);
-            //});
+            modelBuilder.Entity<EGMSLinkTypeLookup>(entity =>
+            {
+                entity.ToTable("EGMSLinkTypes");
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.Property(e => e.Desc).HasColumnName("EGMSLinkTypeDescription").HasMaxLength(255).IsUnicode(false);
+                entity.Property(e => e.Name).IsRequired().HasColumnName("EGMSLinkTypeName").HasMaxLength(50).IsUnicode(false);
+            });
 
             modelBuilder.Entity<EGMSPermission>(entity =>
             {
                 entity.ToTable("EGMSPermissions");
-
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.PermissionDescription)
-                    .HasMaxLength(2000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PermissionName)
-                    .IsRequired()
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                entity.Property(e => e.PermissionDescription).HasMaxLength(2000).IsUnicode(false);
+                entity.Property(e => e.PermissionName).IsRequired().HasMaxLength(255).IsUnicode(false);
             });
 
             modelBuilder.Entity<EMail>(entity =>
             {
                 entity.ToTable("EMails");
-
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.EMailAddress)
-                    .IsRequired()
-                    .HasColumnName("EMailAddress")
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                //entity.HasOne(d => d.Contact)
-                //    .WithMany(p => p.Emails)
-                //    .HasForeignKey(d => d.ContactId)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("FK_EMails_Contacts");
+                entity.Property(e => e.EMailAddress).IsRequired().HasColumnName("EMailAddress").HasMaxLength(255).IsUnicode(false);
+                entity.HasOne(d => d.Contact).WithMany(p => p.Emails).HasForeignKey(d => d.ContactId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EMails_Contacts");
             });
 
             //modelBuilder.Entity<GroupTypes>(entity =>
