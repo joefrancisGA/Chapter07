@@ -32,6 +32,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 
         public int StateCodeId { get; private set; }
 
+        public CountryCodeLookup CountryCode { get; set; }
+        public int CountryCodeId { get; set; }
+
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 

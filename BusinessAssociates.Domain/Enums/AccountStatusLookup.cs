@@ -7,9 +7,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public class AccountStatusLookup : Entity<int>
     {
-        public enum AccountStatusEnum
-        {
-        }
+        public enum AccountStatusEnum { }
 
         public static readonly
             IReadOnlyDictionary<int, AccountStatusLookup> AccountStatusTypes =

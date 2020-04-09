@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
@@ -17,7 +18,7 @@ namespace EGMS.BusinessAssociates.Domain
         public int ContactId { get; set; }
         public Contact Contact { get; set; }
 
-
+        public List<OperatingContext> OperatingContexts { get; set; }
 
         protected override void When(object @event)
         {

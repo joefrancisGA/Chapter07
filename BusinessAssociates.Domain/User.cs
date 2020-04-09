@@ -11,6 +11,8 @@ namespace EGMS.BusinessAssociates.Domain
         public User(Action<object> applier) : base(applier) { }
 
         public Contact Contact { get; set; }
+        public int ContactId { get; set; }
+
         public IDMSSID IDMSSID { get; set; }
         public DepartmentCode DepartmentCode { get; set; }
 
@@ -21,6 +23,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public List<AgentUser> AgentUsers { get; set; }
         public List<AssociateUser> AssociateUsers { get; set; }
+        public List<UserOperatingContext> UserOperatingContexts { get; set; }
 
         protected override void When(object @event)
         {

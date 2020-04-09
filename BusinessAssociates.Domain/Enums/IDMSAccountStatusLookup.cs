@@ -5,15 +5,15 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain.Enums
 {
-    public class EGMSAccountStatusLookup : Entity<int>
+    public class IDMSAccountStatusLookup : Entity<int>
     {
-        public enum EGMSAccountStatusEnum
+        public enum IDMSAccountStatusEnum
         {
         }
 
         public static readonly
-            IReadOnlyDictionary<int, EGMSAccountStatusLookup> EGMSAccountStatuses =
-                new Dictionary<int, EGMSAccountStatusLookup>
+            IReadOnlyDictionary<int, IDMSAccountStatusLookup> IDMSAccountStatuses =
+                new Dictionary<int, IDMSAccountStatusLookup>
                 {
                 };
 
@@ -24,11 +24,11 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 
         public List<UserContactDisplayRule> UserContactDisplayRules { get; set; }
 
-        protected EGMSAccountStatusLookup() { }
+        protected IDMSAccountStatusLookup() { }
 
         protected override void When(object @event)
         {
-            throw new InvalidOperationException($"{nameof(EGMSAccountStatusLookup)} events not supported.");
+            throw new InvalidOperationException($"{nameof(IDMSAccountStatusLookup)} events not supported.");
         }
 
         public override void OnLoadInit(Action<object> parentHandler)

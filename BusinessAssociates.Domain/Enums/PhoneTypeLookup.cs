@@ -66,6 +66,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 
+        public List<Phone> Phones { get; set; }
+
         protected PhoneTypeLookup() { }
 
         protected override void When(object @event)

@@ -14,6 +14,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
             Mexico = 3,
         }
 
+        protected CountryCodeLookup() { }
+
         public static readonly
             IReadOnlyDictionary<int, CountryCodeLookup> CountryCodes =
                 new Dictionary<int, CountryCodeLookup>
@@ -55,7 +57,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AssociateTypeName Name { get; private set; }
         public AssociateTypeDesc Desc { get; private set; }
 
-        protected CountryCodeLookup() { }
+        public List<StateCodeLookup> StateCodes { get; set; }
 
         protected override void When(object @event)
         {

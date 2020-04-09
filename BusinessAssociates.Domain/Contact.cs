@@ -28,8 +28,12 @@ namespace EGMS.BusinessAssociates.Domain
 
         public List<ContactPhone> ContactPhones { get; set; }
         public List<EMail> Emails { get; set; }
+        public List<Phone> Phones { get; set; }
+
+        // TO:  Need a one-to-many reference to this field at the EF level
         public List<Address> Addresses { get; set; }
         public List<ContactConfiguration> ContactConfigurations { get; set; }
+        public List<User> Users { get; set; }
 
 
         protected override void When(object @event)

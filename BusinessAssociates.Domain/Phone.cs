@@ -8,18 +8,19 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Phone : Entity<int>
     {
+        public Phone() { }
+        public Phone(Action<object> applier) : base(applier) { }
+
         public DatabaseId UserId { get; set; }
         public PhoneTypeLookup PhoneType { get; set; }
         public Extension Extension { get; set; }
         public bool IsPrimary { get; set; }
 
-        public List<Contact> Contacts { get; set; }
+        public Contact Contact { get; set; }
+        public int ContactId { get; set; }
 
-        public Phone() { }
+        public List<OperatingContext> OperatingContext { get; set; }
 
-        public Phone(Action<object> applier) : base(applier)
-        {
-        }
 
         protected override void When(object @event)
         {

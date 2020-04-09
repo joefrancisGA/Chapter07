@@ -67,6 +67,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 
+        public List<UserContactDisplayRule> UserContactDisplayRules { get; set; }
+
         protected IDMSLinkTypeLookup() { }
 
         protected override void When(object @event)

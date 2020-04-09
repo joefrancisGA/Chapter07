@@ -73,6 +73,11 @@ namespace EGMS.BusinessAssociates.Domain
         public List<AssociateUser> AssociateUsers { get; set; }
         public List<Customer> Customers { get; set; }
 
+        // TO DO:  This is for third-party suppliers only.  We may need to consolidate this into 
+        //   AssociateOperatingContexts
+        public List<OperatingContext> OperatingContexts { get; set;}
+        public List<PredecessorBusinessAssociate> PredecessorAssociates { get; set; }
+        public List<UserOperatingContext> UserOperatingContexts { get; set; }
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {

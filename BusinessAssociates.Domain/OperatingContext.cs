@@ -52,6 +52,8 @@ namespace EGMS.BusinessAssociates.Domain
 
         public OperatingContextTypeLookup OperatingContextType { get; set; }
         public DatabaseId FacilityId { get; set; }
+
+        public Associate ThirdPartySupplier { get; set; }
         public DatabaseId ThirdPartySupplierId { get; set; }
 
         // TO DO:  Not sure what to do with the type for LegacyId
@@ -61,6 +63,9 @@ namespace EGMS.BusinessAssociates.Domain
 
         public Certification Certification { get; set; }
         public NullableDatabaseId CertificationId { get; set; }
+
+        public Role Role { get; set; }
+        public int RoleId { get; set; }
 
 
         public StatusCodeLookup Status { get; set; }
@@ -82,6 +87,7 @@ namespace EGMS.BusinessAssociates.Domain
         public List<Role> Roles { get; set; }
         public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
         public List<OperatingContextCustomer> OperatingContextCustomers { get; set; }
+        public List<OperatingContext> OperatingContexts { get; set; }
 
 
         protected override void When(object @event)
