@@ -377,28 +377,27 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<OperatingContext>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-                //entity.Property(e => e.ActingBAType).HasColumnName("ActingBATypeId");
                 entity.Property(e => e.PrimaryEmailId).HasColumnName("PrimaryEMailId");
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
-                entity.HasOne(d => d.ActingBAType).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.ActingBATypeId)
+                entity.HasOne(d => d.ActingBAType).WithMany(p1 => p1.OperatingContexts).HasForeignKey(d => d.ActingBATypeId)
                     .HasConstraintName("FK_OperatingContexts_ActingBAType");
-                entity.HasOne(d => d.Certification).WithMany(p => p.OperatingContexts)
-                    .HasForeignKey(d => d.CertificationId).HasConstraintName("FK_OperatingContexts_Certifications");
-                entity.HasOne(d => d.OperatingContextType).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.OperatingContextTypeId)
+                //entity.HasOne(d => d.Certification).WithMany(p2 => p2.OperatingContexts)
+                //    .HasForeignKey(d => d.CertificationId).HasConstraintName("FK_OperatingContexts_Certifications");
+                entity.HasOne(d => d.OperatingContextType).WithMany(p3 => p3.OperatingContexts).HasForeignKey(d => d.OperatingContextTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_OperatingContexts_OperatingContextTypes");
-                entity.HasOne(d => d.PrimaryAddress).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.PrimaryAddressId)
+                entity.HasOne(d => d.PrimaryAddress).WithMany(p4 => p4.OperatingContexts).HasForeignKey(d => d.PrimaryAddressId)
                     .HasConstraintName("FK_OperatingContexts_PrimaryAddress");
-                entity.HasOne(d => d.PrimaryEmail).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.PrimaryEmailId)
+                entity.HasOne(d => d.PrimaryEmail).WithMany(p5 => p5.OperatingContexts).HasForeignKey(d => d.PrimaryEmailId)
                     .HasConstraintName("FK_OperatingContexts_PrimaryEmail");
-                entity.HasOne(d => d.PrimaryPhone).WithMany(p => p.OperatingContext).HasForeignKey(d => d.PrimaryPhoneId)
+                entity.HasOne(d => d.PrimaryPhone).WithMany(p6 => p6.OperatingContext).HasForeignKey(d => d.PrimaryPhoneId)
                     .HasConstraintName("FK_OperatingContexts_PrimaryPhone");
-                entity.HasOne(d => d.ProviderType).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.ProviderTypeId)
+                entity.HasOne(d => d.ProviderType).WithMany(p7 => p7.OperatingContexts).HasForeignKey(d => d.ProviderTypeId)
                     .HasConstraintName("FK_OperatingContexts_ProviderTypes");
-                entity.HasOne(d => d.Role).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.RoleId)
+                entity.HasOne(d => d.Role).WithMany(p8 => p8.OperatingContexts).HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK_OperatingContexts_Roles");
-                entity.HasOne(d => d.Status).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.StatusCodeId)
+                entity.HasOne(d => d.Status).WithMany(p9 => p9.OperatingContexts).HasForeignKey(d => d.StatusCodeId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_OperatingContexts_StatusCodes");
-                entity.HasOne(d => d.ThirdPartySupplier).WithMany(p => p.OperatingContexts).HasForeignKey(d => d.ThirdPartySupplierId)
+                entity.HasOne(d => d.ThirdPartySupplier).WithMany(p10 => p10.OperatingContexts).HasForeignKey(d => d.ThirdPartySupplierId)
                     .HasConstraintName("FK_OperatingContexts_ThirdPartySupplier");
             });
 
@@ -480,12 +479,12 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<UserContactDisplayRule>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-                entity.Property(e => e.EGMSAccountStatus).HasColumnName("EGMSAccountStatusId");
+                //entity.Property(e => e.EGMSAccountStatus).HasColumnName("EGMSAccountStatusId");
                 entity.Property(e => e.EGMSConfigured).HasColumnName("EGMSConfigured");
-                entity.Property(e => e.EGMSLinkType).HasColumnName("EGMSLinkTypeId");
+                //entity.Property(e => e.EGMSLinkType).HasColumnName("EGMSLinkTypeId");
                 entity.Property(e => e.IDMSAccountExists).HasColumnName("IDMSAccountExists");
-                entity.Property(e => e.IDMSAccountStatus).HasColumnName("IDMSAccountStatusId");
-                entity.Property(e => e.IDMSLinkType).HasColumnName("IDMSLinkTypeId");
+                //entity.Property(e => e.IDMSAccountStatus).HasColumnName("IDMSAccountStatusId");
+                //entity.Property(e => e.IDMSLinkType).HasColumnName("IDMSLinkTypeId");
                 entity.HasOne(d => d.EGMSAccountStatus).WithMany(p => p.UserContactDisplayRules).HasForeignKey(d => d.EGMSAccountStatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserContactDisplayRules_EGMSAccountStatus");
                 entity.HasOne(d => d.EGMSLinkType).WithMany(p => p.UserContactDisplayRules).HasForeignKey(d => d.EGMSLinkTypeId)
@@ -520,13 +519,6 @@ namespace EGMS.BusinessAssociates.Data.EF
                 entity.HasOne(d => d.Contact).WithMany(p => p.Users).HasForeignKey(d => d.ContactId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Users_Contacts");
             });
-
-            OnModelCreatingPartial(modelBuilder);
-        }
-
-        private void OnModelCreatingPartial(ModelBuilder modelBuilder)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
