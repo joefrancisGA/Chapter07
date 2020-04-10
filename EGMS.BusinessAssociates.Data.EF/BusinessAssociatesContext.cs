@@ -87,7 +87,6 @@ namespace EGMS.BusinessAssociates.Data.EF
                 entity.Property(e => e.Address2).HasMaxLength(50).IsUnicode(false);
                 entity.Property(e => e.Address3).HasMaxLength(50).IsUnicode(false);
                 entity.Property(e => e.Address4).HasMaxLength(50).IsUnicode(false);
-                entity.Property(e => e.AddressType).HasColumnName("AddressTypeID");
                 entity.Property(e => e.Attention).HasMaxLength(50).IsUnicode(false);
                 entity.Property(e => e.City).IsRequired().HasMaxLength(50).IsUnicode(false);
                 entity.Property(e => e.Comments).HasMaxLength(2000).IsUnicode(false);
