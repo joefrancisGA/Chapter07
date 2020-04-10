@@ -8,6 +8,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Customer : Entity<DatabaseId>
     {
+        public Customer() { }
         public Customer(Action<object> applier) : base(applier) { }
 
         public CustomerTypeLookup CustomerType { get; set; }

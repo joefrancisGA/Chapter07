@@ -6,6 +6,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class OperatingContextCustomer : Entity<DatabaseId>
     {
+        public OperatingContextCustomer() { }
         public OperatingContextCustomer(Action<object> applier) : base(applier) { }
 
         public DatabaseId OperatingContextId { get; set; }

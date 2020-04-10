@@ -7,6 +7,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class UserOperatingContext : Entity<DatabaseId>
     {
+        public UserOperatingContext() {}
         public UserOperatingContext(Action<object> applier) : base(applier) { }
 
         public Role Role { get; set; }

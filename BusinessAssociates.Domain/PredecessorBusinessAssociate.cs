@@ -7,7 +7,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class PredecessorBusinessAssociate : Entity<DatabaseId>
     {
-
+        public PredecessorBusinessAssociate() { }
         public PredecessorBusinessAssociate(Action<object> applier) : base(applier) { }
 
         public Associate Associate { get; set; }
