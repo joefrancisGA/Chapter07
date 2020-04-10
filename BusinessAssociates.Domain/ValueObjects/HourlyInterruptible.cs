@@ -7,6 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public int Value { get; }
 
+        public HourlyInterruptible() { }
+
         public HourlyInterruptible(int value)
         {
             if (value == default)

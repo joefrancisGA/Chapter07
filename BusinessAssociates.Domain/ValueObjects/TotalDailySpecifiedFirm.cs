@@ -7,6 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public int Value { get; }
 
+        public TotalDailySpecifiedFirm() { }
+        
         public TotalDailySpecifiedFirm(int value)
         {
             if (value == default)

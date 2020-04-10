@@ -7,6 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public int Value { get; }
 
+        public SICCodePercentage() { }
+
         public SICCodePercentage(int value)
         {
             if (value == default)

@@ -7,6 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public int Value { get; }
 
+        public DeliveryPressure() { }
+
         public DeliveryPressure(int value)
         {
             if (value == default)

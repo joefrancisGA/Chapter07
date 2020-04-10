@@ -8,9 +8,7 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public string Value { get; }
 
-        public PermissionName()
-        {
-        }
+        public PermissionName() { }
 
         private PermissionName(string value)
         {

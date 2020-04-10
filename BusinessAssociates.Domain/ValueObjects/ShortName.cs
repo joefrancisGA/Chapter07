@@ -6,6 +6,8 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
     {
         public string Value { get; }
 
+        public ShortName() { }
+
         private ShortName(string value)
         {
             Value = value;

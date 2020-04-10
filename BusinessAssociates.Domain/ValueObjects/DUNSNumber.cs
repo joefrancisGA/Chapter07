@@ -4,7 +4,6 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
 {
     public class DUNSNumber : Value<DUNSNumber>
     {
-
         public DUNSNumber() { }
 
         private DUNSNumber(int value)
