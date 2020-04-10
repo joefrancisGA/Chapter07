@@ -12,7 +12,10 @@ namespace EGMS.BusinessAssociates.Domain
         public Phone(Action<object> applier) : base(applier) { }
 
         public DatabaseId UserId { get; set; }
+
         public PhoneTypeLookup PhoneType { get; set; }
+        public int PhoneTypeId { get; set; }
+
         public Extension Extension { get; set; }
         public bool IsPrimary { get; set; }
 

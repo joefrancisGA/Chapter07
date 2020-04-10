@@ -11,16 +11,25 @@ namespace EGMS.BusinessAssociates.Domain
         public Customer(Action<object> applier) : base(applier) { }
 
         public CustomerTypeLookup CustomerType { get; set; }
+        public int CustomerTypeId { get; set; }
+
         public DeliveryTypeLookup DeliveryType { get; set; }
+        public int DeliveryTypeId { get; set; }
+
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
         public ShortName ShortName { get; set; }
         public DatabaseId BasicPoolId { get; set; }
+
+        public int StatusId { get; set; }
         public StatusCodeLookup Status { get; set; }
+
         public DatabaseId LDCId { get; set; }
         public AccountNumber AccountNumber { get; set; }
 
         public LossTierTypeLookup LossTier { get; set; }
+        public int LossTierId { get; set; }
+
         public DatabaseId DeliveryLocation { get; set; }
 
         public Associate Shipper { get; set; }
@@ -40,9 +49,16 @@ namespace EGMS.BusinessAssociates.Domain
         public IntrastateSpecifiedFirm IntrastateSpecifiedFirm { get; set; }
         public CurrentDemand CurrentDemand { get; set; }
         public PreviousDemand PreviousDemand { get; set;}
+
         public NominationLevelTypeLookup NominationLevel { get; set; }
+        public int NominationLevelId { get; set; }
+
         public GroupTypeLookup GroupType { get; set; }
+        public int GroupTypeId { get; set; }
+
         public BalancingLevelTypeLookup BalancingLevel { get; set; }
+        public int BalancingLevelId { get; set; }
+
         public NAICSCode NAICSCode { get; set; }
         public SICCode SICCode { get; set; }
         public SICCodePercentage SICCodePercentage { get; set; }

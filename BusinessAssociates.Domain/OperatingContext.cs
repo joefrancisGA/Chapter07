@@ -51,6 +51,8 @@ namespace EGMS.BusinessAssociates.Domain
 
 
         public OperatingContextTypeLookup OperatingContextType { get; set; }
+        public int OperatingContextTypeId { get; set; }
+
         public DatabaseId FacilityId { get; set; }
 
         public Associate ThirdPartySupplier { get; set; }
@@ -58,8 +60,12 @@ namespace EGMS.BusinessAssociates.Domain
 
         // TO DO:  Not sure what to do with the type for LegacyId
         public int LegacyId { get; set; }
+
         public ProviderTypeLookup ProviderType { get; set; }
+        public int ProviderTypeId { get; set; }
+
         public AssociateTypeLookup ActingBAType { get; set; }
+        public int ActingBATypeId { get; set; }
 
         public Certification Certification { get; set; }
         public NullableDatabaseId CertificationId { get; set; }
@@ -69,6 +75,7 @@ namespace EGMS.BusinessAssociates.Domain
 
 
         public StatusCodeLookup Status { get; set; }
+        public int StatusCodeId { get; set; }
 
         public bool IsDeactivating { get; set; }
         public DateTime StartDate { get; set; }

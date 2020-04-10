@@ -18,10 +18,16 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsActive { get; set; }
 
         public EGMSAccountStatusLookup EGMSAccountStatus {get; set; }
+        public int EGMSAccountStatusId { get; set; }
+
         public IDMSAccountStatusLookup IDMSAccountStatus { get; set; }
+        public int IDMSAccountStatusId { get; set; }
 
         public EGMSLinkTypeLookup EGMSLinkType {get; set; }
+        public int EGMSLinkTypeId { get; set; }
+
         public IDMSLinkTypeLookup IDMSLinkType { get; set; }
+        public int IDMSLinkTypeId { get; set; }
 
 
         protected override void When(object @event)

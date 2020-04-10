@@ -10,15 +10,18 @@ namespace EGMS.BusinessAssociates.Domain
     public class Address : Entity<int>
     {
         public Address() { }
-
         public Address(Action<object> applier) : base(applier) { }
 
         public AddressTypeLookup AddressType { get; set; }
+        public int AddressTypeId { get; set; }
+
         public AddressLine Address1 { get; set; }
         public AddressLine Address2 { get; set; }
         public AddressLine Address3 { get; set; }
         public AddressLine Address4 { get; set; }
         public City City { get; set; }
+
+        public int StateCodeId { get; set; }
         public StateCodeLookup StateCode { get; set; }
         public PostalCode PostalCode { get; set; }
         public CountryCodeLookup Country { get; set; }

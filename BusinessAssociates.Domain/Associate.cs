@@ -58,8 +58,12 @@ namespace EGMS.BusinessAssociates.Domain
         public DUNSNumber DUNSNumber { get; set; }
         public LongName LongName { get; set; }
         public ShortName ShortName { get; set; }
+
         public AssociateTypeLookup AssociateType { get; set; }
+        public int AssociateTypeId { get; set; }
+
         public StatusCodeLookup Status { get; set; }
+        public int StatusCodeId { get; set; }
 
         public bool IsInternal { get; set; }
         public bool IsDeactivating { get; set; }
