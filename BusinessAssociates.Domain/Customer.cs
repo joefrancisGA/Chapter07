@@ -6,7 +6,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Customer : Entity<DatabaseId>
+    public class Customer : Entity<int>
     {
         public Customer() { }
         public Customer(Action<object> applier) : base(applier) { }
@@ -34,7 +34,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DatabaseId DeliveryLocation { get; set; }
 
         public Associate Shipper { get; set; }
-        public DatabaseId ShipperId { get; set; }
+        public int ShipperId { get; set; }
 
         public DeliveryPressure DeliveryPressure { get; set; }
         public DatabaseId ContractTypeId { get; set; }

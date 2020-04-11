@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
+
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class AgentUser : Entity<DatabaseId>
+    public class AgentUser : Entity<int>
     {
         public AgentUser() { }
 
+        public AgentUser(Action<object> applier) : base(applier) { }
+
         public Associate Agent { get; set; }
-        public AssociateId AgentId { get; set; }
+        public int AgentId { get; set; }
 
         public User User { get; set; }
-        public DatabaseId UserId { get; set; }
-
-
-        public AgentUser(Action<object> applier) : base(applier)
-        {
-        }
+        public int UserId { get; set; }
+        
 
         protected override void When(object @event)
         {

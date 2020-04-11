@@ -5,14 +5,14 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class ContactConfiguration : Entity<DatabaseId>
+    public class ContactConfiguration : Entity<int>
     {
         public ContactConfiguration() { }
         public ContactConfiguration(Action<object> applier) : base(applier) { }
 
 
         public Contact Contact { get; set; }
-        public DatabaseId ContactId { get; set; }
+        public int ContactId { get; set; }
 
         public DatabaseId FacilityId { get; set; }
         public ContactTypeLookup ContactType { get; set; }
