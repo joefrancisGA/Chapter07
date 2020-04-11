@@ -485,8 +485,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             modelBuilder.Entity<UserContactDisplayRule>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
-
+                entity.OwnsOne(x => x.Id, cb => { cb.Property(e => e.Value).HasColumnName("ID"); });
                 entity.Property(e => e.EGMSConfigured).HasColumnName("EGMSConfigured");
                 entity.Property(e => e.IDMSAccountExists).HasColumnName("IDMSAccountExists");
                 entity.OwnsOne(x => x.EGMSAccountStatus, cb => { cb.Property(e => e.EGMSAccountStatusId).HasColumnName("EGMSAccountStatusId"); });
@@ -508,7 +507,8 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             modelBuilder.Entity<UserOperatingContext>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.OwnsOne(x => x.Id, cb => { cb.Property(e => e.Value).HasColumnName("ID"); });
+                entity.OwnsOne(x => x.FacilityId, cb => { cb.Property(e => e.Value).HasColumnName("FacilityId"); });
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
                 entity.HasOne(d => d.Principal).WithMany(p => p.UserOperatingContexts).HasForeignKey(d => d.PrincipalId)
@@ -526,7 +526,7 @@ namespace EGMS.BusinessAssociates.Data.EF
                 entity.Property(e => e.DeactivationDate).HasColumnType("datetime");
                 entity.OwnsOne(x => x.DepartmentCode, cb => { cb.Property(e => e.Value).HasColumnName("DepartmentCode"); });
                 entity.Property(e => e.HasEGMSAccess).HasColumnName("HasEGMSAccess");
-                entity.Property(e => e.IDMSSID).IsRequired().HasColumnName("IMDMSID").HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.IDMSSID, cb => { cb.Property(e => e.Value).HasColumnName("IDMSSID"); });
                 entity.HasOne(d => d.Contact).WithMany(p => p.Users).HasForeignKey(d => d.ContactId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Users_Contacts");
             });

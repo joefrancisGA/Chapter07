@@ -19,8 +19,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 
         public int EGMSAccountStatusId { get; private set; }
 
-        public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public EGMSAccountStatusName Name { get; private set; }
+        public EGMSAccountStatusDesc Desc { get; private set; }
 
         public List<UserContactDisplayRule> UserContactDisplayRules { get; set; }
 
