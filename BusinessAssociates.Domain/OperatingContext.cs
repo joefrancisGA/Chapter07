@@ -56,7 +56,7 @@ namespace EGMS.BusinessAssociates.Domain
         public DatabaseId FacilityId { get; set; }
 
         public Associate ThirdPartySupplier { get; set; }
-        public DatabaseId ThirdPartySupplierId { get; set; }
+        public int ThirdPartySupplierId { get; set; }
 
         // TO DO:  Not sure what to do with the type for LegacyId
         public int LegacyId { get; set; }

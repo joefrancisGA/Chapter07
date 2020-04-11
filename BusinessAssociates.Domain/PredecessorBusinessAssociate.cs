@@ -11,10 +11,10 @@ namespace EGMS.BusinessAssociates.Domain
         public PredecessorBusinessAssociate(Action<object> applier) : base(applier) { }
 
         public Associate Associate { get; set; }
-        public DatabaseId AssociateId { get; set; }
+        public int AssociateId { get; set; }
 
         public List<Associate> PredecessorAssociate { get; set; }
-        public DatabaseId PredecessorAssociateId { get; set; }
+        public int PredecessorAssociateId { get; set; }
 
         
         protected override void When(object @event)

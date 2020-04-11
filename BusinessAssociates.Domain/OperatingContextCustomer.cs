@@ -4,16 +4,18 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class OperatingContextCustomer : Entity<DatabaseId>
+    public class OperatingContextCustomer : Entity<int>
     {
         public OperatingContextCustomer() { }
         public OperatingContextCustomer(Action<object> applier) : base(applier) { }
 
-        public DatabaseId OperatingContextId { get; set; }
+
         public OperatingContext OperatingContext { get; set; }
-        
-        public DatabaseId CustomerId { get; set; }
+        public int OperatingContextId { get; set; }
+
         public Customer Customer { get; set; }
+        public int CustomerId { get; set; }
+
 
         protected override void When(object @event)
         {

@@ -54,7 +54,7 @@ namespace EGMS.BusinessAssociates.Data.EF
                 .ForMember(dst => dst.Status,
                     opt => opt.MapFrom(src => src.Status))
                 .ForMember(dst => dst.ThirdPartySupplierId,
-                    opt => opt.MapFrom(src => src.ThirdPartySupplierId.Value));
+                    opt => opt.MapFrom(src => src.ThirdPartySupplierId));
         }
     }
 }

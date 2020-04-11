@@ -12,7 +12,7 @@ namespace EGMS.BusinessAssociates.Domain
         public RoleEGMSPermission(Action<object> applier) : base(applier) { }
 
         public Role Role { get; set; }
-        public DatabaseId RoleId { get; set; }
+        public int RoleId { get; set; }
 
         public List<EGMSPermission> EGMSPermissions { get; set; }
 

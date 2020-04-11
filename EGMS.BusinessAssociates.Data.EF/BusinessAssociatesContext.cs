@@ -67,17 +67,15 @@ namespace EGMS.BusinessAssociates.Data.EF
             {
                 // ValueGeneratedNever is presumed for lookup tables
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-
-                // It is not clear why we would need IsUnicode set to false.  Shouldn't that be the default?
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<AddressTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<Address>(entity =>
@@ -164,8 +162,8 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<AssociateTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<AssociateUser>(entity =>
@@ -193,15 +191,15 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<BalancingLevelTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<CertificationStatusLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<Certification>(entity =>
@@ -230,8 +228,8 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<ContactTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<Contact>(entity =>
@@ -245,36 +243,25 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<CountryCodeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
-            modelBuilder.Entity<CustomerAlternateFuel>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("ID");
-                entity.HasOne(d => d.AlternateFuel).WithMany(p => p.CustomerAlternateFuels).HasForeignKey(d => d.AlternateFuelTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerAlternateFuels_AlternateFuelTypes");
-                entity.HasOne(d => d.Customer).WithMany(p => p.CustomerAlternateFuels).HasForeignKey(d => d.CustomerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerAlternateFuels_Customers");
-            });
-
-            modelBuilder.Entity<CustomerTypeLookup>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
-            });
 
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
                 entity.OwnsOne(x => x.AccountNumber, cb => { cb.Property(e => e.Value).HasColumnName("AccountNumber"); });
-                entity.OwnsOne(x => x.BasicPoolId, cb => { cb.Property(e => e.Value).HasColumnName("BasicPoolId"); }); entity.OwnsOne(x => x.DUNSNumber, cb => { cb.Property(e => e.Value).HasColumnName("DUNSNumber"); });
+                entity.OwnsOne(x => x.AlternateCustomerId, cb => { cb.Property(e => e.Value).HasColumnName("AlternateCustomerId"); });
+                entity.OwnsOne(x => x.BasicPoolId, cb => { cb.Property(e => e.Value).HasColumnName("BasicPoolId"); });
+                entity.OwnsOne(x => x.DUNSNumber, cb => { cb.Property(e => e.Value).HasColumnName("DUNSNumber"); });
+                entity.OwnsOne(x => x.ContractTypeId, cb => { cb.Property(e => e.Value).HasColumnName("ContactTypeId"); });
+                entity.OwnsOne(x => x.DeliveryLocation, cb => { cb.Property(e => e.Value).HasColumnName("DeliveryLocation"); });
                 entity.OwnsOne(x => x.LDCId, cb => { cb.Property(e => e.Value).HasColumnName("LDCId"); });
                 entity.OwnsOne(x => x.LongName, cb => { cb.Property(e => e.Value).HasColumnName("LongName"); });
                 entity.OwnsOne(x => x.MDQ, cb => { cb.Property(e => e.Value).HasColumnName("MDQ"); });
                 entity.OwnsOne(x => x.NAICSCode, cb => { cb.Property(e => e.Value).HasColumnName("NAICSCode"); });
-      
+
                 entity.Property(e => e.ShippersLetterFromDate).HasColumnType("datetime");
                 entity.OwnsOne(x => x.ShortName, cb => { cb.Property(e => e.Value).HasColumnName("ShortName"); });
                 entity.OwnsOne(x => x.SICCode, cb => { cb.Property(e => e.Value).HasColumnName("SICCode"); });
@@ -302,34 +289,50 @@ namespace EGMS.BusinessAssociates.Data.EF
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Customers_StatusCodes");
             });
 
+            modelBuilder.Entity<CustomerAlternateFuel>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.HasOne(d => d.AlternateFuel).WithMany(p => p.CustomerAlternateFuels).HasForeignKey(d => d.AlternateFuelTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerAlternateFuels_AlternateFuelTypes");
+                entity.HasOne(d => d.Customer).WithMany(p => p.CustomerAlternateFuels).HasForeignKey(d => d.CustomerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerAlternateFuels_Customers");
+            });
+
+            modelBuilder.Entity<CustomerTypeLookup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
+            });
+
             modelBuilder.Entity<DeliveryTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
-            modelBuilder.Entity<EGMSLinkTypeLookup>(entity =>
-            {
-                entity.ToTable("EGMSLinkTypes");
-                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasColumnName("EGMSLinkTypeDescription").HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasColumnName("EGMSLinkTypeName").HasMaxLength(50).IsUnicode(false);
-            });
+            //modelBuilder.Entity<EGMSLinkTypeLookup>(entity =>
+            //{
+            //    entity.ToTable("EGMSLinkTypes");
+            //    entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+            //    entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("EGMSLinkTypeDescription"); });
+            //    entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("EGMSLinkTypeName"); });
+            //});
 
             modelBuilder.Entity<EGMSPermission>(entity =>
             {
                 entity.ToTable("EGMSPermissions");
                 entity.Property(e => e.Id).HasColumnName("ID");
-                entity.Property(e => e.PermissionDescription).HasMaxLength(2000).IsUnicode(false);
-                entity.Property(e => e.PermissionName).IsRequired().HasMaxLength(255).IsUnicode(false);
+                entity.OwnsOne(x => x.PermissionDescription, cb => { cb.Property(e => e.Value).HasColumnName("PermissionDescription"); });
+                entity.OwnsOne(x => x.PermissionName, cb => { cb.Property(e => e.Value).HasColumnName("PermissionName"); });
             });
 
             modelBuilder.Entity<EMail>(entity =>
             {
                 entity.ToTable("EMails");
                 entity.Property(e => e.Id).HasColumnName("ID");
-                entity.Property(e => e.EMailAddress).IsRequired().HasColumnName("EMailAddress").HasMaxLength(255).IsUnicode(false);
+                entity.OwnsOne(x => x.EMailAddress, cb => { cb.Property(e => e.Value).HasColumnName("EMailAddress"); });
                 entity.HasOne(d => d.Contact).WithMany(p => p.Emails).HasForeignKey(d => d.ContactId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EMails_Contacts");
             });
@@ -337,30 +340,30 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<GroupTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
-            modelBuilder.Entity<IDMSLinkTypeLookup>(entity =>
-            {
-                entity.ToTable("IDMSLinkTypes");
-                entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasColumnName("IDMLinkTypeDescription").HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasColumnName("IDMSLinkTypeName").HasMaxLength(50).IsUnicode(false);
-            });
+            //modelBuilder.Entity<IDMSLinkTypeLookup>(entity =>
+            //{
+            //    entity.ToTable("IDMSLinkTypes");
+            //    entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+            //    entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("IDMLinkTypeDescription"); });
+            //    entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("IDMSLinkTypeName"); });
+            //});
 
             modelBuilder.Entity<LossTierTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<NominationLevelTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<OperatingContextCustomer>(entity =>
@@ -375,8 +378,8 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<OperatingContextTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<OperatingContext>(entity =>
@@ -409,14 +412,14 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<PhoneTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<Phone>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-                entity.Property(e => e.Extension).IsRequired().HasMaxLength(10).IsUnicode(false);
+                entity.OwnsOne(x => x.Extension, cb => { cb.Property(e => e.Value).HasColumnName("Extension"); });
                 entity.HasOne(d => d.Contact).WithMany(p => p.Phones).HasForeignKey(d => d.ContactId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Phones_Contacts");
                 entity.HasOne(d => d.PhoneType).WithMany(p => p.Phones).HasForeignKey(d => d.PhoneTypeId).OnDelete(DeleteBehavior.ClientSetNull)
@@ -425,10 +428,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             modelBuilder.Entity<PredecessorBusinessAssociate>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.OwnsOne(x => x.Id, cb => { cb.Property(e => e.Value).HasColumnName("ID"); });
                 entity.HasOne(d => d.Associate).WithMany(p => p.PredecessorAssociates).HasForeignKey(d => d.AssociateId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_PredecessorBusinessAssociates_Associate");
-
                 entity.HasOne(d => d.Associate).WithMany(p => p.PredecessorAssociates).HasForeignKey(d => d.PredecessorAssociateId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_PredecessorBusinessAssociates_Customers");
             });
@@ -436,13 +438,14 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<ProviderTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<RoleEGMSPermission>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.OwnsOne(x => x.Id, cb => { cb.Property(e => e.Value).HasColumnName("Id"); });
+                //entity.Property(e => e.Id).HasColumnName("ID");
 
                 // TO DO:  Eliminate this in the database
                 //entity.Property(e => e.EGMSPermissionId).HasColumnName("EGMSPermissionId");
@@ -460,16 +463,15 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-                entity.Property(e => e.RoleDescription).IsRequired().HasMaxLength(2000).IsUnicode(false);
-                entity.Property(e => e.RoleName).IsRequired().HasMaxLength(255).IsUnicode(false);
+                entity.OwnsOne(x => x.RoleDescription, cb => { cb.Property(e => e.Value).HasColumnName("RoleDescription"); });
+                entity.OwnsOne(x => x.RoleName, cb => { cb.Property(e => e.Value).HasColumnName("RoleName"); });
             });
 
             modelBuilder.Entity<StateCodeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                //entity.Property(e => e.CountryCodeId).HasColumnName("CountryCodeID");
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
                 entity.HasOne(d => d.CountryCode).WithMany(p => p.StateCodes).HasForeignKey(d => d.CountryCodeId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_StateCodes_CountryCodes");
             });
@@ -477,27 +479,31 @@ namespace EGMS.BusinessAssociates.Data.EF
             modelBuilder.Entity<StatusCodeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.Property(e => e.Desc).HasMaxLength(255).IsUnicode(false);
-                entity.Property(e => e.Name).IsRequired().HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("Desc"); });
+                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("Name"); });
             });
 
             modelBuilder.Entity<UserContactDisplayRule>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-                //entity.Property(e => e.EGMSAccountStatus).HasColumnName("EGMSAccountStatusId");
+
                 entity.Property(e => e.EGMSConfigured).HasColumnName("EGMSConfigured");
-                //entity.Property(e => e.EGMSLinkType).HasColumnName("EGMSLinkTypeId");
                 entity.Property(e => e.IDMSAccountExists).HasColumnName("IDMSAccountExists");
-                //entity.Property(e => e.IDMSAccountStatus).HasColumnName("IDMSAccountStatusId");
-                //entity.Property(e => e.IDMSLinkType).HasColumnName("IDMSLinkTypeId");
-                entity.HasOne(d => d.EGMSAccountStatus).WithMany(p => p.UserContactDisplayRules).HasForeignKey(d => d.EGMSAccountStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserContactDisplayRules_EGMSAccountStatus");
-                entity.HasOne(d => d.EGMSLinkType).WithMany(p => p.UserContactDisplayRules).HasForeignKey(d => d.EGMSLinkTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserContactDisplayRules_EGMSLinkTypes");
-                entity.HasOne(d => d.IDMSAccountStatus).WithMany(p => p.UserContactDisplayRules).HasForeignKey(d => d.IDMSAccountStatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserContactDisplayRules_IDMSAccountStatus");
-                entity.HasOne(d => d.IDMSLinkType).WithMany(p => p.UserContactDisplayRules).HasForeignKey(d => d.IDMSLinkTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserContactDisplayRules_IDMSLinkTypes");
+                entity.OwnsOne(x => x.EGMSAccountStatus, cb => { cb.Property(e => e.EGMSAccountStatusId).HasColumnName("EGMSAccountStatusId"); });
+
+                var ownedEGMSLinkType = entity.OwnsOne(x => x.EGMSLinkType);
+                ownedEGMSLinkType.ToTable("EGMSLinkTypes");
+                ownedEGMSLinkType.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                ownedEGMSLinkType.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("EGMSLinkTypeDescription"); });
+                ownedEGMSLinkType.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("EGMSLinkTypeName"); });
+
+                var ownedIDMSLinkType = entity.OwnsOne(x => x.IDMSLinkType);
+                ownedIDMSLinkType.ToTable("IDMSLinkTypes");
+                ownedIDMSLinkType.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
+                ownedIDMSLinkType.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("IDMSLinkTypeDescription"); });
+                ownedIDMSLinkType.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("IDMSLinkTypeName"); });
+                
+                entity.OwnsOne(x => x.IDMSAccountStatus, cb => { cb.Property(e => e.IDMSAccountStatusId).HasColumnName("IDMSAccountStatusId"); });
             });
 
             modelBuilder.Entity<UserOperatingContext>(entity =>
@@ -518,7 +524,7 @@ namespace EGMS.BusinessAssociates.Data.EF
                 entity.Property(e => e.Id).HasColumnName("ID");
                 entity.Property(e => e.ContactId).HasColumnName("ContactID");
                 entity.Property(e => e.DeactivationDate).HasColumnType("datetime");
-                entity.Property(e => e.DepartmentCode).HasMaxLength(50).IsUnicode(false);
+                entity.OwnsOne(x => x.DepartmentCode, cb => { cb.Property(e => e.Value).HasColumnName("DepartmentCode"); });
                 entity.Property(e => e.HasEGMSAccess).HasColumnName("HasEGMSAccess");
                 entity.Property(e => e.IDMSSID).IsRequired().HasColumnName("IMDMSID").HasMaxLength(50).IsUnicode(false);
                 entity.HasOne(d => d.Contact).WithMany(p => p.Users).HasForeignKey(d => d.ContactId)

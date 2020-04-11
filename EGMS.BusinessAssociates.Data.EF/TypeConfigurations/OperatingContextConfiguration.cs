@@ -17,8 +17,7 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             builder.OwnsOne(oc => oc.FacilityId,
                 cb => { cb.Property(e => e.Value).HasColumnName("FacilityId"); });
 
-            builder.OwnsOne(oc => oc.ThirdPartySupplierId,
-                cb => { cb.Property(e => e.Value).HasColumnName("ThirdPartySupplierId"); });
+            builder.Property(oc => oc.ThirdPartySupplierId).HasColumnName("ThirdPartySupplierId");
 
             builder.OwnsOne(oc => oc.CertificationId,
                 cb => { cb.Property(e => e.Value).HasColumnName("CertificationId"); });
