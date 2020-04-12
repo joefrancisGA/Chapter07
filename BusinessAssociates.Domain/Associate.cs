@@ -17,7 +17,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public Associate(int id, string longName, string shortName, bool isParent,
-            AssociateTypeLookup associateType, StatusCodeLookup status) : this()
+            AssociateTypeLookup associateType, StatusCodeLookup statusCode) : this()
         {
             Events.AssociateCreated associateCreated = new Events.AssociateCreated
             {
@@ -26,7 +26,7 @@ namespace EGMS.BusinessAssociates.Domain
                 ShortName = shortName,
                 IsParent = isParent,
                 AssociateType = associateType.AssociateTypeId,
-                Status = status
+                StatusCode = statusCode
             };
 
             Id = id;
@@ -35,13 +35,13 @@ namespace EGMS.BusinessAssociates.Domain
             ShortName = ShortName.Create(shortName);
             IsParent = isParent;
             AssociateType = associateType;
-            Status = status;
+            StatusCode = statusCode;
 
             Apply(associateCreated);
         }
 
         public static Associate Create(int id, string longName, string shortName, bool isParent,
-            AssociateTypeLookup associateType, StatusCodeLookup status)
+            AssociateTypeLookup associateType, StatusCodeLookup statusCode)
         {
             Associate associate = new Associate();
 
@@ -50,7 +50,7 @@ namespace EGMS.BusinessAssociates.Domain
             associate.ShortName = ShortName.Create(shortName);
             associate.IsParent = isParent;
             associate.AssociateType = associateType;
-            associate.Status = status;
+            associate.StatusCode = statusCode;
 
             return associate;
         }
@@ -62,7 +62,7 @@ namespace EGMS.BusinessAssociates.Domain
         public AssociateTypeLookup AssociateType { get; set; }
         public int AssociateTypeId { get; set; }
 
-        public StatusCodeLookup Status { get; set; }
+        public StatusCodeLookup StatusCode { get; set; }
         public int StatusCodeId { get; set; }
 
         public bool IsInternal { get; set; }
@@ -149,7 +149,7 @@ namespace EGMS.BusinessAssociates.Domain
         //        PrimaryPhoneId  = primaryPhoneId, 
         //        ProviderTypeId = providerTypeId, 
         //        StartDate = startDate, 
-        //        StatusId = (int)status
+        //        StatusCodeId = (int)status
         //    });
         //}
 
@@ -178,7 +178,7 @@ namespace EGMS.BusinessAssociates.Domain
                     break;
 
                 case Events.AssociateStatusUpdated e:
-                    Status = StatusCodeLookup.StatusCodes[e.Status];
+                    StatusCode = StatusCodeLookup.StatusCodes[e.Status];
                     break;
 
                 case Events.AssociateTypeUpdated e:
@@ -223,7 +223,7 @@ namespace EGMS.BusinessAssociates.Domain
                     LegacyId = operatingContext.LegacyId,
                     ActingBATypeId = operatingContext.ActingBAType.ActingAssociateTypeId,
                     CertificationId = operatingContext.CertificationId,
-                    StatusId = operatingContext.Status.StatusCodeId,
+                    StatusCodeId = operatingContext.Status.StatusCodeId,
                     IsDeactivating = operatingContext.IsDeactivating,
                     StartDate = operatingContext.StartDate,
                     PrimaryEmailId = operatingContext.PrimaryEmailId,
@@ -232,12 +232,8 @@ namespace EGMS.BusinessAssociates.Domain
                 }
             );
 
-        public static Associate Create(
-            ShortName shortName,
-            LongName longName,
-            AssociateTypeLookup associateType,
-            bool isParent,
-            StatusCodeLookup status)
+        public static Associate Create(ShortName shortName, LongName longName, AssociateTypeLookup associateType,
+            bool isParent, StatusCodeLookup statusCode)
         {
             var associate = new Associate();
 
@@ -248,7 +244,7 @@ namespace EGMS.BusinessAssociates.Domain
                     LongName = longName,
                     AssociateType = associateType.AssociateTypeId,
                     IsParent = isParent,
-                    Status = status
+                    StatusCode = statusCode
                 }
             );
 

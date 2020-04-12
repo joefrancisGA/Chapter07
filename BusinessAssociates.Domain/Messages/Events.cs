@@ -13,7 +13,7 @@ namespace EGMS.BusinessAssociates.Domain.Messages
             public string ShortName { get; set; }
             public bool IsParent { get; set; }
             public int AssociateType { get; set; }
-            public StatusCodeLookup Status { get; set; }
+            public StatusCodeLookup StatusCode { get; set; }
         }
 
         public class AssociateDUNSNumberUpdated
@@ -64,7 +64,7 @@ namespace EGMS.BusinessAssociates.Domain.Messages
             public int ProviderTypeId { get; set; }
             public int ActingBATypeId { get; set; }
             public int? CertificationId { get; set; }
-            public int StatusId { get; set; }
+            public int StatusCodeId { get; set; }
             public bool IsDeactivating { get; set; }
             public DateTime StartDate { get; set; }
             public int PrimaryEmailId { get; set; }

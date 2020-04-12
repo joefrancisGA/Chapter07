@@ -8,7 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace EGMS.BusinessAssociates.Data.EF
+namespace EGMS.BusinessAssociates.Data.EF.InMemory
 {
     public class AssociateRepositoryEF : IAssociateRepository
     {

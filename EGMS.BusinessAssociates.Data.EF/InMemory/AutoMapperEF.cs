@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
-using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.Extensions.Configuration;
 
-namespace EGMS.BusinessAssociates.Data.EF
+namespace EGMS.BusinessAssociates.Data.EF.InMemory
 {
     public class AutoMapperEF : Profile
     {

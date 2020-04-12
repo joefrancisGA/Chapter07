@@ -109,7 +109,7 @@ namespace EGMS.BusinessAssociates.Command
                             FacilityId = create.FacilityId;
                             ContactTypeId = create.ContactTypeId;
                             Priority = create.Priority;
-                            StatusId = create.StatusId;
+                            StatusCodeId = create.StatusCodeId;
                             StartDate = create.StartDate;
                             EndDate = create.EndDate;
                         }
@@ -122,7 +122,7 @@ namespace EGMS.BusinessAssociates.Command
                         public int FacilityId { get; set; }
                         public int ContactTypeId { get; set; }
                         public int Priority { get; set; }
-                        public int StatusId { get; set; }
+                        public int StatusCodeId { get; set; }
                         public DateTime StartDate { get; set; }
                         public DateTime EndDate { get; set; }
                     }
@@ -270,7 +270,7 @@ namespace EGMS.BusinessAssociates.Command
                         DUNSNumber = create.DUNSNumber;
                         LongName = create.LongName;
                         BasicPoolId = create.BasicPoolId;
-                        StatusId = create.StatusId;
+                        StatusCodeId = create.StatusCodeId;
                         LDCId = create.LDCId;
                         AccountNumber = create.AccountNumber;
                         LossTierTypeId = create.LossTierTypeId;
@@ -317,7 +317,7 @@ namespace EGMS.BusinessAssociates.Command
                     public int DUNSNumber { get; set; }
                     public string LongName { get; set; }
                     public int BasicPoolId { get; set; }
-                    public int StatusId { get; set; }
+                    public int StatusCodeId { get; set; }
                     public int LDCId { get; set; }
                     public string AccountNumber { get; set; }
                     public int LossTierTypeId { get; set; }
@@ -550,7 +550,7 @@ namespace EGMS.BusinessAssociates.Command
                             DUNSNumber = create.DUNSNumber;
                             LongName = create.LongName;
                             BasicPoolId = create.BasicPoolId;
-                            StatusId = create.StatusId;
+                            StatusCodeId = create.StatusCodeId;
                             LDCId = create.LDCId;
                             AccountNumber = create.AccountNumber;
                             LossTierTypeId = create.LossTierTypeId;
@@ -598,7 +598,7 @@ namespace EGMS.BusinessAssociates.Command
                         public int DUNSNumber { get; set; }
                         public string LongName { get; set; }
                         public int BasicPoolId { get; set; }
-                        public int StatusId { get; set; }
+                        public int StatusCodeId { get; set; }
                         public int LDCId { get; set; }
                         public string AccountNumber { get; set; }
                         public int LossTierTypeId { get; set; }

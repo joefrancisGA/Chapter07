@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
+namespace EGMS.BusinessAssociates.Data.EF.InMemory.TypeConfigurations
 {
     class AssociateConfiguration : IEntityTypeConfiguration<Associate>
     {

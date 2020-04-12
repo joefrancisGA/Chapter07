@@ -22,8 +22,8 @@ namespace EGMS.BusinessAssociates.Domain
         public ShortName ShortName { get; set; }
         public DatabaseId BasicPoolId { get; set; }
 
-        public int StatusId { get; set; }
         public StatusCodeLookup Status { get; set; }
+        public int StatusCodeId { get; set; }
 
         public DatabaseId LDCId { get; set; }
         public AccountNumber AccountNumber { get; set; }
