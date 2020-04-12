@@ -22,7 +22,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AssociateRM>> GetFacilities(QueryModels.FacilityQueryParams queryParams)
+        public async Task<IEnumerable<AssociateRM>> GetFacilities(QueryModels.AssociateQueryParams queryParams)
         {
             var facilities = _context.Associates;
 

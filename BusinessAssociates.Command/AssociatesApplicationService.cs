@@ -14,13 +14,11 @@ namespace EGMS.BusinessAssociates.Command
     public class AssociatesApplicationService : IApplicationService
     {
         private readonly IAssociateRepository _repository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AssociatesApplicationService(IAssociateRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public AssociatesApplicationService(IAssociateRepository repository, IMapper mapper)
         {
             _repository = repository;
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -85,8 +83,6 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Entity with id {associateId} cannot be found");
 
             operation(associate);
-
-            await _unitOfWork.Commit();
         }
 
         private async Task<OperatingContextRM> HandleAddOperatingContext(Commands.V1.OperatingContext.CreateForAssociate cmd)
@@ -118,8 +114,6 @@ namespace EGMS.BusinessAssociates.Command
             Associate associate = Associate.Create(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, 
                 AssociateTypeLookup.AssociateTypes[cmd.AssociateType], StatusCodeLookup.StatusCodes[cmd.Status]);
             _repository.Add(associate);
-
-            await _unitOfWork.Commit();
 
             // TODO:  Dispatch Events.
 

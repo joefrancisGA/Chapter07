@@ -14,7 +14,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
 
         public async Task Commit()
         {
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

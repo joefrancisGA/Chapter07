@@ -22,17 +22,17 @@ namespace EGMS.BusinessAssociates.Data.EF
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AssociateRM>> GetFacilities(QueryModels.FacilityQueryParams queryParams)
-        {
-            var facilities = _context.Associates;
+        //public async Task<IEnumerable<AssociateRM>> GetAssociates(QueryModels.AssociateQueryParams queryParams)
+        //{
+        //    var facilities = _context.Associates;
 
-            var filtered = facilities.ApplyQuery(queryParams);
+        //    var filtered = facilities.ApplyQuery(queryParams);
 
-            var results = await filtered.ToListAsync();
+        //    var results = await filtered.ToListAsync();
 
-            var retVal = _mapper.Map<IEnumerable<AssociateRM>>(results);
+        //    var retVal = _mapper.Map<IEnumerable<AssociateRM>>(results);
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
     }
 }

@@ -9,7 +9,7 @@
             public int? PageSize { get; set; }
         }
 
-        public class FacilityQueryParams : BaseQueryParams
+        public class AssociateQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
         }

@@ -7,7 +7,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 {
     public static class QueryUtils
     {
-        public static IQueryable<Associate> ApplyQuery(this IQueryable<Associate> query, FacilityQueryParams queryParams)
+        public static IQueryable<Associate> ApplyQuery(this IQueryable<Associate> query, AssociateQueryParams queryParams)
         {
             if (queryParams.Id.HasValue)
             {

@@ -27,17 +27,6 @@ namespace EGMS.BusinessAssociates.Data.EF
             _mapper = mapper;
         }
 
-        public int GetNextAssociateId()
-        {
-            SqlParameter parameter = new SqlParameter("@result", System.Data.SqlDbType.Int)
-            {
-                Direction = System.Data.ParameterDirection.Output
-            };
-
-            _context.Database.ExecuteSqlRaw("SET @result = NEXT VALUE FOR AssociateSequence", parameter);
-            var nextVal = (int)parameter.Value;
-            return nextVal;
-        }
 
         public void Add(Associate associate)
         {
@@ -57,7 +46,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             try
             {
-                Associate associate = _context.Associates.FindAsync(id).Result;
+                Associate associate = _context.Associates[id]; 
 
                 return (associate != null);
             }
@@ -72,7 +61,6 @@ namespace EGMS.BusinessAssociates.Data.EF
         public void AddOperatingContext(OperatingContext operatingContext)
         {
             _context.OperatingContexts.Add(operatingContext);
-            _context.SaveChanges();
         }
 
         public async void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext)
@@ -82,15 +70,15 @@ namespace EGMS.BusinessAssociates.Data.EF
             AssociateOperatingContext association = new AssociateOperatingContext(associate.Id, operatingContextId);
 
             _context.AssociateOperatingContexts.Add(association);
-
-            await _context.SaveChangesAsync();
         }
 
+#pragma warning disable 1998
         public async Task<Associate> Load(int id)
+#pragma warning restore 1998
         {
             try
             {
-                Associate associateEF = await _context.Associates.FindAsync(id);
+                Associate associateEF = _context.Associates[id];
 
                 return _mapper.Map<Associate>(associateEF);
             }
@@ -101,16 +89,18 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
         }
 
+#pragma warning disable 1998
         public async Task Update(Associate associate)
+#pragma warning restore 1998
         {
-            Associate associateEF = await _context.Associates.FindAsync(associate.Id);
+            Associate associateEF = _context.Associates[associate.Id];
 
             if (associateEF == null)
             {
-                throw new Exception($"Associate {associate.Id } not found for Update.");
+                throw new Exception($"Associate {associate.Id} not found for Update.");
             }
 
-            await _context.SaveChangesAsync();
+            _context.Associates[associate.Id] = associate;
         }
     }
 }

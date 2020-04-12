@@ -75,7 +75,7 @@ namespace EGMS.BusinessAssociates.API
             services.AddScoped<IAssociateRepository, AssociateRepositoryEF>();
             //services.AddScoped<IAssociateRepository>(x => new AssociateRepository(x.GetRequiredService<EGMSDb>()));
             services.AddScoped<AssociatesApplicationService>();
-            services.AddScoped<IUnitOfWork, AssociateUnitOfWorkEF>();
+            //services.AddScoped<IUnitOfWork, AssociateUnitOfWorkEF>();
 
             services.AddSwaggerGen(c =>
             {
