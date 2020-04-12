@@ -68,7 +68,6 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsInternal { get; set; }
         public bool IsDeactivating { get; set; }
         public bool IsParent { get; set; }
-        public bool IsActive { get; set; }
 
 
         public List<AgentUser> AgentUsers { get; set; }
@@ -80,7 +79,7 @@ namespace EGMS.BusinessAssociates.Domain
         // TO DO:  This is for third-party suppliers only.  We may need to consolidate this into 
         //   AssociateOperatingContexts
         public List<OperatingContext> OperatingContexts { get; set;}
-        public List<PredecessorBusinessAssociate> PredecessorAssociates { get; set; }
+        public List<Associate> PredecessorBusinessAssociates { get; set; }
         public List<UserOperatingContext> UserOperatingContexts { get; set; }
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
@@ -222,7 +221,7 @@ namespace EGMS.BusinessAssociates.Domain
                     FacilityId = operatingContext.FacilityId,
                     ThirdPartySupplierId = operatingContext.ThirdPartySupplierId,
                     LegacyId = operatingContext.LegacyId,
-                    ActingBATypeId = operatingContext.ActingBAType.AssociateTypeId,
+                    ActingBATypeId = operatingContext.ActingBAType.ActingAssociateTypeId,
                     CertificationId = operatingContext.CertificationId,
                     StatusId = operatingContext.Status.StatusCodeId,
                     IsDeactivating = operatingContext.IsDeactivating,

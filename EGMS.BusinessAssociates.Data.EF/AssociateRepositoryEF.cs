@@ -48,9 +48,18 @@ namespace EGMS.BusinessAssociates.Data.EF
         public bool Exists(int id)
         {
 
-            Associate associate = _context.Associates.FindAsync(id).Result;
+            try
+            {
+                Associate associate = _context.Associates.FindAsync(id).Result;
 
-            return (associate != null);
+                return (associate != null);
+            }
+            catch (Exception ex)
+            {
+                ex = ex;
+            }
+
+            return false;
         }
 
         public void AddOperatingContext(OperatingContext operatingContext)

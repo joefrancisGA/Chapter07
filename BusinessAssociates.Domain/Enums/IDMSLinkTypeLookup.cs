@@ -16,8 +16,10 @@ namespace EGMS.BusinessAssociates.Domain.Enums
             ReactivateUserAccount = 5
         }
 
+        protected IDMSLinkTypeLookup() { }
+
         public static readonly
-            IReadOnlyDictionary<int, IDMSLinkTypeLookup> DeliveryTypes =
+            IReadOnlyDictionary<int, IDMSLinkTypeLookup> IDMSLinkTypeLookups =
                 new Dictionary<int, IDMSLinkTypeLookup>
                 {
                     {
@@ -67,9 +69,6 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 
-        public List<UserContactDisplayRule> UserContactDisplayRules { get; set; }
-
-        protected IDMSLinkTypeLookup() { }
 
         protected override void When(object @event)
         {

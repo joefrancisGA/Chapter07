@@ -16,12 +16,9 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
 
             builder.OwnsOne(associate => associate.ShortName, 
                 cb => { cb.Property(e => e.Value).HasColumnName("ShortName"); });
-
             builder.OwnsOne(associate => associate.LongName, 
                 cb => { cb.Property(e => e.Value).HasColumnName("LongName"); });
-
             builder.Property(associate => associate.AssociateType).HasColumnName("BusinessAssociateType");
-            builder.Property(associate => associate.IsActive).HasColumnName("IsActive");
             builder.Property(associate => associate.IsDeactivating).HasColumnName("IsDeactivating");
             builder.Property(associate => associate.IsParent).HasColumnName("IsParent");
             builder.Property(associate => associate.Status).HasColumnName("Status");

@@ -28,8 +28,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         {
                             Id = (int) CertificationStatusEnum.Certified,
                             CertificationLevelId = (int) CertificationStatusEnum.Certified,
-                            Name = BalancingLevelTypeName.FromString("Customer"),
-                            Desc = BalancingLevelTypeDesc.FromString("Customer Description"),
+                            Name = CertificationLevelTypeName.FromString("Certified"),
+                            Desc = CertificationLevelTypeDesc.FromString("Decertified Description"),
                         }
                     },
                     {
@@ -38,8 +38,8 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         {
                             Id = (int) CertificationStatusEnum.Decertified, 
                             CertificationLevelId = (int) CertificationStatusEnum.Decertified,
-                            Name = BalancingLevelTypeName.FromString("Decertified"),
-                            Desc = BalancingLevelTypeDesc.FromString("Decertified Description"),
+                            Name = CertificationLevelTypeName.FromString("Decertified"),
+                            Desc = CertificationLevelTypeDesc.FromString("Decertified Description"),
                         }
                     },
                     {
@@ -48,16 +48,16 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         {
                             Id = (int) CertificationStatusEnum.NotCertified,
                             CertificationLevelId = (int) CertificationStatusEnum.NotCertified,
-                            Name = BalancingLevelTypeName.FromString("NotCertified"),
-                            Desc = BalancingLevelTypeDesc.FromString("NotCertified Description"),
+                            Name = CertificationLevelTypeName.FromString("NotCertified"),
+                            Desc = CertificationLevelTypeDesc.FromString("NotCertified Description"),
                         }
                     },
                 };
 
         public int CertificationLevelId { get; private set; }
 
-        public BalancingLevelTypeName Name { get; private set; }
-        public BalancingLevelTypeDesc Desc { get; private set; }
+        public CertificationLevelTypeName Name { get; private set; }
+        public CertificationLevelTypeDesc Desc { get; private set; }
 
         public List<Certification> Certifications { get; set; }
 

@@ -5,24 +5,21 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain.Enums
 {
+
     public class IDMSAccountStatusLookup : Entity<int>
     {
-        public enum IDMSAccountStatusEnum
-        {
-        }
+        public enum IDMSAccountStatusEnum { }
 
         public static readonly
-            IReadOnlyDictionary<int, IDMSAccountStatusLookup> IDMSAccountStatuses =
+            IReadOnlyDictionary<int, IDMSAccountStatusLookup> IDMSAccountStatusTypes =
                 new Dictionary<int, IDMSAccountStatusLookup>
                 {
                 };
 
-        public int IDMSAccountStatusId { get; private set; }
+        public int AccountStatusId { get; private set; }
 
-        public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
-
-        public List<UserContactDisplayRule> UserContactDisplayRules { get; set; }
+        public AccountStatusName Name { get; private set; }
+        public AccountStatusDesc Desc { get; private set; }
 
         protected IDMSAccountStatusLookup() { }
 

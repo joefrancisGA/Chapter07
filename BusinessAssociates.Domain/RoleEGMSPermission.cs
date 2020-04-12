@@ -6,7 +6,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class RoleEGMSPermission : Entity<DatabaseId>
+    public class RoleEGMSPermission : Entity<int>
     {
         public RoleEGMSPermission() { }
         public RoleEGMSPermission(Action<object> applier) : base(applier) { }

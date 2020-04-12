@@ -5,26 +5,28 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class PredecessorBusinessAssociate : Entity<DatabaseId>
-    {
-        public PredecessorBusinessAssociate() { }
-        public PredecessorBusinessAssociate(Action<object> applier) : base(applier) { }
+    // TO DO:  Come back and fix up Predecessor Business Associates
+    //public class PredecessorBusinessAssociate : Entity<int>
+    //{
+    //    public PredecessorBusinessAssociate() { }
+    //    public PredecessorBusinessAssociate(Action<object> applier) : base(applier) { }
 
-        public Associate Associate { get; set; }
-        public int AssociateId { get; set; }
+    //    public Associate Associate { get; set; }
+    //    public int AssociateId { get; set; }
 
-        public List<Associate> PredecessorAssociate { get; set; }
-        public int PredecessorAssociateId { get; set; }
+    //    public Associate PredecessorAssociate { get; set; }
+    //    public int PredecessorAssociateId { get; set; }
 
+  
         
-        protected override void When(object @event)
-        {
-            throw new NotImplementedException();
-        }
+    //    protected override void When(object @event)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public override void OnLoadInit(Action<object> parentHandler)
-        {
-            _parentHandler = parentHandler;
-        }
-    }
+    //    public override void OnLoadInit(Action<object> parentHandler)
+    //    {
+    //        _parentHandler = parentHandler;
+    //    }
+    //}
 }

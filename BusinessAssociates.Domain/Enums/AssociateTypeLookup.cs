@@ -15,59 +15,15 @@ namespace EGMS.BusinessAssociates.Domain.Enums
             InternalParent = 1,
             InternalOperatingCompany = 2,
             InternalLDCFacility = 3,
-            ExternalSelfProvider = 4,
-            ExternalCustomerProvider = 5,
-            ExternalRegulatedUtilityProvider = 6,
-            ExternalAssetManagerProvider = 7,
-            SubordinateRegulatedProvider = 8,
-            SubordinateUtilityProvider = 9,
-            SubordinateDistinctUtilityProvider = 10
+            SubordinateRegulatedProvider = 4,
+            SubordinateUtilityProvider = 5,
+            SubordinateDistinctUtilityProvider = 6
         }
 
         public static readonly
             IReadOnlyDictionary<int, AssociateTypeLookup> AssociateTypes =
                 new Dictionary<int, AssociateTypeLookup>
                 {
-                    {
-                        (int) AssociateTypeEnum.ExternalAssetManagerProvider,
-                        new AssociateTypeLookup
-                        {
-                            Id = (int) AssociateTypeEnum.ExternalAssetManagerProvider,
-                            AssociateTypeId = (int) AssociateTypeEnum.ExternalAssetManagerProvider,
-                            Name = AssociateTypeName.FromString("ExternalAssetManagerProvider"),
-                            Desc = AssociateTypeDesc.FromString("ExternalAssetManagerProvider Description"),
-                        }
-                    },
-                    {
-                        (int) AssociateTypeEnum.ExternalCustomerProvider,
-                        new AssociateTypeLookup
-                        {
-                            Id = (int) AssociateTypeEnum.ExternalCustomerProvider,
-                            AssociateTypeId = (int) AssociateTypeEnum.ExternalCustomerProvider,
-                            Name = AssociateTypeName.FromString("ExternalCustomerProvider"),
-                            Desc = AssociateTypeDesc.FromString("ExternalCustomerProvider Description"),
-                        }
-                    },
-                    {
-                        (int) AssociateTypeEnum.ExternalRegulatedUtilityProvider,
-                        new AssociateTypeLookup
-                        {
-                            Id = (int) AssociateTypeEnum.ExternalRegulatedUtilityProvider,
-                            AssociateTypeId = (int) AssociateTypeEnum.ExternalRegulatedUtilityProvider,
-                            Name = AssociateTypeName.FromString("ExternalRegulatedUtilityProvider"),
-                            Desc = AssociateTypeDesc.FromString("ExternalRegulatedUtilityProvider Description"),
-                        }
-                    },
-                    {
-                        (int) AssociateTypeEnum.ExternalSelfProvider,
-                        new AssociateTypeLookup
-                        {
-                            Id = (int) AssociateTypeEnum.ExternalSelfProvider,
-                            AssociateTypeId = (int) AssociateTypeEnum.ExternalSelfProvider,
-                            Name = AssociateTypeName.FromString("ExternalSelfProvider"),
-                            Desc = AssociateTypeDesc.FromString("ExternalSelfProvider Description"),
-                        }
-                    },
                     {
                         (int) AssociateTypeEnum.InternalLDCFacility,
                         new AssociateTypeLookup
@@ -135,8 +91,6 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AssociateTypeName Name { get; private set; }
         public AssociateTypeDesc Desc { get; private set; }
 
-        public List<Associate> Associates { get; set; }
-        public List<OperatingContext> OperatingContexts { get; set; }
  
         protected override void When(object @event)
         {

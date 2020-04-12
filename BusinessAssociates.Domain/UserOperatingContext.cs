@@ -5,7 +5,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class UserOperatingContext : Entity<DatabaseId>
+    public class UserOperatingContext : Entity<int>
     {
         public UserOperatingContext() {}
         public UserOperatingContext(Action<object> applier) : base(applier) { }

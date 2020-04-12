@@ -41,7 +41,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 
         protected override void When(object @event)
         {
-            throw new InvalidOperationException($"{nameof(BalancingLevelTypeLookup)} events not supported.");
+            throw new InvalidOperationException($"{nameof(LossTierTypeLookup)} events not supported.");
         }
 
         public override void OnLoadInit(Action<object> parentHandler)

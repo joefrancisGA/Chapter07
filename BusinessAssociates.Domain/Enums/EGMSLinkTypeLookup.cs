@@ -13,8 +13,10 @@ namespace EGMS.BusinessAssociates.Domain.Enums
             ModifyUser = 2
         }
 
+        protected EGMSLinkTypeLookup() { }
+
         public static readonly
-            IReadOnlyDictionary<int, EGMSLinkTypeLookup> DeliveryTypes =
+            IReadOnlyDictionary<int, EGMSLinkTypeLookup> EGMSLinkTypes =
                 new Dictionary<int, EGMSLinkTypeLookup>
                 {
                     {
@@ -44,13 +46,10 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public AddressTypeName Name { get; private set; }
         public AddressTypeDesc Desc { get; private set; }
 
-        public List<UserContactDisplayRule> UserContactDisplayRules { get; set; }
-
-        protected EGMSLinkTypeLookup() { }
 
         protected override void When(object @event)
         {
-            throw new InvalidOperationException($"{nameof(DeliveryTypeLookup)} events not supported.");
+            throw new InvalidOperationException($"{nameof(EGMSLinkTypeLookup)} events not supported.");
         }
 
         public override void OnLoadInit(Action<object> parentHandler)

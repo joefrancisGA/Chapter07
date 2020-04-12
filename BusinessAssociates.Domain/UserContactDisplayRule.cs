@@ -6,7 +6,7 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class UserContactDisplayRule : Entity<DatabaseId>
+    public class UserContactDisplayRule : Entity<int>
     {
         public UserContactDisplayRule() { }
         public UserContactDisplayRule(Action<object> applier) : base(applier) { }

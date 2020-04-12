@@ -97,7 +97,7 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");
 
             OperatingContext operatingContext = new OperatingContext(OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
-                cmd.ThirdPartySupplierId, AssociateTypeLookup.AssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
+                cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
                 cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
 

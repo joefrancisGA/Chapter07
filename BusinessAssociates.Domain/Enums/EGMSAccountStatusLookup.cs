@@ -7,22 +7,18 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public class EGMSAccountStatusLookup : Entity<int>
     {
-        public enum EGMSAccountStatusEnum
-        {
-        }
+        public enum EGMSAccountStatusEnum { }
 
         public static readonly
-            IReadOnlyDictionary<int, EGMSAccountStatusLookup> EGMSAccountStatuses =
+            IReadOnlyDictionary<int, EGMSAccountStatusLookup> EGMSAccountStatusTypes =
                 new Dictionary<int, EGMSAccountStatusLookup>
                 {
                 };
 
         public int EGMSAccountStatusId { get; private set; }
 
-        public EGMSAccountStatusName Name { get; private set; }
-        public EGMSAccountStatusDesc Desc { get; private set; }
-
-        public List<UserContactDisplayRule> UserContactDisplayRules { get; set; }
+        public AccountStatusName Name { get; private set; }
+        public AccountStatusDesc Desc { get; private set; }
 
         protected EGMSAccountStatusLookup() { }
 

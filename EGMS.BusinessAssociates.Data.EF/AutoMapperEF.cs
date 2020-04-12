@@ -22,8 +22,6 @@ namespace EGMS.BusinessAssociates.Data.EF
                     opt => opt.MapFrom(src => (string) src.ShortName))
                 .ForMember(dst => dst.AssociateType,
                     opt => opt.MapFrom(src => src.AssociateType.AssociateTypeId))
-                .ForMember(dst => dst.IsActive,
-                    opt => opt.MapFrom(src => src.IsActive))
                 .ForMember(dst => dst.IsDeactivating,
                     opt => opt.MapFrom(src => src.IsDeactivating))
                 .ForMember(dst => dst.IsInternal,
