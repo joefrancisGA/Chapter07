@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Data.SqlClient;
 
 namespace EGMS.BusinessAssociates.Command
 {
@@ -15,9 +16,11 @@ namespace EGMS.BusinessAssociates.Command
                     public int DUNSNumber { get; set; }
                     public string LongName { get; set; }
                     public string ShortName { get; set; }
+                    public bool IsInternal { get; set; }
                     public bool IsParent { get; set; }
-                    public int AssociateType { get; set; }
-                    public int Status { get; set; }
+                    public bool IsDeactivating { get; set; }
+                    public int AssociateTypeId { get; set; }
+                    public int StatusCodeId { get; set; }
                 }
 
                 public class UpdateDUNSNumber

@@ -111,8 +111,8 @@ namespace EGMS.BusinessAssociates.Command
             if (_repository.Exists(cmd.DUNSNumber))
                 throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
 
-            Associate associate = Associate.Create(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsParent, 
-                AssociateTypeLookup.AssociateTypes[cmd.AssociateType], StatusCodeLookup.StatusCodes[cmd.Status]);
+            Associate associate = Associate.Create(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsInternal, cmd.IsParent, cmd.IsDeactivating,
+                AssociateTypeLookup.AssociateTypes[cmd.AssociateTypeId], StatusCodeLookup.StatusCodes[cmd.StatusCodeId]);
             _repository.Add(associate);
 
             // TODO:  Dispatch Events.

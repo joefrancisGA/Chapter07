@@ -325,7 +325,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                     .HasConstraintName("FK_Customers_NominationLevelTypes");
                 entity.HasOne(d => d.Shipper).WithMany(p => p.Customers).HasForeignKey(d => d.ShipperId)
                     .HasConstraintName("FK_Customers_Shippers");
-                entity.HasOne(d => d.Status).WithMany(p => p.Customers).HasForeignKey(d => d.StatusCodeId)
+                entity.HasOne(d => d.StatusCode).WithMany(p => p.Customers).HasForeignKey(d => d.StatusCodeId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Customers_StatusCodes");
             });
 
@@ -446,7 +446,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                     .HasConstraintName("FK_OperatingContexts_PrimaryAddress");
                 entity.HasOne(d => d.PrimaryEmail).WithMany(p5 => p5.OperatingContexts).HasForeignKey(d => d.PrimaryEmailId)
                     .HasConstraintName("FK_OperatingContexts_PrimaryEmail");
-                entity.HasOne(d => d.PrimaryPhone).WithMany(p6 => p6.OperatingContext).HasForeignKey(d => d.PrimaryPhoneId)
+                entity.HasOne(d => d.PrimaryPhone).WithMany(p6 => p6.OperatingContexts).HasForeignKey(d => d.PrimaryPhoneId)
                     .HasConstraintName("FK_OperatingContexts_PrimaryPhone");
                 entity.HasOne(d => d.ProviderType).WithMany(p7 => p7.OperatingContexts).HasForeignKey(d => d.ProviderTypeId)
                     .HasConstraintName("FK_OperatingContexts_ProviderTypes");
@@ -469,7 +469,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
                 entity.OwnsOne(x => x.Extension, cb => { cb.Property(e => e.Value).HasColumnName("Extension"); });
-                entity.OwnsOne(x => x.UserId, cb => { cb.Property(e => e.Value).HasColumnName("UserId"); });
+                //entity.OwnsOne(x => x.UserId, cb => { cb.Property(e => e.Value).HasColumnName("UserId"); });
                 entity.HasOne(d => d.Contact).WithMany(p => p.Phones).HasForeignKey(d => d.ContactId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Phones_Contacts");
                 entity.HasOne(d => d.PhoneType).WithMany(p => p.Phones).HasForeignKey(d => d.PhoneTypeId).OnDelete(DeleteBehavior.ClientSetNull)

@@ -19,8 +19,6 @@ namespace EGMS.BusinessAssociates.API.Controllers
             _log = log;
         }
 
-
-        // Need AssociateType other than 0
         [HttpPost]
         public async Task<IActionResult> Post(Commands.V1.Associate.Create request)
         {

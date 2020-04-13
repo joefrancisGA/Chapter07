@@ -15,31 +15,31 @@ namespace EGMS.BusinessAssociates.Domain
             Initialize();
         }
 
-        public Associate(int id, string longName, string shortName, bool isParent,
-            AssociateTypeLookup associateType, StatusCodeLookup statusCode) : this()
-        {
-            Initialize();
+        //public Associate(int id, string longName, string shortName, bool isParent, bool isInternal, bool isDeactivating,
+        //    AssociateTypeLookup associateType, StatusCodeLookup statusCode) : this()
+        //{
+        //    Initialize();
 
-            Events.AssociateCreated associateCreated = new Events.AssociateCreated
-            {
-                Id = id,
-                LongName = longName,
-                ShortName = shortName,
-                IsParent = isParent,
-                AssociateType = associateType.AssociateTypeId,
-                StatusCode = statusCode
-            };
+        //    Events.AssociateCreated associateCreated = new Events.AssociateCreated
+        //    {
+        //        Id = id,
+        //        LongName = longName,
+        //        ShortName = shortName,
+        //        IsParent = isParent,
+        //        AssociateType = associateType.AssociateTypeId,
+        //        StatusCode = statusCode
+        //    };
 
-            Id = id;
-            DUNSNumber = DUNSNumber.Create(id);
-            LongName = LongName.Create(longName);
-            ShortName = ShortName.Create(shortName);
-            IsParent = isParent;
-            AssociateType = associateType;
-            StatusCode = statusCode;
+        //    Id = id;
+        //    DUNSNumber = DUNSNumber.Create(id);
+        //    LongName = LongName.Create(longName);
+        //    ShortName = ShortName.Create(shortName);
+        //    IsParent = isParent;
+        //    AssociateType = associateType;
+        //    StatusCode = statusCode;
 
-            Apply(associateCreated);
-        }
+        //    Apply(associateCreated);
+        //}
 
         private void Initialize()
         {
@@ -53,8 +53,8 @@ namespace EGMS.BusinessAssociates.Domain
             this.UserOperatingContexts = new HashSet<UserOperatingContext>();
         }
 
-        public static Associate Create(int id, string longName, string shortName, bool isParent,
-            AssociateTypeLookup associateType, StatusCodeLookup statusCode)
+        public static Associate Create(int id, string longName, string shortName, bool isParent, bool isInternal,
+            bool isDeactivating, AssociateTypeLookup associateType, StatusCodeLookup statusCode)
         {
             Associate associate = new Associate();
 
@@ -62,6 +62,8 @@ namespace EGMS.BusinessAssociates.Domain
             associate.LongName = LongName.Create(longName);
             associate.ShortName = ShortName.Create(shortName);
             associate.IsParent = isParent;
+            associate.IsInternal = isInternal;
+            associate.IsDeactivating = isDeactivating;
             associate.AssociateType = associateType;
             associate.AssociateTypeId = associateType.AssociateTypeId;
             associate.StatusCode = statusCode;
@@ -248,7 +250,7 @@ namespace EGMS.BusinessAssociates.Domain
             );
 
         public static Associate Create(ShortName shortName, LongName longName, AssociateTypeLookup associateType,
-            bool isParent, StatusCodeLookup statusCode)
+            bool isParent, bool isInternal, StatusCodeLookup statusCode)
         {
             var associate = new Associate();
 
@@ -259,6 +261,7 @@ namespace EGMS.BusinessAssociates.Domain
                     LongName = longName,
                     AssociateType = associateType.AssociateTypeId,
                     IsParent = isParent,
+                    IsInternal = isInternal, 
                     StatusCode = statusCode
                 }
             );
