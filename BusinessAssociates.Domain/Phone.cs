@@ -8,10 +8,18 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Phone : Entity<int>
     {
-        public Phone() { }
-        public Phone(Action<object> applier) : base(applier) { }
+        public Phone()
+        {
+            OperatingContexts = new HashSet<OperatingContext>();
+        }
 
-        public DatabaseId UserId { get; set; }
+        public Phone(Action<object> applier) : base(applier)
+        {
+            OperatingContexts = new HashSet<OperatingContext>();
+        }
+
+        public User User { get; set; }
+        public int UserId { get; set; }
 
         public PhoneTypeLookup PhoneType { get; set; }
         public int PhoneTypeId { get; set; }
@@ -22,7 +30,7 @@ namespace EGMS.BusinessAssociates.Domain
         public Contact Contact { get; set; }
         public int ContactId { get; set; }
 
-        public List<OperatingContext> OperatingContext { get; set; }
+        public HashSet<OperatingContext> OperatingContexts { get; set; }
 
 
         protected override void When(object @event)

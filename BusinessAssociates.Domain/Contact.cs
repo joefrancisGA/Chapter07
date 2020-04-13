@@ -7,8 +7,25 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Contact : Entity<int>
     {
-        public Contact() { }
-        public Contact(Action<object> applier) : base(applier) { }
+        public Contact()
+        {
+            Initialize();
+        }
+
+        public Contact(Action<object> applier) : base(applier)
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            ContactPhones = new HashSet<ContactPhone>();
+            Emails = new HashSet<EMail>();
+            Phones = new HashSet<Phone>();
+            Addresses = new HashSet<Address>();
+            ContactConfigurations = new HashSet<ContactConfiguration>();
+            Users = new HashSet<User>();
+        }
 
         public FirstName FirstName { get; set; }
         public LastName LastName { get; set; }
@@ -26,14 +43,14 @@ namespace EGMS.BusinessAssociates.Domain
 
         public bool IsActive { get; set; }
 
-        public List<ContactPhone> ContactPhones { get; set; }
-        public List<EMail> Emails { get; set; }
-        public List<Phone> Phones { get; set; }
+        public HashSet<ContactPhone> ContactPhones { get; set; }
+        public HashSet<EMail> Emails { get; set; }
+        public HashSet<Phone> Phones { get; set; }
 
         // TO:  Need a one-to-many reference to this field at the EF level
-        public List<Address> Addresses { get; set; }
-        public List<ContactConfiguration> ContactConfigurations { get; set; }
-        public List<User> Users { get; set; }
+        public HashSet<Address> Addresses { get; set; }
+        public HashSet<ContactConfiguration> ContactConfigurations { get; set; }
+        public HashSet<User> Users { get; set; }
 
 
         protected override void When(object @event)

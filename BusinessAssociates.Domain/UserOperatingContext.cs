@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 

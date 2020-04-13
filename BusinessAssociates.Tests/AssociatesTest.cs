@@ -1,13 +1,4 @@
-﻿using System;
-using EGMS.BusinessAssociates.Command;
-using EGMS.BusinessAssociates.Data.EF;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging;
-using Serilog;
-using Xunit;
-
-namespace BusinessAssociates.Tests
+﻿namespace BusinessAssociates.Tests
 {
     public class AssociatesTest
     {

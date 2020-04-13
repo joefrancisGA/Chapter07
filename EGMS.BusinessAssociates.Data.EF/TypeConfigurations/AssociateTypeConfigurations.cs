@@ -1,5 +1,4 @@
-﻿using EGMS.BusinessAssociates.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
 {

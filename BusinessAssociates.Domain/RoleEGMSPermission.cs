@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
 
@@ -8,13 +7,20 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class RoleEGMSPermission : Entity<int>
     {
-        public RoleEGMSPermission() { }
-        public RoleEGMSPermission(Action<object> applier) : base(applier) { }
+        public RoleEGMSPermission()
+        {
+            EGMSPermissions = new HashSet<EGMSPermission>();
+        }
+
+        public RoleEGMSPermission(Action<object> applier) : base(applier)
+        {
+            EGMSPermissions = new HashSet<EGMSPermission>();
+        }
 
         public Role Role { get; set; }
         public int RoleId { get; set; }
 
-        public List<EGMSPermission> EGMSPermissions { get; set; }
+        public HashSet<EGMSPermission> EGMSPermissions { get; set; }
 
         
         protected override void When(object @event)

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
-using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.Extensions.Configuration;
 

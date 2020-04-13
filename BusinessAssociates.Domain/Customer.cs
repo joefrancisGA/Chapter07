@@ -8,8 +8,22 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Customer : Entity<int>
     {
-        public Customer() { }
-        public Customer(Action<object> applier) : base(applier) { }
+        public Customer()
+        {
+            Initialize();
+        }
+
+        public Customer(Action<object> applier) : base(applier)
+        {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            AssociateCustomers = new HashSet<AssociateCustomer>();
+            CustomerAlternateFuels = new HashSet<CustomerAlternateFuel>();
+            OperatingContextCustomers = new HashSet<OperatingContextCustomer>();
+        }
 
         public CustomerTypeLookup CustomerType { get; set; }
         public int CustomerTypeId { get; set; }
@@ -22,7 +36,7 @@ namespace EGMS.BusinessAssociates.Domain
         public ShortName ShortName { get; set; }
         public DatabaseId BasicPoolId { get; set; }
 
-        public StatusCodeLookup Status { get; set; }
+        public StatusCodeLookup StatusCode { get; set; }
         public int StatusCodeId { get; set; }
 
         public DatabaseId LDCId { get; set; }
@@ -74,9 +88,9 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime TurnOnDate { get; set; }
         public DateTime TurnOffDate { get; set; }
 
-        public List<AssociateCustomer> AssociateCustomers { get; set; }
-        public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }
-        public List<OperatingContextCustomer> OperatingContextCustomers { get; set; }
+        public HashSet<AssociateCustomer> AssociateCustomers { get; set; }
+        public HashSet<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }
+        public HashSet<OperatingContextCustomer> OperatingContextCustomers { get; set; }
 
 
         protected override void When(object @event)

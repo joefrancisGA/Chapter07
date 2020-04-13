@@ -7,8 +7,24 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class User : Entity<int>
     {
-        public User() { }
-        public User(Action<object> applier) : base(applier) { }
+        public User()
+        {
+            Initialize();
+        }
+
+        public User(Action<object> applier) : base(applier)
+        {
+            Initialize();
+        }
+
+
+        private void Initialize()
+        {
+            AgentUsers = new HashSet<AgentUser>();
+            AssociateUsers = new HashSet<AssociateUser>();
+            UserOperatingContexts = new HashSet<UserOperatingContext>();
+        }
+
 
         public Contact Contact { get; set; }
         public int ContactId { get; set; }
@@ -21,9 +37,10 @@ namespace EGMS.BusinessAssociates.Domain
         public bool HasEGMSAccess { get; set; }
         public DateTime DeactivationDate { get; set; }
 
-        public List<AgentUser> AgentUsers { get; set; }
-        public List<AssociateUser> AssociateUsers { get; set; }
-        public List<UserOperatingContext> UserOperatingContexts { get; set; }
+        public HashSet<AgentUser> AgentUsers { get; set; }
+        public HashSet<AssociateUser> AssociateUsers { get; set; }
+        public HashSet<UserOperatingContext> UserOperatingContexts { get; set; }
+
 
         protected override void When(object @event)
         {

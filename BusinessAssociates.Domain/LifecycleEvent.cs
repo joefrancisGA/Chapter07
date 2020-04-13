@@ -7,10 +7,8 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class LifecycleEvent : Entity<DatabaseId>
     {
-        protected override void When(object @event)
-        {
-            throw new NotImplementedException();
-        }
+        public LifecycleEvent() { }
+        public LifecycleEvent(Action<object> applier) : base(applier) { }
 
         public LifecycleEventType LifecycleEventType { get; set; }
         public LifecycleEventStatus LifecycleEventStatus { get; set; }
@@ -19,9 +17,12 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public LifecycleEvent(Action<object> applier) : base(applier)
+
+        protected override void When(object @event)
         {
+            throw new NotImplementedException();
         }
+
 
         public override void OnLoadInit(Action<object> parentHandler)
         {

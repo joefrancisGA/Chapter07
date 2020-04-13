@@ -14,18 +14,20 @@ namespace EGMS.BusinessAssociates.Domain
             Initialize();
         }
 
-        private void Initialize()
-        {
-            EMails = new List<EMail>();
-            Phones = new List<Phone>();
-            Addresses = new List<Address>();
-            Roles = new List<Role>();
-            AssociateOperatingContexts = new List<AssociateOperatingContext>();
-        }
-
         public OperatingContext(Action<object> applier) : base(applier)
         {
             Initialize();
+        }
+
+        private void Initialize()
+        {
+            EMails = new HashSet<EMail>();
+            Phones = new HashSet<Phone>();
+            Addresses = new HashSet<Address>();
+            Roles = new HashSet<Role>();
+            AssociateOperatingContexts = new HashSet<AssociateOperatingContext>();
+            OperatingContextCustomers = new HashSet<OperatingContextCustomer>();
+            OperatingContexts = new HashSet<OperatingContext>();
         }
 
         public OperatingContext(OperatingContextTypeLookup operatingContextType,
@@ -88,13 +90,13 @@ namespace EGMS.BusinessAssociates.Domain
         public int PrimaryAddressId { get; set; }
 
 
-        public List<EMail> EMails { get; set; }
-        public List<Phone> Phones { get; set; }
-        public List<Address> Addresses { get; set; }
-        public List<Role> Roles { get; set; }
-        public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
-        public List<OperatingContextCustomer> OperatingContextCustomers { get; set; }
-        public List<OperatingContext> OperatingContexts { get; set; }
+        public HashSet<EMail> EMails { get; set; }
+        public HashSet<Phone> Phones { get; set; }
+        public HashSet<Address> Addresses { get; set; }
+        public HashSet<Role> Roles { get; set; }
+        public HashSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+        public HashSet<OperatingContextCustomer> OperatingContextCustomers { get; set; }
+        public HashSet<OperatingContext> OperatingContexts { get; set; }
 
 
         protected override void When(object @event)

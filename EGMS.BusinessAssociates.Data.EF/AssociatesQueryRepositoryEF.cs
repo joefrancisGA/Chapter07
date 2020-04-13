@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using EGMS.BusinessAssociates.Query;
-using EGMS.BusinessAssociates.Query.ReadModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace EGMS.BusinessAssociates.Data.EF

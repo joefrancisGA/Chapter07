@@ -14,7 +14,7 @@ namespace EGMS.BusinessAssociates.Command
     public class AssociatesApplicationService : IApplicationService
     {
         private readonly IAssociateRepository _repository;
-        private readonly IMapper _mapper;
+         private readonly IMapper _mapper;
 
         public AssociatesApplicationService(IAssociateRepository repository, IMapper mapper)
         {

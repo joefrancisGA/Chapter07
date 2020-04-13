@@ -1,7 +1,4 @@
 ﻿using EGMS.Common.ValueTypes.EGMS.Common.ValueTypes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EGMS.BusinessAssociates.Domain.ValueObjects
 {

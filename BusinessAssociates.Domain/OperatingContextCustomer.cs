@@ -1,5 +1,4 @@
 ﻿using System;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain

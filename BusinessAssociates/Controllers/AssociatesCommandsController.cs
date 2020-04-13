@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
@@ -20,6 +19,8 @@ namespace EGMS.BusinessAssociates.API.Controllers
             _log = log;
         }
 
+
+        // Need AssociateType other than 0
         [HttpPost]
         public async Task<IActionResult> Post(Commands.V1.Associate.Create request)
         {

@@ -15,15 +15,13 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
 
-        public AssociateOperatingContext(Action<object> applier) : base(applier)
-        {
-        }
+        public AssociateOperatingContext(Action<object> applier) : base(applier) { }
 
-        public int AssociateId { get; set; }
         public Associate Associate { get; set; }
+        public int AssociateId { get; set; }
 
-        public int OperatingContextId { get; set; }
         public OperatingContext OperatingContext { get; set; }
+        public int OperatingContextId { get; set; }
 
         
         protected override void When(object @event)

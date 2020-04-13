@@ -7,18 +7,34 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Role : Entity<int>
     {
-        public Role() { }
-        public Role(Action<object> applier) : base(applier) { }
+        public Role()
+        {
+            Initialize();
+        }
+
+        public Role(Action<object> applier) : base(applier)
+        {
+            Initialize();
+        }
+
+
+        private void Initialize()
+        {
+            Permissions = new HashSet<EGMSPermission>();
+            OperatingContexts = new HashSet<OperatingContext>();
+            RoleEGMSPermissions = new HashSet<RoleEGMSPermission>();
+            UserOperatingContexts = new HashSet<UserOperatingContext>();
+        }
 
         public RoleName RoleName { get; set; }
         public RoleDescription RoleDescription { get; set; }
 
 
         // Collections
-        public IEnumerable<EGMSPermission> Permissions { get; set; }
-        public List<OperatingContext> OperatingContexts { get; set; }
-        public List<RoleEGMSPermission> RoleEGMSPermissions { get; set; }
-        public List<UserOperatingContext> UserOperatingContexts { get; set; }
+        public HashSet<EGMSPermission> Permissions { get; set; }
+        public HashSet<OperatingContext> OperatingContexts { get; set; }
+        public HashSet<RoleEGMSPermission> RoleEGMSPermissions { get; set; }
+        public HashSet<UserOperatingContext> UserOperatingContexts { get; set; }
 
 
         protected override void When(object @event)

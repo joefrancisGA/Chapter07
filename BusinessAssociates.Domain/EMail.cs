@@ -7,18 +7,28 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class EMail : Entity<int>
     {
+        public EMail()
+        {
+            OperatingContexts = new HashSet<OperatingContext>();
+        }
 
-        public EMail() { }
-        public EMail(Action<object> applier) : base(applier) { }
+        public EMail(Action<object> applier) : base(applier)
+        {
+            OperatingContexts = new HashSet<OperatingContext>();
+        }
 
+        public User User { get; set; }
         public int UserId { get; set; }
+
         public EMailAddress EMailAddress { get; set; }
+
+
         public bool IsPrimary { get; set; }
 
-        public int ContactId { get; set; }
         public Contact Contact { get; set; }
+        public int ContactId { get; set; }
 
-        public List<OperatingContext> OperatingContexts { get; set; }
+        public HashSet<OperatingContext> OperatingContexts { get; set; }
 
         protected override void When(object @event)
         {

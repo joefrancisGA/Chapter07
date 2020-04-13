@@ -6,7 +6,6 @@ using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-
     public class Address : Entity<int>
     {
         public Address() { }

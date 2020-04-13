@@ -12,13 +12,14 @@ namespace EGMS.BusinessAssociates.Domain
     {
         public Associate()
         {
-            //OperatingContexts = new List<OperatingContext>();
-            //AssociateOperatingContexts = new List<AssociateOperatingContext>();
+            Initialize();
         }
 
         public Associate(int id, string longName, string shortName, bool isParent,
             AssociateTypeLookup associateType, StatusCodeLookup statusCode) : this()
         {
+            Initialize();
+
             Events.AssociateCreated associateCreated = new Events.AssociateCreated
             {
                 Id = id,
@@ -40,6 +41,18 @@ namespace EGMS.BusinessAssociates.Domain
             Apply(associateCreated);
         }
 
+        private void Initialize()
+        {
+            this.OperatingContexts = new HashSet<OperatingContext>();
+            this.AgentUsers = new HashSet<AgentUser>();
+            this.AssociateCustomers = new HashSet<AssociateCustomer>();
+            this.AssociateOperatingContexts = new HashSet<AssociateOperatingContext>();
+            this.AssociateUsers = new HashSet<AssociateUser>();
+            this.Customers = new HashSet<Customer>();
+            this.PredecessorBusinessAssociates = new HashSet<Associate>();
+            this.UserOperatingContexts = new HashSet<UserOperatingContext>();
+        }
+
         public static Associate Create(int id, string longName, string shortName, bool isParent,
             AssociateTypeLookup associateType, StatusCodeLookup statusCode)
         {
@@ -50,7 +63,9 @@ namespace EGMS.BusinessAssociates.Domain
             associate.ShortName = ShortName.Create(shortName);
             associate.IsParent = isParent;
             associate.AssociateType = associateType;
+            associate.AssociateTypeId = associateType.AssociateTypeId;
             associate.StatusCode = statusCode;
+            associate.StatusCodeId = statusCode.StatusCodeId;
 
             return associate;
         }
@@ -70,17 +85,17 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsParent { get; set; }
 
 
-        public List<AgentUser> AgentUsers { get; set; }
-        public List<AssociateCustomer> AssociateCustomers { get; set; }
-        public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
-        public List<AssociateUser> AssociateUsers { get; set; }
-        public List<Customer> Customers { get; set; }
+        public HashSet<AgentUser> AgentUsers { get; set; }
+        public HashSet<AssociateCustomer> AssociateCustomers { get; set; }
+        public HashSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
+        public HashSet<AssociateUser> AssociateUsers { get; set; }
+        public HashSet<Customer> Customers { get; set; }
 
         // TO DO:  This is for third-party suppliers only.  We may need to consolidate this into 
         //   AssociateOperatingContexts
-        public List<OperatingContext> OperatingContexts { get; set;}
-        public List<Associate> PredecessorBusinessAssociates { get; set; }
-        public List<UserOperatingContext> UserOperatingContexts { get; set; }
+        public HashSet<OperatingContext> OperatingContexts { get; set;}
+        public HashSet<Associate> PredecessorBusinessAssociates { get; set; }
+        public HashSet<UserOperatingContext> UserOperatingContexts { get; set; }
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {

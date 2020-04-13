@@ -1,5 +1,4 @@
 ﻿using System;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
 
@@ -8,7 +7,6 @@ namespace EGMS.BusinessAssociates.Domain
     public class AgentUser : Entity<int>
     {
         public AgentUser() { }
-
         public AgentUser(Action<object> applier) : base(applier) { }
 
         public Associate Agent { get; set; }

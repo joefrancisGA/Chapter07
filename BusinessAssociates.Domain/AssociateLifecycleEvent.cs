@@ -6,12 +6,15 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class AssociateLifecycleEvent : Entity<DatabaseId>
     {
-        public AssociateId AssociateId { get; set; }
-        public DatabaseId LifecycleEventId { get; set; }
+        public AssociateLifecycleEvent() { }
+        public AssociateLifecycleEvent(Action<object> applier) : base(applier) { }
 
-        public AssociateLifecycleEvent(Action<object> applier) : base(applier)
-        {
-        }
+        public Associate Associate { get; set; }
+        public int AssociateId { get; set; }
+
+        public LifecycleEvent LifecycleEvent { get; set; }
+        public int LifecycleEventId { get; set; }
+        
 
         protected override void When(object @event)
         {

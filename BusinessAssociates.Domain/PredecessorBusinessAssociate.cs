@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
-using EGMS.BusinessAssociates.Framework;
-
-namespace EGMS.BusinessAssociates.Domain
+﻿namespace EGMS.BusinessAssociates.Domain
 {
     // TO DO:  Come back and fix up Predecessor Business Associates
     //public class PredecessorBusinessAssociate : Entity<int>

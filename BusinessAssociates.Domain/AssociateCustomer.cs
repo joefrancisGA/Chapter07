@@ -5,6 +5,9 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class AssociateCustomer : Entity<int>
     {
+        public AssociateCustomer() { }
+        public AssociateCustomer(Action<object> applier) : base(applier) { }
+
         public Associate Associate { get; set; }
         public int AssociateId { get; set; }
 
@@ -14,12 +17,6 @@ namespace EGMS.BusinessAssociates.Domain
         public DateTime ServiceStartDate { get; set; }
         public DateTime ServiceEndDate { get; set; }
 
-
-        public AssociateCustomer() { }
-
-        public AssociateCustomer(Action<object> applier) : base(applier)
-        {
-        }
 
         protected override void When(object @event)
         {

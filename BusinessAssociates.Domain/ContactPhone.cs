@@ -1,11 +1,13 @@
 ﻿using System;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
 namespace EGMS.BusinessAssociates.Domain
 {
     public class ContactPhone : Entity<int>
     {
+        public ContactPhone() { }
+        public ContactPhone(Action<object> applier) : base(applier) { }
+
         public Contact Contact { get; set; }
         public int ContactId { get; set; }
 
@@ -13,11 +15,6 @@ namespace EGMS.BusinessAssociates.Domain
         public int PhoneId { get; set; }
 
 
-        public ContactPhone() { }
-
-        public ContactPhone(Action<object> applier) : base(applier)
-        {
-        }
 
         protected override void When(object @event)
         {
