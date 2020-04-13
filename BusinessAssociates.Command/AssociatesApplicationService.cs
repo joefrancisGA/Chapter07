@@ -28,6 +28,8 @@ namespace EGMS.BusinessAssociates.Command
         {
             switch (command)
             {
+                #region Associates
+
                 case Commands.V1.Associate.Create cmd:
                     try
                     {
@@ -63,8 +65,87 @@ namespace EGMS.BusinessAssociates.Command
                     HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName)));
                     break;
 
+                #endregion
+                    
+                #region AgentRelationship
+
+                case Commands.V1.AgentRelationship.CreateForPrincipal cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.AgentRelationship.User.CreateForAgent cmd:
+                    throw new NotImplementedException();
+
+                #endregion
+
+                #region Contact
+
+                case Commands.V1.Contact.CreateForAssociate cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.Contact.Address.CreateForContact cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.Contact.Address.Update cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.Contact.ContactConfiguration.CreateForContact cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.Contact.EMail.CreateForContact cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.Contact.Phone.CreateForContact cmd:
+                    throw new NotImplementedException();
+
+                #endregion
+
+                #region Customer
+
+                case Commands.V1.Customer.CreateForAssociate cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.Customer.OperatingContext.CreateForCustomer cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd:
+                    throw new NotImplementedException();
+
+                #endregion
+
+                case Commands.V1.Permission.Create cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.Role.Create cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.RolePermission.Create cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.User.CreateForAssociate cmd:
+                    throw new NotImplementedException();
+
+                #region OperatingContext
+
                 case Commands.V1.OperatingContext.CreateForAssociate cmd:
                     return HandleAddOperatingContext(cmd);
+
+                case Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.OperatingContext.Customer.CreateForOperatingContext cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.OperatingContext.Customer.AlternateFuel.CreateForCustomer cmd:
+                    throw new NotImplementedException();
+
+                case Commands.V1.OperatingContext.Update cmd:
+                    throw new NotImplementedException();
+
+                #endregion
+
 
                 default:
                     throw new InvalidOperationException($"Commands type {command.GetType().FullName} is unknown");

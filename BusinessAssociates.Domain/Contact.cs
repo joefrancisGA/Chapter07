@@ -43,6 +43,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public bool IsActive { get; set; }
 
+        #region Collections
         public HashSet<ContactPhone> ContactPhones { get; set; }
         public HashSet<EMail> Emails { get; set; }
         public HashSet<Phone> Phones { get; set; }
@@ -52,6 +53,7 @@ namespace EGMS.BusinessAssociates.Domain
         public HashSet<ContactConfiguration> ContactConfigurations { get; set; }
         public HashSet<User> Users { get; set; }
 
+        #endregion
 
         protected override void When(object @event)
         {
