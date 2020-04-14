@@ -44,7 +44,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             try
             {
-                Associate associate = _context.Associates[id]; 
+                //Associate associate = _context.Associates[id]; 
+
+                Associate associate = _context.Associates.Find(a => a.DUNSNumber == id);
 
                 return (associate != null);
             }
@@ -68,6 +70,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             AssociateOperatingContext association = new AssociateOperatingContext(associate.Id, operatingContextId);
 
             _context.AssociateOperatingContexts.Add(association);
+        }
+
+        public void AddContactForAssociate(Associate associate, Contact contact)
+        {
+            throw new NotImplementedException();
         }
 
 #pragma warning disable 1998

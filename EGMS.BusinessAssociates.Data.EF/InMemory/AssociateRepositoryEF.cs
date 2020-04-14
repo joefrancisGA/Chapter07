@@ -86,6 +86,11 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             await _context.SaveChangesAsync();
         }
 
+        public void AddContactForAssociate(Associate associate, Contact contact)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Associate> Load(int id)
         {
             try

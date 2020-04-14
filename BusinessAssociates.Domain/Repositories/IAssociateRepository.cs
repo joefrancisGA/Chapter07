@@ -16,5 +16,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         void AddOperatingContext(OperatingContext operatingContext);
         void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext);
+
+        void AddContactForAssociate(Associate associate, Contact contact);
     }
 }

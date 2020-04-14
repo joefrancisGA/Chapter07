@@ -13,8 +13,9 @@ namespace EGMS.BusinessAssociates.Command
 {
     public class AssociatesApplicationService : IApplicationService
     {
+        private static int Associates = 1;
         private readonly IAssociateRepository _repository;
-         private readonly IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public AssociatesApplicationService(IAssociateRepository repository, IMapper mapper)
         {
@@ -33,7 +34,7 @@ namespace EGMS.BusinessAssociates.Command
                 case Commands.V1.Associate.Create cmd:
                     try
                     {
-                        return HandleCreate(cmd);
+                        return CreateAssociate(cmd);
                     }
                     catch (Exception ex)
                     {
@@ -70,79 +71,79 @@ namespace EGMS.BusinessAssociates.Command
                 #region AgentRelationship
 
                 case Commands.V1.AgentRelationship.CreateForPrincipal cmd:
-                    throw new NotImplementedException();
+                    return CreateAgentRelationshipForPrincipal(cmd);
 
                 case Commands.V1.AgentRelationship.User.CreateForAgent cmd:
-                    throw new NotImplementedException();
+                    return CreateUserForAgent(cmd);
 
                 #endregion
 
                 #region Contact
 
                 case Commands.V1.Contact.CreateForAssociate cmd:
-                    throw new NotImplementedException();
+                    return CreateContactForAssociate(cmd);
 
                 case Commands.V1.Contact.Address.CreateForContact cmd:
-                    throw new NotImplementedException();
+                    return CreateAddressForContact(cmd);
 
                 case Commands.V1.Contact.Address.Update cmd:
-                    throw new NotImplementedException();
+                    return UpdateAddressForContact(cmd);
 
                 case Commands.V1.Contact.ContactConfiguration.CreateForContact cmd:
-                    throw new NotImplementedException();
+                    return CreateContactConfigurationForContact(cmd);
 
                 case Commands.V1.Contact.EMail.CreateForContact cmd:
-                    throw new NotImplementedException();
+                    return CreateEMailForContact(cmd);
 
                 case Commands.V1.Contact.Phone.CreateForContact cmd:
-                    throw new NotImplementedException();
+                    return CreatePhoneForContact(cmd);
 
                 #endregion
 
                 #region Customer
 
                 case Commands.V1.Customer.CreateForAssociate cmd:
-                    throw new NotImplementedException();
+                    return CreateCustomerForAssociate(cmd);
 
                 case Commands.V1.Customer.OperatingContext.CreateForCustomer cmd:
-                    throw new NotImplementedException();
+                    return CreateOperatingContextForCustomer(cmd);
 
                 case Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd:
-                    throw new NotImplementedException();
+                    return CreateAlternateFuelForCustomer(cmd);
 
                 #endregion
 
                 case Commands.V1.Permission.Create cmd:
-                    throw new NotImplementedException();
+                    return CreatePermission(cmd);
 
                 case Commands.V1.Role.Create cmd:
-                    throw new NotImplementedException();
+                    return CreateRole(cmd);
 
                 case Commands.V1.RolePermission.Create cmd:
-                    throw new NotImplementedException();
+                    return CreateRolePermission(cmd);
 
                 case Commands.V1.User.CreateForAssociate cmd:
-                    throw new NotImplementedException();
+                    return CreateAssociateForUser(cmd);
 
                 #region OperatingContext
 
                 case Commands.V1.OperatingContext.CreateForAssociate cmd:
-                    return HandleAddOperatingContext(cmd);
+                    return AddOperatingContextForAssociate(cmd);
 
                 case Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd:
-                    throw new NotImplementedException();
+                    return CreateAddressForOperatingContext(cmd);
 
                 case Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd:
-                    throw new NotImplementedException();
+                    return CreateCertificationForOperatingContext(cmd);
 
                 case Commands.V1.OperatingContext.Customer.CreateForOperatingContext cmd:
-                    throw new NotImplementedException();
+                    return CreateCustomerForOperatingContext(cmd);
 
                 case Commands.V1.OperatingContext.Customer.AlternateFuel.CreateForCustomer cmd:
-                    throw new NotImplementedException();
+                    return CreateAlternateFuelForCustomer(cmd);
 
                 case Commands.V1.OperatingContext.Update cmd:
-                    throw new NotImplementedException();
+                    return UpdateOperatingContext(cmd);
 
                 #endregion
 
@@ -166,7 +167,7 @@ namespace EGMS.BusinessAssociates.Command
             operation(associate);
         }
 
-        private async Task<OperatingContextRM> HandleAddOperatingContext(Commands.V1.OperatingContext.CreateForAssociate cmd)
+        private async Task<OperatingContextRM> AddOperatingContextForAssociate(Commands.V1.OperatingContext.CreateForAssociate cmd)
         {
             Associate associate = await _repository.Load(AssociateId.FromInt(cmd.AssociateId));
 
@@ -186,19 +187,159 @@ namespace EGMS.BusinessAssociates.Command
             return _mapper.Map<OperatingContextRM>(operatingContext);
         }
 
-        private async Task<AssociateRM> HandleCreate(Commands.V1.Associate.Create cmd)
+        private async Task<AssociateRM> CreateAssociate(Commands.V1.Associate.Create cmd)
         {
-
             if (_repository.Exists(cmd.DUNSNumber))
                 throw new InvalidOperationException($"Entity with DUNSNumber {cmd.DUNSNumber} already exists");
 
-            Associate associate = Associate.Create(cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsInternal, cmd.IsParent, cmd.IsDeactivating,
+            Associate associate = Associate.Create(Associates++, cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsInternal, cmd.IsParent, cmd.IsDeactivating,
                 AssociateTypeLookup.AssociateTypes[cmd.AssociateTypeId], StatusCodeLookup.StatusCodes[cmd.StatusCodeId]);
             _repository.Add(associate);
 
             // TODO:  Dispatch Events.
 
-            return _mapper.Map<AssociateRM>(associate);
+            try
+            {
+                return GetAssociateRM(associate);
+            }
+            catch (Exception ex)
+            {
+                ex = ex;
+                throw;
+            }
+        }
+
+        private async Task<AddressRM> CreateContactConfigurationForContact(Commands.V1.Contact.ContactConfiguration.CreateForContact cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateAddressForContact(Commands.V1.Contact.Address.CreateForContact cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateAgentRelationshipForPrincipal(Commands.V1.AgentRelationship.CreateForPrincipal cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateCustomerForOperatingContext(Commands.V1.OperatingContext.Customer.CreateForOperatingContext cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateOperatingContextForCustomer(Commands.V1.Customer.OperatingContext.CreateForCustomer cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateAlternateFuelForCustomer(Commands.V1.OperatingContext.Customer.AlternateFuel.CreateForCustomer cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateAlternateFuelForCustomer(Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreatePermission(Commands.V1.Permission.Create cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateAddressForOperatingContext(Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateRole(Commands.V1.Role.Create cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateRolePermission(Commands.V1.RolePermission.Create cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateAssociateForUser(Commands.V1.User.CreateForAssociate cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateEMailForContact(Commands.V1.Contact.EMail.CreateForContact cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateCertificationForOperatingContext(Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreatePhoneForContact(Commands.V1.Contact.Phone.CreateForContact cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> UpdateOperatingContext(Commands.V1.OperatingContext.Update cmd)
+        {
+            throw new NotImplementedException();
+        }
+        private async Task<AddressRM> UpdateAddressForContact(Commands.V1.Contact.Address.Update cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task<AddressRM> CreateCustomerForAssociate(Commands.V1.Customer.CreateForAssociate cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private async Task<AddressRM> CreateUserForAgent(Commands.V1.AgentRelationship.User.CreateForAgent cmd)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private async Task<AssociateRM> CreateContactForAssociate(Commands.V1.Contact.CreateForAssociate cmd)
+        {
+            Associate associate = _repository.Load(cmd.AssociateId).Result;
+
+            Contact contact = Contact.Create(cmd.AssociateId, cmd.PrimaryAddressId, cmd.IsActive, cmd.PrimaryEmailId, cmd.PrimaryPhoneId, cmd.FirstName, cmd.LastName,
+                   cmd.Title);
+            _repository.AddContactForAssociate(associate, contact);
+
+            // TODO:  Dispatch Events.
+
+            try
+            {
+                return GetAssociateRM(associate);
+            }
+            catch (Exception ex)
+            {
+                ex = ex;
+                throw;
+            }
+        }
+
+        AssociateRM GetAssociateRM(Associate associate)
+        {
+            AssociateRM associateRM = new AssociateRM();
+            associateRM.AssociateType = associate.AssociateTypeId;
+            associateRM.DUNSNumber = associate.DUNSNumber;
+            associateRM.Id = associate.Id;
+            associateRM.IsDeactivating = associate.IsDeactivating;
+            associateRM.IsInternal = associate.IsInternal;
+            associateRM.IsParent = associate.IsParent;
+            associateRM.LongName = associate.LongName;
+            associateRM.ShortName = associate.ShortName;
+            associateRM.StatusCode = associate.StatusCodeId;
+
+            return associateRM;
         }
     }
 }

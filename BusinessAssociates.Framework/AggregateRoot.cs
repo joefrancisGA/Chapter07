@@ -5,7 +5,7 @@ namespace EGMS.BusinessAssociates.Framework
 {
     public abstract class AggregateRoot<TId> : IInternalEventHandler
     {
-        public TId Id { get; protected set; }
+        public TId Id { get; set; }
 
         protected abstract void When(object @event);
         

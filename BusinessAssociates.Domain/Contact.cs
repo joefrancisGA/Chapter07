@@ -27,6 +27,23 @@ namespace EGMS.BusinessAssociates.Domain
             Users = new HashSet<User>();
         }
 
+
+        public static Contact Create(int associateId, int primaryAddressId, bool isActive, int primaryEMailId, int primaryPhoneId, string firstName,
+            string lastName, string title)
+        {
+            Contact contact = new Contact();
+
+            contact.PrimaryAddressId = primaryAddressId;
+            contact.IsActive = isActive;
+            contact.PrimaryEmailId = primaryEMailId;
+            contact.PrimaryPhoneId = primaryPhoneId;
+            contact.FirstName = FirstName.Create(firstName);
+            contact.LastName = LastName.Create(lastName);
+            contact.Title = Title.Create(title);
+
+            return contact;
+        }
+
         public FirstName FirstName { get; set; }
         public LastName LastName { get; set; }
         public Title Title { get; set; }

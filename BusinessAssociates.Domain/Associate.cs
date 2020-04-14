@@ -43,21 +43,22 @@ namespace EGMS.BusinessAssociates.Domain
 
         private void Initialize()
         {
-            this.OperatingContexts = new HashSet<OperatingContext>();
-            this.AgentUsers = new HashSet<AgentUser>();
-            this.AssociateCustomers = new HashSet<AssociateCustomer>();
-            this.AssociateOperatingContexts = new HashSet<AssociateOperatingContext>();
-            this.AssociateUsers = new HashSet<AssociateUser>();
-            this.Customers = new HashSet<Customer>();
-            this.PredecessorBusinessAssociates = new HashSet<Associate>();
-            this.UserOperatingContexts = new HashSet<UserOperatingContext>();
+            OperatingContexts = new HashSet<OperatingContext>();
+            AgentUsers = new HashSet<AgentUser>();
+            AssociateCustomers = new HashSet<AssociateCustomer>();
+            AssociateOperatingContexts = new HashSet<AssociateOperatingContext>();
+            AssociateUsers = new HashSet<AssociateUser>();
+            Customers = new HashSet<Customer>();
+            PredecessorBusinessAssociates = new HashSet<Associate>();
+            UserOperatingContexts = new HashSet<UserOperatingContext>();
         }
 
-        public static Associate Create(int id, string longName, string shortName, bool isParent, bool isInternal,
+        public static Associate Create(int associateId, int id, string longName, string shortName, bool isParent, bool isInternal,
             bool isDeactivating, AssociateTypeLookup associateType, StatusCodeLookup statusCode)
         {
             Associate associate = new Associate();
 
+            associate.Id = associateId;
             associate.DUNSNumber = DUNSNumber.Create(id);
             associate.LongName = LongName.Create(longName);
             associate.ShortName = ShortName.Create(shortName);
@@ -249,7 +250,7 @@ namespace EGMS.BusinessAssociates.Domain
                 }
             );
 
-        public static Associate Create(ShortName shortName, LongName longName, AssociateTypeLookup associateType,
+        public static Associate Create(int associateId, ShortName shortName, LongName longName, AssociateTypeLookup associateType,
             bool isParent, bool isInternal, StatusCodeLookup statusCode)
         {
             var associate = new Associate();
@@ -257,6 +258,7 @@ namespace EGMS.BusinessAssociates.Domain
             associate.Apply(
                 new Events.AssociateCreated
                 {
+                    Id = associateId,
                     ShortName = shortName,
                     LongName = longName,
                     AssociateType = associateType.AssociateTypeId,
