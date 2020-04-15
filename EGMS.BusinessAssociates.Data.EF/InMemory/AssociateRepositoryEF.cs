@@ -54,22 +54,10 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
 
         public bool AssociateExists(int id)
         {
-
-            try
-            {
-                Associate associate = _context.Associates.FindAsync(id).Result;
-
-                return (associate != null);
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-            }
-
-            return false;
+            return (_context.Associates.FindAsync(id).Result != null);
         }
 
-        public bool ContactConfigurationExistsForConfiguration(int contactId)
+        public bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId)
         {
             throw new NotImplementedException();
         }
@@ -96,7 +84,12 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             throw new NotImplementedException();
         }
 
-        public async Task<Associate> Load(int id)
+        public void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Associate> LoadAssociate(int id)
         {
             try
             {

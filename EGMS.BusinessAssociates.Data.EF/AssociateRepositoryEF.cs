@@ -58,7 +58,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return false;
         }
 
-        public bool ContactConfigurationExistsForConfiguration(int contactId)
+        public bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId)
         {
             throw new NotImplementedException();
         }
@@ -78,6 +78,11 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
         public void AddContactForAssociate(Associate associate, Contact contact)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration)
         {
             throw new NotImplementedException();
         }

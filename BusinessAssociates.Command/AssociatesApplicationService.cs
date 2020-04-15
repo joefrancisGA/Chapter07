@@ -197,25 +197,16 @@ namespace EGMS.BusinessAssociates.Command
                 AssociateTypeLookup.AssociateTypes[cmd.AssociateTypeId], StatusCodeLookup.StatusCodes[cmd.StatusCodeId]);
             _repository.AddAssociate(associate);
 
-            // TODO:  Dispatch Events.
-
-            try
-            {
-                return GetAssociateRM(associate);
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-                throw;
-            }
+            return GetAssociateRM(associate);
         }
 
         private ContactConfigurationRM CreateContactConfigurationForContact(Commands.V1.Contact.ContactConfiguration.CreateForContact cmd)
         {
-            if (_repository.ContactConfigurationExistsForConfiguration(cmd.ContactId))
+            ContactConfiguration contactConfiguration = ContactConfiguration.Create(_contactConfigurations++, cmd.StartDate, cmd.StatusCodeId, cmd.EndDate, cmd.ContactId, cmd.FacilityId, cmd.ContactTypeId, cmd.Priority);
+
+            if (_repository.ContactConfigurationExistsForContact(contactConfiguration, cmd.ContactId))
                 throw new InvalidOperationException($"ContactConfiguration with ContactId {cmd.ContactId} already exists");
 
-            ContactConfiguration contactConfiguration = ContactConfiguration.Create(_contactConfigurations++, cmd.StartDate, cmd.StatusCodeId, cmd.EndDate, cmd.ContactId, cmd.FacilityId, cmd.ContactTypeId, cmd.Priority);
             _repository.AddContactConfigurationForContact(cmd.ContactId, contactConfiguration);
 
             return GetContactConfigurationRM(contactConfiguration);
@@ -223,6 +214,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private AddressRM CreateAddressForContact(Commands.V1.Contact.Address.CreateForContact cmd)
         {
+           // if (_repository.AddressExistsF)
+
             throw new NotImplementedException();
         }
 

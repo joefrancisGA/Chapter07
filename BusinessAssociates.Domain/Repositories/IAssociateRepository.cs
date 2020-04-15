@@ -13,7 +13,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         //void Delete(Associate entity);
         
         bool AssociateExists(int id);
-        bool ContactConfigurationExistsForConfiguration(int contactId);
+        bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId);
 
         void AddOperatingContext(OperatingContext operatingContext);
         void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext);
