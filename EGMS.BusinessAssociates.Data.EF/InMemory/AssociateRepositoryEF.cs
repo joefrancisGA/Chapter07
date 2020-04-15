@@ -39,7 +39,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             return nextVal;
         }
 
-        public void Add(Associate associate)
+        public void AddAssociate(Associate associate)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
         }
 
 
-        public bool Exists(int id)
+        public bool AssociateExists(int id)
         {
 
             try
@@ -67,6 +67,11 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             }
 
             return false;
+        }
+
+        public bool ContactConfigurationExistsForConfiguration(int contactId)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddOperatingContext(OperatingContext operatingContext)

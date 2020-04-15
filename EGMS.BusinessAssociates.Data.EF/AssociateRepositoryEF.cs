@@ -26,7 +26,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
 
-        public void Add(Associate associate)
+        public void AddAssociate(Associate associate)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
 
-        public bool Exists(int id)
+        public bool AssociateExists(int id)
         {
 
             try
@@ -56,6 +56,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
 
             return false;
+        }
+
+        public bool ContactConfigurationExistsForConfiguration(int contactId)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddOperatingContext(OperatingContext operatingContext)
@@ -77,8 +82,13 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public void AddContactConfigurationForContact(Contact contact, ContactConfiguration contactConfiguration)
+        {
+            throw new NotImplementedException();
+        }
+
 #pragma warning disable 1998
-        public async Task<Associate> Load(int id)
+        public async Task<Associate> LoadAssociate(int id)
 #pragma warning restore 1998
         {
             try

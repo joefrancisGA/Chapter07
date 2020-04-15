@@ -5,18 +5,21 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 {
     public interface IAssociateRepository
     {
-        Task<Associate> Load(int id);
+        Task<Associate> LoadAssociate(int id);
 
-        void Add(Associate entity);
+        void AddAssociate(Associate entity);
 
         // No delete for Associate
         //void Delete(Associate entity);
         
-        bool Exists(int id);
+        bool AssociateExists(int id);
+        bool ContactConfigurationExistsForConfiguration(int contactId);
 
         void AddOperatingContext(OperatingContext operatingContext);
         void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext);
 
         void AddContactForAssociate(Associate associate, Contact contact);
+
+        void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration);
     }
 }

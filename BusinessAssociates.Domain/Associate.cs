@@ -53,13 +53,13 @@ namespace EGMS.BusinessAssociates.Domain
             UserOperatingContexts = new HashSet<UserOperatingContext>();
         }
 
-        public static Associate Create(int associateId, int id, string longName, string shortName, bool isParent, bool isInternal,
+        public static Associate Create(int associateId, int dunsNumber, string longName, string shortName, bool isParent, bool isInternal,
             bool isDeactivating, AssociateTypeLookup associateType, StatusCodeLookup statusCode)
         {
             Associate associate = new Associate();
 
             associate.Id = associateId;
-            associate.DUNSNumber = DUNSNumber.Create(id);
+            associate.DUNSNumber = DUNSNumber.Create(dunsNumber);
             associate.LongName = LongName.Create(longName);
             associate.ShortName = ShortName.Create(shortName);
             associate.IsParent = isParent;
@@ -149,7 +149,7 @@ namespace EGMS.BusinessAssociates.Domain
         //        OperatingContexts = new List<OperatingContext>();
         //    }
 
-        //    OperatingContexts.Add(operatingContext);
+        //    OperatingContexts.AddAssociate(operatingContext);
 
             
         //    Apply(new Events.AssociateAddNewOperatingContext
@@ -206,7 +206,7 @@ namespace EGMS.BusinessAssociates.Domain
                 case Events.AssociateAddNewOperatingContext e:
                     OperatingContext operatingContext = new OperatingContext(Apply);
                     ApplyToEntity(operatingContext, e);
-                    //OperatingContexts.Add(operatingContext);
+                    //OperatingContexts.AddAssociate(operatingContext);
                     break;
 
                 default:

@@ -30,7 +30,6 @@ namespace EGMS.BusinessAssociates.Domain
         // Collections
         public HashSet<AgentRelationshipUser> AgentRelationshipUserList { get; set; }
 
-
         public void AddAgentUser()
         {
         }

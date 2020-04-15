@@ -48,7 +48,7 @@ namespace EFTest
                 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
                 // Set up Contact
-                // TO DO:  Add UserId later
+                // TO DO:  AddAssociate UserId later
 
                 Commands.V1.Contact.Create createContactCommand = new Commands.V1.Contact.Create
                 {
@@ -100,7 +100,7 @@ namespace EFTest
 
                 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-                // Add Users to Agent
+                // AddAssociate Users to Agent
 
                 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 

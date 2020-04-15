@@ -21,8 +21,7 @@ namespace EGMS.BusinessAssociates.Domain
         public int UserId { get; set; }
 
         public EMailAddress EMailAddress { get; set; }
-
-
+        
         public bool IsPrimary { get; set; }
 
         public Contact Contact { get; set; }
