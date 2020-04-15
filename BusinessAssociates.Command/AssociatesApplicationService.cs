@@ -15,6 +15,7 @@ namespace EGMS.BusinessAssociates.Command
     {
         private static int _associates = 1;
         private static int _contactConfigurations = 1;
+        private static int _addresses = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
 
@@ -214,6 +215,12 @@ namespace EGMS.BusinessAssociates.Command
 
         private AddressRM CreateAddressForContact(Commands.V1.Contact.Address.CreateForContact cmd)
         {
+            Address address = Address.Create(_addresses++, cmd.IsActive, cmd.EndDate, AddressLine.Create(cmd.Address1),
+                AddressLine.Create(cmd.Address2), AddressLine.Create(cmd.Address3), AddressLine.Create(cmd.Address4), 
+                cmd.IsPrimary, AddressTypeLookup.AddressTypes[cmd.AddressType], Attention.Create(cmd.Attention), 
+                City.Create(cmd.City), Comments.Create(cmd.Comments), PostalCode.Create(cmd.PostalCode), 
+                StateCodeLookup.StateCodes[cmd.GeographicState]);
+
            // if (_repository.AddressExistsF)
 
             throw new NotImplementedException();

@@ -15,7 +15,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         protected StateCodeLookup() { }
 
         public static readonly
-            IReadOnlyDictionary<int, StateCodeLookup> DeliveryTypes =
+            IReadOnlyDictionary<int, StateCodeLookup> StateCodes =
                 new Dictionary<int, StateCodeLookup>
                 {
                     {
