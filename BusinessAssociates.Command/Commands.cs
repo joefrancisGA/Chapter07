@@ -422,7 +422,7 @@ namespace EGMS.BusinessAssociates.Command
                 public class Create
                 {
                     public int RoleId;
-                    public int PermissionId;
+                    public int EGMSPermissionId;
                 }
             }
 

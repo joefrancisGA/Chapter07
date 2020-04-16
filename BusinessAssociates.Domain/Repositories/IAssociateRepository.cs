@@ -7,6 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
     {
         Task<Associate> LoadAssociate(int id);
 
+        RoleEGMSPermission AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission);
+        bool RoleEGMSPermissionExists(int roleId, int permissionId);
         Role AddRole(Role role);
         bool RoleExists(string roleName);
         bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId);

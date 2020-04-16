@@ -146,6 +146,16 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _mapper.Map<Associate>(associateEF);
         }
 
+        public RoleEGMSPermission AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RoleEGMSPermissionExists(int roleId, int permissionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Role AddRole(Role role)
         {
             throw new NotImplementedException();

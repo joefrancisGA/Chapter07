@@ -331,7 +331,16 @@ namespace EGMS.BusinessAssociates.Command
 
         private RoleEGMSPermissionRM CreateRoleEGMSPermission(Commands.V1.RoleEGMSPermission.Create cmd)
         {
-            throw new NotImplementedException();
+            RoleEGMSPermission roleEGMSPermission = new RoleEGMSPermission();
+
+            if (_repository.RoleEGMSPermissionExists(cmd.RoleId, cmd.EGMSPermissionId))
+            {
+                throw new InvalidOperationException($"RoleEGMSPermission already exists for Role {cmd.RoleId} and EGMSPermission {cmd.EGMSPermissionId}");
+            }
+
+            _repository.AddRoleEGMSPermission(roleEGMSPermission);
+
+            return GetRoleEGMSPermissionRM(roleEGMSPermission);
         }
 
         private AssociateRM CreateAssociateForUser(Commands.V1.User.CreateForAssociate cmd)
@@ -382,17 +391,7 @@ namespace EGMS.BusinessAssociates.Command
                    cmd.Title);
             _repository.AddContactForAssociate(associate, contact);
 
-            // TODO:  Dispatch Events.
-
-            try
-            {
-                return GetContactRM(contact);
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-                throw;
-            }
+            return GetContactRM(contact);
         }
 
         AssociateRM GetAssociateRM(Associate associate)
@@ -489,6 +488,11 @@ namespace EGMS.BusinessAssociates.Command
             egmsPermissionRM.PermissionDescription = permission.PermissionDescription;
 
             return egmsPermissionRM;
+        }
+
+        private RoleEGMSPermissionRM GetRoleEGMSPermissionRM(RoleEGMSPermission roleEGMSPermission)
+        {
+            return new RoleEGMSPermissionRM {Id = roleEGMSPermission.Id};
         }
 
         private RoleRM GetRoleRM(Role role)
