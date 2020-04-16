@@ -265,9 +265,17 @@ namespace EGMS.BusinessAssociates.Command
             return GetOperatingContextRM(operatingContext);
         }
 
+        // TO DO:  There is probably a better return value than bool here
         private bool CreateAlternateFuelForCustomer(Commands.V1.OperatingContext.Customer.AlternateFuel.CreateForCustomer cmd)
         {
-            throw new NotImplementedException();
+            if (_repository.AlternateFuelExistsForCustomer(cmd.AlternateFuelId, cmd.CustomerId))
+            {
+                throw new InvalidOperationException($"Alternate fuel already exists for Customer {cmd.CustomerId}");
+            }
+
+            _repository.AddAlternateFuelForCustomer(cmd.AlternateFuelId, cmd.CustomerId);
+
+            return true;
         }
 
         private bool CreateAlternateFuelForCustomer(Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd)

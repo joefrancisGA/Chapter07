@@ -30,6 +30,16 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public bool AlternateFuelExistsForCustomer(int alternateFuelId, int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddAlternateFuelForCustomer(int alternateFuelId, int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<OperatingContext> AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId)
         {
             throw new NotImplementedException();
@@ -73,7 +83,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.OperatingContexts.Add(operatingContext);
         }
 
-        public async void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext)
+        public void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext)
         {
             int operatingContextId = _context.OperatingContexts.ToList().Last().Id;
 

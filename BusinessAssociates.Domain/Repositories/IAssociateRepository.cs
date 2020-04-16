@@ -10,6 +10,10 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId);
         Customer AddCustomerForOperatingContext(Customer customer, int operatingContextId);
 
+        bool AlternateFuelExistsForCustomer(int alternateFuelId, int customerId);
+
+        void AddAlternateFuelForCustomer(int alternateFuelId, int customerId);
+
         Task<OperatingContext> AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
 
         bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId);
