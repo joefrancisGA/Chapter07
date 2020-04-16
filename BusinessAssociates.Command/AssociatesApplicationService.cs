@@ -225,12 +225,30 @@ namespace EGMS.BusinessAssociates.Command
 
         private AgentRelationshipRM CreateAgentRelationshipForPrincipal(Commands.V1.AgentRelationship.CreateForPrincipal cmd)
         {
-            throw new NotImplementedException();
+            AgentRelationship agentRelationship = new AgentRelationship();
+
+            if (_repository.AgentRelationshipExistsForPrincipal(agentRelationship, cmd.PrincipalId))
+            {
+                throw new InvalidOperationException($"Agent Relationship already exists for Associate Principal {cmd.PrincipalId}");
+            }
+
+            _repository.AddAgentRelationshipForPrincipal(agentRelationship, cmd.PrincipalId);
+
+            return GetAgentRelationshipRM(agentRelationship);
         }
 
         private CustomerRM CreateCustomerForOperatingContext(Commands.V1.OperatingContext.Customer.CreateForOperatingContext cmd)
         {
-            throw new NotImplementedException();
+            Customer customer = new Customer();
+
+            //if (_repository.CustomerExistsForOperatingContext(customer, cmd.OperatingContextId))
+            //{
+            //    throw new InvalidOperationException($"Agent Relationship already exists for Associate Principal {cmd.PrincipalId}");
+            //}
+
+            //_repository.AddAgentRelationshipForPrincipal(agentRelationship, cmd.PrincipalId);
+
+            return GetCustomerRM(customer);
         }
 
         private OperatingContextRM CreateOperatingContextForCustomer(Commands.V1.Customer.OperatingContext.CreateForCustomer cmd)
@@ -396,6 +414,71 @@ namespace EGMS.BusinessAssociates.Command
             addressRM.StateCodeId = address.StateCodeId;
 
             return addressRM;
+        }
+
+        private AgentRelationshipRM GetAgentRelationshipRM(AgentRelationship agentRelationship)
+        {
+            AgentRelationshipRM agentRelationshipRM = new AgentRelationshipRM();
+
+            agentRelationshipRM.Id = agentRelationship.Id;
+            agentRelationshipRM.StartDate = agentRelationship.StartDate;
+            agentRelationshipRM.IsActive = agentRelationship.IsActive;
+            agentRelationshipRM.StartDate = agentRelationship.StartDate;
+            agentRelationshipRM.AgentId = agentRelationship.AgentId;
+            agentRelationshipRM.PrincipalId = agentRelationship.PrincipalId;
+
+            return agentRelationshipRM;
+        }
+
+        private CustomerRM GetCustomerRM(Customer customer)
+        {
+            CustomerRM customerRM = new CustomerRM();
+
+            customerRM.Id = customer.Id;
+            customerRM.AccountNumber = customer.AccountNumber;
+            customerRM.AlternateCustomerId = customer.AlternateCustomerId;
+            customerRM.BalancingLevelId = customer.BalancingLevelId;
+            customerRM.BasicPoolId = customer.BasicPoolId;
+            customerRM.ContractTypeId = customer.ContractTypeId;
+            customerRM.CurrentDemand = customer.CurrentDemand;
+            customerRM.CustomerTypeId = customer.CustomerTypeId;
+            customerRM.DUNSNumber = customer.DUNSNumber;
+            customerRM.DailyInterruptible = customer.DailyInterruptible;
+            customerRM.DeliveryLocation = customer.DeliveryLocation;
+            customerRM.DeliveryPressure = customer.DeliveryPressure;
+            customerRM.DeliveryTypeId = customer.DeliveryTypeId;
+            customerRM.EndDate = customer.EndDate;
+            customerRM.GroupTypeId = customer.GroupTypeId;
+            customerRM.HourlyInterruptible = customer.HourlyInterruptible;
+            customerRM.InterstateSpecifiedFirm = customer.InterstateSpecifiedFirm;
+            customerRM.IntrastateSpecifiedFirm = customer.IntrastateSpecifiedFirm;
+            customerRM.IsFederal = customer.IsFederal;
+            customerRM.LDCId = customer.LDCId;
+            customerRM.LongName = customer.LongName;
+            customerRM.LossTierId = customer.LossTierId;
+            customerRM.MDQ = customer.MDQ;
+            customerRM.MaxDailyInterruptible = customer.MaxDailyInterruptible;
+            customerRM.MaxHourlyInterruptible = customer.MaxHourlyInterruptible;
+            customerRM.MaxHourlySpecifiedFirm = customer.MaxHourlySpecifiedFirm;
+            customerRM.NAICSCode = customer.NAICSCode.ToString();
+            customerRM.NominationLevelId = customer.NominationLevelId;
+            customerRM.PreviousDemand = customer.PreviousDemand;
+            customerRM.SICCode = customer.SICCode.ToString();
+            customerRM.SICCodePercentage = customer.SICCodePercentage;
+            customerRM.SS1 = customer.SS1;
+            customerRM.ShipperId = customer.ShipperId;
+            customerRM.ShippersLetterFromDate = customer.ShippersLetterFromDate;
+            customerRM.ShippersLetterToDate = customer.ShippersLetterToDate;
+            customerRM.ShippersLetterFromDate = customer.ShippersLetterFromDate;
+            customerRM.ShortName = customer.ShortName;
+            customerRM.StartDate = customer.StartDate;
+            customerRM.StatusCodeId = customer.StatusCodeId;
+            customerRM.TotalDailySpecifiedFirm = customer.TotalDailySpecifiedFirm;
+            customerRM.TurnOffDate = customer.TurnOffDate;
+            customerRM.TotalHourlySpecifiedFirm = customer.TotalHourlySpecifiedFirm;
+            customerRM.TurnOnDate = customer.TurnOnDate;
+            
+            return customerRM;
         }
     }
 }

@@ -589,7 +589,7 @@ namespace EGMS.BusinessAssociates.Command
                             TurnOffDate = create.TurnOffDate;
                         }
 
-                        private int OperatingContextId { get; set; }
+                        public int OperatingContextId { get; set; }
                     }
 
 

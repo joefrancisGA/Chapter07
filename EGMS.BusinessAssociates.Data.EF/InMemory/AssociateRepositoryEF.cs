@@ -39,6 +39,11 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             return nextVal;
         }
 
+        public void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddAssociate(Associate associate)
         {
             try
@@ -89,6 +94,11 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             throw new NotImplementedException();
         }
 
+        public bool AddAddressForContact(Address address, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration)
         {
             throw new NotImplementedException();
@@ -96,17 +106,14 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
 
         public async Task<Associate> LoadAssociate(int id)
         {
-            try
-            {
-                Associate associateEF = await _context.Associates.FindAsync(id);
+            Associate associateEF = await _context.Associates.FindAsync(id);
 
-                return _mapper.Map<Associate>(associateEF);
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-                throw;
-            }
+            return _mapper.Map<Associate>(associateEF);
+        }
+
+        public bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task Update(Associate associate)

@@ -7,6 +7,11 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
     {
         Task<Associate> LoadAssociate(int id);
 
+        bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId);
+
+        void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId);
+
+
         void AddAssociate(Associate entity);
 
         // No delete for Associate

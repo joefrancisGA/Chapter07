@@ -26,6 +26,11 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
 
+        public void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddAssociate(Associate associate)
         {
             try
@@ -87,6 +92,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public bool AddAddressForContact(Address address, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration)
         {
             throw new NotImplementedException();
@@ -101,17 +111,14 @@ namespace EGMS.BusinessAssociates.Data.EF
         public async Task<Associate> LoadAssociate(int id)
 #pragma warning restore 1998
         {
-            try
-            {
-                Associate associateEF = _context.Associates[id];
+            Associate associateEF = _context.Associates[id];
 
-                return _mapper.Map<Associate>(associateEF);
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-                throw;
-            }
+            return _mapper.Map<Associate>(associateEF);
+        }
+
+        public bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId)
+        {
+            throw new NotImplementedException();
         }
 
 #pragma warning disable 1998
