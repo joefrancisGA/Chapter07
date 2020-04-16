@@ -25,42 +25,42 @@ namespace EGMS.BusinessAssociates.Data.EF
             _mapper = mapper;
         }
 
+        public Customer AddCustomerForOperatingContext(Customer customer, int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<OperatingContext> AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId)
+        {
+            throw new NotImplementedException();
+        }
 
         public void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId)
         {
             throw new NotImplementedException();
         }
 
+        public bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddAssociate(Associate associate)
         {
-            try
-            {
-                _context.Associates.Add(associate);
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-            }
+            _context.Associates.Add(associate);
         }
 
 
         public bool AssociateExists(int id)
         {
-
-            try
-            {
                 //Associate associate = _context.Associates[id]; 
 
-                Associate associate = _context.Associates.Find(a => a.DUNSNumber == id);
-
-                return (associate != null);
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-            }
-
-            return false;
+            return (_context.Associates.Find(a => a.DUNSNumber == id) != null);
         }
 
         public bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId)

@@ -278,7 +278,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/permissions")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.Permission.Create request)
+        public async Task<IActionResult> Post(int associateId, Commands.V1.EGMSPermission.Create request)
         {
             IActionResult result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
 
@@ -287,7 +287,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/rolepermissions")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.RolePermission.Create request)
+        public async Task<IActionResult> Post(int associateId, Commands.V1.RoleEGMSPermission.Create request)
         {
             IActionResult result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
 

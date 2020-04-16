@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EGMS.BusinessAssociates.Data.EF.InMemory
 {
-    public class AssociateRepositoryEF : IAssociateRepository
+    public class _AssociateRepositoryEF// : IAssociateRepository
     {
         private readonly BusinessAssociatesContext _context;
 
@@ -20,7 +20,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
         private readonly IMapper _mapper;
 
         // ReSharper disable once SuggestBaseTypeForParameter
-        public AssociateRepositoryEF(BusinessAssociatesContext context, ILogger<AssociateRepositoryEF> log, IMapper mapper)
+        public _AssociateRepositoryEF(BusinessAssociatesContext context, ILogger<AssociateRepositoryEF> log, IMapper mapper)
         {
             _context = context;
             _log = log;
@@ -40,6 +40,11 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
         }
 
         public void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId)
         {
             throw new NotImplementedException();
         }

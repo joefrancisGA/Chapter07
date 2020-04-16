@@ -107,14 +107,14 @@ namespace EGMS.BusinessAssociates.Command
 
                 #endregion
 
-                case Commands.V1.Permission.Create cmd:
-                    return CreatePermission(cmd);
+                case Commands.V1.EGMSPermission.Create cmd:
+                    return CreateEGMSPermission(cmd);
 
                 case Commands.V1.Role.Create cmd:
                     return CreateRole(cmd);
 
-                case Commands.V1.RolePermission.Create cmd:
-                    return CreateRolePermission(cmd);
+                case Commands.V1.RoleEGMSPermission.Create cmd:
+                    return CreateRoleEGMSPermission(cmd);
 
                 case Commands.V1.User.CreateForAssociate cmd:
                     return CreateAssociateForUser(cmd);
@@ -241,32 +241,41 @@ namespace EGMS.BusinessAssociates.Command
         {
             Customer customer = new Customer();
 
-            //if (_repository.CustomerExistsForOperatingContext(customer, cmd.OperatingContextId))
-            //{
-            //    throw new InvalidOperationException($"Agent Relationship already exists for Associate Principal {cmd.PrincipalId}");
-            //}
+            if (_repository.CustomerExistsForOperatingContext(customer, cmd.OperatingContextId))
+            {
+                throw new InvalidOperationException($"Customer already already exists for Operating Context {cmd.OperatingContextId}");
+            }
 
-            //_repository.AddAgentRelationshipForPrincipal(agentRelationship, cmd.PrincipalId);
+            _repository.AddCustomerForOperatingContext(customer, cmd.OperatingContextId);
 
             return GetCustomerRM(customer);
         }
 
         private OperatingContextRM CreateOperatingContextForCustomer(Commands.V1.Customer.OperatingContext.CreateForCustomer cmd)
         {
-            throw new NotImplementedException();
+            OperatingContext operatingContext = new OperatingContext();
+
+            if (_repository.OperatingContextExistsForCustomer(operatingContext, cmd.CustomerId))
+            {
+                throw new InvalidOperationException($"Operating context already exists for Customer {cmd.CustomerId}");
+            }
+
+            _repository.AddOperatingContextForCustomer(operatingContext, cmd.CustomerId);
+
+            return GetOperatingContextRM(operatingContext);
         }
 
-        private AlternateFuelRM CreateAlternateFuelForCustomer(Commands.V1.OperatingContext.Customer.AlternateFuel.CreateForCustomer cmd)
+        private bool CreateAlternateFuelForCustomer(Commands.V1.OperatingContext.Customer.AlternateFuel.CreateForCustomer cmd)
         {
             throw new NotImplementedException();
         }
 
-        private AlternateFuelRM CreateAlternateFuelForCustomer(Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd)
+        private bool CreateAlternateFuelForCustomer(Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd)
         {
             throw new NotImplementedException();
         }
 
-        private EGMSPermissionRM CreatePermission(Commands.V1.Permission.Create cmd)
+        private EGMSPermissionRM CreateEGMSPermission(Commands.V1.EGMSPermission.Create cmd)
         {
             throw new NotImplementedException();
         }
@@ -281,7 +290,7 @@ namespace EGMS.BusinessAssociates.Command
             throw new NotImplementedException();
         }
 
-        private RoleEGMSPermissionRM CreateRolePermission(Commands.V1.RolePermission.Create cmd)
+        private RoleEGMSPermissionRM CreateRoleEGMSPermission(Commands.V1.RoleEGMSPermission.Create cmd)
         {
             throw new NotImplementedException();
         }
@@ -479,6 +488,28 @@ namespace EGMS.BusinessAssociates.Command
             customerRM.TurnOnDate = customer.TurnOnDate;
             
             return customerRM;
+        }
+
+        private OperatingContextRM GetOperatingContextRM(OperatingContext operatingContext)
+        {
+            OperatingContextRM operatingContextRM = new OperatingContextRM();
+
+            operatingContextRM.Id = operatingContext.Id;
+            operatingContextRM.ActingBAType = operatingContextRM.ActingBAType;
+            operatingContextRM.CertificationId = operatingContext.CertificationId;
+            operatingContextRM.FacilityId = operatingContext.FacilityId;
+            operatingContextRM.IsDeactivating = operatingContext.IsDeactivating;
+            operatingContextRM.LegacyId = operatingContext.LegacyId;
+            operatingContextRM.OperatingContextType = operatingContext.OperatingContextTypeId;
+            operatingContextRM.PrimaryAddress = operatingContext.PrimaryAddressId;
+            operatingContextRM.PrimaryEmail = operatingContext.PrimaryEmailId;
+            operatingContextRM.PrimaryPhone = operatingContext.PrimaryPhoneId;
+            operatingContextRM.ProviderType = operatingContextRM.ProviderType;
+            operatingContextRM.StartDate = operatingContext.StartDate;
+            operatingContextRM.Status = operatingContext.StatusCodeId;
+            operatingContextRM.ThirdPartySupplierId = operatingContext.ThirdPartySupplierId;
+
+            return operatingContextRM;
         }
     }
 }

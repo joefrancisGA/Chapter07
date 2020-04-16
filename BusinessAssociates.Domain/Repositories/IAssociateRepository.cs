@@ -8,8 +8,13 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         Task<Associate> LoadAssociate(int id);
 
         bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId);
+        Customer AddCustomerForOperatingContext(Customer customer, int operatingContextId);
 
+        Task<OperatingContext> AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
+
+        bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId);
         void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId);
+        bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId);
 
 
         void AddAssociate(Associate entity);

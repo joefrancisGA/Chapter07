@@ -397,7 +397,7 @@ namespace EGMS.BusinessAssociates.Command
             }
 
 
-            public static class Permission
+            public static class EGMSPermission
             {
                 public class Create
                 {
@@ -417,7 +417,7 @@ namespace EGMS.BusinessAssociates.Command
             }
 
 
-            public static class RolePermission
+            public static class RoleEGMSPermission
             {
                 public class Create
                 {

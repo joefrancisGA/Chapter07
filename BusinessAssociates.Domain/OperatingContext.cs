@@ -9,7 +9,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class OperatingContext : Entity<int>
     {
-        protected OperatingContext()
+        public OperatingContext()
         {
             Initialize();
         }
