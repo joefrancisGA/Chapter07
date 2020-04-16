@@ -293,12 +293,28 @@ namespace EGMS.BusinessAssociates.Command
 
         private EGMSPermissionRM CreateEGMSPermission(Commands.V1.EGMSPermission.Create cmd)
         {
-            throw new NotImplementedException();
+            if (_repository.PermissionExists(cmd.PermissionName))
+                throw new InvalidOperationException($"Permission with name {cmd.PermissionName} already exists");
+
+            EGMSPermission permission = new EGMSPermission();
+
+            _repository.AddPermission(permission);
+
+            return GetEGMSPermissionRM(permission);
         }
 
         private AddressRM CreateAddressForOperatingContext(Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd)
         {
-            throw new NotImplementedException();
+            Address address = new Address();
+
+            if (_repository.AddressExistsForOperatingContext(address, cmd.OperatingContextId))
+            {
+                throw new InvalidOperationException($"Address already exists for Operating Context {cmd.OperatingContextId}");
+            }
+
+            _repository.AddAddressForOperatingContext(address, cmd.OperatingContextId);
+
+            return GetAddressRM(address);
         }
 
         private RoleRM CreateRole(Commands.V1.Role.Create cmd)
@@ -453,6 +469,18 @@ namespace EGMS.BusinessAssociates.Command
             agentRelationshipRM.PrincipalId = agentRelationship.PrincipalId;
 
             return agentRelationshipRM;
+        }
+
+        private EGMSPermissionRM GetEGMSPermissionRM(EGMSPermission permission)
+        {
+            EGMSPermissionRM egmsPermissionRM = new EGMSPermissionRM();
+
+            egmsPermissionRM.Id = permission.Id;
+            egmsPermissionRM.IsActive = permission.IsActive;
+            egmsPermissionRM.PermissionName = permission.PermissionName;
+            egmsPermissionRM.PermissionDescription = permission.PermissionDescription;
+
+            return egmsPermissionRM;
         }
 
         private CustomerRM GetCustomerRM(Customer customer)

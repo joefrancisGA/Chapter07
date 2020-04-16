@@ -30,6 +30,26 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public bool PermissionExists(string permissionName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddPermission(EGMSPermission permission)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AddressExistsForOperatingContext(Address address, int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Address AddAddressForOperatingContext(Address address, int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool AlternateFuelExistsForCustomer(int alternateFuelId, int customerId)
         {
             throw new NotImplementedException();
