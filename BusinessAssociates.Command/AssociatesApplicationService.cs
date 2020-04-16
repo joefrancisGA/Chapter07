@@ -34,16 +34,8 @@ namespace EGMS.BusinessAssociates.Command
                 #region Associates
 
                 case Commands.V1.Associate.Create cmd:
-                    try
-                    {
-                        return CreateAssociate(cmd);
-                    }
-                    catch (Exception ex)
-                    {
-                        ex = ex;
-                        throw;
-                    }
-
+                    return CreateAssociate(cmd);
+                    
                 case Commands.V1.Associate.UpdateDUNSNumber cmd:
                     HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber)));
                     break;
@@ -221,9 +213,14 @@ namespace EGMS.BusinessAssociates.Command
                 City.Create(cmd.City), Comments.Create(cmd.Comments), PostalCode.Create(cmd.PostalCode), 
                 StateCodeLookup.StateCodes[cmd.GeographicState]);
 
-           // if (_repository.AddressExistsF)
+            if (_repository.AddressExistsForContact(address, cmd.ContactId))
+            {
+                throw new InvalidOperationException($"Address already exists for contact {cmd.ContactId}");
+            }
 
-            throw new NotImplementedException();
+            _repository.AddAddressForContact(address, cmd.ContactId);
+
+            return GetAddressRM(address);
         }
 
         private AgentRelationshipRM CreateAgentRelationshipForPrincipal(Commands.V1.AgentRelationship.CreateForPrincipal cmd)
@@ -376,6 +373,29 @@ namespace EGMS.BusinessAssociates.Command
             contactConfigurationRM.StatusCodeId = contactConfiguration.StatusCodeId;
 
             return contactConfigurationRM;
+        }
+
+        private AddressRM GetAddressRM(Address address)
+        {
+            AddressRM addressRM = new AddressRM();
+
+            addressRM.Id = address.Id;
+            addressRM.Address1 = address.Address1;
+            addressRM.Address2 = address.Address2;
+            addressRM.Address3 = address.Address3;
+            addressRM.Address4 = address.Address4;
+            addressRM.AddressTypeId = address.AddressTypeId;
+            addressRM.Attention = address.Attention;
+            addressRM.City = address.City;
+            addressRM.Comments = address.Comments;
+            addressRM.EndDate = address.EndDate;
+            addressRM.IsActive = address.IsActive;
+            addressRM.IsPrimary = address.IsPrimary;
+            addressRM.PostalCode = address.PostalCode;
+            addressRM.StartDate = address.StartDate;
+            addressRM.StateCodeId = address.StateCodeId;
+
+            return addressRM;
         }
     }
 }

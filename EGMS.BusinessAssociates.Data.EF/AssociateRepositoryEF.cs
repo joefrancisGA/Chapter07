@@ -82,6 +82,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public bool AddressExistsForContact(Address address, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration)
         {
             throw new NotImplementedException();

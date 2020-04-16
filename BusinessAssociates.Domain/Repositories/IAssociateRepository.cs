@@ -20,6 +20,10 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         void AddContactForAssociate(Associate associate, Contact contact);
 
+        bool AddressExistsForContact(Address address, int contactId);
+
+        bool AddAddressForContact(Address address, int contactId);
+
         void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration);
     }
 }
