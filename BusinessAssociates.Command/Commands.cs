@@ -443,7 +443,7 @@ namespace EGMS.BusinessAssociates.Command
                         DeactivationDate = create.DeactivationDate;
                     }
 
-                    private int AssociateId { get; set; }
+                    public int AssociateId { get; set; }
                 }
 
                 public class Create

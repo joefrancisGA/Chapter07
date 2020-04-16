@@ -7,6 +7,9 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
     {
         Task<Associate> LoadAssociate(int id);
 
+
+        User AddUserForAssociate(User user, int associateId);
+        bool UserExistsForAssociate(User user, int associateId);
         RoleEGMSPermission AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission);
         bool RoleEGMSPermissionExists(int roleId, int permissionId);
         Role AddRole(Role role);

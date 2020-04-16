@@ -117,7 +117,7 @@ namespace EGMS.BusinessAssociates.Command
                     return CreateRoleEGMSPermission(cmd);
 
                 case Commands.V1.User.CreateForAssociate cmd:
-                    return CreateAssociateForUser(cmd);
+                    return CreateUserForAssociate(cmd);
 
                 #region OperatingContext
 
@@ -343,9 +343,18 @@ namespace EGMS.BusinessAssociates.Command
             return GetRoleEGMSPermissionRM(roleEGMSPermission);
         }
 
-        private AssociateRM CreateAssociateForUser(Commands.V1.User.CreateForAssociate cmd)
+        private UserRM CreateUserForAssociate(Commands.V1.User.CreateForAssociate cmd)
         {
-            throw new NotImplementedException();
+            User user = new User();
+
+            if (_repository.UserExistsForAssociate(user, cmd.AssociateId))
+            {
+                throw new InvalidOperationException($"User already exists for Associate {cmd.AssociateId}");
+            }
+
+            _repository.AddUserForAssociate(user, cmd.AssociateId);
+
+            return GetUserRM(user);
         }
 
         private EMailRM CreateEMailForContact(Commands.V1.Contact.EMail.CreateForContact cmd)
@@ -438,6 +447,22 @@ namespace EGMS.BusinessAssociates.Command
             contactConfigurationRM.StatusCodeId = contactConfiguration.StatusCodeId;
 
             return contactConfigurationRM;
+        }
+
+        UserRM GetUserRM(User user)
+        {
+            UserRM userRM = new UserRM();
+
+            userRM.Id = user.Id;
+            userRM.ContactId = user.ContactId;
+            userRM.DeactivationDate = user.DeactivationDate;
+            userRM.DepartmentCode = user.DepartmentCode;
+            userRM.HasEGMSAccess = user.HasEGMSAccess;
+            userRM.IDMSSID = user.IDMSSID.Value;
+            userRM.IsActive = user.IsActive;
+            userRM.IsInternal = user.IsInternal;
+
+            return userRM;
         }
 
         private AddressRM GetAddressRM(Address address)
