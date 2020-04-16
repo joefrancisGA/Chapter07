@@ -278,9 +278,17 @@ namespace EGMS.BusinessAssociates.Command
             return true;
         }
 
+        // This API looks a lot like the one above, but they are for different contexts
         private bool CreateAlternateFuelForCustomer(Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd)
         {
-            throw new NotImplementedException();
+            if (_repository.AlternateFuelExistsForCustomer(cmd.AlternateFuelId, cmd.CustomerId))
+            {
+                throw new InvalidOperationException($"Alternate fuel already exists for Customer {cmd.CustomerId}");
+            }
+
+            _repository.AddAlternateFuelForCustomer(cmd.AlternateFuelId, cmd.CustomerId);
+
+            return true;
         }
 
         private EGMSPermissionRM CreateEGMSPermission(Commands.V1.EGMSPermission.Create cmd)
