@@ -319,7 +319,14 @@ namespace EGMS.BusinessAssociates.Command
 
         private RoleRM CreateRole(Commands.V1.Role.Create cmd)
         {
-            throw new NotImplementedException();
+            if (_repository.RoleExists(cmd.RoleName))
+                throw new InvalidOperationException($"Role with name {cmd.RoleName} already exists");
+
+            Role role = new Role();
+
+            _repository.AddRole(role);
+
+            return GetRoleRM(role);
         }
 
         private RoleEGMSPermissionRM CreateRoleEGMSPermission(Commands.V1.RoleEGMSPermission.Create cmd)
@@ -471,6 +478,7 @@ namespace EGMS.BusinessAssociates.Command
             return agentRelationshipRM;
         }
 
+        // TO DO:  No real reason other than to just return an ID
         private EGMSPermissionRM GetEGMSPermissionRM(EGMSPermission permission)
         {
             EGMSPermissionRM egmsPermissionRM = new EGMSPermissionRM();
@@ -481,6 +489,11 @@ namespace EGMS.BusinessAssociates.Command
             egmsPermissionRM.PermissionDescription = permission.PermissionDescription;
 
             return egmsPermissionRM;
+        }
+
+        private RoleRM GetRoleRM(Role role)
+        {
+            return new RoleRM {Id = role.Id};
         }
 
         private CustomerRM GetCustomerRM(Customer customer)

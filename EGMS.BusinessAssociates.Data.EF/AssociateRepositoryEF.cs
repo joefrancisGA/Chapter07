@@ -146,6 +146,16 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _mapper.Map<Associate>(associateEF);
         }
 
+        public Role AddRole(Role role)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RoleExists(string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId)
         {
             throw new NotImplementedException();
