@@ -420,9 +420,19 @@ namespace EGMS.BusinessAssociates.Command
             throw new NotImplementedException();
         }
         
+        // TO DO:  Combine with CreateUserForAssociate
         private UserRM CreateUserForAgent(Commands.V1.AgentRelationship.User.CreateForAgent cmd)
         {
-            throw new NotImplementedException();
+            User user = new User();
+
+            if (_repository.UserExistsForAssociate(user, cmd.AgentId))
+            {
+                throw new InvalidOperationException($"User already exists for Associate {cmd.AgentId}");
+            }
+
+            _repository.AddUserForAssociate(user, cmd.AgentId);
+
+            return GetUserRM(user);
         }
         
         private ContactRM CreateContactForAssociate(Commands.V1.Contact.CreateForAssociate cmd)
