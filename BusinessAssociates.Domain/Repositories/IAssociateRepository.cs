@@ -7,7 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
     {
         Task<Associate> LoadAssociate(int id);
 
-
+        Certification AddCertificationForOperatingContext(Certification certification, int operatingContextId);
+        bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId);
         EMail AddEMailForContact(EMail eMail, int contactId);
         bool EMailExistsForContact(EMail eMail, int contactId);
         User AddUserForAssociate(User user, int associateId);

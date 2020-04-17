@@ -373,7 +373,16 @@ namespace EGMS.BusinessAssociates.Command
 
         private CertificationRM CreateCertificationForOperatingContext(Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd)
         {
-            throw new NotImplementedException();
+            Certification certification = new Certification();
+
+            if (_repository.CertificationExistsForOperatingContext(certification, cmd.OperatingContextId))
+            {
+                throw new InvalidOperationException($"Certification already exists for Operating Context {cmd.OperatingContextId}");
+            }
+
+            _repository.AddCertificationForOperatingContext(certification, cmd.OperatingContextId);
+
+            return GetCertificationRM(certification);
         }
 
         private PhoneRM CreatePhoneForContact(Commands.V1.Contact.Phone.CreateForContact cmd)
@@ -540,6 +549,19 @@ namespace EGMS.BusinessAssociates.Command
         private RoleEGMSPermissionRM GetRoleEGMSPermissionRM(RoleEGMSPermission roleEGMSPermission)
         {
             return new RoleEGMSPermissionRM {Id = roleEGMSPermission.Id};
+        }
+
+        private CertificationRM GetCertificationRM(Certification certification)
+        {
+            CertificationRM certificationRM = new CertificationRM();
+
+            certificationRM.Id = certification.Id;
+            certificationRM.CertificationStatusId = certification.CertificationStatusId;
+            certificationRM.IsInherited = certification.IsInherited;
+            certificationRM.DecertificationDateTime = certification.DecertificationDateTime;
+            certificationRM.CertificationDateTime = certification.CertificationDateTime;
+
+            return certificationRM;
         }
 
         private RoleRM GetRoleRM(Role role)
