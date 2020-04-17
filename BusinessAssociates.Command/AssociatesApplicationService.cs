@@ -37,27 +37,27 @@ namespace EGMS.BusinessAssociates.Command
                     return CreateAssociate(cmd);
                     
                 case Commands.V1.Associate.UpdateDUNSNumber cmd:
-                    HandleUpdate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber)));
+                    UpdateAssociate(cmd.Id, ia => ia.UpdateDUNSNumber(DUNSNumber.Create(cmd.DUNSNumber)));
                     break;
 
                 case Commands.V1.Associate.UpdateAssociateType cmd:
-                    HandleUpdate(cmd.Id, ia => ia.UpdateAssociateType(AssociateTypeLookup.AssociateTypes[cmd.AssociateType]));
+                    UpdateAssociate(cmd.Id, ia => ia.UpdateAssociateType(AssociateTypeLookup.AssociateTypes[cmd.AssociateType]));
                     break;
 
                 case Commands.V1.Associate.UpdateLongName cmd:
-                    HandleUpdate(cmd.Id, ia => ia.UpdateLongName(LongName.Create(cmd.LongName)));
+                    UpdateAssociate(cmd.Id, ia => ia.UpdateLongName(LongName.Create(cmd.LongName)));
                     break;
 
                 case Commands.V1.Associate.UpdateIsParent cmd:
-                    HandleUpdate(cmd.Id, ia => ia.UpdateIsParent(cmd.IsParent));
+                    UpdateAssociate(cmd.Id, ia => ia.UpdateIsParent(cmd.IsParent));
                     break;
 
                 case Commands.V1.Associate.UpdateStatus cmd:
-                    HandleUpdate(cmd.Id, ia => ia.UpdateStatus(StatusCodeLookup.StatusCodes[cmd.Status]));
+                    UpdateAssociate(cmd.Id, ia => ia.UpdateStatus(StatusCodeLookup.StatusCodes[cmd.Status]));
                     break;
 
                 case Commands.V1.Associate.UpdateShortName cmd:
-                    HandleUpdate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName)));
+                    UpdateAssociate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName)));
                     break;
 
                 #endregion
@@ -152,13 +152,13 @@ namespace EGMS.BusinessAssociates.Command
         }
 
 #pragma warning disable 1998
-        private async void HandleUpdate(int associateId, Action<Associate> operation)
+        private async void UpdateAssociate(int associateId, Action<Associate> operation)
 #pragma warning restore 1998
         {
             Associate associate = _repository.LoadAssociate(associateId).Result;
 
             if (associate == null)
-                throw new InvalidOperationException($"Entity with id {associateId} cannot be found");
+                throw new InvalidOperationException($"Associate with id {associateId} cannot be found");
 
             operation(associate);
         }
@@ -463,6 +463,7 @@ namespace EGMS.BusinessAssociates.Command
             return GetContactRM(contact);
         }
 
+        // TO DO:  Move RM code to RM file
         AssociateRM GetAssociateRM(Associate associate)
         {
             return new AssociateRM
