@@ -68,6 +68,9 @@ namespace EGMS.BusinessAssociates.Command
                     {
                         PrincipalId = principalId;
                         AgentId = create.AgentId;
+                        IsActive = create.IsActive;
+                        StartDate = create.StartDate;
+                        EndDate = create.EndDate;
                     }
 
                     public int PrincipalId { get; set; }
@@ -76,6 +79,9 @@ namespace EGMS.BusinessAssociates.Command
                 public class Create
                 {
                     public int AgentId { get; set; }
+                    public bool IsActive { get; set; }
+                    public DateTime StartDate { get; set; }
+                    public DateTime EndDate { get; set; }
                 }
 
                 public static class User

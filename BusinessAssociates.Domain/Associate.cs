@@ -56,21 +56,20 @@ namespace EGMS.BusinessAssociates.Domain
         public static Associate Create(int associateId, int dunsNumber, string longName, string shortName, bool isParent, bool isInternal,
             bool isDeactivating, AssociateTypeLookup associateType, StatusCodeLookup statusCode)
         {
-            Associate associate = new Associate();
-
-            associate.Id = associateId;
-            associate.DUNSNumber = DUNSNumber.Create(dunsNumber);
-            associate.LongName = LongName.Create(longName);
-            associate.ShortName = ShortName.Create(shortName);
-            associate.IsParent = isParent;
-            associate.IsInternal = isInternal;
-            associate.IsDeactivating = isDeactivating;
-            associate.AssociateType = associateType;
-            associate.AssociateTypeId = associateType.AssociateTypeId;
-            associate.StatusCode = statusCode;
-            associate.StatusCodeId = statusCode.StatusCodeId;
-
-            return associate;
+            return new Associate
+            {
+                Id = associateId,
+                DUNSNumber = DUNSNumber.Create(dunsNumber),
+                LongName = LongName.Create(longName),
+                ShortName = ShortName.Create(shortName),
+                IsParent = isParent,
+                IsInternal = isInternal,
+                IsDeactivating = isDeactivating,
+                AssociateType = associateType,
+                AssociateTypeId = associateType.AssociateTypeId,
+                StatusCode = statusCode,
+                StatusCodeId = statusCode.StatusCodeId
+            };
         }
 
         public DUNSNumber DUNSNumber { get; set; }

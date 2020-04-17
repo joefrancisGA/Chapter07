@@ -6,7 +6,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class AgentRelationship : Entity<int>
     {
-        public AgentRelationship()
+        private AgentRelationship()
         {
             AgentRelationshipUserList = new HashSet<AgentRelationshipUser>();
         }
@@ -14,6 +14,20 @@ namespace EGMS.BusinessAssociates.Domain
         public AgentRelationship(Action<object> applier) : base(applier)
         {
             AgentRelationshipUserList = new HashSet<AgentRelationshipUser>();
+        }
+
+        public static AgentRelationship Create(int agentRelationshipId, bool isActive, DateTime endDate, int agentId, int principalId,
+            DateTime startDate)
+        {
+            return new AgentRelationship
+            {
+                Id = agentRelationshipId,
+                IsActive = isActive,
+                EndDate = endDate,
+                AgentId = agentId,
+                PrincipalId = principalId,
+                StartDate = startDate
+            };
         }
 
         public Associate Principal { get; set; }
@@ -30,15 +44,15 @@ namespace EGMS.BusinessAssociates.Domain
         // Collections
         public HashSet<AgentRelationshipUser> AgentRelationshipUserList { get; set; }
 
-        public void AddAgentUser()
-        {
-        }
+        // TO DO:  Use or eliminate
+        public void AddAgentUser() { }
 
         protected override void When(object @event)
         {
             throw new NotImplementedException();
         }
 
+        // TO DO:  Why can't OnLoadInit be in the base class?
         public override void OnLoadInit(Action<object> parentHandler)
         {
             _parentHandler = parentHandler;

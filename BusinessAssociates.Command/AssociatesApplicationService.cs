@@ -16,6 +16,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _associates = 1;
         private static int _contactConfigurations = 1;
         private static int _addresses = 1;
+        private static int _agentRelationships = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
         
@@ -227,7 +228,7 @@ namespace EGMS.BusinessAssociates.Command
 
         private AgentRelationshipRM CreateAgentRelationshipForPrincipal(Commands.V1.AgentRelationship.CreateForPrincipal cmd)
         {
-            AgentRelationship agentRelationship = new AgentRelationship();
+            AgentRelationship agentRelationship = AgentRelationship.Create(_agentRelationships++, cmd.IsActive, cmd.EndDate, cmd.AgentId, cmd.PrincipalId, cmd.StartDate );
 
             if (_repository.AgentRelationshipExistsForPrincipal(agentRelationship, cmd.PrincipalId))
             {
