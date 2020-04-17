@@ -359,7 +359,16 @@ namespace EGMS.BusinessAssociates.Command
 
         private EMailRM CreateEMailForContact(Commands.V1.Contact.EMail.CreateForContact cmd)
         {
-            throw new NotImplementedException();
+            EMail eMail = new EMail();
+
+            if (_repository.EMailExistsForContact(eMail, cmd.ContactId))
+            {
+                throw new InvalidOperationException($"EMail already exists for Contact {cmd.ContactId}");
+            }
+
+            _repository.AddEMailForContact(eMail, cmd.ContactId);
+
+            return GetEMailRM(eMail);
         }
 
         private CertificationRM CreateCertificationForOperatingContext(Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd)
@@ -463,6 +472,19 @@ namespace EGMS.BusinessAssociates.Command
             userRM.IsInternal = user.IsInternal;
 
             return userRM;
+        }
+
+        private EMailRM GetEMailRM(EMail email)
+        {
+            EMailRM emailRM = new EMailRM();
+
+            emailRM.Id = email.Id;
+            emailRM.ContactId = email.ContactId;
+            emailRM.EMailAddress = email.EMailAddress;
+            emailRM.IsPrimary = email.IsPrimary;
+            emailRM.UserId = email.UserId;
+
+            return emailRM;
         }
 
         private AddressRM GetAddressRM(Address address)
