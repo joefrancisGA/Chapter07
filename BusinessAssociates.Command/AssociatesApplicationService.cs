@@ -465,77 +465,73 @@ namespace EGMS.BusinessAssociates.Command
 
         AssociateRM GetAssociateRM(Associate associate)
         {
-            AssociateRM associateRM = new AssociateRM();
-            associateRM.AssociateType = associate.AssociateTypeId;
-            associateRM.DUNSNumber = associate.DUNSNumber;
-            associateRM.Id = associate.Id;
-            associateRM.IsDeactivating = associate.IsDeactivating;
-            associateRM.IsInternal = associate.IsInternal;
-            associateRM.IsParent = associate.IsParent;
-            associateRM.LongName = associate.LongName;
-            associateRM.ShortName = associate.ShortName;
-            associateRM.StatusCode = associate.StatusCodeId;
-
-            return associateRM;
+            return new AssociateRM
+            {
+                AssociateType = associate.AssociateTypeId,
+                DUNSNumber = associate.DUNSNumber,
+                Id = associate.Id,
+                IsDeactivating = associate.IsDeactivating,
+                IsInternal = associate.IsInternal,
+                IsParent = associate.IsParent,
+                LongName = associate.LongName,
+                ShortName = associate.ShortName,
+                StatusCode = associate.StatusCodeId
+            };
         }
 
         ContactRM GetContactRM(Contact contact)
         {
-            ContactRM contactRM = new ContactRM();
-
-            contactRM.PrimaryAddressId = contact.PrimaryAddressId;
-            contactRM.FirstName = contact.FirstName;
-            contactRM.IsActive = contact.IsActive;
-            contactRM.LastName = contact.LastName;
-            contactRM.PrimaryEmailId = contact.PrimaryEmailId;
-            contactRM.PrimaryPhoneId = contact.PrimaryPhoneId;
-            contactRM.Title = contact.Title;
-
-            return contactRM;
+            return new ContactRM
+            {
+                PrimaryAddressId = contact.PrimaryAddressId,
+                FirstName = contact.FirstName,
+                IsActive = contact.IsActive,
+                LastName = contact.LastName,
+                PrimaryEmailId = contact.PrimaryEmailId,
+                PrimaryPhoneId = contact.PrimaryPhoneId,
+                Title = contact.Title
+            };
         }
 
         ContactConfigurationRM GetContactConfigurationRM(ContactConfiguration contactConfiguration)
         {
-            ContactConfigurationRM contactConfigurationRM = new ContactConfigurationRM();
-
-            contactConfigurationRM.Id = contactConfiguration.Id;
-            contactConfigurationRM.ContactId = contactConfiguration.ContactId;
-            contactConfigurationRM.ContactTypeId = contactConfiguration.ContactTypeId;
-            contactConfigurationRM.EndDate = contactConfiguration.EndDate;
-            contactConfigurationRM.Priority = contactConfiguration.Priority;
-            contactConfigurationRM.StartDate = contactConfiguration.StartDate; 
-            contactConfigurationRM.StatusCodeId = contactConfiguration.StatusCodeId;
-
-            return contactConfigurationRM;
+            return new ContactConfigurationRM
+            {
+                Id = contactConfiguration.Id,
+                ContactId = contactConfiguration.ContactId,
+                ContactTypeId = contactConfiguration.ContactTypeId,
+                EndDate = contactConfiguration.EndDate,
+                Priority = contactConfiguration.Priority,
+                StartDate = contactConfiguration.StartDate,
+                StatusCodeId = contactConfiguration.StatusCodeId
+            };
         }
 
         UserRM GetUserRM(User user)
         {
-            UserRM userRM = new UserRM();
-
-            userRM.Id = user.Id;
-            userRM.ContactId = user.ContactId;
-            userRM.DeactivationDate = user.DeactivationDate;
-            userRM.DepartmentCode = user.DepartmentCode;
-            userRM.HasEGMSAccess = user.HasEGMSAccess;
-            userRM.IDMSSID = user.IDMSSID.Value;
-            userRM.IsActive = user.IsActive;
-            userRM.IsInternal = user.IsInternal;
-
-            return userRM;
+            return new UserRM
+            {
+                Id = user.Id,
+                ContactId = user.ContactId,
+                DeactivationDate = user.DeactivationDate,
+                DepartmentCode = user.DepartmentCode,
+                HasEGMSAccess = user.HasEGMSAccess,
+                IDMSSID = user.IDMSSID.Value,
+                IsActive = user.IsActive,
+                IsInternal = user.IsInternal
+            };
         }
 
         private EMailRM GetEMailRM(EMail email)
         {
-            EMailRM emailRM = new EMailRM();
-
-            emailRM.Id = email.Id;
-            emailRM.ContactId = email.ContactId;
-            emailRM.EMailAddress = email.EMailAddress;
-            emailRM.IsPrimary = email.IsPrimary;
-            emailRM.UserId = email.UserId;
-
-            return emailRM;
+            return new EMailRM
+            {
+                Id = email.Id,
+                ContactId = email.ContactId,
+                EMailAddress = email.EMailAddress,
+                IsPrimary = email.IsPrimary,
+                UserId = email.UserId
+            };
         }
 
         private PhoneRM GetPhoneRM(Phone phone)
@@ -545,52 +541,48 @@ namespace EGMS.BusinessAssociates.Command
 
         private AddressRM GetAddressRM(Address address)
         {
-            AddressRM addressRM = new AddressRM();
-
-            addressRM.Id = address.Id;
-            addressRM.Address1 = address.Address1;
-            addressRM.Address2 = address.Address2;
-            addressRM.Address3 = address.Address3;
-            addressRM.Address4 = address.Address4;
-            addressRM.AddressTypeId = address.AddressTypeId;
-            addressRM.Attention = address.Attention;
-            addressRM.City = address.City;
-            addressRM.Comments = address.Comments;
-            addressRM.EndDate = address.EndDate;
-            addressRM.IsActive = address.IsActive;
-            addressRM.IsPrimary = address.IsPrimary;
-            addressRM.PostalCode = address.PostalCode;
-            addressRM.StartDate = address.StartDate;
-            addressRM.StateCodeId = address.StateCodeId;
-
-            return addressRM;
+            return new AddressRM
+            {
+                Id = address.Id,
+                Address1 = address.Address1,
+                Address2 = address.Address2,
+                Address3 = address.Address3,
+                Address4 = address.Address4,
+                AddressTypeId = address.AddressTypeId,
+                Attention = address.Attention,
+                City = address.City,
+                Comments = address.Comments,
+                EndDate = address.EndDate,
+                IsActive = address.IsActive,
+                IsPrimary = address.IsPrimary,
+                PostalCode = address.PostalCode,
+                StartDate = address.StartDate,
+                StateCodeId = address.StateCodeId
+            };
         }
 
         private AgentRelationshipRM GetAgentRelationshipRM(AgentRelationship agentRelationship)
         {
-            AgentRelationshipRM agentRelationshipRM = new AgentRelationshipRM();
-
-            agentRelationshipRM.Id = agentRelationship.Id;
-            agentRelationshipRM.StartDate = agentRelationship.StartDate;
-            agentRelationshipRM.IsActive = agentRelationship.IsActive;
-            agentRelationshipRM.StartDate = agentRelationship.StartDate;
-            agentRelationshipRM.AgentId = agentRelationship.AgentId;
-            agentRelationshipRM.PrincipalId = agentRelationship.PrincipalId;
-
-            return agentRelationshipRM;
+            return new AgentRelationshipRM
+            {
+                Id = agentRelationship.Id,
+                StartDate = agentRelationship.StartDate,
+                IsActive = agentRelationship.IsActive,
+                AgentId = agentRelationship.AgentId,
+                PrincipalId = agentRelationship.PrincipalId
+            };
         }
 
         // TO DO:  No real reason other than to just return an ID
         private EGMSPermissionRM GetEGMSPermissionRM(EGMSPermission permission)
         {
-            EGMSPermissionRM egmsPermissionRM = new EGMSPermissionRM();
-
-            egmsPermissionRM.Id = permission.Id;
-            egmsPermissionRM.IsActive = permission.IsActive;
-            egmsPermissionRM.PermissionName = permission.PermissionName;
-            egmsPermissionRM.PermissionDescription = permission.PermissionDescription;
-
-            return egmsPermissionRM;
+            return new EGMSPermissionRM
+            {
+                Id = permission.Id,
+                IsActive = permission.IsActive,
+                PermissionName = permission.PermissionName,
+                PermissionDescription = permission.PermissionDescription
+            };
         }
 
         private RoleEGMSPermissionRM GetRoleEGMSPermissionRM(RoleEGMSPermission roleEGMSPermission)
@@ -600,15 +592,14 @@ namespace EGMS.BusinessAssociates.Command
 
         private CertificationRM GetCertificationRM(Certification certification)
         {
-            CertificationRM certificationRM = new CertificationRM();
-
-            certificationRM.Id = certification.Id;
-            certificationRM.CertificationStatusId = certification.CertificationStatusId;
-            certificationRM.IsInherited = certification.IsInherited;
-            certificationRM.DecertificationDateTime = certification.DecertificationDateTime;
-            certificationRM.CertificationDateTime = certification.CertificationDateTime;
-
-            return certificationRM;
+            return new CertificationRM
+            {
+                Id = certification.Id,
+                CertificationStatusId = certification.CertificationStatusId,
+                IsInherited = certification.IsInherited,
+                DecertificationDateTime = certification.DecertificationDateTime,
+                CertificationDateTime = certification.CertificationDateTime
+            };
         }
 
         private RoleRM GetRoleRM(Role role)
@@ -618,73 +609,73 @@ namespace EGMS.BusinessAssociates.Command
 
         private CustomerRM GetCustomerRM(Customer customer)
         {
-            CustomerRM customerRM = new CustomerRM();
-
-            customerRM.Id = customer.Id;
-            customerRM.AccountNumber = customer.AccountNumber;
-            customerRM.AlternateCustomerId = customer.AlternateCustomerId;
-            customerRM.BalancingLevelId = customer.BalancingLevelId;
-            customerRM.BasicPoolId = customer.BasicPoolId;
-            customerRM.ContractTypeId = customer.ContractTypeId;
-            customerRM.CurrentDemand = customer.CurrentDemand;
-            customerRM.CustomerTypeId = customer.CustomerTypeId;
-            customerRM.DUNSNumber = customer.DUNSNumber;
-            customerRM.DailyInterruptible = customer.DailyInterruptible;
-            customerRM.DeliveryLocation = customer.DeliveryLocation;
-            customerRM.DeliveryPressure = customer.DeliveryPressure;
-            customerRM.DeliveryTypeId = customer.DeliveryTypeId;
-            customerRM.EndDate = customer.EndDate;
-            customerRM.GroupTypeId = customer.GroupTypeId;
-            customerRM.HourlyInterruptible = customer.HourlyInterruptible;
-            customerRM.InterstateSpecifiedFirm = customer.InterstateSpecifiedFirm;
-            customerRM.IntrastateSpecifiedFirm = customer.IntrastateSpecifiedFirm;
-            customerRM.IsFederal = customer.IsFederal;
-            customerRM.LDCId = customer.LDCId;
-            customerRM.LongName = customer.LongName;
-            customerRM.LossTierId = customer.LossTierId;
-            customerRM.MDQ = customer.MDQ;
-            customerRM.MaxDailyInterruptible = customer.MaxDailyInterruptible;
-            customerRM.MaxHourlyInterruptible = customer.MaxHourlyInterruptible;
-            customerRM.MaxHourlySpecifiedFirm = customer.MaxHourlySpecifiedFirm;
-            customerRM.NAICSCode = customer.NAICSCode.ToString();
-            customerRM.NominationLevelId = customer.NominationLevelId;
-            customerRM.PreviousDemand = customer.PreviousDemand;
-            customerRM.SICCode = customer.SICCode.ToString();
-            customerRM.SICCodePercentage = customer.SICCodePercentage;
-            customerRM.SS1 = customer.SS1;
-            customerRM.ShipperId = customer.ShipperId;
-            customerRM.ShippersLetterFromDate = customer.ShippersLetterFromDate;
-            customerRM.ShippersLetterToDate = customer.ShippersLetterToDate;
-            customerRM.ShippersLetterFromDate = customer.ShippersLetterFromDate;
-            customerRM.ShortName = customer.ShortName;
-            customerRM.StartDate = customer.StartDate;
-            customerRM.StatusCodeId = customer.StatusCodeId;
-            customerRM.TotalDailySpecifiedFirm = customer.TotalDailySpecifiedFirm;
-            customerRM.TurnOffDate = customer.TurnOffDate;
-            customerRM.TotalHourlySpecifiedFirm = customer.TotalHourlySpecifiedFirm;
-            customerRM.TurnOnDate = customer.TurnOnDate;
-            
-            return customerRM;
+            return new CustomerRM
+            {
+                Id = customer.Id,
+                AccountNumber = customer.AccountNumber,
+                AlternateCustomerId = customer.AlternateCustomerId,
+                BalancingLevelId = customer.BalancingLevelId,
+                BasicPoolId = customer.BasicPoolId,
+                ContractTypeId = customer.ContractTypeId,
+                CurrentDemand = customer.CurrentDemand,
+                CustomerTypeId = customer.CustomerTypeId,
+                DUNSNumber = customer.DUNSNumber,
+                DailyInterruptible = customer.DailyInterruptible,
+                DeliveryLocation = customer.DeliveryLocation,
+                DeliveryPressure = customer.DeliveryPressure,
+                DeliveryTypeId = customer.DeliveryTypeId,
+                EndDate = customer.EndDate,
+                GroupTypeId = customer.GroupTypeId,
+                HourlyInterruptible = customer.HourlyInterruptible,
+                InterstateSpecifiedFirm = customer.InterstateSpecifiedFirm,
+                IntrastateSpecifiedFirm = customer.IntrastateSpecifiedFirm,
+                IsFederal = customer.IsFederal,
+                LDCId = customer.LDCId,
+                LongName = customer.LongName,
+                LossTierId = customer.LossTierId,
+                MDQ = customer.MDQ,
+                MaxDailyInterruptible = customer.MaxDailyInterruptible,
+                MaxHourlyInterruptible = customer.MaxHourlyInterruptible,
+                MaxHourlySpecifiedFirm = customer.MaxHourlySpecifiedFirm,
+                NAICSCode = customer.NAICSCode.ToString(),
+                NominationLevelId = customer.NominationLevelId,
+                PreviousDemand = customer.PreviousDemand,
+                SICCode = customer.SICCode.ToString(),
+                SICCodePercentage = customer.SICCodePercentage,
+                SS1 = customer.SS1,
+                ShipperId = customer.ShipperId,
+                ShippersLetterFromDate = customer.ShippersLetterFromDate,
+                ShippersLetterToDate = customer.ShippersLetterToDate,
+                ShortName = customer.ShortName,
+                StartDate = customer.StartDate,
+                StatusCodeId = customer.StatusCodeId,
+                TotalDailySpecifiedFirm = customer.TotalDailySpecifiedFirm,
+                TurnOffDate = customer.TurnOffDate,
+                TotalHourlySpecifiedFirm = customer.TotalHourlySpecifiedFirm,
+                TurnOnDate = customer.TurnOnDate
+            };
         }
 
         private OperatingContextRM GetOperatingContextRM(OperatingContext operatingContext)
         {
-            OperatingContextRM operatingContextRM = new OperatingContextRM();
+            OperatingContextRM operatingContextRM = new OperatingContextRM
+            {
+                Id = operatingContext.Id,
+                ActingBAType = operatingContext.ActingBATypeId,
+                CertificationId = operatingContext.CertificationId,
+                FacilityId = operatingContext.FacilityId,
+                IsDeactivating = operatingContext.IsDeactivating,
+                LegacyId = operatingContext.LegacyId,
+                OperatingContextType = operatingContext.OperatingContextTypeId,
+                PrimaryAddress = operatingContext.PrimaryAddressId,
+                PrimaryEmail = operatingContext.PrimaryEmailId,
+                PrimaryPhone = operatingContext.PrimaryPhoneId,
+                ProviderType = operatingContext.ProviderTypeId,
+                StartDate = operatingContext.StartDate,
+                Status = operatingContext.StatusCodeId,
+                ThirdPartySupplierId = operatingContext.ThirdPartySupplierId
+            };
 
-            operatingContextRM.Id = operatingContext.Id;
-            operatingContextRM.ActingBAType = operatingContextRM.ActingBAType;
-            operatingContextRM.CertificationId = operatingContext.CertificationId;
-            operatingContextRM.FacilityId = operatingContext.FacilityId;
-            operatingContextRM.IsDeactivating = operatingContext.IsDeactivating;
-            operatingContextRM.LegacyId = operatingContext.LegacyId;
-            operatingContextRM.OperatingContextType = operatingContext.OperatingContextTypeId;
-            operatingContextRM.PrimaryAddress = operatingContext.PrimaryAddressId;
-            operatingContextRM.PrimaryEmail = operatingContext.PrimaryEmailId;
-            operatingContextRM.PrimaryPhone = operatingContext.PrimaryPhoneId;
-            operatingContextRM.ProviderType = operatingContextRM.ProviderType;
-            operatingContextRM.StartDate = operatingContext.StartDate;
-            operatingContextRM.Status = operatingContext.StatusCodeId;
-            operatingContextRM.ThirdPartySupplierId = operatingContext.ThirdPartySupplierId;
 
             return operatingContextRM;
         }
