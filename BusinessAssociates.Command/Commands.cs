@@ -225,7 +225,27 @@ namespace EGMS.BusinessAssociates.Command
                         public bool IsActive { get; set; }
                     }
 
-                    public class Update { }
+                    public class Update
+                    {
+                        public int AddressId { get; set; }
+                        public int OperatingContextId { get; set; }
+                        public int AddressType { get; set; }
+                        public string Address1 { get; set; }
+                        public string Address2 { get; set; }
+                        public string Address3 { get; set; }
+                        public string Address4 { get; set; }
+                        public string City { get; set; }
+                        public int GeographicState { get; set; }
+                        public string PostalCode { get; set; }
+                        public int Country { get; set; }
+                        public string Attention { get; set; }
+                        public string Comments { get; set; }
+                        public DateTime StartDate { get; set; }
+                        public DateTime EndDate { get; set; }
+                        public bool IsPrimary { get; set; }
+                        public bool IsActive { get; set; }
+
+                    }
                 }
 
                 public class CreateForAssociate : Create

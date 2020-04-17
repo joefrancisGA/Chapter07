@@ -5,8 +5,9 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 {
     public interface IAssociateRepository
     {
-        Task<Associate> LoadAssociate(int id);
-
+        void UpdateAddress(Address address);
+        Task<Associate> LoadAssociate(int associateId);
+        Address LoadAddress(int addressId);
         void UpdateOperatingContext(OperatingContext operatingContext);
         OperatingContext LoadOperatingContext(int operatingContextId);
         Phone AddPhoneForContact(Phone phone, int contactId);

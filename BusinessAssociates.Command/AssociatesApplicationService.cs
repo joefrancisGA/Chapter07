@@ -81,7 +81,8 @@ namespace EGMS.BusinessAssociates.Command
                     return CreateAddressForContact(cmd);
 
                 case Commands.V1.Contact.Address.Update cmd:
-                    return UpdateAddressForContact(cmd);
+                    UpdateAddressForContact(cmd);
+                    break;
 
                 case Commands.V1.Contact.ContactConfiguration.CreateForContact cmd:
                     return CreateContactConfigurationForContact(cmd);
@@ -410,9 +411,16 @@ namespace EGMS.BusinessAssociates.Command
             _repository.UpdateOperatingContext(operatingContext);
         }
 
-        private AddressRM UpdateAddressForContact(Commands.V1.Contact.Address.Update cmd)
+
+        // TO DO:  Need to actually move over the updated fields
+        private void UpdateAddressForContact(Commands.V1.Contact.Address.Update cmd)
         {
-            throw new NotImplementedException();
+            Address address = _repository.LoadAddress(cmd.AddressId);
+
+            if (address == null)
+                throw new InvalidOperationException($"Address with id {cmd.AddressId} for Operating Context {cmd.OperatingContextId}cannot be found");
+
+            _repository.UpdateAddress(address);
         }
 
         private CustomerRM CreateCustomerForAssociate(Commands.V1.Customer.CreateForAssociate cmd)
