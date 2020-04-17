@@ -138,12 +138,22 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
 #pragma warning disable 1998
+        public void UpdateAddress(Address address)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Associate> LoadAssociate(int id)
 #pragma warning restore 1998
         {
             Associate associateEF = _context.Associates[id];
 
             return _mapper.Map<Associate>(associateEF);
+        }
+
+        public Address LoadAddress(int addressId)
+        {
+            throw new NotImplementedException();
         }
 
         public void UpdateOperatingContext(OperatingContext operatingContext)
