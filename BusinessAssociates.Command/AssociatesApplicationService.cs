@@ -425,7 +425,16 @@ namespace EGMS.BusinessAssociates.Command
 
         private CustomerRM CreateCustomerForAssociate(Commands.V1.Customer.CreateForAssociate cmd)
         {
-            throw new NotImplementedException();
+            Customer customer = new Customer();
+
+            if (_repository.CustomerExistsForAssociate(customer, cmd.AssociateId))
+            {
+                throw new InvalidOperationException($"Customer already exists for Associate {cmd.AssociateId}");
+            }
+
+            _repository.AddCustomerForAssociate(customer, cmd.AssociateId);
+
+            return GetCustomerRM(customer);
         }
         
         // TO DO:  Combine with CreateUserForAssociate

@@ -138,6 +138,16 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
 #pragma warning disable 1998
+        public Customer AddCustomerForAssociate(Customer customer, int associateId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CustomerExistsForAssociate(Customer customer, int associateId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void UpdateAddress(Address address)
         {
             throw new NotImplementedException();

@@ -329,7 +329,7 @@ namespace EGMS.BusinessAssociates.Command
                         TurnOffDate = create.TurnOffDate;
                     }
 
-                    private int AssociateId { get; set; }
+                    public int AssociateId { get; set; }
                 }
 
                 public class Create
