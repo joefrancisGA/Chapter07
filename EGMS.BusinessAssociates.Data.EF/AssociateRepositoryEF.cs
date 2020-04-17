@@ -146,6 +146,16 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _mapper.Map<Associate>(associateEF);
         }
 
+        public void UpdateOperatingContext(OperatingContext operatingContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public OperatingContext LoadOperatingContext(int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Phone AddPhoneForContact(Phone phone, int contactId)
         {
             throw new NotImplementedException();

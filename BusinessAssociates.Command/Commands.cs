@@ -697,9 +697,23 @@ namespace EGMS.BusinessAssociates.Command
                     public int LegacyId { get; set; }
                 }
 
+                // TO DO:  It wou;d be ideal to combine the update and create structures
                 public class Update
                 {
-
+                    public int OperatingContextId { get; set; }
+                    public int OperatingContextType { get; set; }
+                    public int FacilityId { get; set; }
+                    public int ThirdPartySupplierId { get; set; }
+                    public int ProviderType { get; set; }
+                    public int ActingBATypeID { get; set; }
+                    public int? CertificationId { get; set; }
+                    public int Status { get; set; }
+                    public bool IsDeactivating { get; set; }
+                    public DateTime StartDate { get; set; }
+                    public int PrimaryEmailId { get; set; }
+                    public int PrimaryPhoneId { get; set; }
+                    public int PrimaryAddressId { get; set; }
+                    public int LegacyId { get; set; }
                 }
             }
 

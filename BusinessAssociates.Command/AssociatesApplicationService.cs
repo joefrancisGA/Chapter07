@@ -137,7 +137,8 @@ namespace EGMS.BusinessAssociates.Command
                     return CreateAlternateFuelForCustomer(cmd);
 
                 case Commands.V1.OperatingContext.Update cmd:
-                    return UpdateOperatingContext(cmd);
+                    UpdateOperatingContext(cmd);
+                    return null;
 
                 #endregion
 
@@ -399,9 +400,14 @@ namespace EGMS.BusinessAssociates.Command
             return GetPhoneRM(phone);
         }
 
-        private OperatingContextRM UpdateOperatingContext(Commands.V1.OperatingContext.Update cmd)
+        private void UpdateOperatingContext(Commands.V1.OperatingContext.Update cmd)
         {
-            throw new NotImplementedException();
+            OperatingContext operatingContext = _repository.LoadOperatingContext(cmd.OperatingContextId);
+
+            if (operatingContext == null)
+                throw new InvalidOperationException($"OperatingContext with id {cmd.OperatingContextId} cannot be found");
+
+            _repository.UpdateOperatingContext(operatingContext);
         }
 
         private AddressRM UpdateAddressForContact(Commands.V1.Contact.Address.Update cmd)

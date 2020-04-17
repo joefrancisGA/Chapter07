@@ -7,6 +7,8 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
     {
         Task<Associate> LoadAssociate(int id);
 
+        void UpdateOperatingContext(OperatingContext operatingContext);
+        OperatingContext LoadOperatingContext(int operatingContextId);
         Phone AddPhoneForContact(Phone phone, int contactId);
         bool PhoneExistsForContact(Phone phone, int contactId);
         Certification AddCertificationForOperatingContext(Certification certification, int operatingContextId);
