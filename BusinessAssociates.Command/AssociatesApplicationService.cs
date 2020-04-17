@@ -18,7 +18,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _addresses = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
-
+        
         public AssociatesApplicationService(IAssociateRepository repository, IMapper mapper)
         {
             _repository = repository;
@@ -387,7 +387,16 @@ namespace EGMS.BusinessAssociates.Command
 
         private PhoneRM CreatePhoneForContact(Commands.V1.Contact.Phone.CreateForContact cmd)
         {
-            throw new NotImplementedException();
+            Phone phone = new Phone();
+
+            if (_repository.PhoneExistsForContact(phone, cmd.ContactId))
+            {
+                throw new InvalidOperationException($"Phone already exists for Contact {cmd.ContactId}");
+            }
+
+            _repository.AddPhoneForContact(phone, cmd.ContactId);
+
+            return GetPhoneRM(phone);
         }
 
         private OperatingContextRM UpdateOperatingContext(Commands.V1.OperatingContext.Update cmd)
@@ -494,6 +503,11 @@ namespace EGMS.BusinessAssociates.Command
             emailRM.UserId = email.UserId;
 
             return emailRM;
+        }
+
+        private PhoneRM GetPhoneRM(Phone phone)
+        {
+            return new PhoneRM {Id = phone.Id};
         }
 
         private AddressRM GetAddressRM(Address address)
