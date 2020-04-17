@@ -146,6 +146,16 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _mapper.Map<Associate>(associateEF);
         }
 
+        public EMail AddEMailForContact(EMail eMail, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool EMailExistsForContact(EMail eMail, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
         public User AddUserForAssociate(User user, int associateId)
         {
             throw new NotImplementedException();
