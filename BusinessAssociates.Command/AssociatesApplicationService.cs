@@ -19,6 +19,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _contactConfigurations = 1;
         private static int _customers = 1;
         private static int _operatingContexts = 1;
+        private static int _permissions = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
         
@@ -318,7 +319,8 @@ namespace EGMS.BusinessAssociates.Command
             if (_repository.PermissionExists(cmd.PermissionName))
                 throw new InvalidOperationException($"Permission with name {cmd.PermissionName} already exists");
 
-            EGMSPermission permission = new EGMSPermission();
+            EGMSPermission permission = EGMSPermission.Create(_permissions++, PermissionName.Create(cmd.PermissionName), 
+                PermissionDescription.Create(cmd.PermissionDescription), cmd.IsActive);
 
             _repository.AddPermission(permission);
 
