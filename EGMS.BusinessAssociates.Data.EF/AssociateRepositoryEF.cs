@@ -27,7 +27,27 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Customer AddCustomerForOperatingContext(Customer customer, int operatingContextId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Customers.Add(customer);
+
+                _context.OperatingContextCustomers.Add(new OperatingContextCustomer
+                {
+                    OperatingContextId = operatingContextId,
+                    CustomerId = customer.Id
+                });
+
+                return customer;
+            }
+            catch
+            {
+                Customer toRemove = _context.Customers.SingleOrDefault(c => c.Id == customer.Id);
+
+                if (toRemove != null)
+                    _context.Customers.Remove(toRemove);
+
+                throw;
+            }
         }
 
         public bool PermissionExists(string permissionName)
