@@ -17,6 +17,11 @@ namespace EGMS.BusinessAssociates.Domain.ValueObjects
             Value = value;
         }
 
+        public static SICCode Create(int value)
+        {
+            return new SICCode(value);
+        }
+
         public static implicit operator int(SICCode self) => self.Value;
         public static implicit operator SICCode(int value) => new SICCode(value);
 

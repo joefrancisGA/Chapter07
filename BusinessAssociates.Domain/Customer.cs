@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
@@ -8,7 +9,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Customer : Entity<int>
     {
-        public Customer()
+        private Customer()
         {
             Initialize();
         }
@@ -23,6 +24,66 @@ namespace EGMS.BusinessAssociates.Domain
             AssociateCustomers = new HashSet<AssociateCustomer>();
             CustomerAlternateFuels = new HashSet<CustomerAlternateFuel>();
             OperatingContextCustomers = new HashSet<OperatingContextCustomer>();
+        }
+
+        // TO DO:  The number of parameters here is obviously ridiculous... but is consistent with DDD
+        //   principles
+        public static Customer Create(int customerId, DateTime startDate, DateTime endDate, int statusCodeId, int nominationLevelId,
+            AccountNumber accountNumber, int customerTypeId, int deliveryTypeId, DUNSNumber dunsNumber, LongName longName,
+            ShortName shortName, DatabaseId ldcId, int lossTierId, DatabaseId deliveryLocation, int shipperId,
+            DeliveryPressure deliveryPressure, MDQ mdq, MaxHourlyInterruptible maxHourlyInterruptible,
+            MaxDailyInterruptible maxDailyInterruptible, HourlyInterruptible hourlyInterruptible,
+            DailyInterruptible dailyInterruptible, TotalHourlySpecifiedFirm totalHourlySpecifiedFirm,
+            TotalDailySpecifiedFirm totalDailySpecifiedFirm, InterstateSpecifiedFirm interstateSpecifiedFirm,
+            IntrastateSpecifiedFirm intrastateSpecifiedFirm, CurrentDemand currentDemand, PreviousDemand previousDemand,
+            int groupTypeId, int balancingLevelId, NAICSCode naicsCode, SICCode sicCode,
+            SICCodePercentage sicCodePercentage, DateTime shippersLetterFromDate, DateTime shippersLetterToDate,
+            bool ss1, bool isFederal, DateTime turnOffDate, DateTime turnOnDate)
+        {
+            return new Customer
+            {
+                Id = customerId,
+                AccountNumber = accountNumber,
+                AlternateCustomerId = null,
+                BalancingLevelId = balancingLevelId,
+                BasicPoolId = null,
+                ContractTypeId = null,
+                CurrentDemand = null,
+                CustomerTypeId = customerTypeId,
+                DailyInterruptible = dailyInterruptible,
+                DeliveryLocation = deliveryLocation,
+                DeliveryPressure = deliveryPressure,
+                DeliveryTypeId = deliveryTypeId,
+                DUNSNumber = dunsNumber,
+                EndDate = endDate,
+                GroupTypeId = groupTypeId,
+                HourlyInterruptible = hourlyInterruptible,
+                InterstateSpecifiedFirm = interstateSpecifiedFirm,
+                IntrastateSpecifiedFirm = intrastateSpecifiedFirm,
+                IsFederal = isFederal,
+                LDCId = ldcId,
+                LongName = longName,
+                LossTierId = lossTierId,
+                MaxDailyInterruptible = maxDailyInterruptible,
+                MaxHourlyInterruptible = maxHourlyInterruptible,
+                MDQ = mdq,
+                NAICSCode = naicsCode,
+                NominationLevelId = nominationLevelId,
+                PreviousDemand = previousDemand,
+                StartDate = startDate,
+                StatusCodeId = statusCodeId,
+                ShortName = shortName,
+                ShipperId = shipperId,
+                ShippersLetterFromDate = shippersLetterFromDate,
+                ShippersLetterToDate = shippersLetterToDate,
+                SICCode = sicCode,
+                SICCodePercentage = sicCodePercentage,
+                SS1 = ss1,
+                TotalDailySpecifiedFirm = totalDailySpecifiedFirm,
+                TotalHourlySpecifiedFirm = totalHourlySpecifiedFirm,
+                TurnOffDate = turnOffDate,
+                TurnOnDate = turnOnDate
+            };
         }
 
         public CustomerTypeLookup CustomerType { get; set; }

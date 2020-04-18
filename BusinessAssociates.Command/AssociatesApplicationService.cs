@@ -13,10 +13,11 @@ namespace EGMS.BusinessAssociates.Command
 {
     public class AssociatesApplicationService : IApplicationService
     {
-        private static int _associates = 1;
-        private static int _contactConfigurations = 1;
         private static int _addresses = 1;
         private static int _agentRelationships = 1;
+        private static int _associates = 1;
+        private static int _contactConfigurations = 1;
+        private static int _customers = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
         
@@ -189,8 +190,10 @@ namespace EGMS.BusinessAssociates.Command
             if (_repository.AssociateExists(cmd.DUNSNumber))
                 throw new InvalidOperationException($"Associate with DUNSNumber {cmd.DUNSNumber} already exists");
 
-            Associate associate = Associate.Create(_associates++, cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsInternal, cmd.IsParent, cmd.IsDeactivating,
+            Associate associate = Associate.Create(_associates++, cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsInternal, 
+                cmd.IsParent, cmd.IsDeactivating,
                 AssociateTypeLookup.AssociateTypes[cmd.AssociateTypeId], StatusCodeLookup.StatusCodes[cmd.StatusCodeId]);
+
             _repository.AddAssociate(associate);
 
             return GetAssociateRM(associate);
@@ -198,7 +201,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private ContactConfigurationRM CreateContactConfigurationForContact(Commands.V1.Contact.ContactConfiguration.CreateForContact cmd)
         {
-            ContactConfiguration contactConfiguration = ContactConfiguration.Create(_contactConfigurations++, cmd.StartDate, cmd.StatusCodeId, cmd.EndDate, cmd.ContactId, cmd.FacilityId, cmd.ContactTypeId, cmd.Priority);
+            ContactConfiguration contactConfiguration = ContactConfiguration.Create(_contactConfigurations++, cmd.StartDate, 
+                cmd.StatusCodeId, cmd.EndDate, cmd.ContactId, cmd.FacilityId, cmd.ContactTypeId, cmd.Priority);
 
             if (_repository.ContactConfigurationExistsForContact(contactConfiguration, cmd.ContactId))
                 throw new InvalidOperationException($"ContactConfiguration with ContactId {cmd.ContactId} already exists");
@@ -242,7 +246,17 @@ namespace EGMS.BusinessAssociates.Command
 
         private CustomerRM CreateCustomerForOperatingContext(Commands.V1.OperatingContext.Customer.CreateForOperatingContext cmd)
         {
-            Customer customer = new Customer();
+            Customer customer = Customer.Create(_customers++, cmd.StartDate, cmd.EndDate, cmd.StatusCodeId, 
+                cmd.NominationLevelId, AccountNumber.Create(cmd.AccountNumber), cmd.CustomerTypeId, cmd.DeliveryTypeId, 
+                DUNSNumber.Create(cmd.DUNSNumber), LongName.Create(cmd.LongName), ShortName.Create(cmd.ShortName), 
+                cmd.LDCId, cmd.LossTierTypeId, cmd.DeliveryLocationId, cmd.ShipperId, cmd.DeliveryPressure, 
+                cmd.MDQ, cmd.MaxHourlyInterruptible, cmd.MaxDailyInterruptible, cmd.HourlyInterruptible, 
+                cmd.DailyInterruptible, cmd.TotalHourlySpecifiedFirm, cmd.TotalDailySpecifiedFirm,
+                cmd.InterstateSpecifiedFirm, cmd.IntrastateSpecifiedFirm, cmd.CurrentDemand, cmd.PreviousDemand,
+                cmd.GroupTypeId, cmd.BalancingLevelId, new NAICSCode(cmd.NAICSCode), SICCode.Create(cmd.SICCode), cmd.SICCodePercentage,
+                cmd.ShippersLetterFromDate, cmd.ShippersLetterToDate, cmd.SS1, cmd.IsFederal, cmd.TurnOffDate,
+                cmd.TurnOnDate);
+            
 
             if (_repository.CustomerExistsForOperatingContext(customer, cmd.OperatingContextId))
             {
@@ -426,7 +440,16 @@ namespace EGMS.BusinessAssociates.Command
 
         private CustomerRM CreateCustomerForAssociate(Commands.V1.Customer.CreateForAssociate cmd)
         {
-            Customer customer = new Customer();
+            Customer customer = Customer.Create(_customers++, cmd.StartDate, cmd.EndDate, cmd.StatusCodeId,
+                cmd.NominationLevelId, AccountNumber.Create(cmd.AccountNumber), cmd.CustomerTypeId, cmd.DeliveryTypeId,
+                DUNSNumber.Create(cmd.DUNSNumber), LongName.Create(cmd.LongName), ShortName.Create(cmd.ShortName),
+                cmd.LDCId, cmd.LossTierTypeId, cmd.DeliveryLocationId, cmd.ShipperId, cmd.DeliveryPressure,
+                cmd.MDQ, cmd.MaxHourlyInterruptible, cmd.MaxDailyInterruptible, cmd.HourlyInterruptible,
+                cmd.DailyInterruptible, cmd.TotalHourlySpecifiedFirm, cmd.TotalDailySpecifiedFirm,
+                cmd.InterstateSpecifiedFirm, cmd.IntrastateSpecifiedFirm, cmd.CurrentDemand, cmd.PreviousDemand,
+                cmd.GroupTypeId, cmd.BalancingLevelId, new NAICSCode(cmd.NAICSCode), SICCode.Create(cmd.SICCode), cmd.SICCodePercentage,
+                cmd.ShippersLetterFromDate, cmd.ShippersLetterToDate, cmd.SS1, cmd.IsFederal, cmd.TurnOffDate,
+                cmd.TurnOnDate);
 
             if (_repository.CustomerExistsForAssociate(customer, cmd.AssociateId))
             {

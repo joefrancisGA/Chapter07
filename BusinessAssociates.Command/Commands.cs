@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
 using Microsoft.Data.SqlClient;
 
 namespace EGMS.BusinessAssociates.Command
@@ -344,6 +345,7 @@ namespace EGMS.BusinessAssociates.Command
                     public int DeliveryTypeId { get; set; }
                     public int DUNSNumber { get; set; }
                     public string LongName { get; set; }
+                    public string ShortName { get; set; }
                     public int BasicPoolId { get; set; }
                     public int StatusCodeId { get; set; }
                     public int LDCId { get; set; }
@@ -368,8 +370,8 @@ namespace EGMS.BusinessAssociates.Command
                     public int NominationLevelId { get; set; }
                     public int GroupTypeId { get; set; }
                     public int BalancingLevelId { get; set; }
-                    public string NAICSCode { get; set; }
-                    public string SICCode { get; set; }
+                    public int NAICSCode { get; set; }
+                    public int SICCode { get; set; }
                     public int SICCodePercentage { get; set; }
                     public int AlternateCustomerId { get; set; }
                     public DateTime ShippersLetterFromDate { get; set; }
@@ -577,6 +579,7 @@ namespace EGMS.BusinessAssociates.Command
                             DeliveryTypeId = create.DeliveryTypeId;
                             DUNSNumber = create.DUNSNumber;
                             LongName = create.LongName;
+                            ShortName = create.ShortName;
                             BasicPoolId = create.BasicPoolId;
                             StatusCodeId = create.StatusCodeId;
                             LDCId = create.LDCId;
@@ -625,6 +628,7 @@ namespace EGMS.BusinessAssociates.Command
                         public int DeliveryTypeId { get; set; }
                         public int DUNSNumber { get; set; }
                         public string LongName { get; set; }
+                        public string ShortName { get; set; }
                         public int BasicPoolId { get; set; }
                         public int StatusCodeId { get; set; }
                         public int LDCId { get; set; }
@@ -649,8 +653,10 @@ namespace EGMS.BusinessAssociates.Command
                         public int NominationLevelId { get; set; }
                         public int GroupTypeId { get; set; }
                         public int BalancingLevelId { get; set; }
-                        public string NAICSCode { get; set; }
-                        public string SICCode { get; set; }
+
+                        // TO DO:  Are the following two values ints or strings?
+                        public int NAICSCode { get; set; }
+                        public int SICCode { get; set; }
                         public int SICCodePercentage { get; set; }
                         public int AlternateCustomerId { get; set; }
                         public DateTime ShippersLetterFromDate { get; set; }
