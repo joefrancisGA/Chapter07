@@ -70,9 +70,10 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public bool AlternateFuelExistsForCustomer(int alternateFuelId, int customerId)
+        public bool AlternateFuelExistsForCustomer(int alternateFuelTypeId, int customerId)
         {
-            throw new NotImplementedException();
+            return _context.CustomerAlternateFuels.Exists(caf =>
+                caf.CustomerId == customerId && caf.AlternateFuelTypeId == alternateFuelTypeId);
         }
 
         public void AddAlternateFuelForCustomer(int alternateFuelId, int customerId)
