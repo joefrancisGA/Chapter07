@@ -52,7 +52,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool PermissionExists(string permissionName)
         {
-            throw new NotImplementedException();
+            return _context.EGMSPermissions.Exists(p => p.PermissionName == permissionName);
         }
 
         public void AddPermission(EGMSPermission permission)
