@@ -152,7 +152,7 @@ namespace EGMS.BusinessAssociates.Command
                         {
                             ContactId = contactId;
                             UserId = create.UserId;
-                            EMailAddressId = create.EMailAddressId;
+                            EMailAddress = create.EMailAddress;
                             IsPrimary = create.IsPrimary;
                         }
                         
@@ -162,7 +162,7 @@ namespace EGMS.BusinessAssociates.Command
                     public class Create
                     {
                         public int UserId { get; set; }
-                        public int EMailAddressId { get; set; }
+                        public string EMailAddress { get; set; }
                         public bool IsPrimary { get; set; }
                     }
                 }

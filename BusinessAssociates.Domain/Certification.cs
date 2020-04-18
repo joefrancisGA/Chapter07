@@ -7,7 +7,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Certification : Entity<int>
     {
-        public Certification()
+        private Certification()
         {
             OperatingContexts = new HashSet<OperatingContext>();
         }
@@ -27,6 +27,19 @@ namespace EGMS.BusinessAssociates.Domain
         
 
         public HashSet<OperatingContext> OperatingContexts;
+
+        public static Certification Create(int certificationId, int certificationStatusId, DateTime certificationDateTime,
+            DateTime decertificationDateTime, bool isInherited, int operatingContextId)
+        {
+            return new Certification
+            {
+                Id = certificationId,
+                CertificationStatusId = certificationStatusId,
+                CertificationDateTime = certificationDateTime,
+                DecertificationDateTime = decertificationDateTime,
+                IsInherited = isInherited
+            };
+        }
 
         protected override void When(object @event)
         {

@@ -16,8 +16,10 @@ namespace EGMS.BusinessAssociates.Command
         private static int _addresses = 1;
         private static int _agentRelationships = 1;
         private static int _associates = 1;
+        private static int _certifications = 1;
         private static int _contactConfigurations = 1;
         private static int _customers = 1;
+        private static int _emails = 1;
         private static int _operatingContexts = 1;
         private static int _permissions = 1;
         private static int _roleEGMSPermissions = 1;
@@ -363,7 +365,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private RoleEGMSPermissionRM CreateRoleEGMSPermission(Commands.V1.RoleEGMSPermission.Create cmd)
         {
-            RoleEGMSPermission roleEGMSPermission = RoleEGMSPermission.Create(_roleEGMSPermissions++, cmd.RoleId, cmd.EGMSPermissionId);
+            RoleEGMSPermission roleEGMSPermission = RoleEGMSPermission.Create(_roleEGMSPermissions++, cmd.RoleId, 
+                cmd.EGMSPermissionId);
 
             if (_repository.RoleEGMSPermissionExists(cmd.RoleId, cmd.EGMSPermissionId))
             {
@@ -392,7 +395,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private EMailRM CreateEMailForContact(Commands.V1.Contact.EMail.CreateForContact cmd)
         {
-            EMail eMail = new EMail();
+            EMail eMail = EMail.Create(_emails++, cmd.UserId, EMailAddress.Create(cmd.EMailAddress), cmd.IsPrimary,
+                cmd.ContactId);
 
             if (_repository.EMailExistsForContact(eMail, cmd.ContactId))
             {
@@ -406,7 +410,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private CertificationRM CreateCertificationForOperatingContext(Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd)
         {
-            Certification certification = new Certification();
+            Certification certification = Certification.Create(_certifications++, cmd.CertificationStatusId, cmd.CertificationDateTime,
+                cmd.DecertificationDateTime, cmd.IsInherited, cmd.OperatingContextId);
 
             if (_repository.CertificationExistsForOperatingContext(certification, cmd.OperatingContextId))
             {
