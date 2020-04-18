@@ -32,6 +32,48 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsActive { get; set; }
 
 
+
+        public static bool operator == (Address address1, Address address2)
+        {
+            if ((address1 == null) && (address2 == null))
+                return true;
+
+            if ((address1 == null) || (address2 == null))
+                return false;
+
+            if (address1.AddressType != address2.AddressType)
+                return false;
+
+            if (address1.Address1 != address2.Address1)
+                return false;
+
+            if (address1.Address2 != address2.Address2)
+                return false;
+            
+            if (address1.Address3 != address2.Address3)
+                return false;
+            
+            if (address1.Address4 != address2.Address4)
+                return false;
+            
+            if (address1.City != address2.City)
+                return false;
+            
+            if (address1.PostalCode != address2.PostalCode)
+                return false;
+            
+            if (address1.StateCodeId != address2.StateCodeId)
+                return false;
+
+            return true;
+        }
+
+
+        public static bool operator !=(Address address1, Address address2)
+        {
+            return !(address1 == address2);
+        }
+
         public List<OperatingContext> OperatingContexts { get; set; }
 
         public static Address Create(int addressId, bool isActive, DateTime endDate, AddressLine address1,

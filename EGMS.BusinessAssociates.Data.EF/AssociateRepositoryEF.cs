@@ -62,7 +62,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool AddressExistsForOperatingContext(Address address, int operatingContextId)
         {
-            throw new NotImplementedException();
+            return _context.OperatingContexts[operatingContextId].Addresses.FirstOrDefault(a => a == address) != null;
         }
 
         public Address AddAddressForOperatingContext(Address address, int operatingContextId)
@@ -98,7 +98,8 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId)
         {
-            throw new NotImplementedException();
+            return _context.OperatingContextCustomers.Exists(occ =>
+                occ.CustomerId == customer.Id && occ.OperatingContextId == operatingContextId);
         }
 
         public void AddAssociate(Associate associate)
