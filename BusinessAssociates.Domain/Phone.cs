@@ -8,7 +8,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Phone : Entity<int>
     {
-        public Phone()
+        private Phone()
         {
             OperatingContexts = new HashSet<OperatingContext>();
         }
@@ -32,6 +32,20 @@ namespace EGMS.BusinessAssociates.Domain
 
         public HashSet<OperatingContext> OperatingContexts { get; set; }
 
+
+        public static Phone Create(int phoneId, bool isPrimary, int contactId, int userId, Extension extension,
+            PhoneTypeLookup phoneType)
+        {
+            return new Phone
+            {
+                Id = phoneId,
+                IsPrimary = isPrimary,
+                ContactId = contactId,
+                UserId = userId,
+                Extension = extension,
+                PhoneType = phoneType
+            };
+        }
 
         protected override void When(object @event)
         {

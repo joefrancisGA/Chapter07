@@ -22,6 +22,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _emails = 1;
         private static int _operatingContexts = 1;
         private static int _permissions = 1;
+        private static int _phones = 1;
         private static int _roleEGMSPermissions = 1;
         private static int _roles = 1;
         private static int _users = 1;
@@ -425,7 +426,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private PhoneRM CreatePhoneForContact(Commands.V1.Contact.Phone.CreateForContact cmd)
         {
-            Phone phone = new Phone();
+            Phone phone = Phone.Create(_phones++, cmd.IsPrimary, cmd.ContactId, cmd.UserId, 
+                Extension.Create(cmd.Extension), PhoneTypeLookup.PhoneTypes[cmd.PhoneTypeId]);
 
             if (_repository.PhoneExistsForContact(phone, cmd.ContactId))
             {
