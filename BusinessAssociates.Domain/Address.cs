@@ -8,7 +8,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Address : Entity<int>
     {
-        public Address() { }
+        private Address() { }
         public Address(Action<object> applier) : base(applier) { }
 
         public AddressTypeLookup AddressType { get; set; }

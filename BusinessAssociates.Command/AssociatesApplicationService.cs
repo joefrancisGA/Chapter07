@@ -192,8 +192,8 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Associate with DUNSNumber {cmd.DUNSNumber} already exists");
 
             Associate associate = Associate.Create(_associates++, cmd.DUNSNumber, cmd.LongName, cmd.ShortName, cmd.IsInternal, 
-                cmd.IsParent, cmd.IsDeactivating,
-                AssociateTypeLookup.AssociateTypes[cmd.AssociateTypeId], StatusCodeLookup.StatusCodes[cmd.StatusCodeId]);
+                cmd.IsParent, cmd.IsDeactivating, AssociateTypeLookup.AssociateTypes[cmd.AssociateTypeId], 
+                StatusCodeLookup.StatusCodes[cmd.StatusCodeId]);
 
             _repository.AddAssociate(associate);
 
@@ -233,7 +233,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private AgentRelationshipRM CreateAgentRelationshipForPrincipal(Commands.V1.AgentRelationship.CreateForPrincipal cmd)
         {
-            AgentRelationship agentRelationship = AgentRelationship.Create(_agentRelationships++, cmd.IsActive, cmd.EndDate, cmd.AgentId, cmd.PrincipalId, cmd.StartDate );
+            AgentRelationship agentRelationship = AgentRelationship.Create(_agentRelationships++, cmd.IsActive, cmd.EndDate, 
+                cmd.AgentId, cmd.PrincipalId, cmd.StartDate );
 
             if (_repository.AgentRelationshipExistsForPrincipal(agentRelationship, cmd.PrincipalId))
             {
@@ -271,12 +272,6 @@ namespace EGMS.BusinessAssociates.Command
 
         private OperatingContextRM CreateOperatingContextForCustomer(Commands.V1.Customer.OperatingContext.CreateForCustomer cmd)
         {
-            //public OperatingContext(int operatingContextId, OperatingContextTypeLookup operatingContextType,
-            //    DatabaseId facilityId, DatabaseId thirdPartySupplierId, ActingAssociateTypeLookup actingBATypeId,
-            //    NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId,
-            //    DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
-            //    DateTime startDate, StatusCodeLookup status)
-
             OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextTypeId], 
                 cmd.FacilityId, cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeId], 
                 cmd.CertificationId, cmd.IsDeactivating, cmd.LegacyId, cmd.PrimaryAddressId,
@@ -332,7 +327,11 @@ namespace EGMS.BusinessAssociates.Command
 
         private AddressRM CreateAddressForOperatingContext(Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd)
         {
-            Address address = new Address();
+            Address address = Address.Create(_addresses++, cmd.IsActive, cmd.EndDate, AddressLine.Create(cmd.Address1),
+                AddressLine.Create(cmd.Address2), AddressLine.Create(cmd.Address3), AddressLine.Create(cmd.Address4),
+                cmd.IsPrimary, AddressTypeLookup.AddressTypes[cmd.AddressType], Attention.Create(cmd.Attention),
+                City.Create(cmd.City), Comments.Create(cmd.Comments), PostalCode.Create(cmd.PostalCode),
+                StateCodeLookup.StateCodes[cmd.GeographicState]);
 
             if (_repository.AddressExistsForOperatingContext(address, cmd.OperatingContextId))
             {
