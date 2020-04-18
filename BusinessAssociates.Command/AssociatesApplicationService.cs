@@ -20,6 +20,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _customers = 1;
         private static int _operatingContexts = 1;
         private static int _permissions = 1;
+        private static int _roles = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
         
@@ -350,7 +351,8 @@ namespace EGMS.BusinessAssociates.Command
             if (_repository.RoleExists(cmd.RoleName))
                 throw new InvalidOperationException($"Role with name {cmd.RoleName} already exists");
 
-            Role role = new Role();
+            Role role = Role.Create(_roles++, RoleName.Create(cmd.RoleName), RoleDescription.Create(cmd.RoleDescription),
+                cmd.IsActive);
 
             _repository.AddRole(role);
 

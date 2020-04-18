@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
@@ -7,7 +8,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Role : Entity<int>
     {
-        public Role()
+        private Role()
         {
             Initialize();
         }
@@ -28,6 +29,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public RoleName RoleName { get; set; }
         public RoleDescription RoleDescription { get; set; }
+        public bool IsActive { get; set; }
 
 
         // Collections
@@ -36,6 +38,11 @@ namespace EGMS.BusinessAssociates.Domain
         public HashSet<RoleEGMSPermission> RoleEGMSPermissions { get; set; }
         public HashSet<UserOperatingContext> UserOperatingContexts { get; set; }
 
+
+        public static Role Create(int roleId, RoleName roleName, RoleDescription roleDescription, bool isActive)
+        {
+            return new Role {RoleName = roleName, RoleDescription = roleDescription, IsActive = isActive};
+        }
 
         protected override void When(object @event)
         {
