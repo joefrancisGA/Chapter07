@@ -8,7 +8,7 @@ namespace EGMS.BusinessAssociates.Query.ReadModels
 
         public int ContactId { get; set; }
         public string IDMSSID { get; set; }
-        public string DepartmentCode { get; set; }
+        public int DepartmentCodeId { get; set; }
         public bool IsInternal { get; set; }
         public bool IsActive { get; set; }
         public bool HasEGMSAccess { get; set; }

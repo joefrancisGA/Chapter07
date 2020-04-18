@@ -573,7 +573,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                 entity.Property(e => e.Id).HasColumnName("ID");
                 entity.Property(e => e.ContactId).HasColumnName("ContactID");
                 entity.Property(e => e.DeactivationDate).HasColumnType("datetime");
-                entity.OwnsOne(x => x.DepartmentCode, cb => { cb.Property(e => e.Value).HasColumnName("DepartmentCode"); });
+                entity.Property(e => e.DepartmentCodeId).HasColumnName("DepartmentCodeID");
                 entity.Property(e => e.HasEGMSAccess).HasColumnName("HasEGMSAccess");
                 entity.OwnsOne(x => x.IDMSSID, cb => { cb.Property(e => e.Value).HasColumnName("IDMSSID"); });
                 entity.HasOne(d => d.Contact).WithMany(p => p.Users).HasForeignKey(d => d.ContactId)

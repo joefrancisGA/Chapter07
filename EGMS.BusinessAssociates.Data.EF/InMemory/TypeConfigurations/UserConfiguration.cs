@@ -14,8 +14,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory.TypeConfigurations
 
             builder.HasKey(user => user.Id);
 
-            builder.OwnsOne(user => user.DepartmentCode,
-                cb => { cb.Property(e => e.Value).HasColumnName("DepartmentCode"); });
+            builder.Property(e => e.DepartmentCodeId).HasColumnName("DepartmentCodeID");
         }
     }
 }

@@ -101,6 +101,13 @@ namespace EGMS.BusinessAssociates.Command
                     public class Create
                     { 
                         public int UserId { get; set; }
+                        public int ContactId { get; set; }
+                        public string IDMSSID { get; set; }
+                        public int DepartmentCodeId { get; set; }
+                        public bool IsInternal { get; set; }
+                        public bool IsActive { get; set; }
+                        public bool HasEGMSAccess { get; set; }
+                        public DateTime DeactivationDate { get; set; }
                     }
                 }
             }
@@ -478,7 +485,7 @@ namespace EGMS.BusinessAssociates.Command
                         AssociateId = associateId;
                         ContactId = create.ContactId;
                         IDMSSID = create.IDMSSID;
-                        DepartmentCode = create.DepartmentCode;
+                        DepartmentCodeId = create.DepartmentCodeId;
                         IsInternal = create.IsInternal;
                         IsActive = create.IsActive;
                         HasEGMSAccess = create.HasEGMSAccess;
@@ -491,8 +498,8 @@ namespace EGMS.BusinessAssociates.Command
                 public class Create
                 {
                     public int ContactId { get; set; }
-                    public int IDMSSID { get; set; }
-                    public int DepartmentCode { get; set; }
+                    public string IDMSSID { get; set; }
+                    public int DepartmentCodeId { get; set; }
                     public bool IsInternal { get; set; }
                     public bool IsActive { get; set; }
                     public bool HasEGMSAccess { get; set; }

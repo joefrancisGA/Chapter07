@@ -22,6 +22,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _permissions = 1;
         private static int _roleEGMSPermissions = 1;
         private static int _roles = 1;
+        private static int _users = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
         
@@ -376,7 +377,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private UserRM CreateUserForAssociate(Commands.V1.User.CreateForAssociate cmd)
         {
-            User user = new User();
+            User user = User.Create(_users++, cmd.ContactId, IDMSSID.Create(cmd.IDMSSID), cmd.DepartmentCodeId, 
+                cmd.IsInternal, cmd.IsActive, cmd.HasEGMSAccess, cmd.DeactivationDate);
 
             if (_repository.UserExistsForAssociate(user, cmd.AssociateId))
             {
@@ -478,7 +480,8 @@ namespace EGMS.BusinessAssociates.Command
         // TO DO:  Combine with CreateUserForAssociate
         private UserRM CreateUserForAgent(Commands.V1.AgentRelationship.User.CreateForAgent cmd)
         {
-            User user = new User();
+            User user = User.Create(_users++, cmd.ContactId, IDMSSID.Create(cmd.IDMSSID), cmd.DepartmentCodeId,
+                cmd.IsInternal, cmd.IsActive, cmd.HasEGMSAccess, cmd.DeactivationDate);
 
             if (_repository.UserExistsForAssociate(user, cmd.AgentId))
             {
@@ -553,7 +556,7 @@ namespace EGMS.BusinessAssociates.Command
                 Id = user.Id,
                 ContactId = user.ContactId,
                 DeactivationDate = user.DeactivationDate,
-                DepartmentCode = user.DepartmentCode,
+                DepartmentCodeId = user.DepartmentCodeId,
                 HasEGMSAccess = user.HasEGMSAccess,
                 IDMSSID = user.IDMSSID.Value,
                 IsActive = user.IsActive,

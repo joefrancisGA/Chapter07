@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
+
 namespace EGMS.BusinessAssociates.Domain
 {
     public class User : Entity<int>
     {
-        public User()
+        private User()
         {
             Initialize();
         }
@@ -26,11 +27,27 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
 
+        public static User Create(int userId, int contactId, IDMSSID idmssid, int departmentCodeId, bool isInternal,
+            bool isActive, bool hasEGMSAccess, DateTime deactivationDate)
+        {
+            return new User
+            {
+                Id = userId,
+                ContactId = contactId,
+                IDMSSID = idmssid,
+                DepartmentCodeId = departmentCodeId,
+                IsInternal = isInternal,
+                IsActive = isActive,
+                HasEGMSAccess = hasEGMSAccess,
+                DeactivationDate = deactivationDate
+            };
+        }
+
         public Contact Contact { get; set; }
         public int ContactId { get; set; }
 
         public IDMSSID IDMSSID { get; set; }
-        public DepartmentCode DepartmentCode { get; set; }
+        public int DepartmentCodeId { get; set; }
 
         public bool IsInternal { get; set; }
         public bool IsActive { get; set; }
