@@ -9,7 +9,7 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class OperatingContext : Entity<int>
     {
-        public OperatingContext()
+        private OperatingContext()
         {
             Initialize();
         }
@@ -30,7 +30,7 @@ namespace EGMS.BusinessAssociates.Domain
             OperatingContexts = new HashSet<OperatingContext>();
         }
 
-        public OperatingContext(OperatingContextTypeLookup operatingContextType,
+        public OperatingContext(int operatingContextId, OperatingContextTypeLookup operatingContextType,
             DatabaseId facilityId, DatabaseId thirdPartySupplierId, ActingAssociateTypeLookup actingBATypeId, 
             NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId, 
             DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,

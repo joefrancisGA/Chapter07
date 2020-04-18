@@ -419,7 +419,20 @@ namespace EGMS.BusinessAssociates.Command
 
                     public class Create
                     { 
+                        public int ActingBATypeId { get; set; }
                         public int AlternateFuelId { get; set; }
+                        public int FacilityId { get; set; }
+                        public int ThirdPartySupplierId { get; set; }
+                        public int CertificationId { get; set; }
+                        public bool IsDeactivating { get; set; }
+                        public int LegacyId { get; set; }
+                        public int PrimaryAddressId { get; set; }
+                        public int PrimaryPhoneId { get; set; }
+                        public int PrimaryEMailId { get; set; }
+                        public int ProviderTypeId { get; set; }
+                        public DateTime StartDate { get; set; }
+                        public int StatusCodeId { get; set; }
+                        public int OperatingContextTypeId { get; set; }
                     }
                 }
             }

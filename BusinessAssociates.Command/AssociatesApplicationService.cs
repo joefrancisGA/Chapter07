@@ -18,6 +18,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _associates = 1;
         private static int _contactConfigurations = 1;
         private static int _customers = 1;
+        private static int _operatingContexts = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
         
@@ -172,7 +173,7 @@ namespace EGMS.BusinessAssociates.Command
             if (associate == null)
                 throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");
 
-            OperatingContext operatingContext = new OperatingContext(OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
+            OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
                 cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
                 cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
@@ -270,7 +271,16 @@ namespace EGMS.BusinessAssociates.Command
 
         private OperatingContextRM CreateOperatingContextForCustomer(Commands.V1.Customer.OperatingContext.CreateForCustomer cmd)
         {
-            OperatingContext operatingContext = new OperatingContext();
+            //public OperatingContext(int operatingContextId, OperatingContextTypeLookup operatingContextType,
+            //    DatabaseId facilityId, DatabaseId thirdPartySupplierId, ActingAssociateTypeLookup actingBATypeId,
+            //    NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId,
+            //    DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
+            //    DateTime startDate, StatusCodeLookup status)
+
+            OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextTypeId], 
+                cmd.FacilityId, cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeId], 
+                cmd.CertificationId, cmd.IsDeactivating, cmd.LegacyId, cmd.PrimaryAddressId,
+                cmd.PrimaryEMailId, cmd.PrimaryPhoneId, cmd.ProviderTypeId, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.StatusCodeId]);
 
             if (_repository.OperatingContextExistsForCustomer(operatingContext, cmd.CustomerId))
             {
