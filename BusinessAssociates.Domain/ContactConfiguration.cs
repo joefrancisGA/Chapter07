@@ -29,21 +29,19 @@ namespace EGMS.BusinessAssociates.Domain
 
 
         public static ContactConfiguration Create(int contactConfigurationId, DateTime startDate, int statusCodeId, 
-            DateTime endDate, int contactId, int facilityId,
-            int contactTypeId, int priority)
-        { 
-            ContactConfiguration contactConfiguration = new ContactConfiguration();
-
-            contactConfiguration.Id = contactConfigurationId;
-            contactConfiguration.StartDate = startDate;
-            contactConfiguration.StatusCodeId = statusCodeId;
-            contactConfiguration.EndDate = endDate;
-            contactConfiguration.ContactId = contactId;
-            contactConfiguration.FacilityId = facilityId;
-            contactConfiguration.ContactTypeId = contactTypeId;
-            contactConfiguration.Priority = priority;
-
-            return contactConfiguration;
+            DateTime endDate, int contactId, int facilityId, int contactTypeId, int priority)
+        {
+            return new ContactConfiguration
+            {
+                Id = contactConfigurationId,
+                StartDate = startDate,
+                StatusCodeId = statusCodeId,
+                EndDate = endDate,
+                ContactId = contactId,
+                FacilityId = facilityId,
+                ContactTypeId = contactTypeId,
+                Priority = priority
+            };
         }
 
         protected override void When(object @event)

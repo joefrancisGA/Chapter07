@@ -110,14 +110,14 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool AssociateExists(int id)
         {
-                //Associate associate = _context.Associates[id]; 
-
-            return (_context.Associates.Find(a => a.DUNSNumber == id) != null);
+            return _context.Associates.Find(a => a.DUNSNumber == id) != null;
         }
 
         public bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId)
         {
-            throw new NotImplementedException();
+            return _context.Contacts[contactId].ContactConfigurations.FirstOrDefault(cc =>
+                cc.FacilityId == contactConfiguration.FacilityId &&
+                cc.ContactTypeId == contactConfiguration.ContactTypeId) != null;
         }
 
         public void AddOperatingContext(OperatingContext operatingContext)
