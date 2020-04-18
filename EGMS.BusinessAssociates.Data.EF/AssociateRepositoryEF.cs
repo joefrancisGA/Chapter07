@@ -142,9 +142,29 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public bool AddAddressForContact(Address address, int contactId)
+        public Address AddAddressForContact(Address address, int contactId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Addresses.Add(address);
+
+                _context.ContactAddresses.Add(new ContactAddress
+                {
+                    ContactId = contactId,
+                    AddressId = address.Id
+                });
+
+                return address;
+            }
+            catch
+            {
+                Address toRemove = _context.Addresses.SingleOrDefault(a => a.Id == address.Id);
+
+                if (toRemove != null)
+                    _context.Addresses.Remove(toRemove);
+
+                throw;
+            }
         }
 
         public void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration)

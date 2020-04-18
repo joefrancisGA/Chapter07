@@ -35,6 +35,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public List<Certification> Certifications { get; set; } = new List<Certification>();
         public List<ContactConfiguration> ContactConfigurations { get; set; } = new List<ContactConfiguration>();
         public List<ContactTypeLookup> ContactTypes { get; set; } = new List<ContactTypeLookup>();
+        public List<ContactAddress> ContactAddresses { get; set; } = new List<ContactAddress>();
         public List<Contact> Contacts { get; set; } = new List<Contact>();
         public List<CountryCodeLookup> CountryCodes { get; set; } = new List<CountryCodeLookup>();
         public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; } = new List<CustomerAlternateFuel>();

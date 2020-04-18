@@ -57,7 +57,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         bool AddressExistsForContact(Address address, int contactId);
 
-        bool AddAddressForContact(Address address, int contactId);
+        Address AddAddressForContact(Address address, int contactId);
 
         void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration);
     }
