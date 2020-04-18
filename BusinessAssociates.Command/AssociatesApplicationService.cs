@@ -20,6 +20,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _customers = 1;
         private static int _operatingContexts = 1;
         private static int _permissions = 1;
+        private static int _roleEGMSPermissions = 1;
         private static int _roles = 1;
         private readonly IAssociateRepository _repository;
         private readonly IMapper _mapper;
@@ -361,7 +362,7 @@ namespace EGMS.BusinessAssociates.Command
 
         private RoleEGMSPermissionRM CreateRoleEGMSPermission(Commands.V1.RoleEGMSPermission.Create cmd)
         {
-            RoleEGMSPermission roleEGMSPermission = new RoleEGMSPermission();
+            RoleEGMSPermission roleEGMSPermission = RoleEGMSPermission.Create(_roleEGMSPermissions++, cmd.RoleId, cmd.EGMSPermissionId);
 
             if (_repository.RoleEGMSPermissionExists(cmd.RoleId, cmd.EGMSPermissionId))
             {

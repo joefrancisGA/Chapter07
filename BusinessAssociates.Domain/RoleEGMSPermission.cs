@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
 
@@ -7,22 +9,27 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class RoleEGMSPermission : Entity<int>
     {
-        public RoleEGMSPermission()
-        {
-            EGMSPermissions = new HashSet<EGMSPermission>();
-        }
+        private RoleEGMSPermission() { }
 
         public RoleEGMSPermission(Action<object> applier) : base(applier)
         {
-            EGMSPermissions = new HashSet<EGMSPermission>();
         }
 
         public Role Role { get; set; }
         public int RoleId { get; set; }
 
-        public HashSet<EGMSPermission> EGMSPermissions { get; set; }
+        public EGMSPermission EGMSPermission { get; set; }
+        public int EGMSPermissionId { get; set; }
 
-        
+
+        public static RoleEGMSPermission Create(int roleEGMSPermissionId, int roleId, int egmsPermissionId)
+        {
+            return new RoleEGMSPermission
+            {
+                Id = roleEGMSPermissionId, RoleId = roleId, EGMSPermissionId = egmsPermissionId
+            };
+        }
+
         protected override void When(object @event)
         {
             throw new NotImplementedException();
