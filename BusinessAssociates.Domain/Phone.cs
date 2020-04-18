@@ -18,8 +18,6 @@ namespace EGMS.BusinessAssociates.Domain
             OperatingContexts = new HashSet<OperatingContext>();
         }
 
-        public User User { get; set; }
-        public int UserId { get; set; }
 
         public PhoneTypeLookup PhoneType { get; set; }
         public int PhoneTypeId { get; set; }
@@ -33,7 +31,7 @@ namespace EGMS.BusinessAssociates.Domain
         public HashSet<OperatingContext> OperatingContexts { get; set; }
 
 
-        public static Phone Create(int phoneId, bool isPrimary, int contactId, int userId, Extension extension,
+        public static Phone Create(int phoneId, bool isPrimary, int contactId, Extension extension,
             PhoneTypeLookup phoneType)
         {
             return new Phone
@@ -41,7 +39,6 @@ namespace EGMS.BusinessAssociates.Domain
                 Id = phoneId,
                 IsPrimary = isPrimary,
                 ContactId = contactId,
-                UserId = userId,
                 Extension = extension,
                 PhoneType = phoneType
             };

@@ -426,8 +426,8 @@ namespace EGMS.BusinessAssociates.Command
 
         private PhoneRM CreatePhoneForContact(Commands.V1.Contact.Phone.CreateForContact cmd)
         {
-            Phone phone = Phone.Create(_phones++, cmd.IsPrimary, cmd.ContactId, cmd.UserId, 
-                Extension.Create(cmd.Extension), PhoneTypeLookup.PhoneTypes[cmd.PhoneTypeId]);
+            Phone phone = Phone.Create(_phones++, cmd.IsPrimary, cmd.ContactId, Extension.Create(cmd.Extension), 
+                PhoneTypeLookup.PhoneTypes[cmd.PhoneTypeId]);
 
             if (_repository.PhoneExistsForContact(phone, cmd.ContactId))
             {

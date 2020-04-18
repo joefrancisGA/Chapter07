@@ -174,7 +174,6 @@ namespace EGMS.BusinessAssociates.Command
                         public CreateForContact(int contactId, Create create)
                         {
                             ContactId = contactId;
-                            UserId = create.UserId;
                             PhoneTypeId = create.PhoneTypeId;
                             Extension = create.Extension;
                             IsPrimary = create.IsPrimary;
@@ -185,7 +184,6 @@ namespace EGMS.BusinessAssociates.Command
 
                     public class Create
                     {
-                        public int UserId { get; set; }
                         public int PhoneTypeId { get; set; }
                         public string Extension { get; set; }
                         public bool IsPrimary { get; set; }
