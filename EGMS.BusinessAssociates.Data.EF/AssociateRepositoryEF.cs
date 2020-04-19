@@ -207,7 +207,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void UpdateOperatingContext(OperatingContext operatingContext)
         {
-            throw new NotImplementedException();
+            _context.OperatingContexts[operatingContext.Id] = operatingContext;
         }
 
         public OperatingContext LoadOperatingContext(int operatingContextId)
