@@ -212,7 +212,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public OperatingContext LoadOperatingContext(int operatingContextId)
         {
-            throw new NotImplementedException();
+            return _context.OperatingContexts[operatingContextId];
         }
 
         public Phone AddPhoneForContact(Phone phone, int contactId)
