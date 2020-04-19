@@ -202,7 +202,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Address LoadAddress(int addressId)
         {
-            throw new NotImplementedException();
+            return _context.Addresses[addressId];
         }
 
         public void UpdateOperatingContext(OperatingContext operatingContext)
