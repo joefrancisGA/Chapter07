@@ -276,7 +276,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool RoleExists(string roleName)
         {
-            throw new NotImplementedException();
+            return _context.Roles.Exists(r => r.RoleName == roleName);
         }
 
         public bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId)
