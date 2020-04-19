@@ -172,13 +172,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration)
         {
-            throw new NotImplementedException();
+            _context.Contacts[contactId].ContactConfigurations.Add(contactConfiguration);
         }
 
-        public void AddContactConfigurationForContact(Contact contact, ContactConfiguration contactConfiguration)
-        {
-            throw new NotImplementedException();
-        }
 
 #pragma warning disable 1998
         public Customer AddCustomerForAssociate(Customer customer, int associateId)
