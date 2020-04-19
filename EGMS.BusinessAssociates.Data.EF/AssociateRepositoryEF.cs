@@ -141,7 +141,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool AddressExistsForContact(Address address, int contactId)
         {
-            throw new NotImplementedException();
+            return _context.Contacts[contactId].Addresses.FirstOrDefault(a => a == address) != null;
         }
 
         public Address AddAddressForContact(Address address, int contactId)
