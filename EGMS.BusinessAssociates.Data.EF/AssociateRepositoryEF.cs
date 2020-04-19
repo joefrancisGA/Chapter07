@@ -135,9 +135,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.AssociateOperatingContexts.Add(association);
         }
 
-        public void AddContactForAssociate(Associate associate, Contact contact)
+        public void AddContact(Contact contact)
         {
-            throw new NotImplementedException();
+            _context.Contacts.Add(contact);
         }
 
         public bool AddressExistsForContact(Address address, int contactId)

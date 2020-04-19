@@ -92,6 +92,7 @@ namespace EGMS.BusinessAssociates.Domain
         public HashSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
         public HashSet<AssociateUser> AssociateUsers { get; set; }
         public HashSet<Customer> Customers { get; set; }
+        public HashSet<Contact> Contacts { get; set; }
 
         // TO DO:  This is for third-party suppliers only.  We may need to consolidate this into 
         //   AssociateOperatingContexts
