@@ -281,7 +281,8 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId)
         {
-            throw new NotImplementedException();
+            return _context.AgentRelationships.Exists(ar =>
+                ar.PrincipalId == principalId && ar.AgentId == agentRelationship.AgentId);
         }
 
 #pragma warning disable 1998
