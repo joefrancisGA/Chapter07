@@ -165,7 +165,7 @@ namespace EGMS.BusinessAssociates.Command
         private async void UpdateAssociate(int associateId, Action<Associate> operation)
 #pragma warning restore 1998
         {
-            Associate associate = _repository.LoadAssociate(associateId).Result;
+            Associate associate = _repository.LoadAssociate(associateId);
 
             if (associate == null)
                 throw new InvalidOperationException($"Associate with id {associateId} cannot be found");
@@ -173,9 +173,9 @@ namespace EGMS.BusinessAssociates.Command
             operation(associate);
         }
 
-        private async Task<OperatingContextRM> AddOperatingContextForAssociate(Commands.V1.OperatingContext.CreateForAssociate cmd)
+        private OperatingContextRM AddOperatingContextForAssociate(Commands.V1.OperatingContext.CreateForAssociate cmd)
         {
-            Associate associate = await _repository.LoadAssociate(AssociateId.FromInt(cmd.AssociateId));
+            Associate associate = _repository.LoadAssociate(AssociateId.FromInt(cmd.AssociateId));
 
             if (associate == null)
                 throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");

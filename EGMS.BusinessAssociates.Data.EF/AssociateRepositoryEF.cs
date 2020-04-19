@@ -25,6 +25,25 @@ namespace EGMS.BusinessAssociates.Data.EF
             _mapper = mapper;
         }
 
+        #region Adds
+        
+        public Role AddRole(Role role)
+        {
+            _context.Roles.Add(role);
+
+            return role;
+        }
+
+        public void AddAddressForOperatingContext(Address address, int operatingContextId)
+        {
+            _context.OperatingContexts[operatingContextId].Addresses.Add(address);
+        }
+
+        public void AddAgentRelationship(AgentRelationship agentRelationship)
+        {
+            _context.AgentRelationships.Add(agentRelationship);
+        }
+        
         public Customer AddCustomerForOperatingContext(Customer customer, int operatingContextId)
         {
             try
@@ -50,30 +69,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
         }
 
-        public bool PermissionExists(string permissionName)
-        {
-            return _context.EGMSPermissions.Exists(p => p.PermissionName == permissionName);
-        }
-
         public void AddPermission(EGMSPermission permission)
         {
             _context.EGMSPermissions.Add(permission);
-        }
-
-        public bool AddressExistsForOperatingContext(Address address, int operatingContextId)
-        {
-            return _context.OperatingContexts[operatingContextId].Addresses.FirstOrDefault(a => a == address) != null;
-        }
-
-        public void AddAddressForOperatingContext(Address address, int operatingContextId)
-        {
-            _context.OperatingContexts[operatingContextId].Addresses.Add(address);
-        }
-
-        public bool AlternateFuelExistsForCustomer(int alternateFuelTypeId, int customerId)
-        {
-            return _context.CustomerAlternateFuels.Exists(caf =>
-                caf.CustomerId == customerId && caf.AlternateFuelTypeId == alternateFuelTypeId);
         }
 
         public void AddAlternateFuelForCustomer(int alternateFuelTypeId, int customerId)
@@ -86,39 +84,35 @@ namespace EGMS.BusinessAssociates.Data.EF
         {
             _context.OperatingContextCustomers.Add(new OperatingContextCustomer(customerId, operatingContext.Id));
         }
-
-        public bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId)
-        {
-            return _context.OperatingContextCustomers.Exists(occ => occ.OperatingContextId == operatingContext.Id && occ.CustomerId == customerId);
-        }
-
-        public void AddAgentRelationship(AgentRelationship agentRelationship)
-        {
-            _context.AgentRelationships.Add(agentRelationship); 
-        }
-
-        public bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId)
-        {
-            return _context.OperatingContextCustomers.Exists(occ =>
-                occ.CustomerId == customer.Id && occ.OperatingContextId == operatingContextId);
-        }
-
+        
         public void AddAssociate(Associate associate)
         {
             _context.Associates.Add(associate);
         }
-
-
-        public bool AssociateExists(int id)
+        
+        public EMail AddEMailForContact(EMail eMail, int contactId)
         {
-            return _context.Associates.Find(a => a.DUNSNumber == id) != null;
-        }
+            try
+            {
+                _context.EMails.Add(eMail);
 
-        public bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId)
-        {
-            return _context.Contacts[contactId].ContactConfigurations.FirstOrDefault(cc =>
-                cc.FacilityId == contactConfiguration.FacilityId &&
-                cc.ContactTypeId == contactConfiguration.ContactTypeId) != null;
+                _context.ContactEMails.Add(new ContactEMail
+                {
+                    ContactId = contactId,
+                    EMailId = eMail.Id
+                });
+
+                return eMail;
+            }
+            catch
+            {
+                EMail toRemove = _context.EMails.SingleOrDefault(e => e.Id == eMail.Id);
+
+                if (toRemove != null)
+                    _context.EMails.Remove(toRemove);
+
+                throw;
+            }
         }
 
         public void AddOperatingContext(OperatingContext operatingContext)
@@ -140,11 +134,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.Contacts.Add(contact);
         }
 
-        public bool AddressExistsForContact(Address address, int contactId)
+        public void AddCertificationForOperatingContext(Certification certification, int operatingContextId)
         {
-            return _context.Contacts[contactId].Addresses.FirstOrDefault(a => a == address) != null;
+            _context.OperatingContexts[operatingContextId].Certification = certification;
         }
-
+        
         public Address AddAddressForContact(Address address, int contactId)
         {
             try
@@ -175,45 +169,12 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.Contacts[contactId].ContactConfigurations.Add(contactConfiguration);
         }
 
-
-#pragma warning disable 1998
         public void AddCustomerForAssociate(Customer customer, int associateId)
         {
             _context.Associates[associateId].Customers.Add(customer);
         }
 
-        public bool CustomerExistsForAssociate(Customer customer, int associateId)
-        {
-            return _context.Associates[associateId].Customers.FirstOrDefault(c => c == customer) != null;
-        }
 
-        public void UpdateAddress(Address address)
-        {
-            _context.Addresses[address.Id] = address;
-        }
-
-        public async Task<Associate> LoadAssociate(int id)
-#pragma warning restore 1998
-        {
-            Associate associateEF = _context.Associates[id];
-
-            return _mapper.Map<Associate>(associateEF);
-        }
-
-        public Address LoadAddress(int addressId)
-        {
-            return _context.Addresses[addressId];
-        }
-
-        public void UpdateOperatingContext(OperatingContext operatingContext)
-        {
-            _context.OperatingContexts[operatingContext.Id] = operatingContext;
-        }
-
-        public OperatingContext LoadOperatingContext(int operatingContextId)
-        {
-            return _context.OperatingContexts[operatingContextId];
-        }
 
         public Phone AddPhoneForContact(Phone phone, int contactId)
         {
@@ -240,83 +201,80 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
         }
 
-        public bool PhoneExistsForContact(Phone phone, int contactId)
-        {
-            return _context.Contacts[contactId].Phones.FirstOrDefault(p => p == phone) != null;
-        }
-
-        public void AddCertificationForOperatingContext(Certification certification, int operatingContextId)
-        {
-            _context.OperatingContexts[operatingContextId].Certification = certification;
-        }
-
-        public bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId)
-        {
-            return _context.OperatingContexts[operatingContextId].CertificationId != null;
-        }
-
-        public EMail AddEMailForContact(EMail eMail, int contactId)
-        {
-            try
-            {
-                _context.EMails.Add(eMail);
-
-                _context.ContactEMails.Add(new ContactEMail
-                {
-                    ContactId = contactId,
-                    EMailId = eMail.Id
-                });
-
-                return eMail;
-            }
-            catch
-            {
-                EMail toRemove = _context.EMails.SingleOrDefault(e => e.Id == eMail.Id);
-
-                if (toRemove != null)
-                    _context.EMails.Remove(toRemove);
-
-                throw;
-            }
-        }
-
-        public bool EMailExistsForContact(EMail eMail, int contactId)
-        {
-            return _context.Contacts[contactId].Emails.FirstOrDefault(e => e == eMail) != null;
-        }
-
         public User AddUserForAssociate(User user, int associateId)
         {
             _context.Users.Add(user);
 
-            AssociateUser associateUser = new AssociateUser {AssociateId = associateId, UserId = user.Id};
+            AssociateUser associateUser = new AssociateUser { AssociateId = associateId, UserId = user.Id };
 
             _context.AssociateUsers.Add(associateUser);
 
             return user;
         }
-
-        public bool UserExistsForAssociate(User user, int associateId)
-        {
-            return _context.Associates[associateId].AssociateUsers.FirstOrDefault(au => au.AssociateId == associateId && au.UserId == user.Id) != null;
-        }
-
+        
         public void AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission)
         {
             _context.RoleEGMSPermissions.Add(roleEGMSPermission);
         }
 
-        public bool RoleEGMSPermissionExists(int roleId, int egmsPermissionId)
+
+        #endregion
+
+        #region Existence
+
+        public bool PermissionExists(string permissionName)
         {
-            return _context.RoleEGMSPermissions.Exists(rep =>
-                rep.EGMSPermissionId == egmsPermissionId && rep.RoleId == roleId);  
+            return _context.EGMSPermissions.Exists(p => p.PermissionName == permissionName);
+        }
+        
+        public bool AddressExistsForOperatingContext(Address address, int operatingContextId)
+        {
+            return _context.OperatingContexts[operatingContextId].Addresses.FirstOrDefault(a => a == address) != null;
         }
 
-        public Role AddRole(Role role)
+        
+        public bool AlternateFuelExistsForCustomer(int alternateFuelTypeId, int customerId)
         {
-            _context.Roles.Add(role);
+            return _context.CustomerAlternateFuels.Exists(caf =>
+                caf.CustomerId == customerId && caf.AlternateFuelTypeId == alternateFuelTypeId);
+        }
 
-            return role;
+        public bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId)
+        {
+            return _context.OperatingContextCustomers.Exists(occ => occ.OperatingContextId == operatingContext.Id && occ.CustomerId == customerId);
+        }
+
+        public bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId)
+        {
+            return _context.OperatingContextCustomers.Exists(occ =>
+                occ.CustomerId == customer.Id && occ.OperatingContextId == operatingContextId);
+        }
+
+        public bool AssociateExists(int id)
+        {
+            return _context.Associates.Find(a => a.DUNSNumber == id) != null;
+        }
+
+        public bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId)
+        {
+            return _context.Contacts[contactId].ContactConfigurations.FirstOrDefault(cc =>
+                cc.FacilityId == contactConfiguration.FacilityId &&
+                cc.ContactTypeId == contactConfiguration.ContactTypeId) != null;
+        }
+
+        public bool AddressExistsForContact(Address address, int contactId)
+        {
+            return _context.Contacts[contactId].Addresses.FirstOrDefault(a => a == address) != null;
+        }
+
+        public bool CustomerExistsForAssociate(Customer customer, int associateId)
+        {
+            return _context.Associates[associateId].Customers.FirstOrDefault(c => c == customer) != null;
+        }
+
+        public bool PhoneExistsForContact(Phone phone, int contactId)
+        {
+            return _context.Contacts[contactId].Phones.FirstOrDefault(p => p == phone) != null;
         }
 
         public bool RoleExists(string roleName)
@@ -324,24 +282,84 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.Roles.Exists(r => r.RoleName == roleName);
         }
 
+        public bool EMailExistsForContact(EMail eMail, int contactId)
+        {
+            return _context.Contacts[contactId].Emails.FirstOrDefault(e => e == eMail) != null;
+        }
+
         public bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId)
         {
             return _context.AgentRelationships.Exists(ar =>
                 ar.PrincipalId == principalId && ar.AgentId == agentRelationship.AgentId);
         }
+        
+        public bool UserExistsForAssociate(User user, int associateId)
+        {
+            return _context.Associates[associateId].AssociateUsers.FirstOrDefault(au => au.AssociateId == associateId && au.UserId == user.Id) != null;
+        }
+
+        public bool RoleEGMSPermissionExists(int roleId, int egmsPermissionId)
+        {
+            return _context.RoleEGMSPermissions.Exists(rep =>
+                rep.EGMSPermissionId == egmsPermissionId && rep.RoleId == roleId);
+        }
+
+        public bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId)
+        {
+            return _context.OperatingContexts[operatingContextId].CertificationId != null;
+        }
+
+        #endregion Exists
+
+        #region Reads
+
+        public Associate LoadAssociate(int id)
+        {
+            Associate associateEF = _context.Associates[id];
+
+            return _mapper.Map<Associate>(associateEF);
+        }
+
+        public Address LoadAddress(int addressId)
+        {
+            return _context.Addresses[addressId];
+        }
+        
+        public OperatingContext LoadOperatingContext(int operatingContextId)
+        {
+            return _context.OperatingContexts[operatingContextId];
+        }
+
+        #endregion Reads
+
+        #region Updates
+
+        public void UpdateAddress(Address address)
+        {
+            _context.Addresses[address.Id] = address;
+        }
+        
+        public void UpdateOperatingContext(OperatingContext operatingContext)
+        {
+            _context.OperatingContexts[operatingContext.Id] = operatingContext;
+        }
+
+        #endregion Updates
+
 
 #pragma warning disable 1998
-        public async Task Update(Associate associate)
-#pragma warning restore 1998
-        {
-            Associate associateEF = _context.Associates[associate.Id];
 
-            if (associateEF == null)
-            {
-                throw new Exception($"Associate {associate.Id} not found for Update.");
-            }
 
-            _context.Associates[associate.Id] = associate;
-        }
+        //public async Task UpdateAssociate(Associate associate)
+        //{
+        //    Associate associateEF = _context.Associates[associate.Id];
+
+        //    if (associateEF == null)
+        //    {
+        //        throw new Exception($"Associate {associate.Id} not found for Update.");
+        //    }
+
+        //    _context.Associates[associate.Id] = associate;
+        //}
     }
 }

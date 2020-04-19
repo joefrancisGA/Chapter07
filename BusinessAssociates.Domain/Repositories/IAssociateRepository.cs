@@ -54,7 +54,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         #region Reads
 
         Address LoadAddress(int addressId);
-        Task<Associate> LoadAssociate(int associateId);
+        Associate LoadAssociate(int associateId);
         OperatingContext LoadOperatingContext(int operatingContextId);
 
         #endregion
