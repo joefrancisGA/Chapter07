@@ -287,7 +287,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public User AddUserForAssociate(User user, int associateId)
         {
-            throw new NotImplementedException();
+            _context.Users.Add(user);
+
+            AssociateUser associateUser = new AssociateUser {AssociateId = associateId, UserId = user.Id};
+
+            _context.AssociateUsers.Add(associateUser);
+
+            return user;
         }
 
         public bool UserExistsForAssociate(User user, int associateId)
