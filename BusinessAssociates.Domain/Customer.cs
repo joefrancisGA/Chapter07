@@ -86,6 +86,31 @@ namespace EGMS.BusinessAssociates.Domain
             };
         }
 
+        public static bool operator == (Customer customer1, Customer customer2)
+        {
+            if (customer1 == null && customer2 == null)
+                return true;
+
+            if (customer1 == null || customer2 == null)
+                return false;
+
+            if (customer1.AccountNumber != customer2.AccountNumber)
+                return false;
+
+            if (customer1.LongName != customer2.LongName)
+                return false;
+
+            if (customer1.ShortName != customer2.ShortName)
+                return false;
+
+            return true;
+        }
+        
+        public static bool operator != (Customer customer1, Customer customer2)
+        {
+            return !(customer1 == customer2);
+        }
+
         public CustomerTypeLookup CustomerType { get; set; }
         public int CustomerTypeId { get; set; }
 

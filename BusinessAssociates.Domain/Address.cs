@@ -32,7 +32,6 @@ namespace EGMS.BusinessAssociates.Domain
         public bool IsActive { get; set; }
 
 
-
         public static bool operator == (Address address1, Address address2)
         {
             if ((address1 == null) && (address2 == null))
@@ -67,7 +66,6 @@ namespace EGMS.BusinessAssociates.Domain
 
             return true;
         }
-
 
         public static bool operator !=(Address address1, Address address2)
         {

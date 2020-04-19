@@ -187,7 +187,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool CustomerExistsForAssociate(Customer customer, int associateId)
         {
-            throw new NotImplementedException();
+            return _context.Associates[associateId].Customers.FirstOrDefault(c => c == customer) != null;
         }
 
         public void UpdateAddress(Address address)
@@ -225,7 +225,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool PhoneExistsForContact(Phone phone, int contactId)
         {
-            throw new NotImplementedException();
+            return _context.Contacts[contactId].Phones.FirstOrDefault(p => p == phone) != null;
         }
 
         public Certification AddCertificationForOperatingContext(Certification certification, int operatingContextId)
