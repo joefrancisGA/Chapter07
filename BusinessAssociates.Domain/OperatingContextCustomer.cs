@@ -8,6 +8,12 @@ namespace EGMS.BusinessAssociates.Domain
         public OperatingContextCustomer() { }
         public OperatingContextCustomer(Action<object> applier) : base(applier) { }
 
+        public OperatingContextCustomer(int customerId, int operatingContextId)
+        {
+            CustomerId = customerId;
+            OperatingContextId = operatingContextId;
+        }
+
 
         public OperatingContext OperatingContext { get; set; }
         public int OperatingContextId { get; set; }

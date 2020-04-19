@@ -35,7 +35,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         void AddAlternateFuelForCustomer(int alternateFuelId, int customerId);
 
-        Task<OperatingContext> AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
+        void AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
 
         bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId);
         void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId);

@@ -82,9 +82,9 @@ namespace EGMS.BusinessAssociates.Data.EF
                 .Add(new CustomerAlternateFuel(customerId, alternateFuelTypeId));
         }
 
-        public Task<OperatingContext> AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId)
+        public void AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId)
         {
-            throw new NotImplementedException();
+            _context.OperatingContextCustomers.Add(new OperatingContextCustomer(customerId, operatingContext.Id));
         }
 
         public bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId)
