@@ -255,7 +255,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool UserExistsForAssociate(User user, int associateId)
         {
-            throw new NotImplementedException();
+            return _context.Associates[associateId].AssociateUsers.FirstOrDefault(au => au.AssociateId == associateId && au.UserId == user.Id) != null;
         }
 
         public RoleEGMSPermission AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission)
