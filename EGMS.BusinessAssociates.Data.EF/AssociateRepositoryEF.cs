@@ -314,7 +314,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Role AddRole(Role role)
         {
-            throw new NotImplementedException();
+            _context.Roles.Add(role);
+
+            return role;
         }
 
         public bool RoleExists(string roleName)
