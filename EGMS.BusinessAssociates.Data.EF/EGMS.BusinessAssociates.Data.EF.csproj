@@ -21,6 +21,7 @@
     <ProjectReference Include="..\BusinessAssociates.Domain\EGMS.BusinessAssociates.Domain.csproj" />
     <ProjectReference Include="..\BusinessAssociates.Framework\EGMS.BusinessAssociates.Framework.csproj" />
     <ProjectReference Include="..\EGMS.BusinessAssociates.Query\EGMS.BusinessAssociates.Query.csproj" />
+    <ProjectReference Include="..\EGMS.Common\EGMS.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace EGMS.Common
 {
-    class DebugLog
+    public class DebugLog
     {
-        public void Log(string logEntry)
+        public static void Log(string logEntry)
         {
             #if DEBUG
                 Console.WriteLine (logEntry);

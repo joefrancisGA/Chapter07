@@ -3,6 +3,7 @@ using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Repositories;
 using Microsoft.Extensions.Logging;
+using EGMS.Common;
 
 namespace EGMS.BusinessAssociates.Data.EF
 {
@@ -304,7 +305,11 @@ namespace EGMS.BusinessAssociates.Data.EF
         
         public bool UserExistsForAssociate(User user, int associateId)
         {
-            return _context.Associates[associateId].AssociateUsers.FirstOrDefault(au => au.AssociateId == associateId && au.UserId == user.Id) != null;
+            DebugLog.Log("Looking for User for Associate " + associateId);
+
+            Associate associate = LoadAssociate(associateId);
+
+            return associate.AssociateUsers.FirstOrDefault(au => au.AssociateId == associateId && au.UserId == user.Id) != null;
         }
 
         #endregion Exists
@@ -316,11 +321,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.Addresses[addressId];
         }
 
-        public Associate LoadAssociate(int id)
+        public Associate LoadAssociate(int associateId)
         {
-            Associate associateEF = _context.Associates[id];
-
-            return _mapper.Map<Associate>(associateEF);
+            return _context.Associates.Single(a => a.Id == associateId);
         }
         
         public OperatingContext LoadOperatingContext(int operatingContextId)
