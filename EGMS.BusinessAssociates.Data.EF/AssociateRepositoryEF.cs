@@ -189,7 +189,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void UpdateAddress(Address address)
         {
-            throw new NotImplementedException();
+            _context.Addresses[address.Id] = address;
         }
 
         public async Task<Associate> LoadAssociate(int id)
