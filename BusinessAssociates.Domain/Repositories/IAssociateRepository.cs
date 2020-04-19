@@ -20,7 +20,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         bool EMailExistsForContact(EMail eMail, int contactId);
         User AddUserForAssociate(User user, int associateId);
         bool UserExistsForAssociate(User user, int associateId);
-        RoleEGMSPermission AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission);
+        void AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission);
         bool RoleEGMSPermissionExists(int roleId, int permissionId);
         Role AddRole(Role role);
         bool RoleExists(string roleName);

@@ -301,9 +301,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.Associates[associateId].AssociateUsers.FirstOrDefault(au => au.AssociateId == associateId && au.UserId == user.Id) != null;
         }
 
-        public RoleEGMSPermission AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission)
+        public void AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission)
         {
-            throw new NotImplementedException();
+            _context.RoleEGMSPermissions.Add(roleEGMSPermission);
         }
 
         public bool RoleEGMSPermissionExists(int roleId, int egmsPermissionId)
