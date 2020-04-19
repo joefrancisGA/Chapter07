@@ -235,7 +235,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId)
         {
-            throw new NotImplementedException();
+            return _context.OperatingContexts[operatingContextId].CertificationId != null;
         }
 
         public EMail AddEMailForContact(EMail eMail, int contactId)
