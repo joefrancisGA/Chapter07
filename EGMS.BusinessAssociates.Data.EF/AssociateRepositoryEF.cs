@@ -245,9 +245,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.Contacts[contactId].Phones.FirstOrDefault(p => p == phone) != null;
         }
 
-        public Certification AddCertificationForOperatingContext(Certification certification, int operatingContextId)
+        public void AddCertificationForOperatingContext(Certification certification, int operatingContextId)
         {
-            throw new NotImplementedException();
+            _context.OperatingContexts[operatingContextId].Certification = certification;
         }
 
         public bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId)

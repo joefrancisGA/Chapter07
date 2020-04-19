@@ -13,8 +13,8 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         void UpdateOperatingContext(OperatingContext operatingContext);
         OperatingContext LoadOperatingContext(int operatingContextId);
         Phone AddPhoneForContact(Phone phone, int contactId);
-        bool PhoneExistsForContact(Phone phone, int contactId);
-        Certification AddCertificationForOperatingContext(Certification certification, int operatingContextId);
+        bool PhoneExistsForContact(Phone phone, int contactId); 
+        void AddCertificationForOperatingContext(Certification certification, int operatingContextId);
         bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId);
         EMail AddEMailForContact(EMail eMail, int contactId);
         bool EMailExistsForContact(EMail eMail, int contactId);
