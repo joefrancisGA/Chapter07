@@ -10,6 +10,12 @@ namespace EGMS.BusinessAssociates.Domain
         CustomerAlternateFuel() { }
         public CustomerAlternateFuel(Action<object> applier) : base(applier) { }
 
+        public CustomerAlternateFuel(int customerId, int alternateFuelTypeId)
+        {
+            CustomerId = customerId;
+            AlternateFuelTypeId = alternateFuelTypeId;
+        }
+
         public Customer Customer { get; set; }
         public int CustomerId { get; set; }
 

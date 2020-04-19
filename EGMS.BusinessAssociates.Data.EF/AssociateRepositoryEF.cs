@@ -65,9 +65,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.OperatingContexts[operatingContextId].Addresses.FirstOrDefault(a => a == address) != null;
         }
 
-        public Address AddAddressForOperatingContext(Address address, int operatingContextId)
+        public void AddAddressForOperatingContext(Address address, int operatingContextId)
         {
-            throw new NotImplementedException();
+            _context.OperatingContexts[operatingContextId].Addresses.Add(address);
         }
 
         public bool AlternateFuelExistsForCustomer(int alternateFuelTypeId, int customerId)
@@ -76,9 +76,10 @@ namespace EGMS.BusinessAssociates.Data.EF
                 caf.CustomerId == customerId && caf.AlternateFuelTypeId == alternateFuelTypeId);
         }
 
-        public void AddAlternateFuelForCustomer(int alternateFuelId, int customerId)
+        public void AddAlternateFuelForCustomer(int alternateFuelTypeId, int customerId)
         {
-            throw new NotImplementedException();
+            _context.Customers[customerId].CustomerAlternateFuels
+                .Add(new CustomerAlternateFuel(customerId, alternateFuelTypeId));
         }
 
         public Task<OperatingContext> AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId)

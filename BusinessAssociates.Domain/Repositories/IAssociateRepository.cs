@@ -29,7 +29,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         bool PermissionExists(string permissionName);
         void AddPermission(EGMSPermission permission);
         bool AddressExistsForOperatingContext(Address address, int operatingContextId);
-        Address AddAddressForOperatingContext(Address address, int operatingContextId);
+        void AddAddressForOperatingContext(Address address, int operatingContextId);
 
         bool AlternateFuelExistsForCustomer(int alternateFuelId, int customerId);
 
