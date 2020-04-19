@@ -217,7 +217,27 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Phone AddPhoneForContact(Phone phone, int contactId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Phones.Add(phone);
+
+                _context.ContactPhones.Add(new ContactPhone
+                {
+                    ContactId = contactId,
+                    PhoneId = phone.Id
+                });
+
+                return phone;
+            }
+            catch
+            {
+                Phone toRemove = _context.Phones.SingleOrDefault(p => p.Id == phone.Id);
+
+                if (toRemove != null)
+                    _context.Phones.Remove(toRemove);
+
+                throw;
+            }
         }
 
         public bool PhoneExistsForContact(Phone phone, int contactId)
