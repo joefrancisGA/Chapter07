@@ -69,6 +69,7 @@ namespace EFTest
 
                 // Set up User for Contact
 
+
                 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
                 // Set up relationship between Associate and User
