@@ -257,7 +257,27 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public EMail AddEMailForContact(EMail eMail, int contactId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.EMails.Add(eMail);
+
+                _context.ContactEMails.Add(new ContactEMail
+                {
+                    ContactId = contactId,
+                    EMailId = eMail.Id
+                });
+
+                return eMail;
+            }
+            catch
+            {
+                EMail toRemove = _context.EMails.SingleOrDefault(e => e.Id == eMail.Id);
+
+                if (toRemove != null)
+                    _context.EMails.Remove(toRemove);
+
+                throw;
+            }
         }
 
         public bool EMailExistsForContact(EMail eMail, int contactId)

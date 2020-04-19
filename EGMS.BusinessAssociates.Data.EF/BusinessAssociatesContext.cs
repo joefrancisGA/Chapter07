@@ -46,7 +46,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public List<DeliveryTypeLookup> DeliveryTypes { get; set; } = new List<DeliveryTypeLookup>();
         public List<EGMSLinkTypeLookup> EGMSLinkTypes { get; set; } = new List<EGMSLinkTypeLookup>();
         public List<EGMSPermission> EGMSPermissions { get; set; } = new List<EGMSPermission>();
-        public List<EMail> Emails { get; set; } = new List<EMail>();
+        public List<EMail> EMails { get; set; } = new List<EMail>();
         public List<GroupTypeLookup> GroupTypes { get; set; } = new List<GroupTypeLookup>();
         public List<IDMSLinkTypeLookup> IDMSLinkTypes { get; set; } = new List<IDMSLinkTypeLookup>();
         public List<LossTierTypeLookup> LossTierTypes { get; set; } = new List<LossTierTypeLookup>();
