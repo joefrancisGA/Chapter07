@@ -92,9 +92,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.OperatingContextCustomers.Exists(occ => occ.OperatingContextId == operatingContext.Id && occ.CustomerId == customerId);
         }
 
-        public void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId)
+        public void AddAgentRelationship(AgentRelationship agentRelationship)
         {
-            throw new NotImplementedException();
+            _context.AgentRelationships.Add(agentRelationship); 
         }
 
         public bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId)

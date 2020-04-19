@@ -38,7 +38,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         void AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
 
         bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId);
-        void AddAgentRelationshipForPrincipal(AgentRelationship agentRelationship, int principalId);
+        void AddAgentRelationship(AgentRelationship agentRelationship);
         bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId);
 
 

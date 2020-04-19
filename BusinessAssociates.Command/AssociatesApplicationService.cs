@@ -248,7 +248,7 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Agent Relationship already exists for Associate Principal {cmd.PrincipalId}");
             }
 
-            _repository.AddAgentRelationshipForPrincipal(agentRelationship, cmd.PrincipalId);
+            _repository.AddAgentRelationship(agentRelationship);
 
             return GetAgentRelationshipRM(agentRelationship);
         }
