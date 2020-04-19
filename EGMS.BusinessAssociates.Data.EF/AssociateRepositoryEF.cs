@@ -263,9 +263,10 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public bool RoleEGMSPermissionExists(int roleId, int permissionId)
+        public bool RoleEGMSPermissionExists(int roleId, int egmsPermissionId)
         {
-            throw new NotImplementedException();
+            return _context.RoleEGMSPermissions.Exists(rep =>
+                rep.EGMSPermissionId == egmsPermissionId && rep.RoleId == roleId);  
         }
 
         public Role AddRole(Role role)
