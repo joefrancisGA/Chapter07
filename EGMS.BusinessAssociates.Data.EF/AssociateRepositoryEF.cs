@@ -245,7 +245,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool EMailExistsForContact(EMail eMail, int contactId)
         {
-            throw new NotImplementedException();
+            return _context.Contacts[contactId].Emails.FirstOrDefault(e => e == eMail) != null;
         }
 
         public User AddUserForAssociate(User user, int associateId)
