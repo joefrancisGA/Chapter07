@@ -5,7 +5,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 {
     public interface IAssociateRepository
     {
-        Customer AddCustomerForAssociate(Customer customer, int associateId);
+        void AddCustomerForAssociate(Customer customer, int associateId);
         bool CustomerExistsForAssociate(Customer customer, int associateId);
         void UpdateAddress(Address address);
         Task<Associate> LoadAssociate(int associateId);
