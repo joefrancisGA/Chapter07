@@ -57,7 +57,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void AddPermission(EGMSPermission permission)
         {
-            throw new NotImplementedException();
+            _context.EGMSPermissions.Add(permission);
         }
 
         public bool AddressExistsForOperatingContext(Address address, int operatingContextId)
