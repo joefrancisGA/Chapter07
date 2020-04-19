@@ -18,8 +18,6 @@ namespace EFTest
     {
         static void Main(string[] args)
         {
-            try
-            {
                 var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Associate, AssociateRM>(); });
 
                 IMapper mapper = new Mapper(mapperConfig);
@@ -31,6 +29,7 @@ namespace EFTest
 
                 // Set up Associate
 
+                Console.WriteLine("EFTEST:  Setting up Atlanta Gas Light");
                 Commands.V1.Associate.Create createAssociateCommand = new Commands.V1.Associate.Create
                 {
                     AssociateTypeId = (int) AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
@@ -43,13 +42,13 @@ namespace EFTest
                     StatusCodeId = (int) StatusCodeLookup.StatusCodeEnum.Active
                 };
 
-                AssociateRM associateRM = ((Task<AssociateRM>) appService.Handle(createAssociateCommand).Result).Result;
+                Console.WriteLine("EFTEST:  Getting AssociateRM");
+                AssociateRM associateRM = (AssociateRM)appService.Handle(createAssociateCommand).Result;
 
                 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
                 // Set up Contact
-                // TO DO:  AddAssociate UserId later
-
+                Console.WriteLine("EFTEST:  Setting up Joe Francis contact");
                 Commands.V1.Contact.Create createContactCommand = new Commands.V1.Contact.Create
                 {
                     PrimaryAddressId = 1,
@@ -118,11 +117,6 @@ namespace EFTest
                 //Commands.V1.
 
                 //appService.Handle()
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-            }
         }
     }
 }
