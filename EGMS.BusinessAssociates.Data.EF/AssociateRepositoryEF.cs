@@ -121,7 +121,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void AddCustomerForAssociate(Customer customer, int associateId)
         {
-            _context.Associates[associateId].Customers.Add(customer);
+            GetAssociate(associateId).Customers.Add(customer);
         }
 
         public void AddCustomerForOperatingContext(Customer customer, int operatingContextId)
@@ -293,7 +293,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool CustomerExistsForAssociate(Customer customer, int associateId)
         {
-            return _context.Associates[associateId].Customers.FirstOrDefault(c => c == customer) != null;
+            return GetAssociate(associateId).Customers.FirstOrDefault(c => c == customer) != null;
         }
 
         public bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId)

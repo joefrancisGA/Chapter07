@@ -92,19 +92,83 @@ namespace EFTest
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-            // Set up relationship between Associate and User
-
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
             // Set up Customer for Associate - can we get rid of this and just use relationship object
 
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            Commands.V1.Customer.Create createCustomerCommand = new Commands.V1.Customer.Create
+            {
+                StartDate = DateTime.Now,
+                AccountNumber = "12345678",
+                AlternateCustomerId = 1,
+                BalancingLevelId = 1,
+                BasicPoolId = 1,
+                ContractTypeId = 1,
+                CurrentDemand = 1,
+                DUNSNumber = 123456789,
+                DailyInterruptible = 1,
+                DeliveryLocationId = 1,
+                DeliveryPressure = 1,
+                CustomerTypeId = 1,
+                DeliveryTypeId = 1,
+                EndDate = DateTime.Now.AddYears(10),
+                IsFederal = false,
+                MDQ = 1,
+                GroupTypeId = 1,
+                LongName = "WalMart",
+                TurnOffDate = DateTime.Now.AddYears(10),
+                PreviousDemand = 1,
+                SS1 = false,
+                NominationLevelId = 1,
+                MaxHourlyInterruptible = 1,
+                NAICSCode = 1245,
+                MaxDailyInterruptible = 1,
+                StatusCodeId = 1,
+                ShipperId = 1,
+                HourlyInterruptible = 1,
+                LDCId = 1,
+                SICCode = 1,
+                InterstateSpecifiedFirm = 1,
+                TotalDailySpecifiedFirm = 1,
+                ShortName = "WMT",
+                SICCodePercentage = 1,
+                ShippersLetterToDate = DateTime.Now.AddYears(1),
+                IntrastateSpecifiedFirm = 1,
+                MaxHourlySpecifiedFirm = 1,
+                TotalHourlySpecifiedFirm = 1,
+                ShippersLetterFromDate = DateTime.Now.AddYears(-1),
+                LossTierTypeId = 1,
+                TurnOnDate = DateTime.Now.AddYears(-1)
+            };
 
-            // Set up relationship between Associate and Customer
+            Commands.V1.Customer.CreateForAssociate createCustomerForAssociateCommand =
+                new Commands.V1.Customer.CreateForAssociate(associateRM.Id, createCustomerCommand);
+
+            Console.WriteLine("EFTEST:  Getting CustomerRM");
+
+            CustomerRM customerRM = (CustomerRM)appService.Handle(createCustomerForAssociateCommand).Result;
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             // Set Up Operating Context
+
+            Commands.V1.OperatingContext.Create createOperatingContextCommand =
+                new Commands.V1.OperatingContext.Create
+                {
+                    ActingBATypeID = 1,
+                    PrimaryAddressId = 1,
+                    Status = 1,
+                    CertificationId = 1,
+                    OperatingContextType = 1,
+                    IsDeactivating = false,
+                    ThirdPartySupplierId = 1,
+                    FacilityId = 1,
+                    ProviderType = 1,
+                    LegacyId = 1,
+                    PrimaryPhoneId = 1,
+                    PrimaryEmailId = 1,
+                    StartDate = DateTime.Now
+                };
+
+            OperatingContextRM operatingContextRM = (OperatingContextRM)appService.Handle(createOperatingContextCommand).Result;
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
