@@ -656,51 +656,110 @@ namespace EGMS.BusinessAssociates.Command
 
         private CustomerRM GetCustomerRM(Customer customer)
         {
-            return new CustomerRM
-            {
-                Id = customer.Id,
-                AccountNumber = customer.AccountNumber,
-                AlternateCustomerId = customer.AlternateCustomerId,
-                BalancingLevelId = customer.BalancingLevelId,
-                BasicPoolId = customer.BasicPoolId,
-                ContractTypeId = customer.ContractTypeId,
-                CurrentDemand = customer.CurrentDemand,
-                CustomerTypeId = customer.CustomerTypeId,
-                DUNSNumber = customer.DUNSNumber,
-                DailyInterruptible = customer.DailyInterruptible,
-                DeliveryLocation = customer.DeliveryLocation,
-                DeliveryPressure = customer.DeliveryPressure,
-                DeliveryTypeId = customer.DeliveryTypeId,
-                EndDate = customer.EndDate,
-                GroupTypeId = customer.GroupTypeId,
-                HourlyInterruptible = customer.HourlyInterruptible,
-                InterstateSpecifiedFirm = customer.InterstateSpecifiedFirm,
-                IntrastateSpecifiedFirm = customer.IntrastateSpecifiedFirm,
-                IsFederal = customer.IsFederal,
-                LDCId = customer.LDCId,
-                LongName = customer.LongName,
-                LossTierId = customer.LossTierId,
-                MDQ = customer.MDQ,
-                MaxDailyInterruptible = customer.MaxDailyInterruptible,
-                MaxHourlyInterruptible = customer.MaxHourlyInterruptible,
-                MaxHourlySpecifiedFirm = customer.MaxHourlySpecifiedFirm,
-                NAICSCode = customer.NAICSCode.ToString(),
-                NominationLevelId = customer.NominationLevelId,
-                PreviousDemand = customer.PreviousDemand,
-                SICCode = customer.SICCode.ToString(),
-                SICCodePercentage = customer.SICCodePercentage,
-                SS1 = customer.SS1,
-                ShipperId = customer.ShipperId,
-                ShippersLetterFromDate = customer.ShippersLetterFromDate,
-                ShippersLetterToDate = customer.ShippersLetterToDate,
-                ShortName = customer.ShortName,
-                StartDate = customer.StartDate,
-                StatusCodeId = customer.StatusCodeId,
-                TotalDailySpecifiedFirm = customer.TotalDailySpecifiedFirm,
-                TurnOffDate = customer.TurnOffDate,
-                TotalHourlySpecifiedFirm = customer.TotalHourlySpecifiedFirm,
-                TurnOnDate = customer.TurnOnDate
-            };
+            // ReSharper disable once UseObjectOrCollectionInitializer
+            CustomerRM customerRM = new CustomerRM();
+
+            customerRM.Id = customer.Id;
+            customerRM.AccountNumber = customer.AccountNumber;
+
+            if (customer.AlternateCustomerId != null)
+                customerRM.AlternateCustomerId = customer.AlternateCustomerId;
+
+            customerRM.BalancingLevelId = customer.BalancingLevelId;
+
+            if (customer.BasicPoolId != null)
+                customerRM.BasicPoolId = customer.BasicPoolId;
+
+            if (customer.ContractTypeId != null)
+                customerRM.ContractTypeId = customer.ContractTypeId;
+
+            if (customer.CurrentDemand != null)
+                customerRM.CurrentDemand = customer.CurrentDemand;
+
+            customerRM.CustomerTypeId = customer.CustomerTypeId;
+
+            if (customer.DUNSNumber != null)
+                customerRM.DUNSNumber = customer.DUNSNumber;
+
+            if (customer.DailyInterruptible != null)
+                customerRM.DailyInterruptible = customer.DailyInterruptible;
+
+            customerRM.DeliveryLocation = customer.DeliveryLocation;
+
+            if (customer.DeliveryPressure != null)
+                customerRM.DeliveryPressure = customer.DeliveryPressure;
+
+            customerRM.DeliveryTypeId = customer.DeliveryTypeId;
+            customerRM.EndDate = customer.EndDate;
+            customerRM.GroupTypeId = customer.GroupTypeId;
+
+            if (customer.HourlyInterruptible != null)
+                customerRM.HourlyInterruptible = customer.HourlyInterruptible;
+
+            if (customer.InterstateSpecifiedFirm != null)
+                customerRM.InterstateSpecifiedFirm = customer.InterstateSpecifiedFirm;
+
+            if (customer.IntrastateSpecifiedFirm != null)
+                customerRM.IntrastateSpecifiedFirm = customer.IntrastateSpecifiedFirm;
+
+            customerRM.IsFederal = customer.IsFederal;
+
+            if (customer.LDCId != null)
+                customerRM.LDCId = customer.LDCId;
+
+            if (customer.LongName != null)
+                customerRM.LongName = customer.LongName;
+
+            customerRM.LossTierId = customer.LossTierId;
+
+            if (customer.MDQ != null)
+                customerRM.MDQ = customer.MDQ;
+
+            if (customer.MaxDailyInterruptible != null)
+                customerRM.MaxDailyInterruptible = customer.MaxDailyInterruptible;
+
+            if (customer.MaxHourlyInterruptible != null)
+                customerRM.MaxHourlyInterruptible = customer.MaxHourlyInterruptible;
+
+            if (customer.MaxHourlySpecifiedFirm != null)
+                customerRM.MaxHourlySpecifiedFirm = customer.MaxHourlySpecifiedFirm;
+
+            if (customer.NAICSCode != null)
+                customerRM.NAICSCode = customer.NAICSCode.ToString();
+
+            customerRM.NominationLevelId = customer.NominationLevelId;
+
+            if (customer.PreviousDemand != null)
+                customerRM.PreviousDemand = customer.PreviousDemand;
+
+            if (customer.SICCode != null)
+                customerRM.SICCode = customer.SICCode.ToString();
+
+            if (customer.SICCodePercentage != null)
+                customerRM.SICCodePercentage = customer.SICCodePercentage;
+
+            customerRM.SS1 = customer.SS1;
+            customerRM.ShipperId = customer.ShipperId;
+            customerRM.ShippersLetterFromDate = customer.ShippersLetterFromDate;
+            customerRM.ShippersLetterToDate = customer.ShippersLetterToDate;
+
+            if (customer.ShortName != null)
+                customerRM.ShortName = customer.ShortName;
+
+            customerRM.StartDate = customer.StartDate;
+            customerRM.StatusCodeId = customer.StatusCodeId;
+
+            if (customer.TotalDailySpecifiedFirm != null)
+                customerRM.TotalDailySpecifiedFirm = customer.TotalDailySpecifiedFirm;
+
+            customerRM.TurnOffDate = customer.TurnOffDate;
+
+            if (customer.TotalHourlySpecifiedFirm != null)
+                customerRM.TotalHourlySpecifiedFirm = customer.TotalHourlySpecifiedFirm;
+
+            customerRM.TurnOnDate = customer.TurnOnDate;
+
+            return customerRM;
         }
 
         private OperatingContextRM GetOperatingContextRM(OperatingContext operatingContext)
