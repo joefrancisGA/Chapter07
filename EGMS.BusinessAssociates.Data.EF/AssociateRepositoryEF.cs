@@ -26,7 +26,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         #region Links
 
-        public void AddAlternateFuelForCustomer(int alternateFuelTypeId, int customerId)
+        public void LinkAlternateFuelToCustomer(int alternateFuelTypeId, int customerId)
         {
             _context.Customers[customerId].CustomerAlternateFuels
                 .Add(new CustomerAlternateFuel(customerId, alternateFuelTypeId));
@@ -114,7 +114,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.Contacts.Add(contact);
         }
 
-        public void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration)
+        public void AddContactConfigurationForContact(ContactConfiguration contactConfiguration, int contactId)
         {
             _context.Contacts[contactId].ContactConfigurations.Add(contactConfiguration);
         }
@@ -124,7 +124,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.Associates[associateId].Customers.Add(customer);
         }
 
-        public Customer AddCustomerForOperatingContext(Customer customer, int operatingContextId)
+        public void AddCustomerForOperatingContext(Customer customer, int operatingContextId)
         {
             try
             {
@@ -135,8 +135,6 @@ namespace EGMS.BusinessAssociates.Data.EF
                     OperatingContextId = operatingContextId,
                     CustomerId = customer.Id
                 });
-
-                return customer;
             }
             catch
             {
@@ -149,7 +147,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
         }
         
-        public EMail AddEMailForContact(EMail eMail, int contactId)
+        public void AddEMailForContact(EMail eMail, int contactId)
         {
             try
             {
@@ -160,8 +158,6 @@ namespace EGMS.BusinessAssociates.Data.EF
                     ContactId = contactId,
                     EMailId = eMail.Id
                 });
-
-                return eMail;
             }
             catch
             {
@@ -189,8 +185,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.EGMSPermissions.Add(permission);
         }
 
-
-        public Phone AddPhoneForContact(Phone phone, int contactId)
+        public void AddPhoneForContact(Phone phone, int contactId)
         {
             try
             {
@@ -201,8 +196,6 @@ namespace EGMS.BusinessAssociates.Data.EF
                     ContactId = contactId,
                     PhoneId = phone.Id
                 });
-
-                return phone;
             }
             catch
             {
@@ -215,11 +208,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
         }
 
-        public Role AddRole(Role role)
+        public void AddRole(Role role)
         {
             _context.Roles.Add(role);
-
-            return role;
         }
 
         public void AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission)
@@ -227,15 +218,13 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.RoleEGMSPermissions.Add(roleEGMSPermission);
         }
 
-        public User AddUserForAssociate(User user, int associateId)
+        public void AddUserForAssociate(User user, int associateId)
         {
             _context.Users.Add(user);
 
             AssociateUser associateUser = new AssociateUser { AssociateId = associateId, UserId = user.Id };
 
             _context.AssociateUsers.Add(associateUser);
-
-            return user;
         }
 
 

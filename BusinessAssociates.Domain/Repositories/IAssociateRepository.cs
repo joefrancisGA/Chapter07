@@ -5,29 +5,41 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 {
     public interface IAssociateRepository
     {
+        #region Links
+
+        // TO DO:  Links should have an unlink
+        void LinkAlternateFuelToCustomer(int alternateFuelId, int customerId);
+        
+        #endregion Links
+
         #region Adds
+
+        // TO DO:  Adds should have a corresponding update
+        void AddAgentRelationship(AgentRelationship agentRelationship);
+        void AddAssociate(Associate associate);
+        void AddContact(Contact contact);
+        void AddOperatingContext(OperatingContext operatingContext);
+        void AddPermission(EGMSPermission permission);
+        void AddRole(Role role);
+        void AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission);
+
+        #endregion
+
+        #region Add and Link
 
         void AddAddressForContact(Address address, int contactId);
         void AddAddressForOperatingContext(Address address, int operatingContextId);
-        void AddAgentRelationship(AgentRelationship agentRelationship);
-        void AddAlternateFuelForCustomer(int alternateFuelId, int customerId);
-        void AddAssociate(Associate associate);
         void AddCertificationForOperatingContext(Certification certification, int operatingContextId);
-        void AddContact(Contact contact);
-        void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration);
+        void AddContactConfigurationForContact(ContactConfiguration contactConfiguration, int contactId);
         void AddCustomerForAssociate(Customer customer, int associateId);
-        Customer AddCustomerForOperatingContext(Customer customer, int operatingContextId);
-        EMail AddEMailForContact(EMail eMail, int contactId);
-        void AddOperatingContext(OperatingContext operatingContext);
+        void AddCustomerForOperatingContext(Customer customer, int operatingContextId);
+        void AddEMailForContact(EMail eMail, int contactId);
         void AddOperatingContextForAssociate(OperatingContext operatingContext, int associateId);
         void AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
-        void AddPermission(EGMSPermission permission);
-        Phone AddPhoneForContact(Phone phone, int contactId);
-        Role AddRole(Role role);
-        void AddRoleEGMSPermission(RoleEGMSPermission roleEGMSPermission);
-        User AddUserForAssociate(User user, int associateId);
+        void AddPhoneForContact(Phone phone, int contactId);
+        void AddUserForAssociate(User user, int associateId);
 
-        #endregion
+        #endregion Add and Link
 
         #region Existence checks
 

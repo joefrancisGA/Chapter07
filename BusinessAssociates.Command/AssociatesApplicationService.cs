@@ -212,7 +212,7 @@ namespace EGMS.BusinessAssociates.Command
             if (_repository.ContactConfigurationExistsForContact(contactConfiguration, cmd.ContactId))
                 throw new InvalidOperationException($"ContactConfiguration with ContactId {cmd.ContactId} already exists");
 
-            _repository.AddContactConfigurationForContact(cmd.ContactId, contactConfiguration);
+            _repository.AddContactConfigurationForContact(contactConfiguration, cmd.ContactId);
 
             return GetContactConfigurationRM(contactConfiguration);
         }
@@ -299,7 +299,7 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Alternate fuel already exists for Customer {cmd.CustomerId}");
             }
 
-            _repository.AddAlternateFuelForCustomer(cmd.AlternateFuelId, cmd.CustomerId);
+            _repository.LinkAlternateFuelToCustomer(cmd.AlternateFuelId, cmd.CustomerId);
 
             return true;
         }
@@ -312,7 +312,7 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Alternate fuel already exists for Customer {cmd.CustomerId}");
             }
 
-            _repository.AddAlternateFuelForCustomer(cmd.AlternateFuelId, cmd.CustomerId);
+            _repository.LinkAlternateFuelToCustomer(cmd.AlternateFuelId, cmd.CustomerId);
 
             return true;
         }
