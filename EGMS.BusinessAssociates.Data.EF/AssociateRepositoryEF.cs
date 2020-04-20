@@ -96,12 +96,6 @@ namespace EGMS.BusinessAssociates.Data.EF
 
                 throw;
             }
-
-            int operatingContextId = _context.OperatingContexts.ToList().Last().Id;
-
-            AssociateOperatingContext association = new AssociateOperatingContext(associateId, operatingContextId);
-
-            _context.AssociateOperatingContexts.Add(association);
         }
 
         public void AddCertificationForOperatingContext(Certification certification, int operatingContextId)
@@ -121,7 +115,25 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void AddCustomerForAssociate(Customer customer, int associateId)
         {
-            GetAssociate(associateId).Customers.Add(customer);
+            try
+            {
+                _context.Customers.Add(customer);
+
+                _context.AssociateCustomers.Add(new AssociateCustomer
+                {
+                    CustomerId = customer.Id,
+                    AssociateId = associateId
+                });
+            }
+            catch
+            {
+                Customer toRemove = _context.Customers.SingleOrDefault(c => c.Id == customer.Id);
+
+                if (toRemove != null)
+                    _context.Customers.Remove(toRemove);
+
+                throw;
+            }
         }
 
         public void AddCustomerForOperatingContext(Customer customer, int operatingContextId)
@@ -293,7 +305,10 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool CustomerExistsForAssociate(Customer customer, int associateId)
         {
-            return GetAssociate(associateId).Customers.FirstOrDefault(c => c == customer) != null;
+            DebugLog.Log("Entering AssociateRepositoryEF::CustomerExistsForAssociate");
+
+            Associate associate = GetAssociate(associateId);
+            return associate.Customers.FirstOrDefault(c => c == customer) != null;
         }
 
         public bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId)

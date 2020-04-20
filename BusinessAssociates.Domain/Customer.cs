@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Dynamic;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
-using EGMS.BusinessAssociates.Framework;
+using EGMS.Common;
 
 namespace EGMS.BusinessAssociates.Domain
 {
-    public class Customer : Entity<int>
+    public class Customer : Framework.Entity<int>
     {
         private Customer()
         {
@@ -40,6 +40,8 @@ namespace EGMS.BusinessAssociates.Domain
             SICCodePercentage sicCodePercentage, DateTime shippersLetterFromDate, DateTime shippersLetterToDate,
             bool ss1, bool isFederal, DateTime turnOffDate, DateTime turnOnDate)
         {
+            DebugLog.Log("Entering Customer::Create");
+
             return new Customer
             {
                 Id = customerId,
@@ -88,10 +90,10 @@ namespace EGMS.BusinessAssociates.Domain
 
         public static bool operator == (Customer customer1, Customer customer2)
         {
-            if (customer1 == null && customer2 == null)
+            if (customer1 is null && customer2 is null)
                 return true;
 
-            if (customer1 == null || customer2 == null)
+            if (customer1 is null || customer2 is null)
                 return false;
 
             if (customer1.AccountNumber != customer2.AccountNumber)
