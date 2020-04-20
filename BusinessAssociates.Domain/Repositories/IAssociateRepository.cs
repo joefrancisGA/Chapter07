@@ -47,7 +47,9 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         bool AddressExistsForOperatingContext(Address address, int operatingContextId);
         bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId);
         bool AlternateFuelExistsForCustomer(int alternateFuelId, int customerId);
-        bool AssociateExists(int id);
+
+        // TO DO: Probably need to look for other attributes to determine equality 
+        bool AssociateExists(int associateId);
         bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId);
         bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId);
         bool CustomerExistsForAssociate(Customer customer, int associateId);
@@ -72,6 +74,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         #region Updates
 
+        // TO DO:  Need for updates
         void UpdateAddress(Address address);
         void UpdateOperatingContext(OperatingContext operatingContext);
         

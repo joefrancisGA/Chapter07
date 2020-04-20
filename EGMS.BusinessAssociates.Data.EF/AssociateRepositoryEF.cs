@@ -220,6 +220,26 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void AddUserForAssociate(User user, int associateId)
         {
+            try
+            {
+                _context.Users.Add(user);
+
+                _context.AssociateUsers.Add(new AssociateUser
+                {
+                    AssociateId = associateId,
+                    UserId = user.Id
+                });
+            }
+            catch
+            {
+                User toRemove = _context.Users.SingleOrDefault(u => u.Id == user.Id);
+
+                if (toRemove != null)
+                    _context.Users.Remove(toRemove);
+
+                throw;
+            }
+
             _context.Users.Add(user);
 
             AssociateUser associateUser = new AssociateUser { AssociateId = associateId, UserId = user.Id };
