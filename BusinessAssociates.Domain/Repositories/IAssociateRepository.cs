@@ -7,7 +7,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
     {
         #region Adds
 
-        Address AddAddressForContact(Address address, int contactId);
+        void AddAddressForContact(Address address, int contactId);
         void AddAddressForOperatingContext(Address address, int operatingContextId);
         void AddAgentRelationship(AgentRelationship agentRelationship);
         void AddAlternateFuelForCustomer(int alternateFuelId, int customerId);

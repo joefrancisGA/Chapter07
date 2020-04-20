@@ -36,7 +36,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         #region Adds
 
-        public Address AddAddressForContact(Address address, int contactId)
+        public void AddAddressForContact(Address address, int contactId)
         {
             try
             {
@@ -47,8 +47,6 @@ namespace EGMS.BusinessAssociates.Data.EF
                     ContactId = contactId,
                     AddressId = address.Id
                 });
-
-                return address;
             }
             catch
             {
