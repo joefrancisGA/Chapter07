@@ -24,9 +24,17 @@ namespace EGMS.BusinessAssociates.Data.EF
             _mapper = mapper;
         }
 
+        #region Links
+
+        public void AddAlternateFuelForCustomer(int alternateFuelTypeId, int customerId)
+        {
+            _context.Customers[customerId].CustomerAlternateFuels
+                .Add(new CustomerAlternateFuel(customerId, alternateFuelTypeId));
+        }
+
+        #endregion Links
+
         #region Adds
-
-
 
         public Address AddAddressForContact(Address address, int contactId)
         {
@@ -63,22 +71,37 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.AgentRelationships.Add(agentRelationship);
         }
 
-        public void AddAlternateFuelForCustomer(int alternateFuelTypeId, int customerId)
-        {
-            _context.Customers[customerId].CustomerAlternateFuels
-                .Add(new CustomerAlternateFuel(customerId, alternateFuelTypeId));
-        }
 
         public void AddAssociate(Associate associate)
         {
             _context.Associates.Add(associate);
         }
 
-        public void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext)
+        public void AddOperatingContextForAssociate(OperatingContext operatingContext, int associateId)
         {
+            try
+            {
+                _context.OperatingContexts.Add(operatingContext);
+
+                _context.AssociateOperatingContexts.Add(new AssociateOperatingContext
+                {
+                    OperatingContextId = operatingContext.Id,
+                    AssociateId = associateId
+                });
+            }
+            catch
+            {
+                OperatingContext toRemove = _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContext.Id);
+
+                if (toRemove != null)
+                    _context.OperatingContexts.Remove(toRemove);
+
+                throw;
+            }
+
             int operatingContextId = _context.OperatingContexts.ToList().Last().Id;
 
-            AssociateOperatingContext association = new AssociateOperatingContext(associate.Id, operatingContextId);
+            AssociateOperatingContext association = new AssociateOperatingContext(associateId, operatingContextId);
 
             _context.AssociateOperatingContexts.Add(association);
         }
@@ -307,7 +330,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         {
             DebugLog.Log("Looking for User for Associate " + associateId);
 
-            Associate associate = LoadAssociate(associateId);
+            Associate associate = GetAssociate(associateId);
 
             return associate.AssociateUsers.FirstOrDefault(au => au.AssociateId == associateId && au.UserId == user.Id) != null;
         }
@@ -316,17 +339,17 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         #region Reads
 
-        public Address LoadAddress(int addressId)
+        public Address GetAddress(int addressId)
         {
             return _context.Addresses[addressId];
         }
 
-        public Associate LoadAssociate(int associateId)
+        public Associate GetAssociate(int associateId)
         {
             return _context.Associates.Single(a => a.Id == associateId);
         }
         
-        public OperatingContext LoadOperatingContext(int operatingContextId)
+        public OperatingContext GetOperatingContext(int operatingContextId)
         {
             return _context.OperatingContexts[operatingContextId];
         }

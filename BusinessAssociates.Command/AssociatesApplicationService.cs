@@ -165,7 +165,7 @@ namespace EGMS.BusinessAssociates.Command
         private async void UpdateAssociate(int associateId, Action<Associate> operation)
 #pragma warning restore 1998
         {
-            Associate associate = _repository.LoadAssociate(associateId);
+            Associate associate = _repository.GetAssociate(associateId);
 
             if (associate == null)
                 throw new InvalidOperationException($"Associate with id {associateId} cannot be found");
@@ -175,7 +175,7 @@ namespace EGMS.BusinessAssociates.Command
 
         private OperatingContextRM AddOperatingContextForAssociate(Commands.V1.OperatingContext.CreateForAssociate cmd)
         {
-            Associate associate = _repository.LoadAssociate(AssociateId.FromInt(cmd.AssociateId));
+            Associate associate = _repository.GetAssociate(AssociateId.FromInt(cmd.AssociateId));
 
             if (associate == null)
                 throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");
@@ -185,10 +185,7 @@ namespace EGMS.BusinessAssociates.Command
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
                 cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
 
-            _repository.AddOperatingContext(operatingContext);
-            _repository.AddAssociateOperatingContext(associate, operatingContext);
-
-            //associate.OperatingContexts.AddAssociate(operatingContext);
+            _repository.AddOperatingContextForAssociate(operatingContext, associate.Id);
 
             return _mapper.Map<OperatingContextRM>(operatingContext);
         }
@@ -441,7 +438,7 @@ namespace EGMS.BusinessAssociates.Command
 
         private void UpdateOperatingContext(Commands.V1.OperatingContext.Update cmd)
         {
-            OperatingContext operatingContext = _repository.LoadOperatingContext(cmd.OperatingContextId);
+            OperatingContext operatingContext = _repository.GetOperatingContext(cmd.OperatingContextId);
 
             if (operatingContext == null)
                 throw new InvalidOperationException($"OperatingContext with id {cmd.OperatingContextId} cannot be found");
@@ -453,7 +450,7 @@ namespace EGMS.BusinessAssociates.Command
         // TO DO:  Need to actually move over the updated fields
         private void UpdateAddressForContact(Commands.V1.Contact.Address.Update cmd)
         {
-            Address address = _repository.LoadAddress(cmd.AddressId);
+            Address address = _repository.GetAddress(cmd.AddressId);
 
             if (address == null)
                 throw new InvalidOperationException($"Address with id {cmd.AddressId} for Operating Context {cmd.OperatingContextId}cannot be found");

@@ -1,17 +1,12 @@
 ﻿using System;
-using System.ComponentModel.Design;
-using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.Configuration;
 using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Data.EF;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Enums;
-using Microsoft.Extensions.Configuration;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace EFTest
 {

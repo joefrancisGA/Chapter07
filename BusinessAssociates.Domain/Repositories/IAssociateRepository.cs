@@ -12,15 +12,14 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         void AddAgentRelationship(AgentRelationship agentRelationship);
         void AddAlternateFuelForCustomer(int alternateFuelId, int customerId);
         void AddAssociate(Associate associate);
-        void AddAssociateOperatingContext(Associate associate, OperatingContext operatingContext);
         void AddCertificationForOperatingContext(Certification certification, int operatingContextId);
+        void AddContact(Contact contact);
         void AddContactConfigurationForContact(int contactId, ContactConfiguration contactConfiguration);
-
         void AddCustomerForAssociate(Customer customer, int associateId);
         Customer AddCustomerForOperatingContext(Customer customer, int operatingContextId);
         EMail AddEMailForContact(EMail eMail, int contactId);
         void AddOperatingContext(OperatingContext operatingContext);
-        void AddContact(Contact contact);
+        void AddOperatingContextForAssociate(OperatingContext operatingContext, int associateId);
         void AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
         void AddPermission(EGMSPermission permission);
         Phone AddPhoneForContact(Phone phone, int contactId);
@@ -53,9 +52,9 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         #region Reads
 
-        Address LoadAddress(int addressId);
-        Associate LoadAssociate(int associateId);
-        OperatingContext LoadOperatingContext(int operatingContextId);
+        Address GetAddress(int addressId);
+        Associate GetAssociate(int associateId);
+        OperatingContext GetOperatingContext(int operatingContextId);
 
         #endregion
 
