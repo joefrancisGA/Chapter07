@@ -293,6 +293,11 @@ namespace EGMS.BusinessAssociates.Command
 
             public static class Customer
             {
+                public class CreateForUser : Create
+                {
+
+                }
+
                 public class CreateForAssociate : Create
                 {
                     public CreateForAssociate(int associateId, Create create)
@@ -708,11 +713,32 @@ namespace EGMS.BusinessAssociates.Command
                     }
                 }
 
+                public class CreateForUser : Create
+                {
+                    public CreateForUser(int userId, Create create)
+                    {
+                        UserId = userId;
+                        Map(create);
+                    }
+
+                    public int UserId;
+                }
+
                 public class CreateForAssociate : Create
                 {
                     public CreateForAssociate(int associateId, Create create)
                     {
                         AssociateId = associateId;
+                        Map(create);
+                    }
+
+                    public int AssociateId;
+                }
+
+                public class Create
+                {
+                    protected void Map(Create create)
+                    {
                         OperatingContextType = create.OperatingContextType;
                         FacilityId = create.FacilityId;
                         ThirdPartySupplierId = create.ThirdPartySupplierId;
@@ -728,11 +754,6 @@ namespace EGMS.BusinessAssociates.Command
                         LegacyId = create.LegacyId;
                     }
 
-                    public int AssociateId;
-                }
-
-                public class Create
-                {
                     public int OperatingContextType { get; set; }
                     public int FacilityId { get; set; }
                     public int ThirdPartySupplierId { get; set; }

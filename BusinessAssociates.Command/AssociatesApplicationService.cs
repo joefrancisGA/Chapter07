@@ -152,6 +152,9 @@ namespace EGMS.BusinessAssociates.Command
                     UpdateOperatingContext(cmd);
                     return null;
 
+                case Commands.V1.OperatingContext.CreateForUser cmd:
+                    return CreateOperatingContextForUser(cmd);
+
                 #endregion
 
 
@@ -190,6 +193,24 @@ namespace EGMS.BusinessAssociates.Command
 
             return _mapper.Map<OperatingContextRM>(operatingContext);
         }
+
+        private OperatingContextRM AddOperatingContextForUser(Commands.V1.OperatingContext.CreateForUser cmd)
+        {
+            User user = _repository.GetUser(cmd.UserId);
+
+            if (user == null)
+                throw new InvalidOperationException($"User with id {cmd.UserId} cannot be found");
+
+            OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
+                cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
+                cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
+                cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
+
+            _repository.AddOperatingContextForAssociate(operatingContext, user.Id);
+
+            return _mapper.Map<OperatingContextRM>(operatingContext);
+        }
+
 
         private AssociateRM CreateAssociate(Commands.V1.Associate.Create cmd)
         {
@@ -288,6 +309,23 @@ namespace EGMS.BusinessAssociates.Command
             }
 
             _repository.AddOperatingContextForCustomer(operatingContext, cmd.CustomerId);
+
+            return GetOperatingContextRM(operatingContext);
+        }
+        
+        private OperatingContextRM CreateOperatingContextForUser(Commands.V1.OperatingContext.CreateForUser cmd)
+        {
+            OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType],
+                cmd.FacilityId, cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID],
+                cmd.CertificationId, cmd.IsDeactivating, cmd.LegacyId, cmd.PrimaryAddressId,
+                cmd.PrimaryEmailId, cmd.PrimaryPhoneId, cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
+
+            if (_repository.OperatingContextExistsForUser(operatingContext, cmd.UserId))
+            {
+                throw new InvalidOperationException($"Operating context already exists for User {cmd.UserId}");
+            }
+
+            _repository.AddOperatingContextForCustomer(operatingContext, cmd.UserId);
 
             return GetOperatingContextRM(operatingContext);
         }

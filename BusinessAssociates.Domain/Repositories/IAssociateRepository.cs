@@ -56,6 +56,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId);
         bool EMailExistsForContact(EMail eMail, int contactId);
         bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId);
+        bool OperatingContextExistsForUser(OperatingContext operatingContext, int userId);
         bool PermissionExists(string permissionName);
         bool PhoneExistsForContact(Phone phone, int contactId);
         bool RoleEGMSPermissionExists(int roleId, int permissionId);
@@ -69,6 +70,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         Address GetAddress(int addressId);
         Associate GetAssociate(int associateId);
         OperatingContext GetOperatingContext(int operatingContextId);
+        User GetUser(int userId);
 
         #endregion
 

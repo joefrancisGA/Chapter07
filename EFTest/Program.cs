@@ -168,11 +168,10 @@ namespace EFTest
                     StartDate = DateTime.Now
                 };
 
-            OperatingContextRM operatingContextRM = (OperatingContextRM)appService.Handle(createOperatingContextCommand).Result;
+            Commands.V1.OperatingContext.CreateForUser createOperatingContextForUserCommand =
+                new Commands.V1.OperatingContext.CreateForUser(userRM.Id, createOperatingContextCommand);
 
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-            // Set up relationship between User and OperatingContext
+            OperatingContextRM operatingContextRM = (OperatingContextRM)appService.Handle(createOperatingContextForUserCommand).Result;
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
