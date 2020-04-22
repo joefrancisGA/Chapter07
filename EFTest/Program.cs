@@ -94,6 +94,8 @@ namespace EFTest
 
             // Set up Customer for Associate - can we get rid of this and just use relationship object
 
+            Console.WriteLine("EFTEST:  Setting up WalMart customer for User");
+
             Commands.V1.Customer.Create createCustomerCommand = new Commands.V1.Customer.Create
             {
                 StartDate = DateTime.Now,
@@ -171,27 +173,111 @@ namespace EFTest
             Commands.V1.OperatingContext.CreateForUser createOperatingContextForUserCommand =
                 new Commands.V1.OperatingContext.CreateForUser(userRM.Id, createOperatingContextCommand);
 
+            Console.WriteLine("EFTEST:  Getting OperatingContextRM for User");
+
             OperatingContextRM operatingContextRM = (OperatingContextRM)appService.Handle(createOperatingContextForUserCommand).Result;
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             // Set up relationship between Associate and OperatingContext
 
+            Commands.V1.OperatingContext.CreateForAssociate createOperatingContextForAssociateCommand =
+                new Commands.V1.OperatingContext.CreateForAssociate(associateRM.Id, createOperatingContextCommand);
+            
+            Console.WriteLine("EFTEST:  Getting OperatingContextRM for Associate");
+
+            OperatingContextRM operatingContextForAssociateRM = (OperatingContextRM)appService.Handle(createOperatingContextForAssociateCommand).Result;
+
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             // Set up Associate as Agent
 
+            // Set up Associate
+
+            Console.WriteLine("EFTEST:  Setting up AGL Services Agent");
+
+            Commands.V1.Associate.Create createAssociateCommandForAgent = new Commands.V1.Associate.Create
+            {
+                AssociateTypeId = ActingAssociateTypeLookup.ActingAssociateTypes[(int)ActingAssociateTypeLookup.ActingAssociateTypeEnum.AssetManagerProvider].ActingAssociateTypeId,
+                DUNSNumber = 123456780,
+                IsDeactivating = false,
+                IsInternal = true,
+                IsParent = false,
+                LongName = "AGL Services",
+                ShortName = "SCS",
+                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            };
+
+            Console.WriteLine("EFTEST:  Getting AssociateRM for Agent");
+
+            AssociateRM agentRM = (AssociateRM)appService.Handle(createAssociateCommandForAgent).Result;
+
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-            // AddAssociate Users to Agent
+            // AddAssociate User to Agent
+
+            Console.WriteLine("EFTEST:  Create User for Agent");
+
+            Commands.V1.User.Create createUserCommandForAgent = new Commands.V1.User.Create
+            {
+                IsActive = true,
+                IsInternal = true,
+                ContactId = contactRM.Id,
+                HasEGMSAccess = true,
+                IDMSSID = "1",
+                DeactivationDate = DateTime.Now.AddYears(10),
+                DepartmentCodeId = 1
+            };
+
+            Commands.V1.User.CreateForAssociate createUserForAgent =
+                new Commands.V1.User.CreateForAssociate(associateRM.Id, createUserCommandForAgent);
+
+            Console.WriteLine("EFTEST: Getting USerRM for Agent");
+
+            UserRM userRM2 = (UserRM)appService.Handle(createUserForAgent).Result;
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-            // Set up OperatingContext for Associate for Third-Party Suppliers
+            // Set up Asset Manager for Associate for Third-Party Suppliers
+
+            Console.WriteLine("EFTEST:  Set up third party asset manager");
+
+            Commands.V1.Associate.Create createAssetManagerForTPS = new Commands.V1.Associate.Create
+            {
+                AssociateTypeId = ActingAssociateTypeLookup.ActingAssociateTypes[(int)ActingAssociateTypeLookup.ActingAssociateTypeEnum.AssetManagerProvider].ActingAssociateTypeId,
+                DUNSNumber = 123456781,
+                IsDeactivating = false,
+                IsInternal = true,
+                IsParent = false,
+                LongName = "AGL Services",
+                ShortName = "SCS",
+                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            };
+
+            Console.WriteLine("EFTEST:  Get AssociateRM for third party");
+
+            AssociateRM assetManagerRM = (AssociateRM)appService.Handle(createAssetManagerForTPS).Result;
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             // Set up Associate as predecessor
+
+            Console.WriteLine("EFTEST:  Set up associate as predecessor");
+
+            Commands.V1.Associate.Create createPredecessor = new Commands.V1.Associate.Create
+            {
+                AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
+                DUNSNumber = 123456782,
+                IsDeactivating = false,
+                IsInternal = true,
+                IsParent = false,
+                LongName = "AGL Services",
+                ShortName = "SCS",
+                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            };
+
+            Console.WriteLine("EFTEST:  Get PredecessorManagerRM for predecessor");
+            AssociateRM predecessorManagerRM = (AssociateRM)appService.Handle(createPredecessor).Result;
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 

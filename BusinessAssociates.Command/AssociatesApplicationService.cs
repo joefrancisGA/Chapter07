@@ -191,7 +191,7 @@ namespace EGMS.BusinessAssociates.Command
 
             _repository.AddOperatingContextForAssociate(operatingContext, associate.Id);
 
-            return _mapper.Map<OperatingContextRM>(operatingContext);
+            return GetOperatingContextRM(operatingContext);
         }
 
         private OperatingContextRM AddOperatingContextForUser(Commands.V1.OperatingContext.CreateForUser cmd)
