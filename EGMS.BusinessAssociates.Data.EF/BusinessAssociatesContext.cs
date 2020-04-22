@@ -50,26 +50,26 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         // Enumerations
 
-        public List<IDMSAccountStatusLookup> IDMSAccountStatuses { get; set; } = new List<IDMSAccountStatusLookup>();
-        public List<EGMSAccountStatusLookup> EGMSAccountStatuses { get; set; } = new List<EGMSAccountStatusLookup>();
-        public List<AddressTypeLookup> AddressTypes { get; set; } = new List<AddressTypeLookup>();
-        public List<AlternateFuelTypeLookup> AlternateFuelTypes { get; set; } = new List<AlternateFuelTypeLookup>();
-        public List<AssociateTypeLookup> AssociateTypes { get; set; } = new List<AssociateTypeLookup>();
-        public List<BalancingLevelTypeLookup> BalancingLevelTypes { get; set; } = new List<BalancingLevelTypeLookup>();
-        public List<CertificationStatusLookup> CertificationStatuses { get; set; } = new List<CertificationStatusLookup>();
-        public List<ContactTypeLookup> ContactTypes { get; set; } = new List<ContactTypeLookup>();
-        public List<CountryCodeLookup> CountryCodes { get; set; } = new List<CountryCodeLookup>();
-        public List<CustomerTypeLookup> CustomerTypes { get; set; } = new List<CustomerTypeLookup>();
-        public List<DeliveryTypeLookup> DeliveryTypes { get; set; } = new List<DeliveryTypeLookup>();
-        public List<EGMSLinkTypeLookup> EGMSLinkTypes { get; set; } = new List<EGMSLinkTypeLookup>();
-        public List<GroupTypeLookup> GroupTypes { get; set; } = new List<GroupTypeLookup>();
-        public List<IDMSLinkTypeLookup> IDMSLinkTypes { get; set; } = new List<IDMSLinkTypeLookup>();
-        public List<LossTierTypeLookup> LossTierTypes { get; set; } = new List<LossTierTypeLookup>();
-        public List<NominationLevelTypeLookup> NominationLevelTypes { get; set; } = new List<NominationLevelTypeLookup>();
-        public List<OperatingContextTypeLookup> OperatingContextTypes { get; set; } = new List<OperatingContextTypeLookup>();
-        public List<PhoneTypeLookup> PhoneTypes { get; set; } = new List<PhoneTypeLookup>();
-        public List<ProviderTypeLookup> ProviderTypes { get; set; } = new List<ProviderTypeLookup>();
-        public List<StateCodeLookup> StateCodes { get; set; } = new List<StateCodeLookup>();
-        public List<StatusCodeLookup> StatusCodes { get; set; } = new List<StatusCodeLookup>();
+        //public List<AddressTypeLookup> AddressTypes { get; set; } = new List<AddressTypeLookup>();
+        //public List<AlternateFuelTypeLookup> AlternateFuelTypes { get; set; } = new List<AlternateFuelTypeLookup>();
+        //public List<AssociateTypeLookup> AssociateTypes { get; set; } = new List<AssociateTypeLookup>();
+        //public List<BalancingLevelTypeLookup> BalancingLevelTypes { get; set; } = new List<BalancingLevelTypeLookup>();
+        //public List<CertificationStatusLookup> CertificationStatuses { get; set; } = new List<CertificationStatusLookup>();
+        //public List<ContactTypeLookup> ContactTypes { get; set; } = new List<ContactTypeLookup>();
+        //public List<CountryCodeLookup> CountryCodes { get; set; } = new List<CountryCodeLookup>();
+        //public List<CustomerTypeLookup> CustomerTypes { get; set; } = new List<CustomerTypeLookup>();
+        //public List<DeliveryTypeLookup> DeliveryTypes { get; set; } = new List<DeliveryTypeLookup>();
+        //public List<EGMSAccountStatusLookup> EGMSAccountStatuses { get; set; } = new List<EGMSAccountStatusLookup>();
+        //public List<EGMSLinkTypeLookup> EGMSLinkTypes { get; set; } = new List<EGMSLinkTypeLookup>();
+        //public List<GroupTypeLookup> GroupTypes { get; set; } = new List<GroupTypeLookup>();
+        //public List<IDMSAccountStatusLookup> IDMSAccountStatuses { get; set; } = new List<IDMSAccountStatusLookup>();
+        //public List<IDMSLinkTypeLookup> IDMSLinkTypes { get; set; } = new List<IDMSLinkTypeLookup>();
+        //public List<LossTierTypeLookup> LossTierTypes { get; set; } = new List<LossTierTypeLookup>();
+        //public List<NominationLevelTypeLookup> NominationLevelTypes { get; set; } = new List<NominationLevelTypeLookup>();
+        //public List<OperatingContextTypeLookup> OperatingContextTypes { get; set; } = new List<OperatingContextTypeLookup>();
+        //public List<PhoneTypeLookup> PhoneTypes { get; set; } = new List<PhoneTypeLookup>();
+        //public List<ProviderTypeLookup> ProviderTypes { get; set; } = new List<ProviderTypeLookup>();
+        //public List<StateCodeLookup> StateCodes { get; set; } = new List<StateCodeLookup>();
+        //public List<StatusCodeLookup> StatusCodes { get; set; } = new List<StatusCodeLookup>();
     }
 }
