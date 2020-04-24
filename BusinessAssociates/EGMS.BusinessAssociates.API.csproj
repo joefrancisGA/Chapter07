@@ -16,12 +16,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.2.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+    <PackageReference Include="System.IO.Pipelines" Version="4.7.1" />
     <PackageReference Include="WebApiRouteDebugger" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessAssociates.Command\EGMS.BusinessAssociates.Command.csproj" />
     <ProjectReference Include="..\BusinessAssociates.Domain\EGMS.BusinessAssociates.Domain.csproj" />
     <ProjectReference Include="..\EGMS.BusinessAssociates.Data.EF\EGMS.BusinessAssociates.Data.EF.csproj" />
+    <ProjectReference Include="..\EGMS.Common\EGMS.Common.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

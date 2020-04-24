@@ -1,6 +1,12 @@
+using System.Diagnostics;
+using System.IO;
+using System.IO.Pipelines;
+using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
+using EGMS.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -20,11 +26,89 @@ namespace EGMS.BusinessAssociates.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Commands.V1.Associate.Create request)
+        //[Route("api/associate/Post")]
+        public async Task<IActionResult> Post([FromBody]Commands.V1.Associate.Create request)
         {
+            //using (TextReader textReader = new StreamReader(HttpContext.Request.Body))
+            //{
+            //    Task<string> rawRequest = textReader.ReadToEndAsync();
+            //    DebugLog.Log(rawRequest.Result);
+            //}
+            
             await _appService.Handle(request);
             return Ok();
         }
+
+        //private static async Task<InputModel> ReadModelAsync(PipeReader reader, CancellationToken cancellationToken)
+        //{
+        //    while (!cancellationToken.IsCancellationRequested)
+        //        {
+
+        //        var readResult = await reader.ReadAsync(cancellationToken);
+
+        //        var buffer = readResult.Buffer;
+
+
+
+        //        var position = buffer. PositionOf((byte)'}');
+
+
+
+        //        if (position != null)
+
+        //        {
+
+        //            if (buffer.IsSingleSegment)
+
+        //            {
+
+        //                model = JsonSerializer.Parse<InputModel>(buffer.FirstSpan, new JsonSerializerOptions
+
+        //                {
+
+        //                    PropertyNameCaseInsensitive = true
+
+        //                });
+
+        //            }
+
+        //            else
+
+        //            {
+
+        //                using var document = JsonDocument.Parse(buffer);
+
+
+
+        //                if (document.RootElement.TryGetProperty(PathProperty, out var pathProperty)
+
+        //                    && pathProperty.Type == JsonValueType.String)
+
+        //                {
+
+        //                    model = new InputModel
+
+        //                    {
+
+        //                        Path = pathProperty.GetString()
+
+        //                    };
+
+        //                }
+
+        //            }
+
+        //        }
+                
+        //        reader.AdvanceTo(buffer.Start, buffer.End);
+
+                
+        //        if (readResult.IsCompleted) break;
+
+        //    }
+            
+        //    return model;
+        //}
 
         [Route("longname")]
         [HttpPut]

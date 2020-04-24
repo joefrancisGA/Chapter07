@@ -1,6 +1,4 @@
-﻿using System;
-using EGMS.BusinessAssociates.Domain;
-using EGMS.BusinessAssociates.Domain.Enums;
+﻿using EGMS.BusinessAssociates.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
@@ -40,10 +38,15 @@ namespace EGMS.BusinessAssociates.Data.EF
 
 
         // UnhandledLists
+        // TO DO:  The first release should include support for the first three lists
         public List<AgentUser> AgentUsers { get; set; } = new List<AgentUser>();
         public List<Certification> Certifications { get; set; } = new List<Certification>();
         public List<ContactConfiguration> ContactConfigurations { get; set; } = new List<ContactConfiguration>();
+
+        // TO DO:  Not important until Lifecycle release
         public List<Associate> PredecessorBusinessAssociates { get; set; } = new List<Associate>();
+
+        // TO DO:  Just seed this ahead of time
         public List<UserContactDisplayRule> UserContactDisplayRules { get; set; } = new List<UserContactDisplayRule>();
 
 
