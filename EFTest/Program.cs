@@ -529,20 +529,23 @@ namespace EFTest
 
             using HttpClient client = new HttpClient(clientHandler);
 
-            string fullURL = @"http://localhost:5000" + url;
+            string fullURL = @"https://localhost:44396" + url;
 
-            var res = client.PostAsync(fullURL, parameters).Result;
+            var response = client.PostAsync(fullURL, parameters).Result;
 
             try
             {
-                res.EnsureSuccessStatusCode();
+                response.EnsureSuccessStatusCode();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
 
-            return res.ToString();
+            string jsonString = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine("Your response data is: " + jsonString);
+
+            return jsonString;
         }
     }
 }

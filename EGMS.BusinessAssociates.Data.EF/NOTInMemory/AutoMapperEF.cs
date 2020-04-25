@@ -19,7 +19,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                     opt => opt.MapFrom(src => (string) src.LongName))
                 .ForMember(dst => dst.ShortName,
                     opt => opt.MapFrom(src => (string) src.ShortName))
-                .ForMember(dst => dst.AssociateType,
+                .ForMember(dst => dst.AssociateTypeId,
                     opt => opt.MapFrom(src => src.AssociateTypeId))
                 .ForMember(dst => dst.IsDeactivating,
                     opt => opt.MapFrom(src => src.IsDeactivating))
@@ -27,7 +27,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                     opt => opt.MapFrom(src => src.IsInternal))
                 .ForMember(dst => dst.IsParent,
                     opt => opt.MapFrom(src => src.IsParent))
-                .ForMember(dst => dst.StatusCode,
+                .ForMember(dst => dst.StatusCodeId,
                     opt => opt.MapFrom(src => src.StatusCodeId));
 
 

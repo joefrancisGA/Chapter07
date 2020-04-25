@@ -552,7 +552,7 @@ namespace EGMS.BusinessAssociates.Command
         {
             return new AssociateRM
             {
-                AssociateType = associate.AssociateTypeId,
+                AssociateTypeId = associate.AssociateTypeId,
                 DUNSNumber = associate.DUNSNumber,
                 Id = associate.Id,
                 IsDeactivating = associate.IsDeactivating,
@@ -560,7 +560,7 @@ namespace EGMS.BusinessAssociates.Command
                 IsParent = associate.IsParent,
                 LongName = associate.LongName,
                 ShortName = associate.ShortName,
-                StatusCode = associate.StatusCodeId
+                StatusCodeId = associate.StatusCodeId
             };
         }
 
