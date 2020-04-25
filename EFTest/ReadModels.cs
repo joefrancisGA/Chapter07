@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace EFTest
 {
+    // TO DO:  Eliminate this class and create direct calls
     public class ReadModels
     {
         public static AssociateRM GetAssociateRM(string associate)
@@ -11,68 +12,68 @@ namespace EFTest
             return JsonConvert.DeserializeObject<AssociateRM>(associate);
         }
 
-        public ContactRM GetContactRM(string contact)
+        public static ContactRM GetContactRM(string contact)
         {
             return JsonConvert.DeserializeObject<ContactRM>(contact);
         }
 
-        public ContactConfigurationRM GetContactConfigurationRM(string contactConfiguration)
+        public static ContactConfigurationRM GetContactConfigurationRM(string contactConfiguration)
         {
             return JsonConvert.DeserializeObject<ContactConfigurationRM>(contactConfiguration);
         }
 
-        public UserRM GetUserRM(string user)
+        public static UserRM GetUserRM(string user)
         {
             return JsonConvert.DeserializeObject<UserRM>(user);
         }
 
-        public EMailRM GetEMailRM(string email)
+        public static EMailRM GetEMailRM(string email)
         {
             return JsonConvert.DeserializeObject<EMailRM>(email);
         }
 
-        public PhoneRM GetPhoneRM(string phone)
+        public static PhoneRM GetPhoneRM(string phone)
         {
             return JsonConvert.DeserializeObject<PhoneRM>(phone);
         }
 
-        public AddressRM GetAddressRM(string address)
+        public static AddressRM GetAddressRM(string address)
         {
             return JsonConvert.DeserializeObject<AddressRM>(address);
         }
 
-        public AgentRelationshipRM GetAgentRelationshipRM(string agentRelationship)
+        public static AgentRelationshipRM GetAgentRelationshipRM(string agentRelationship)
         {
             return JsonConvert.DeserializeObject<AgentRelationshipRM>(agentRelationship);
         }
 
         // TO DO:  No real reason other than to just return an ID
-        public EGMSPermissionRM GetEGMSPermissionRM(string permission)
+        public static EGMSPermissionRM GetEGMSPermissionRM(string permission)
         {
             return JsonConvert.DeserializeObject<EGMSPermissionRM>(permission);
         }
 
-        public RoleEGMSPermissionRM GetRoleEGMSPermissionRM(string roleEGMSPermission)
+        public static RoleEGMSPermissionRM GetRoleEGMSPermissionRM(string roleEGMSPermission)
         {
             return JsonConvert.DeserializeObject<RoleEGMSPermissionRM>(roleEGMSPermission);
         }
 
-        public CertificationRM GetCertificationRM(string certification)
+        public static CertificationRM GetCertificationRM(string certification)
         {
             return JsonConvert.DeserializeObject<CertificationRM>(certification);
         }
 
-        public RoleRM GetRoleRM(string role)
+        public static RoleRM GetRoleRM(string role)
         {
             return JsonConvert.DeserializeObject<RoleRM>(role);
         }
 
-        public CustomerRM GetCustomerRM(string customer)
+        public static CustomerRM GetCustomerRM(string customer)
         {
             return JsonConvert.DeserializeObject<CustomerRM>(customer);
         }
 
-        public OperatingContextRM GetOperatingContextRM(string operatingContext)
+        public static OperatingContextRM GetOperatingContextRM(string operatingContext)
         {
             return JsonConvert.DeserializeObject<OperatingContextRM>(operatingContext);
         }

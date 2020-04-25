@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using System.Net.Http;
-using System.Security.Policy;
 using System.Text;
 using AutoMapper;
 using EGMS.BusinessAssociates.Command;
@@ -108,7 +104,7 @@ namespace EFTest
             if (testType == 1)
                 contactRM = (ContactRM) appService.Handle(createContactForAssociateCommand).Result;
             else
-                contactRM = CreateContactForAssociateWithREST(createContactForAssociateCommand);
+                contactRM = CreateContactForAssociateWithREST(createContactCommand, associateRM.Id);
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -396,28 +392,21 @@ namespace EFTest
         }
 
         private const string CreateAssociateAPI = @"/api/associate";
+        private const string CreateContactForAssociateAPI = @"/api/associate/{associateId}/contacts";
 
         private static AssociateRM CreateAssociateWithREST(Commands.V1.Associate.Create cmd)
         {
-            string postREST = PostREST4(CreateAssociateAPI, JsonConvert.SerializeObject(cmd));
+            string postREST = PostREST(CreateAssociateAPI, JsonConvert.SerializeObject(cmd));
 
             return ReadModels.GetAssociateRM(postREST);
         }
 
-        private static ContactRM CreateContactForAssociateWithREST(Commands.V1.Contact.CreateForAssociate cmd)
+        private static ContactRM CreateContactForAssociateWithREST(Commands.V1.Contact.Create cmd, int associateId)
         {
-            //Commands.V1.Contact.Create createContactCommand = new Commands.V1.Contact.Create
-            //{
-            //    PrimaryAddressId = 1,
-            //    IsActive = true,
-            //    PrimaryPhoneId = 1,
-            //    LastName = "Francis",
-            //    PrimaryEmailId = 1,
-            //    FirstName = "Joe",
-            //    Title = "Mr."
-            //};
+            string url = CreateContactForAssociateAPI.Replace("{associateId}", associateId.ToString());
+            string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
 
-            return new ContactRM();
+            return ReadModels.GetContactRM(postREST);
         }
 
         private static UserRM CreateUserForAssociateWithREST(Commands.V1.User.CreateForAssociate cmd)
@@ -440,7 +429,7 @@ namespace EFTest
             return new OperatingContextRM();
         }
 
-        public static string PostREST4(string url, string jsonData)
+        public static string PostREST(string url, string jsonData)
         {
             HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
@@ -451,7 +440,9 @@ namespace EFTest
 
             using HttpClient client = new HttpClient(clientHandler);
 
-            string fullURL = (_instanceType == 1) ? @"https://localhost:44396" : @"http://localhost:5000" + url;
+            string fullURL = (_instanceType == 1 ? @"https://localhost:44396" : @"http://localhost:5000") + url;
+
+            Console.WriteLine("Full URL = " + fullURL);
 
             var response = client.PostAsync(fullURL, content).Result;
 
@@ -462,6 +453,7 @@ namespace EFTest
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Environment.Exit(0);
             }
 
             string jsonString = response.Content.ReadAsStringAsync().Result;

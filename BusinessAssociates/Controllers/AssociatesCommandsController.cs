@@ -1,13 +1,7 @@
-using System.Diagnostics;
-using System.IO;
-using System.IO.Pipelines;
-using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Query.ReadModels;
-using EGMS.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -28,13 +22,13 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         // TO DO:  Consider method-based routing to allow for better Swagger support with FromBody
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Commands.V1.Associate.Create request)
+        public async Task<IActionResult> PostAssociate([FromBody]Commands.V1.Associate.Create request)
         {
             object x = await _appService.Handle(request);
 
             AssociateRM associateRM = (AssociateRM) x;
 
-            return CreatedAtAction("Post", associateRM);
+            return CreatedAtAction("PostAssociate", associateRM);
         }
 
         [Route("longname")]
@@ -87,7 +81,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/operatingcontexts")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.OperatingContext.Create request)
+        public async Task<IActionResult> PostOperatingContextForAssociate(int associateId, Commands.V1.OperatingContext.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.OperatingContext.CreateForAssociate cmd = 
@@ -95,13 +89,13 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostOperatingContextForAssociate", result);
         }
 
 
         [Route("{associateId}/operatingcontexts/{operatingContextId}/Addresses")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int operatingContextId, Commands.V1.OperatingContext.Address.Create request)
+        public async Task<IActionResult> PostAddressForOperatingContext(int associateId, int operatingContextId, Commands.V1.OperatingContext.Address.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd =
@@ -109,26 +103,28 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostAddressForOperatingContext", result);
         }
 
         [Route("{associateId}/contacts")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.Contact.Create request)
+        public async Task<IActionResult> PostContactForAssociate(int associateId, Commands.V1.Contact.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.Contact.CreateForAssociate cmd =
                 new Commands.V1.Contact.CreateForAssociate(associateId, request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            object x = await _appService.Handle(cmd);
 
-            return CreatedAtAction("Post", result);
+            ContactRM contactRM = (ContactRM)x;
+
+            return CreatedAtAction("PostContactForAssociate", contactRM);
         }
 
 
         [Route("{associateId}/contacts/{contactId}/Addresses")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int contactId, Commands.V1.Contact.Address.Create request)
+        public async Task<IActionResult> PostAddressForContact(int associateId, int contactId, Commands.V1.Contact.Address.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.Contact.Address.CreateForContact cmd =
@@ -136,12 +132,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostAddressForContact", result);
         }
 
         [Route("{principalId}/agentrelationships")]
         [HttpPost]
-        public async Task<IActionResult> Post(int principalId, Commands.V1.AgentRelationship.Create request)
+        public async Task<IActionResult> PostAgentRelationshipForPrincipal(int principalId, Commands.V1.AgentRelationship.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.AgentRelationship.CreateForPrincipal cmd =
@@ -149,12 +145,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostAgentRelationshipForPrincipal", result);
         }
 
         [Route("{associateId}/users")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.User.Create request)
+        public async Task<IActionResult> PostUserForAssociate(int associateId, Commands.V1.User.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.User.CreateForAssociate cmd =
@@ -162,24 +158,24 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostUserForAssociate", result);
         }
 
         [Route("{associateId}/agentrelationships/{agentId}/Users")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int agentId, Commands.V1.AgentRelationship.User.Create request)
+        public async Task<IActionResult> PostUserForAgent(int associateId, int agentId, Commands.V1.AgentRelationship.User.Create request)
         {
             Commands.V1.AgentRelationship.User.CreateForAgent cmd =
                 new Commands.V1.AgentRelationship.User.CreateForAgent(agentId, request);
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostUserForAgent", result);
         }
 
         [Route("{associateId}/customers")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.Customer.Create request)
+        public async Task<IActionResult> PostCustomerForAssociate(int associateId, Commands.V1.Customer.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.Customer.CreateForAssociate cmd =
@@ -187,12 +183,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostCustomerForAssociate", result);
         }
 
         [Route("{associateId}/operatingcontexts/{operatingContextId}/Certification")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int operatingContextId, Commands.V1.OperatingContext.Certification.Create request)
+        public async Task<IActionResult> PostCertificationForOperatingContext(int associateId, int operatingContextId, Commands.V1.OperatingContext.Certification.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd =
@@ -200,12 +196,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostCertificationForOperatingContext", result);
         }
 
         [Route("{associateId}/contacts/{contactId}/Configuration")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int contactId, Commands.V1.Contact.ContactConfiguration.Create request)
+        public async Task<IActionResult> PostContactConfigurationForContact(int associateId, int contactId, Commands.V1.Contact.ContactConfiguration.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.Contact.ContactConfiguration.CreateForContact cmd =
@@ -213,12 +209,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostContactConfigurationForContact", result);
         }
 
         [Route("{associateId}/contacts/{contactId}/Emails")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int contactId, Commands.V1.Contact.EMail.Create request)
+        public async Task<IActionResult> PostEMailForContact(int associateId, int contactId, Commands.V1.Contact.EMail.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.Contact.EMail.CreateForContact cmd =
@@ -226,12 +222,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostEMailForContact", result);
         }
 
         [Route("{associateId}/contacts/{contactId}/Phones")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int contactId, Commands.V1.Contact.Phone.Create request)
+        public async Task<IActionResult> PostPhoneForContact(int associateId, int contactId, Commands.V1.Contact.Phone.Create request)
         {
             // Translating one command into another allows us to only get the Associate Id once
             Commands.V1.Contact.Phone.CreateForContact cmd =
@@ -239,70 +235,70 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostPhoneForContact", result);
         }
 
         [Route("{associateId}/customers/{CustomerId}/AlternateFuels")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int customerId, Commands.V1.Customer.AlternateFuel.Create request)
+        public async Task<IActionResult> PostAlternateFuelForCustomer(int associateId, int customerId, Commands.V1.Customer.AlternateFuel.Create request)
         {
             Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd =
                 new Commands.V1.Customer.AlternateFuel.CreateForCustomer(customerId, request);
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostAlternateFuelForCustomer", result);
         }
 
         [Route("{associateId}/customers/{CustomerId}/OperatingContexts")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int customerId, Commands.V1.Customer.OperatingContext.Create request)
+        public async Task<IActionResult> PostOperatingContextForCustomer(int associateId, int customerId, Commands.V1.Customer.OperatingContext.Create request)
         {
             Commands.V1.Customer.OperatingContext.CreateForCustomer cmd =
                 new Commands.V1.Customer.OperatingContext.CreateForCustomer(customerId, request);
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostOperatingContextForCustomer", result);
         }
 
         [Route("{associateId}/OperatingContexts/{OperatingContextId}/Customers")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, int customerId, Commands.V1.OperatingContext.Customer.Create request)
+        public async Task<IActionResult> PostCustomerForOperatingContext(int associateId, int customerId, Commands.V1.OperatingContext.Customer.Create request)
         {
             Commands.V1.OperatingContext.Customer.CreateForOperatingContext cmd =
                 new Commands.V1.OperatingContext.Customer.CreateForOperatingContext(customerId, request);
 
             IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostCustomerForOperatingContext", result);
         }
 
         [Route("{associateId}/roles")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.Role.Create request)
+        public async Task<IActionResult> PostRoleForAssociate(int associateId, Commands.V1.Role.Create request)
         {
             IActionResult result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostRoleForAssociate", result);
         }
 
         [Route("{associateId}/permissions")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.EGMSPermission.Create request)
+        public async Task<IActionResult> PostEGMSPermissionForAssociate(int associateId, Commands.V1.EGMSPermission.Create request)
         {
             IActionResult result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostEGMSPermissionForAssociate", result);
         }
 
         [Route("{associateId}/rolepermissions")]
         [HttpPost]
-        public async Task<IActionResult> Post(int associateId, Commands.V1.RoleEGMSPermission.Create request)
+        public async Task<IActionResult> PostRoleEGMSPermissionForAssociate(int associateId, Commands.V1.RoleEGMSPermission.Create request)
         {
             IActionResult result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
 
-            return CreatedAtAction("Post", result);
+            return CreatedAtAction("PostRoleEGMSPermissionForAssociate", result);
         }
     }
 }
