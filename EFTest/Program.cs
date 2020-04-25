@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
 using AutoMapper;
 using EGMS.BusinessAssociates.Command;
@@ -18,6 +19,8 @@ namespace EFTest
 {
     class Program
     {
+        private static int _instanceType;
+
         static void Main()
         {
             Console.WriteLine("1 = Direct Test");
@@ -25,7 +28,17 @@ namespace EFTest
             string input = Console.ReadLine();
 
 
-            if (!int.TryParse(input, out var testType))
+            if (!int.TryParse(input, out var testType) || testType < 1 || testType > 2)
+            {
+                throw new Exception("Must choose 1 or 2 for test type");
+            }
+
+            Console.WriteLine("1 = Debugger on HTTPS port 44396");
+            Console.WriteLine("2 = Standalone on HTTP port 5000");
+
+            input = Console.ReadLine();
+            
+            if (!int.TryParse(input, out _instanceType) || _instanceType < 1 || _instanceType > 2)
             {
                 throw new Exception("Must choose 1 or 2 for test type");
             }
@@ -386,43 +399,24 @@ namespace EFTest
 
         private static AssociateRM CreateAssociateWithREST(Commands.V1.Associate.Create cmd)
         {
-            Uri u = new Uri("http://localhost:31404/Api/Customers");
-
-
-            //int AssociateTypeId = (int) AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility;
-            //int DUNSNumber = 123456789;
-            //bool IsDeactivating = false;
-            //bool IsInternal = true;
-            //bool IsParent = false;
-            //string LongName = "Atlanta Gas Light";
-            //string ShortName = "AGL";
-            //int StatusCodeId = (int) StatusCodeLookup.StatusCodeEnum.Active;
-
-
-            string payload = "{\"AssociateTypeId\":" + (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility +
-                          ",\"DUNSNumber\": 123456789, \"IsDeactivating\": false, \"IsInternal\": true, " +
-                          "\"IsParent\": false, \"LongName\": \"Atlanta Gas Light\", \"ShortName\": \"AGL\"," +
-                          "\"StatusCodeId\":" + (int)StatusCodeLookup.StatusCodeEnum.Active + "}";
-            
-            Console.WriteLine(payload);
-
-            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-
-            //content.Add("ShortName", cmd.ShortName);
-            //content.Add("LongName", cmd.LongName);
-            //content.Add("DUNSNumber", cmd.DUNSNumber.ToString());
-            //content.Add("StatusCodeId", cmd.StatusCodeId.ToString());
-            //content.Add("IsDeactivating", cmd.IsDeactivating.ToString());
-            //content.Add("AssociateTypeId", cmd.AssociateTypeId.ToString());
-            //content.Add("IsParent", cmd.IsParent.ToString());
-
-            string postREST = PostREST4(CreateAssociateAPI, content);
+            string postREST = PostREST4(CreateAssociateAPI, JsonConvert.SerializeObject(cmd));
 
             return ReadModels.GetAssociateRM(postREST);
         }
 
         private static ContactRM CreateContactForAssociateWithREST(Commands.V1.Contact.CreateForAssociate cmd)
         {
+            //Commands.V1.Contact.Create createContactCommand = new Commands.V1.Contact.Create
+            //{
+            //    PrimaryAddressId = 1,
+            //    IsActive = true,
+            //    PrimaryPhoneId = 1,
+            //    LastName = "Francis",
+            //    PrimaryEmailId = 1,
+            //    FirstName = "Joe",
+            //    Title = "Mr."
+            //};
+
             return new ContactRM();
         }
 
@@ -446,82 +440,10 @@ namespace EFTest
             return new OperatingContextRM();
         }
 
-        static void RestCaller()
+        public static string PostREST4(string url, string jsonData)
         {
-            string url = string.Format("{0}/name?PrimaryName={1}", System.Configuration.ConfigurationManager.AppSettings["URLREST"], "yournmae");
-            string details = CallRestMethod(url);
-        }
+            HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-        public static string CallRestMethod(string url)
-        {
-            HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
-            webrequest.Method = "GET";
-            webrequest.ContentType = "application/x-www-form-urlencoded";
-            webrequest.Headers.Add("Username", "xyz");
-            webrequest.Headers.Add("Password", "abc");
-            HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
-            Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
-            StreamReader responseStream = new StreamReader(webresponse.GetResponseStream(), enc);
-            string result = string.Empty;
-            result = responseStream.ReadToEnd();
-            webresponse.Close();
-            return result;
-        }
-
-        // https://stackoverflow.com/questions/18971510/how-do-i-set-up-httpcontent-for-my-httpclient-postasync-second-parameter
-        // https://stackoverflow.com/questions/50458507/c-sharp-web-api-sending-body-data-in-http-post-rest-client
-        //public static string PostREST(string url, object content)
-        //{
-        //    using var client = new HttpClient();
-
-        //    string fullURL = @"https://localhost:44396" + url;
-
-        //    //string serializedObject = JsonConvert.SerializeObject(content);
-
-        //    //StringContent stringContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
-
-        //    string data = "DUNSNumber=123456789";
-
-
-        //    var parameters = new Dictionary<string, string> { { "param1", "1" }, { "param2", "2" } };
-        //    var encodedContent = new FormUrlEncodedContent(parameters);
-        //    var res = client.PostAsync(fullURL, new HttpStringContent(data));
-
-        //    try
-        //    {
-        //        res.Result.EnsureSuccessStatusCode();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //    }
-
-        //    return res.ToString();
-        //}
-
-        public static string PostREST3(string url, Dictionary<string, string> parameters)
-        {
-            using var client = new HttpClient();
-
-            string fullURL = @"https://localhost:44396" + url;
-
-            var encodedContent = new FormUrlEncodedContent(parameters);
-            var res = client.PostAsync(fullURL, encodedContent);
-
-            try
-            {
-                res.Result.EnsureSuccessStatusCode();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            return res.ToString();
-        }
-
-        public static string PostREST4(string url, HttpContent parameters)
-        {
             HttpClientHandler clientHandler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
@@ -529,9 +451,9 @@ namespace EFTest
 
             using HttpClient client = new HttpClient(clientHandler);
 
-            string fullURL = @"https://localhost:44396" + url;
+            string fullURL = (_instanceType == 1) ? @"https://localhost:44396" : @"http://localhost:5000" + url;
 
-            var response = client.PostAsync(fullURL, parameters).Result;
+            var response = client.PostAsync(fullURL, content).Result;
 
             try
             {
@@ -543,7 +465,7 @@ namespace EFTest
             }
 
             string jsonString = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine("Your response data is: " + jsonString);
+            Console.WriteLine("Response Data: " + jsonString);
 
             return jsonString;
         }
