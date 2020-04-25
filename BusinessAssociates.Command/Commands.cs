@@ -262,6 +262,8 @@ namespace EGMS.BusinessAssociates.Command
 
                 public class CreateForAssociate : Create
                 {
+                    public CreateForAssociate() { }
+
                     public CreateForAssociate(int associateId, Create create)
                     {
                         AssociateId = associateId;

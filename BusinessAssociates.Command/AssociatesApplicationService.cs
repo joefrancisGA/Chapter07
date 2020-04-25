@@ -6,7 +6,6 @@ using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.Repositories;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Query.ReadModels;
-using EGMS.Common;
 using IApplicationService = EGMS.BusinessAssociates.Framework.IApplicationService;
 
 
@@ -568,6 +567,7 @@ namespace EGMS.BusinessAssociates.Command
         {
             return new ContactRM
             {
+                Id = contact.Id,
                 PrimaryAddressId = contact.PrimaryAddressId,
                 FirstName = contact.FirstName,
                 IsActive = contact.IsActive,

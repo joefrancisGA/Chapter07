@@ -95,26 +95,20 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/operatingcontexts/{operatingContextId}/Addresses")]
         [HttpPost]
-        public async Task<IActionResult> PostAddressForOperatingContext(int associateId, int operatingContextId, Commands.V1.OperatingContext.Address.Create request)
+        public async Task<IActionResult> PostAddressForOperatingContext([FromBody]Commands.V1.OperatingContext.Address.CreateForOperatingContext request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd =
-                new Commands.V1.OperatingContext.Address.CreateForOperatingContext(operatingContextId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            AddressRM addressRM = (AddressRM)x;
 
-            return CreatedAtAction("PostAddressForOperatingContext", result);
+            return CreatedAtAction("PostAddressForOperatingContext", addressRM);
         }
 
         [Route("{associateId}/contacts")]
         [HttpPost]
-        public async Task<IActionResult> PostContactForAssociate(int associateId, Commands.V1.Contact.Create request)
+        public async Task<IActionResult> PostContactForAssociate([FromBody]Commands.V1.Contact.CreateForAssociate request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.Contact.CreateForAssociate cmd =
-                new Commands.V1.Contact.CreateForAssociate(associateId, request);
-
-            object x = await _appService.Handle(cmd);
+            object x = await _appService.Handle(request);
 
             ContactRM contactRM = (ContactRM)x;
 
@@ -124,181 +118,159 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/contacts/{contactId}/Addresses")]
         [HttpPost]
-        public async Task<IActionResult> PostAddressForContact(int associateId, int contactId, Commands.V1.Contact.Address.Create request)
+        public async Task<IActionResult> PostAddressForContact([FromBody]Commands.V1.Contact.Address.CreateForContact request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.Contact.Address.CreateForContact cmd =
-                new Commands.V1.Contact.Address.CreateForContact(contactId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            AddressRM addressRM = (AddressRM)x;
 
-            return CreatedAtAction("PostAddressForContact", result);
+            return CreatedAtAction("PostAddressForContact", addressRM);
         }
 
         [Route("{principalId}/agentrelationships")]
         [HttpPost]
-        public async Task<IActionResult> PostAgentRelationshipForPrincipal(int principalId, Commands.V1.AgentRelationship.Create request)
+        public async Task<IActionResult> PostAgentRelationshipForPrincipal([FromBody]Commands.V1.AgentRelationship.CreateForPrincipal request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.AgentRelationship.CreateForPrincipal cmd =
-                new Commands.V1.AgentRelationship.CreateForPrincipal(principalId, request);
+            object x = await _appService.Handle(request);
+            
+            AgentRelationshipRM agentRelationshipRM = (AgentRelationshipRM)x;
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
-
-            return CreatedAtAction("PostAgentRelationshipForPrincipal", result);
+            return CreatedAtAction("PostAgentRelationshipForPrincipal", agentRelationshipRM);
         }
 
         [Route("{associateId}/users")]
         [HttpPost]
-        public async Task<IActionResult> PostUserForAssociate(int associateId, Commands.V1.User.Create request)
+        public async Task<IActionResult> PostUserForAssociate(Commands.V1.User.CreateForAssociate request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.User.CreateForAssociate cmd =
-                new Commands.V1.User.CreateForAssociate(associateId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            UserRM userRM = (UserRM)x;
 
-            return CreatedAtAction("PostUserForAssociate", result);
+            return CreatedAtAction("PostUserForAssociate", userRM);
         }
 
         [Route("{associateId}/agentrelationships/{agentId}/Users")]
         [HttpPost]
-        public async Task<IActionResult> PostUserForAgent(int associateId, int agentId, Commands.V1.AgentRelationship.User.Create request)
+        public async Task<IActionResult> PostUserForAgent([FromBody]Commands.V1.AgentRelationship.User.CreateForAgent request)
         {
-            Commands.V1.AgentRelationship.User.CreateForAgent cmd =
-                new Commands.V1.AgentRelationship.User.CreateForAgent(agentId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            AgentRelationshipRM agentRelationshipRM = (AgentRelationshipRM)x;
 
-            return CreatedAtAction("PostUserForAgent", result);
+            return CreatedAtAction("PostUserForAgent", agentRelationshipRM);
         }
 
         [Route("{associateId}/customers")]
         [HttpPost]
-        public async Task<IActionResult> PostCustomerForAssociate(int associateId, Commands.V1.Customer.Create request)
+        public async Task<IActionResult> PostCustomerForAssociate([FromBody]Commands.V1.Customer.Create request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.Customer.CreateForAssociate cmd =
-                new Commands.V1.Customer.CreateForAssociate(associateId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            CustomerRM customerRM = (CustomerRM)x;
 
-            return CreatedAtAction("PostCustomerForAssociate", result);
+            return CreatedAtAction("PostCustomerForAssociate", customerRM);
         }
 
         [Route("{associateId}/operatingcontexts/{operatingContextId}/Certification")]
         [HttpPost]
-        public async Task<IActionResult> PostCertificationForOperatingContext(int associateId, int operatingContextId, Commands.V1.OperatingContext.Certification.Create request)
+        public async Task<IActionResult> PostCertificationForOperatingContext([FromBody]Commands.V1.OperatingContext.Certification.CreateForOperatingContext request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd =
-                new Commands.V1.OperatingContext.Certification.CreateForOperatingContext(operatingContextId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            CertificationRM certificationRM = (CertificationRM)x;
 
-            return CreatedAtAction("PostCertificationForOperatingContext", result);
+            return CreatedAtAction("PostCertificationForOperatingContext", certificationRM);
         }
 
         [Route("{associateId}/contacts/{contactId}/Configuration")]
         [HttpPost]
-        public async Task<IActionResult> PostContactConfigurationForContact(int associateId, int contactId, Commands.V1.Contact.ContactConfiguration.Create request)
+        public async Task<IActionResult> PostContactConfigurationForContact([FromBody]Commands.V1.Contact.ContactConfiguration.CreateForContact request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.Contact.ContactConfiguration.CreateForContact cmd =
-                new Commands.V1.Contact.ContactConfiguration.CreateForContact(contactId, request);
+            object x = await _appService.Handle(request);
+            
+            ContactConfigurationRM contactConfigurationRM = (ContactConfigurationRM)x;
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
-
-            return CreatedAtAction("PostContactConfigurationForContact", result);
+            return CreatedAtAction("PostContactConfigurationForContact", contactConfigurationRM);
         }
 
         [Route("{associateId}/contacts/{contactId}/Emails")]
         [HttpPost]
-        public async Task<IActionResult> PostEMailForContact(int associateId, int contactId, Commands.V1.Contact.EMail.Create request)
+        public async Task<IActionResult> PostEMailForContact([FromBody]Commands.V1.Contact.EMail.CreateForContact request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.Contact.EMail.CreateForContact cmd =
-                new Commands.V1.Contact.EMail.CreateForContact(contactId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            EMailRM eMailRM = (EMailRM)x;
 
-            return CreatedAtAction("PostEMailForContact", result);
+            return CreatedAtAction("PostEMailForContact", eMailRM);
         }
 
         [Route("{associateId}/contacts/{contactId}/Phones")]
         [HttpPost]
-        public async Task<IActionResult> PostPhoneForContact(int associateId, int contactId, Commands.V1.Contact.Phone.Create request)
+        public async Task<IActionResult> PostPhoneForContact([FromBody]Commands.V1.Contact.Phone.CreateForContact request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.Contact.Phone.CreateForContact cmd =
-                new Commands.V1.Contact.Phone.CreateForContact(contactId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            PhoneRM phoneRM = (PhoneRM)x;
 
-            return CreatedAtAction("PostPhoneForContact", result);
+            return CreatedAtAction("PostPhoneForContact", phoneRM);
         }
 
         [Route("{associateId}/customers/{CustomerId}/AlternateFuels")]
         [HttpPost]
-        public async Task<IActionResult> PostAlternateFuelForCustomer(int associateId, int customerId, Commands.V1.Customer.AlternateFuel.Create request)
+        public async Task<IActionResult> PostAlternateFuelForCustomer([FromBody]Commands.V1.Customer.AlternateFuel.CreateForCustomer request)
         {
-            Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd =
-                new Commands.V1.Customer.AlternateFuel.CreateForCustomer(customerId, request);
+            await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
-
-            return CreatedAtAction("PostAlternateFuelForCustomer", result);
+            return Ok();
         }
 
         [Route("{associateId}/customers/{CustomerId}/OperatingContexts")]
         [HttpPost]
-        public async Task<IActionResult> PostOperatingContextForCustomer(int associateId, int customerId, Commands.V1.Customer.OperatingContext.Create request)
+        public async Task<IActionResult> PostOperatingContextForCustomer([FromBody]Commands.V1.Customer.OperatingContext.Create request)
         {
-            Commands.V1.Customer.OperatingContext.CreateForCustomer cmd =
-                new Commands.V1.Customer.OperatingContext.CreateForCustomer(customerId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
+            OperatingContextRM operatingContextRM = (OperatingContextRM)x;
 
-            return CreatedAtAction("PostOperatingContextForCustomer", result);
+            return CreatedAtAction("PostOperatingContextForCustomer", operatingContextRM);
         }
 
         [Route("{associateId}/OperatingContexts/{OperatingContextId}/Customers")]
         [HttpPost]
-        public async Task<IActionResult> PostCustomerForOperatingContext(int associateId, int customerId, Commands.V1.OperatingContext.Customer.Create request)
+        public async Task<IActionResult> PostCustomerForOperatingContext([FromBody]Commands.V1.OperatingContext.Customer.CreateForOperatingContext request)
         {
-            Commands.V1.OperatingContext.Customer.CreateForOperatingContext cmd =
-                new Commands.V1.OperatingContext.Customer.CreateForOperatingContext(customerId, request);
+            object x = await _appService.Handle(request);
+            
+            CustomerRM customerRM = (CustomerRM)x;
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
-
-            return CreatedAtAction("PostCustomerForOperatingContext", result);
+            return CreatedAtAction("PostCustomerForOperatingContext", customerRM);
         }
 
         [Route("{associateId}/roles")]
         [HttpPost]
-        public async Task<IActionResult> PostRoleForAssociate(int associateId, Commands.V1.Role.Create request)
+        public async Task<IActionResult> PostRole([FromBody]Commands.V1.Role.Create request)
         {
-            IActionResult result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
+            await _appService.Handle(request);
 
-            return CreatedAtAction("PostRoleForAssociate", result);
+            return Ok();
         }
 
         [Route("{associateId}/permissions")]
         [HttpPost]
-        public async Task<IActionResult> PostEGMSPermissionForAssociate(int associateId, Commands.V1.EGMSPermission.Create request)
+        public async Task<IActionResult> PostEGMSPermission([FromBody]Commands.V1.EGMSPermission.Create request)
         {
-            IActionResult result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
+            await _appService.Handle(request);
 
-            return CreatedAtAction("PostEGMSPermissionForAssociate", result);
+            return Ok();
         }
 
         [Route("{associateId}/rolepermissions")]
         [HttpPost]
-        public async Task<IActionResult> PostRoleEGMSPermissionForAssociate(int associateId, Commands.V1.RoleEGMSPermission.Create request)
+        public async Task<IActionResult> PostRoleEGMSPermissionForAssociate([FromBody]Commands.V1.RoleEGMSPermission.Create request)
         {
-            IActionResult result = await RequestHandler.HandleCommand(request, _appService.Handle, _log);
+            await _appService.Handle(request);
 
-            return CreatedAtAction("PostRoleEGMSPermissionForAssociate", result);
+            return Ok();
         }
     }
 }

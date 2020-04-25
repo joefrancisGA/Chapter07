@@ -104,7 +104,7 @@ namespace EFTest
             if (testType == 1)
                 contactRM = (ContactRM) appService.Handle(createContactForAssociateCommand).Result;
             else
-                contactRM = CreateContactForAssociateWithREST(createContactCommand, associateRM.Id);
+                contactRM = CreateContactForAssociateWithREST(createContactForAssociateCommand);
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -401,10 +401,11 @@ namespace EFTest
             return ReadModels.GetAssociateRM(postREST);
         }
 
-        private static ContactRM CreateContactForAssociateWithREST(Commands.V1.Contact.Create cmd, int associateId)
+        private static ContactRM CreateContactForAssociateWithREST(Commands.V1.Contact.CreateForAssociate cmd)
         {
-            string url = CreateContactForAssociateAPI.Replace("{associateId}", associateId.ToString());
-            string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
+            string url = CreateContactForAssociateAPI.Replace("{associateId}", cmd.AssociateId.ToString());
+            string json = JsonConvert.SerializeObject(cmd);
+            string postREST = PostREST(url, json);
 
             return ReadModels.GetContactRM(postREST);
         }
@@ -419,7 +420,7 @@ namespace EFTest
             return new CustomerRM();
         }
 
-        private static OperatingContextRM CreateOperatingContextForUserWithREST(Commands.V1.OperatingContext.Create cmd)
+        private static OperatingContextRM CreateOperatingContextForUserWithREST(Commands.V1.OperatingContext.CreateForUser cmd)
         {
             return new OperatingContextRM();
         }
