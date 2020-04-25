@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
+using EGMS.BusinessAssociates.Query.ReadModels;
 using EGMS.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,90 +26,16 @@ namespace EGMS.BusinessAssociates.API.Controllers
             _log = log;
         }
 
+        // TO DO:  Consider method-based routing to allow for better Swagger support with FromBody
         [HttpPost]
-        //[Route("api/associate/Post")]
         public async Task<IActionResult> Post([FromBody]Commands.V1.Associate.Create request)
         {
-            //using (TextReader textReader = new StreamReader(HttpContext.Request.Body))
-            //{
-            //    Task<string> rawRequest = textReader.ReadToEndAsync();
-            //    DebugLog.Log(rawRequest.Result);
-            //}
-            
-            await _appService.Handle(request);
-            return Ok();
+            object x = await _appService.Handle(request);
+
+            AssociateRM associateRM = (AssociateRM) x;
+
+            return CreatedAtAction("Post", associateRM);
         }
-
-        //private static async Task<InputModel> ReadModelAsync(PipeReader reader, CancellationToken cancellationToken)
-        //{
-        //    while (!cancellationToken.IsCancellationRequested)
-        //        {
-
-        //        var readResult = await reader.ReadAsync(cancellationToken);
-
-        //        var buffer = readResult.Buffer;
-
-
-
-        //        var position = buffer. PositionOf((byte)'}');
-
-
-
-        //        if (position != null)
-
-        //        {
-
-        //            if (buffer.IsSingleSegment)
-
-        //            {
-
-        //                model = JsonSerializer.Parse<InputModel>(buffer.FirstSpan, new JsonSerializerOptions
-
-        //                {
-
-        //                    PropertyNameCaseInsensitive = true
-
-        //                });
-
-        //            }
-
-        //            else
-
-        //            {
-
-        //                using var document = JsonDocument.Parse(buffer);
-
-
-
-        //                if (document.RootElement.TryGetProperty(PathProperty, out var pathProperty)
-
-        //                    && pathProperty.Type == JsonValueType.String)
-
-        //                {
-
-        //                    model = new InputModel
-
-        //                    {
-
-        //                        Path = pathProperty.GetString()
-
-        //                    };
-
-        //                }
-
-        //            }
-
-        //        }
-                
-        //        reader.AdvanceTo(buffer.Start, buffer.End);
-
-                
-        //        if (readResult.IsCompleted) break;
-
-        //    }
-            
-        //    return model;
-        //}
 
         [Route("longname")]
         [HttpPut]
