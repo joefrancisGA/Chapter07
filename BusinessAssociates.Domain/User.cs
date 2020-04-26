@@ -18,12 +18,10 @@ namespace EGMS.BusinessAssociates.Domain
             Initialize();
         }
 
-
         private void Initialize()
         {
             AgentUsers = new HashSet<AgentUser>();
             AssociateUsers = new HashSet<AssociateUser>();
-            UserOperatingContexts = new HashSet<UserOperatingContext>();
         }
 
 
@@ -56,7 +54,6 @@ namespace EGMS.BusinessAssociates.Domain
 
         public HashSet<AgentUser> AgentUsers { get; set; }
         public HashSet<AssociateUser> AssociateUsers { get; set; }
-        public HashSet<UserOperatingContext> UserOperatingContexts { get; set; }
 
 
         protected override void When(object @event)

@@ -350,9 +350,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             return _context.OperatingContextCustomers.Exists(occ => occ.OperatingContextId == operatingContext.Id && occ.CustomerId == customerId);
         }
 
-        public bool OperatingContextExistsForUser(OperatingContext operatingContext, int userId)
+        public bool OperatingContextExistsForAssociate(OperatingContext operatingContext, int associateId)
         {
-            return _context.UserOperatingContexts.Exists(uoc => uoc.UserId == userId && uoc.UserId == userId);
+            return _context.AssociateOperatingContexts.Exists(aoc => aoc.AssociateId == associateId && aoc.AssociateId == associateId);
         }
 
         public bool PermissionExists(string permissionName)
@@ -398,7 +398,12 @@ namespace EGMS.BusinessAssociates.Data.EF
         {
             return _context.Associates.Single(a => a.Id == associateId);
         }
-        
+
+        public Customer GetCustomer(int customerId)
+        {
+            return _context.Customers.Single(a => a.Id == customerId);
+        }
+
         public OperatingContext GetOperatingContext(int operatingContextId)
         {
             return _context.OperatingContexts.Single(oc => oc.Id == operatingContextId);

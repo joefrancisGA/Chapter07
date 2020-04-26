@@ -53,7 +53,6 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
         public virtual DbSet<StateCodeLookup> StateCodes { get; set; }
         //public virtual DbSet<StatusCodeLookup> StatusCodes { get; set; }
         public virtual DbSet<UserContactDisplayRule> UserContactDisplayRules { get; set; }
-        public virtual DbSet<UserOperatingContext> UserOperatingContexts { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -552,20 +551,6 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                 ownedIDMSLinkType.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
                 ownedIDMSLinkType.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("IDMSLinkTypeDescription"); });
                 ownedIDMSLinkType.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("IDMSLinkTypeName"); });
-            });
-
-            modelBuilder.Entity<UserOperatingContext>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.OwnsOne(x => x.FacilityId, cb => { cb.Property(e => e.Value).HasColumnName("FacilityId"); });
-                entity.Property(e => e.EndDate).HasColumnType("datetime");
-                entity.Property(e => e.StartDate).HasColumnType("datetime");
-                entity.HasOne(d => d.Principal).WithMany(p => p.UserOperatingContexts).HasForeignKey(d => d.PrincipalId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserOperatingContexts_Principal");
-                entity.HasOne(d => d.Role).WithMany(p => p.UserOperatingContexts).HasForeignKey(d => d.RoleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserOperatingContexts_Roles");
-                entity.HasOne(d => d.User).WithMany(p => p.UserOperatingContexts).HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_UserOperatingContexts_Users");
             });
 
             modelBuilder.Entity<User>(entity =>

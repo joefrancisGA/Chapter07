@@ -50,7 +50,6 @@ namespace EGMS.BusinessAssociates.Domain
             AssociateUsers = new HashSet<AssociateUser>();
             Customers = new HashSet<Customer>();
             PredecessorBusinessAssociates = new HashSet<Associate>();
-            UserOperatingContexts = new HashSet<UserOperatingContext>();
         }
 
         public static Associate Create(int associateId, int dunsNumber, string longName, string shortName, bool isParent, bool isInternal,
@@ -98,7 +97,6 @@ namespace EGMS.BusinessAssociates.Domain
         //   AssociateOperatingContexts
         public HashSet<OperatingContext> OperatingContexts { get; set;}
         public HashSet<Associate> PredecessorBusinessAssociates { get; set; }
-        public HashSet<UserOperatingContext> UserOperatingContexts { get; set; }
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated
         {

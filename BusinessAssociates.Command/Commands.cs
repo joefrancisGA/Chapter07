@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
-using Microsoft.Data.SqlClient;
+
 
 namespace EGMS.BusinessAssociates.Command
 {
@@ -717,15 +716,15 @@ namespace EGMS.BusinessAssociates.Command
                     }
                 }
 
-                public class CreateForUser : Create
+                public class CreateForCustomer : Create
                 {
-                    public CreateForUser(int userId, Create create)
+                    public CreateForCustomer(int customerId, Create create)
                     {
-                        UserId = userId;
+                        CustomerId = customerId;
                         Map(create);
                     }
 
-                    public int UserId;
+                    public int CustomerId;
                 }
 
                 public class CreateForAssociate : Create

@@ -152,8 +152,8 @@ namespace EGMS.BusinessAssociates.Command
                     UpdateOperatingContext(cmd);
                     return null;
 
-                case Commands.V1.OperatingContext.CreateForUser cmd:
-                    return CreateOperatingContextForUser(cmd);
+                case Commands.V1.OperatingContext.CreateForCustomer cmd:
+                    return CreateOperatingContextForCustomer(cmd);
 
                 #endregion
 
@@ -194,19 +194,19 @@ namespace EGMS.BusinessAssociates.Command
             return GetOperatingContextRM(operatingContext);
         }
 
-        private OperatingContextRM AddOperatingContextForUser(Commands.V1.OperatingContext.CreateForUser cmd)
+        private OperatingContextRM AddOperatingContextForCustomer(Commands.V1.OperatingContext.CreateForCustomer cmd)
         {
-            User user = _repository.GetUser(cmd.UserId);
+            Customer customer = _repository.GetCustomer(cmd.CustomerId);
 
-            if (user == null)
-                throw new InvalidOperationException($"User with id {cmd.UserId} cannot be found");
+            if (customer == null)
+                throw new InvalidOperationException($"Customer with id {cmd.CustomerId} cannot be found");
 
             OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
                 cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
                 cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
 
-            _repository.AddOperatingContextForAssociate(operatingContext, user.Id);
+            _repository.AddOperatingContextForAssociate(operatingContext, customer.Id);
 
             return _mapper.Map<OperatingContextRM>(operatingContext);
         }
@@ -313,19 +313,19 @@ namespace EGMS.BusinessAssociates.Command
             return GetOperatingContextRM(operatingContext);
         }
         
-        private OperatingContextRM CreateOperatingContextForUser(Commands.V1.OperatingContext.CreateForUser cmd)
+        private OperatingContextRM CreateOperatingContextForCustomer(Commands.V1.OperatingContext.CreateForCustomer cmd)
         {
             OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType],
                 cmd.FacilityId, cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID],
                 cmd.CertificationId, cmd.IsDeactivating, cmd.LegacyId, cmd.PrimaryAddressId,
                 cmd.PrimaryEmailId, cmd.PrimaryPhoneId, cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
 
-            if (_repository.OperatingContextExistsForUser(operatingContext, cmd.UserId))
+            if (_repository.OperatingContextExistsForCustomer(operatingContext, cmd.CustomerId))
             {
-                throw new InvalidOperationException($"Operating context already exists for User {cmd.UserId}");
+                throw new InvalidOperationException($"Operating context already exists for User {cmd.CustomerId}");
             }
 
-            _repository.AddOperatingContextForCustomer(operatingContext, cmd.UserId);
+            _repository.AddOperatingContextForCustomer(operatingContext, cmd.CustomerId);
 
             return GetOperatingContextRM(operatingContext);
         }

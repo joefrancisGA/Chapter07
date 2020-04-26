@@ -139,7 +139,7 @@ namespace EFTest
 
             // Set up Customer for Associate - can we get rid of this and just use relationship object
 
-            Console.WriteLine("EFTEST:  Setting up WalMart customer for User");
+            Console.WriteLine("EFTEST:  Setting up WalMart customer for Associate");
 
             Commands.V1.Customer.Create createCustomerCommand = new Commands.V1.Customer.Create
             {
@@ -223,10 +223,10 @@ namespace EFTest
                     StartDate = DateTime.Now
                 };
 
-            Commands.V1.OperatingContext.CreateForUser createOperatingContextForUserCommand =
-                new Commands.V1.OperatingContext.CreateForUser(userRM.Id, createOperatingContextCommand);
+            Commands.V1.OperatingContext.CreateForCustomer createOperatingContextForCustomerCommand =
+                new Commands.V1.OperatingContext.CreateForCustomer(customerRM.Id, createOperatingContextCommand);
 
-            Console.WriteLine("EFTEST:  Getting OperatingContextRM for User");
+            Console.WriteLine("EFTEST:  Getting OperatingContextRM for Customer");
 
 
             // ReSharper disable once NotAccessedVariable
@@ -234,10 +234,10 @@ namespace EFTest
 
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                operatingContextRM = (OperatingContextRM)appService.Handle(createOperatingContextForUserCommand).Result;
+                operatingContextRM = (OperatingContextRM)appService.Handle(createOperatingContextForCustomerCommand).Result;
             else
                 // ReSharper disable once RedundantAssignment
-                operatingContextRM = CreateOperatingContextForUserWithREST(createOperatingContextForUserCommand);
+                operatingContextRM = CreateOperatingContextForCustomerWithREST(createOperatingContextForCustomerCommand);
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -395,6 +395,8 @@ namespace EFTest
         private const string CreateAssociateAPI = @"/api/associate";
         private const string CreateContactForAssociateAPI = @"/api/associate/{associateId}/contacts";
         private const string CreateUserForAssociateAPI = @"/api/associate/{associateId}/users";
+        private const string CreateCustomerForAssociateAPI = @"/api/associate/{associateId}/customers";
+        private const string CreateOperatingContextForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts";
 
 
         private static AssociateRM CreateAssociateWithREST(Commands.V1.Associate.Create cmd)
@@ -422,12 +424,18 @@ namespace EFTest
 
         private static CustomerRM CreateCustomerForAssociateWithREST(Commands.V1.Customer.CreateForAssociate cmd)
         {
-            return new CustomerRM();
+            string url = CreateCustomerForAssociateAPI.Replace("{associateId}", cmd.AssociateId.ToString());
+            string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
+
+            return ReadModels.GetCustomerRM(postREST);
         }
 
-        private static OperatingContextRM CreateOperatingContextForUserWithREST(Commands.V1.OperatingContext.CreateForUser cmd)
+        private static OperatingContextRM CreateOperatingContextForCustomerWithREST(Commands.V1.OperatingContext.CreateForCustomer cmd)
         {
-            return new OperatingContextRM();
+            string url = CreateOperatingContextForCustomerAPI.Replace("{customerId}", cmd.CustomerId.ToString());
+            string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
+
+            return ReadModels.GetOperatingContextRM(postREST);
         }
 
         private static OperatingContextRM CreateOperatingContextForAssociateWithREST(Commands.V1.OperatingContext.CreateForAssociate cmd)

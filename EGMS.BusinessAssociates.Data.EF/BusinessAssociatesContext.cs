@@ -34,8 +34,6 @@ namespace EGMS.BusinessAssociates.Data.EF
         public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; } = new List<CustomerAlternateFuel>();
         public List<RoleEGMSPermission> RoleEGMSPermissions { get; set; } = new List<RoleEGMSPermission>();
         public List<OperatingContextCustomer> OperatingContextCustomers { get; set; } = new List<OperatingContextCustomer>();
-        public List<UserOperatingContext> UserOperatingContexts { get; set; } = new List<UserOperatingContext>();
-
 
 
         // UnhandledLists
