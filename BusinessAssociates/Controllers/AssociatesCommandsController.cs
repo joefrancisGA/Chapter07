@@ -159,7 +159,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/customers")]
         [HttpPost]
-        public async Task<IActionResult> PostCustomerForAssociate([FromBody]Commands.V1.Customer.Create request)
+        public async Task<IActionResult> PostCustomerForAssociate([FromBody]Commands.V1.Customer.CreateForAssociate request)
         {
             object x = await _appService.Handle(request);
 
@@ -223,7 +223,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/customers/{CustomerId}/OperatingContexts")]
         [HttpPost]
-        public async Task<IActionResult> PostOperatingContextForCustomer([FromBody]Commands.V1.Customer.OperatingContext.Create request)
+        public async Task<IActionResult> PostOperatingContextForCustomer([FromBody]Commands.V1.OperatingContext.CreateForCustomer request)
         {
             object x = await _appService.Handle(request);
 

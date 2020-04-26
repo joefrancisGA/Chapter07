@@ -301,6 +301,8 @@ namespace EGMS.BusinessAssociates.Command
 
                 public class CreateForAssociate : Create
                 {
+                    public CreateForAssociate() { }
+
                     public CreateForAssociate(int associateId, Create create)
                     {
                         AssociateId = associateId;
@@ -411,39 +413,6 @@ namespace EGMS.BusinessAssociates.Command
                     public class Create
                     {
                         public int AlternateFuelId { get; set; }
-                    }
-                }
-
-
-                public static class OperatingContext
-                {
-                    public class CreateForCustomer : Create
-                    {
-                        public CreateForCustomer(int customerId, Create create)
-                        {
-                            CustomerId = customerId;
-                            AlternateFuelId = create.AlternateFuelId;
-                        }
-
-                        public int CustomerId { get; set; }
-                    }
-
-                    public class Create
-                    { 
-                        public int ActingBATypeId { get; set; }
-                        public int AlternateFuelId { get; set; }
-                        public int FacilityId { get; set; }
-                        public int ThirdPartySupplierId { get; set; }
-                        public int CertificationId { get; set; }
-                        public bool IsDeactivating { get; set; }
-                        public int LegacyId { get; set; }
-                        public int PrimaryAddressId { get; set; }
-                        public int PrimaryPhoneId { get; set; }
-                        public int PrimaryEMailId { get; set; }
-                        public int ProviderTypeId { get; set; }
-                        public DateTime StartDate { get; set; }
-                        public int StatusCodeId { get; set; }
-                        public int OperatingContextTypeId { get; set; }
                     }
                 }
             }
@@ -718,6 +687,8 @@ namespace EGMS.BusinessAssociates.Command
 
                 public class CreateForCustomer : Create
                 {
+                    public CreateForCustomer() { }
+
                     public CreateForCustomer(int customerId, Create create)
                     {
                         CustomerId = customerId;

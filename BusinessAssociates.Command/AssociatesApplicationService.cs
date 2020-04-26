@@ -111,9 +111,6 @@ namespace EGMS.BusinessAssociates.Command
                 case Commands.V1.Customer.CreateForAssociate cmd:
                     return CreateCustomerForAssociate(cmd);
 
-                case Commands.V1.Customer.OperatingContext.CreateForCustomer cmd:
-                    return CreateOperatingContextForCustomer(cmd);
-
                 case Commands.V1.Customer.AlternateFuel.CreateForCustomer cmd:
                     return CreateAlternateFuelForCustomer(cmd);
 
@@ -136,6 +133,9 @@ namespace EGMS.BusinessAssociates.Command
                 case Commands.V1.OperatingContext.CreateForAssociate cmd:
                     return AddOperatingContextForAssociate(cmd);
 
+                case Commands.V1.OperatingContext.CreateForCustomer cmd:
+                    return CreateOperatingContextForCustomer(cmd);
+
                 case Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd:
                     return CreateAddressForOperatingContext(cmd);
 
@@ -151,9 +151,6 @@ namespace EGMS.BusinessAssociates.Command
                 case Commands.V1.OperatingContext.Update cmd:
                     UpdateOperatingContext(cmd);
                     return null;
-
-                case Commands.V1.OperatingContext.CreateForCustomer cmd:
-                    return CreateOperatingContextForCustomer(cmd);
 
                 #endregion
 
@@ -296,23 +293,6 @@ namespace EGMS.BusinessAssociates.Command
             return GetCustomerRM(customer);
         }
 
-        private OperatingContextRM CreateOperatingContextForCustomer(Commands.V1.Customer.OperatingContext.CreateForCustomer cmd)
-        {
-            OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextTypeId], 
-                cmd.FacilityId, cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeId], 
-                cmd.CertificationId, cmd.IsDeactivating, cmd.LegacyId, cmd.PrimaryAddressId,
-                cmd.PrimaryEMailId, cmd.PrimaryPhoneId, cmd.ProviderTypeId, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.StatusCodeId]);
-
-            if (_repository.OperatingContextExistsForCustomer(operatingContext, cmd.CustomerId))
-            {
-                throw new InvalidOperationException($"Operating context already exists for Customer {cmd.CustomerId}");
-            }
-
-            _repository.AddOperatingContextForCustomer(operatingContext, cmd.CustomerId);
-
-            return GetOperatingContextRM(operatingContext);
-        }
-        
         private OperatingContextRM CreateOperatingContextForCustomer(Commands.V1.OperatingContext.CreateForCustomer cmd)
         {
             OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType],

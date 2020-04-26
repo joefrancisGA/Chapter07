@@ -17,6 +17,13 @@ namespace EFTest
     {
         private static int _instanceType;
         private static int _dunsNumber = new Random().Next(100000000,900000000);
+        
+        private const string CreateAssociateAPI = @"/api/associate";
+        private const string CreateContactForAssociateAPI = @"/api/associate/{associateId}/contacts";
+        private const string CreateUserForAssociateAPI = @"/api/associate/{associateId}/users";
+        private const string CreateCustomerForAssociateAPI = @"/api/associate/{associateId}/customers";
+        private const string CreateOperatingContextForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts";
+
 
         static void Main()
         {
@@ -392,13 +399,6 @@ namespace EFTest
             //appService.Handle()
         }
 
-        private const string CreateAssociateAPI = @"/api/associate";
-        private const string CreateContactForAssociateAPI = @"/api/associate/{associateId}/contacts";
-        private const string CreateUserForAssociateAPI = @"/api/associate/{associateId}/users";
-        private const string CreateCustomerForAssociateAPI = @"/api/associate/{associateId}/customers";
-        private const string CreateOperatingContextForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts";
-
-
         private static AssociateRM CreateAssociateWithREST(Commands.V1.Associate.Create cmd)
         {
             string postREST = PostREST(CreateAssociateAPI, JsonConvert.SerializeObject(cmd));
@@ -433,6 +433,10 @@ namespace EFTest
         private static OperatingContextRM CreateOperatingContextForCustomerWithREST(Commands.V1.OperatingContext.CreateForCustomer cmd)
         {
             string url = CreateOperatingContextForCustomerAPI.Replace("{customerId}", cmd.CustomerId.ToString());
+
+            // The associate Id is not really important, but perhaps it should be
+            url = url.Replace("{associateId}", "1");
+
             string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
 
             return ReadModels.GetOperatingContextRM(postREST);
