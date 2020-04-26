@@ -28,18 +28,20 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
 
-        public static Contact Create(int associateId, int primaryAddressId, bool isActive, int primaryEMailId, int primaryPhoneId, string firstName,
-            string lastName, string title)
+        public static Contact Create(int contactId, int primaryAddressId, bool isActive, int primaryEMailId, int primaryPhoneId, 
+            FirstName firstName, LastName lastName, Title title)
         {
-            Contact contact = new Contact();
-
-            contact.PrimaryAddressId = primaryAddressId;
-            contact.IsActive = isActive;
-            contact.PrimaryEmailId = primaryEMailId;
-            contact.PrimaryPhoneId = primaryPhoneId;
-            contact.FirstName = FirstName.Create(firstName);
-            contact.LastName = LastName.Create(lastName);
-            contact.Title = Title.Create(title);
+            Contact contact = new Contact
+            {
+                Id = contactId,
+                PrimaryAddressId = primaryAddressId,
+                IsActive = isActive,
+                PrimaryEmailId = primaryEMailId,
+                PrimaryPhoneId = primaryPhoneId,
+                FirstName = firstName,
+                LastName = lastName,
+                Title = title
+            };
 
             return contact;
         }

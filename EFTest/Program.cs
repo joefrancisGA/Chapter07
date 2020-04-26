@@ -16,6 +16,7 @@ namespace EFTest
     class Program
     {
         private static int _instanceType;
+        private static int _dunsNumber = new Random().Next(100000000,900000000);
 
         static void Main()
         {
@@ -60,7 +61,7 @@ namespace EFTest
             Commands.V1.Associate.Create createAssociateCommand = new Commands.V1.Associate.Create
             {
                 AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
-                DUNSNumber = 123456789,
+                DUNSNumber = _dunsNumber++,
                 IsDeactivating = false,
                 IsInternal = true,
                 IsParent = false,
@@ -149,7 +150,7 @@ namespace EFTest
                 BasicPoolId = 1,
                 ContractTypeId = 1,
                 CurrentDemand = 1,
-                DUNSNumber = 123456789,
+                DUNSNumber = _dunsNumber++,
                 DailyInterruptible = 1,
                 DeliveryLocationId = 1,
                 DeliveryPressure = 1,
@@ -268,7 +269,7 @@ namespace EFTest
             Commands.V1.Associate.Create createAssociateCommandForAgent = new Commands.V1.Associate.Create
             {
                 AssociateTypeId = ActingAssociateTypeLookup.ActingAssociateTypes[(int)ActingAssociateTypeLookup.ActingAssociateTypeEnum.AssetManagerProvider].ActingAssociateTypeId,
-                DUNSNumber = 123456780,
+                DUNSNumber = _dunsNumber++,
                 IsDeactivating = false,
                 IsInternal = true,
                 IsParent = false,
@@ -330,7 +331,7 @@ namespace EFTest
             Commands.V1.Associate.Create createAssetManagerForTPS = new Commands.V1.Associate.Create
             {
                 AssociateTypeId = ActingAssociateTypeLookup.ActingAssociateTypes[(int)ActingAssociateTypeLookup.ActingAssociateTypeEnum.AssetManagerProvider].ActingAssociateTypeId,
-                DUNSNumber = 123456781,
+                DUNSNumber = _dunsNumber++,
                 IsDeactivating = false,
                 IsInternal = true,
                 IsParent = false,
@@ -360,7 +361,7 @@ namespace EFTest
             Commands.V1.Associate.Create createPredecessor = new Commands.V1.Associate.Create
             {
                 AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
-                DUNSNumber = 123456782,
+                DUNSNumber = _dunsNumber++,
                 IsDeactivating = false,
                 IsInternal = true,
                 IsParent = false,
@@ -379,7 +380,7 @@ namespace EFTest
                 predecessorManagerRM = (AssociateRM)appService.Handle(createPredecessor).Result;
             else
                 // ReSharper disable once RedundantAssignment
-                predecessorManagerRM = CreateAssociateWithREST(createAssetManagerForTPS);
+                predecessorManagerRM = CreateAssociateWithREST(createPredecessor);
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -393,6 +394,8 @@ namespace EFTest
 
         private const string CreateAssociateAPI = @"/api/associate";
         private const string CreateContactForAssociateAPI = @"/api/associate/{associateId}/contacts";
+        private const string CreateUserForAssociateAPI = @"/api/associate/{associateId}/users";
+
 
         private static AssociateRM CreateAssociateWithREST(Commands.V1.Associate.Create cmd)
         {
@@ -404,15 +407,17 @@ namespace EFTest
         private static ContactRM CreateContactForAssociateWithREST(Commands.V1.Contact.CreateForAssociate cmd)
         {
             string url = CreateContactForAssociateAPI.Replace("{associateId}", cmd.AssociateId.ToString());
-            string json = JsonConvert.SerializeObject(cmd);
-            string postREST = PostREST(url, json);
+            string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
 
             return ReadModels.GetContactRM(postREST);
         }
 
         private static UserRM CreateUserForAssociateWithREST(Commands.V1.User.CreateForAssociate cmd)
         {
-            return new UserRM();
+            string url = CreateUserForAssociateAPI.Replace("{associateId}", cmd.AssociateId.ToString());
+            string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
+
+            return ReadModels.GetUserRM(postREST);
         }
 
         private static CustomerRM CreateCustomerForAssociateWithREST(Commands.V1.Customer.CreateForAssociate cmd)
@@ -438,6 +443,8 @@ namespace EFTest
             {
                 ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
             };
+
+            Console.WriteLine("Request Data: " + jsonData);
 
             using HttpClient client = new HttpClient(clientHandler);
 

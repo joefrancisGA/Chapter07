@@ -30,6 +30,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         void AddAddressForContact(Address address, int contactId);
         void AddAddressForOperatingContext(Address address, int operatingContextId);
         void AddCertificationForOperatingContext(Certification certification, int operatingContextId);
+        void AddContactForAssociate(Contact contact, int associateId);
         void AddContactConfigurationForContact(ContactConfiguration contactConfiguration, int contactId);
         void AddCustomerForAssociate(Customer customer, int associateId);
         void AddCustomerForOperatingContext(Customer customer, int operatingContextId);

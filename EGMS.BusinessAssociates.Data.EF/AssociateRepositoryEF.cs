@@ -59,6 +59,29 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
         }
 
+        public void AddContactForAssociate(Contact contact, int associateId)
+        {
+            try
+            {
+                _context.Contacts.Add(contact);
+
+                _context.AssociateContacts.Add(new AssociateContact
+                {
+                    ContactId = contact.Id,
+                    AssociateId = associateId
+                });
+            }
+            catch
+            {
+                Contact toRemove = _context.Contacts.SingleOrDefault(c => c.Id == contact.Id);
+
+                if (toRemove != null)
+                    _context.Contacts.Remove(toRemove);
+
+                throw;
+            }
+        }
+
         public void AddAddressForOperatingContext(Address address, int operatingContextId)
         {
             _context.OperatingContexts[operatingContextId].Addresses.Add(address);

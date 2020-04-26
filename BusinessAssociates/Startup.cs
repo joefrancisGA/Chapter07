@@ -67,7 +67,7 @@ namespace EGMS.BusinessAssociates.API
 
             services.AddDbContext<BusinessAssociatesContext>(opt =>
                 opt.UseSqlServer(connectionString)
-                    .EnableSensitiveDataLogging());
+                    .EnableSensitiveDataLogging(), ServiceLifetime.Singleton, ServiceLifetime.Singleton);
 
             services.AddScoped<DbConnection>(c => new SqlConnection(connectionString));
             services.AddTransient(_ => new EGMSDb(connectionString));

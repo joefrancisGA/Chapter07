@@ -17,6 +17,7 @@ namespace EGMS.BusinessAssociates.Command
         private static int _agentRelationships = 1;
         private static int _associates = 1;
         private static int _certifications = 1;
+        private static int _contacts = 1;
         private static int _contactConfigurations = 1;
         private static int _customers = 1;
         private static int _emails = 1;
@@ -535,13 +536,11 @@ namespace EGMS.BusinessAssociates.Command
             return GetUserRM(user);
         }
         
-        // TO DO:  Clarify the relationship between contacts and associates.  Do they have to be a user before we 
-        //   can link them to an associate?
         private ContactRM CreateContactForAssociate(Commands.V1.Contact.CreateForAssociate cmd)
         {
-            Contact contact = Contact.Create(cmd.AssociateId, cmd.PrimaryAddressId, cmd.IsActive, cmd.PrimaryEmailId, cmd.PrimaryPhoneId, cmd.FirstName, cmd.LastName,
-                   cmd.Title);
-            _repository.AddContact(contact);
+            Contact contact = Contact.Create(_contacts++, cmd.PrimaryAddressId, cmd.IsActive, cmd.PrimaryEmailId, 
+                cmd.PrimaryPhoneId, FirstName.Create(cmd.FirstName), LastName.Create(cmd.LastName), Title.Create(cmd.Title));
+            _repository.AddContactForAssociate(contact, cmd.AssociateId);
 
             return GetContactRM(contact);
         }
