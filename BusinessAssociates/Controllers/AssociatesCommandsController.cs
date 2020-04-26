@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.AspNetCore.Mvc;
@@ -81,15 +80,13 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/operatingcontexts")]
         [HttpPost]
-        public async Task<IActionResult> PostOperatingContextForAssociate(int associateId, Commands.V1.OperatingContext.Create request)
+        public async Task<IActionResult> PostOperatingContextForAssociate([FromBody]Commands.V1.OperatingContext.CreateForAssociate request)
         {
-            // Translating one command into another allows us to only get the Associate Id once
-            Commands.V1.OperatingContext.CreateForAssociate cmd = 
-                new Commands.V1.OperatingContext.CreateForAssociate(associateId, request);
+            object x = await _appService.Handle(request);
 
-            IActionResult result = await RequestHandler.HandleCommand(cmd, _appService.Handle, _log);
-
-            return CreatedAtAction("PostOperatingContextForAssociate", result);
+            OperatingContextRM operatingContextRM = (OperatingContextRM)x;
+  
+            return CreatedAtAction("PostOperatingContextForAssociate", operatingContextRM);
         }
 
 
@@ -140,7 +137,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/users")]
         [HttpPost]
-        public async Task<IActionResult> PostUserForAssociate(Commands.V1.User.CreateForAssociate request)
+        public async Task<IActionResult> PostUserForAssociate([FromBody]Commands.V1.User.CreateForAssociate request)
         {
             object x = await _appService.Handle(request);
 
