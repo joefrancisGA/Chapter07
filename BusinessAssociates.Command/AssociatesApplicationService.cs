@@ -131,7 +131,7 @@ namespace EGMS.BusinessAssociates.Command
                 #region OperatingContext
 
                 case Commands.V1.OperatingContext.CreateForAssociate cmd:
-                    return AddOperatingContextForAssociate(cmd);
+                    return CreateOperatingContextForAssociate(cmd);
 
                 case Commands.V1.OperatingContext.CreateForCustomer cmd:
                     return CreateOperatingContextForCustomer(cmd);
@@ -174,7 +174,7 @@ namespace EGMS.BusinessAssociates.Command
             operation(associate);
         }
 
-        private OperatingContextRM AddOperatingContextForAssociate(Commands.V1.OperatingContext.CreateForAssociate cmd)
+        private OperatingContextRM CreateOperatingContextForAssociate(Commands.V1.OperatingContext.CreateForAssociate cmd)
         {
             Associate associate = _repository.GetAssociate(AssociateId.FromInt(cmd.AssociateId));
 
@@ -302,7 +302,7 @@ namespace EGMS.BusinessAssociates.Command
 
             if (_repository.OperatingContextExistsForCustomer(operatingContext, cmd.CustomerId))
             {
-                throw new InvalidOperationException($"Operating context already exists for User {cmd.CustomerId}");
+                throw new InvalidOperationException($"Operating context already exists for Customer {cmd.CustomerId}");
             }
 
             _repository.AddOperatingContextForCustomer(operatingContext, cmd.CustomerId);

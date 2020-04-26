@@ -22,6 +22,7 @@ namespace EFTest
         private const string CreateContactForAssociateAPI = @"/api/associate/{associateId}/contacts";
         private const string CreateUserForAssociateAPI = @"/api/associate/{associateId}/users";
         private const string CreateCustomerForAssociateAPI = @"/api/associate/{associateId}/customers";
+        private const string CreateOperatingContextForAssociateAPI = @"/api/associate/{associateId}/operatingcontexts";
         private const string CreateOperatingContextForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts";
 
 
@@ -444,7 +445,11 @@ namespace EFTest
 
         private static OperatingContextRM CreateOperatingContextForAssociateWithREST(Commands.V1.OperatingContext.CreateForAssociate cmd)
         {
-            return new OperatingContextRM();
+            string url = CreateOperatingContextForAssociateAPI.Replace("{associateId}", cmd.AssociateId.ToString());
+
+            string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
+
+            return ReadModels.GetOperatingContextRM(postREST);
         }
 
         public static string PostREST(string url, string jsonData)

@@ -80,8 +80,9 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/operatingcontexts")]
         [HttpPost]
-        public async Task<IActionResult> PostOperatingContextForAssociate([FromBody]Commands.V1.OperatingContext.CreateForAssociate request)
+        public async Task<IActionResult> PostOperatingContextForAssociate(int associateId, [FromBody]Commands.V1.OperatingContext.CreateForAssociate request)
         {
+            request.AssociateId = associateId;
             object x = await _appService.Handle(request);
 
             OperatingContextRM operatingContextRM = (OperatingContextRM)x;
@@ -221,10 +222,11 @@ namespace EGMS.BusinessAssociates.API.Controllers
             return Ok();
         }
 
-        [Route("{associateId}/customers/{CustomerId}/OperatingContexts")]
+        [Route("{associateId}/customers/{customerId}/OperatingContexts")]
         [HttpPost]
-        public async Task<IActionResult> PostOperatingContextForCustomer([FromBody]Commands.V1.OperatingContext.CreateForCustomer request)
+        public async Task<IActionResult> PostOperatingContextForCustomer(int customerId, [FromBody]Commands.V1.OperatingContext.CreateForCustomer request)
         {
+            request.CustomerId = customerId;
             object x = await _appService.Handle(request);
 
             OperatingContextRM operatingContextRM = (OperatingContextRM)x;
