@@ -250,21 +250,21 @@ namespace EFTest
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             // Set up relationship between Associate and OperatingContext
-
-            Commands.V1.OperatingContext.CreateForAssociate createOperatingContextForAssociateCommand =
-                new Commands.V1.OperatingContext.CreateForAssociate(associateRM.Id, createOperatingContextCommand);
             
             Console.WriteLine("EFTEST:  Getting OperatingContextRM for Associate");
 
             // ReSharper disable once NotAccessedVariable
             OperatingContextRM operatingContextForAssociateRM;
-            
+
+            Commands.V1.OperatingContext.CreateForAssociate createOperatingContextForAssociateCommand =
+                new Commands.V1.OperatingContext.CreateForAssociate(associateRM.Id, createOperatingContextCommand);
+
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
                 operatingContextForAssociateRM = (OperatingContextRM)appService.Handle(createOperatingContextForAssociateCommand).Result;
             else
                 // ReSharper disable once RedundantAssignment
-                operatingContextForAssociateRM = CreateOperatingContextForAssociateWithREST(createOperatingContextForAssociateCommand);
+                operatingContextForAssociateRM = CreateOperatingContextForAssociateWithREST(associateRM.Id, createOperatingContextCommand);
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -443,9 +443,9 @@ namespace EFTest
             return ReadModels.GetOperatingContextRM(postREST);
         }
 
-        private static OperatingContextRM CreateOperatingContextForAssociateWithREST(Commands.V1.OperatingContext.CreateForAssociate cmd)
+        private static OperatingContextRM CreateOperatingContextForAssociateWithREST(int associateId, Commands.V1.OperatingContext.Create cmd)
         {
-            string url = CreateOperatingContextForAssociateAPI.Replace("{associateId}", cmd.AssociateId.ToString());
+            string url = CreateOperatingContextForAssociateAPI.Replace("{associateId}", associateId.ToString());
 
             string postREST = PostREST(url, JsonConvert.SerializeObject(cmd));
 

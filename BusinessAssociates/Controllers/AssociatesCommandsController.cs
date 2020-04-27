@@ -34,27 +34,23 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/operatingcontexts")]
         [HttpPost]
-        public async Task<IActionResult> PostOperatingContextForAssociate(int associateId, [FromBody]Commands.V1.OperatingContext.CreateForAssociate request)
+        public IActionResult PostOperatingContextForAssociate(int associateId, [FromBody]Commands.V1.OperatingContext.Create request)
         {
-            request.AssociateId = associateId;
-            object x = await _appService.Handle(request);
+            Commands.V1.OperatingContext.CreateForAssociate createForAssociate =
+                new Commands.V1.OperatingContext.CreateForAssociate(associateId, request);
 
-            OperatingContextRM operatingContextRM = (OperatingContextRM)x;
-  
-            return CreatedAtAction("PostOperatingContextForAssociate", operatingContextRM);
+            return CreatedAtAction("PostOperatingContextForAssociate", (OperatingContextRM)_appService.Handle(createForAssociate).Result);
         }
 
 
         [Route("{associateId}/operatingcontexts/{operatingContextId}/Addresses")]
         [HttpPost]
-        public async Task<IActionResult> PostAddressForOperatingContext(int operatingContextId, [FromBody]Commands.V1.OperatingContext.Address.CreateForOperatingContext request)
+        public IActionResult PostAddressForOperatingContext(int operatingContextId, [FromBody]Commands.V1.OperatingContext.Address.Create request)
         {
-            request.OperatingContextId = operatingContextId;
-            object x = await _appService.Handle(request);
+            Commands.V1.OperatingContext.Address.CreateForOperatingContext createForOperatingContext =
+                new Commands.V1.OperatingContext.Address.CreateForOperatingContext(operatingContextId, request);
 
-            AddressRM addressRM = (AddressRM)x;
-
-            return CreatedAtAction("PostAddressForOperatingContext", addressRM);
+            return CreatedAtAction("PostAddressForOperatingContext", (AddressRM)_appService.Handle(createForOperatingContext).Result);
         }
 
         [Route("{associateId}/contacts")]
