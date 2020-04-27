@@ -120,9 +120,9 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/customers")]
         [HttpPost]
-        public async Task<IActionResult> PostCustomerForAssociate(int associatedId, [FromBody]Commands.V1.Customer.CreateForAssociate request)
+        public async Task<IActionResult> PostCustomerForAssociate(int associateId, [FromBody]Commands.V1.Customer.CreateForAssociate request)
         {
-            request.AssociateId = associatedId;
+            request.AssociateId = associateId;
             object x = await _appService.Handle(request);
 
             CustomerRM customerRM = (CustomerRM)x;
