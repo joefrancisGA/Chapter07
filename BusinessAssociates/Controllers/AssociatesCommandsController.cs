@@ -66,14 +66,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/contacts/{contactId}/Addresses")]
         [HttpPost]
-        public async Task<IActionResult> PostAddressForContact(int contactId, [FromBody]Commands.V1.Contact.Address.CreateForContact request)
+        public IActionResult PostAddressForContact(int contactId, [FromBody]Commands.V1.Contact.Address.CreateForContact request)
         {
-            request.ContactId = contactId;
-            object x = await _appService.Handle(request);
+            Commands.V1.Contact.Address.CreateForContact createForContact =
+                new Commands.V1.Contact.Address.CreateForContact(contactId, request);
 
-            AddressRM addressRM = (AddressRM)x;
-
-            return CreatedAtAction("PostAddressForContact", addressRM);
+            return CreatedAtAction("PostAddressForContact", (ContactRM)_appService.Handle(createForContact).Result);
         }
 
         [Route("{principalId}/agentrelationships")]
