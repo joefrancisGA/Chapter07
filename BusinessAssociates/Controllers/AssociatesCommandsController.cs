@@ -76,14 +76,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{principalId}/agentrelationships")]
         [HttpPost]
-        public async Task<IActionResult> PostAgentRelationshipForPrincipal(int principalId, [FromBody]Commands.V1.AgentRelationship.CreateForPrincipal request)
+        public IActionResult PostAgentRelationshipForPrincipal(int principalId, [FromBody]Commands.V1.AgentRelationship.Create request)
         {
-            request.PrincipalId = principalId;
-            object x = await _appService.Handle(request);
-            
-            AgentRelationshipRM agentRelationshipRM = (AgentRelationshipRM)x;
+            Commands.V1.AgentRelationship.CreateForPrincipal createForPrincipal =
+                new Commands.V1.AgentRelationship.CreateForPrincipal(principalId, request);
 
-            return CreatedAtAction("PostAgentRelationshipForPrincipal", agentRelationshipRM);
+            return CreatedAtAction("PostAgentRelationshipForPrincipal", (ContactRM)_appService.Handle(createForPrincipal).Result);
         }
 
         [Route("{associateId}/users")]
