@@ -106,14 +106,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/customers")]
         [HttpPost]
-        public async Task<IActionResult> PostCustomerForAssociate(int associateId, [FromBody]Commands.V1.Customer.CreateForAssociate request)
+        public IActionResult PostCustomerForAssociate(int associateId, [FromBody]Commands.V1.Customer.CreateForAssociate request)
         {
-            request.AssociateId = associateId;
-            object x = await _appService.Handle(request);
+            Commands.V1.Customer.CreateForAssociate createForAssociate =
+                new Commands.V1.Customer.CreateForAssociate(associateId, request);
 
-            CustomerRM customerRM = (CustomerRM)x;
-
-            return CreatedAtAction("PostCustomerForAssociate", customerRM);
+            return CreatedAtAction("PostCustomerForAssociate", (CustomerRM)_appService.Handle(createForAssociate).Result);
         }
 
         [Route("{associateId}/operatingcontexts/{operatingContextId}/Certification")]
