@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.Common;

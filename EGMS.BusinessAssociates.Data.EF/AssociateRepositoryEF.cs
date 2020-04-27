@@ -59,6 +59,30 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
         }
 
+        public void AddAddressForCustomer(Address address, int customerId)
+        {
+            try
+            {
+                _context.Addresses.Add(address);
+
+                _context.CustomerAddresses.Add(new CustomerAddress
+                {
+                    CustomerId= customerId,
+                    AddressId = address.Id
+                });
+            }
+            catch
+            {
+                Address toRemove = _context.Addresses.SingleOrDefault(a => a.Id == address.Id);
+
+                if (toRemove != null)
+                    _context.Addresses.Remove(toRemove);
+
+                throw;
+            }
+        }
+
+
         public void AddContactForAssociate(Contact contact, int associateId)
         {
             try
@@ -82,9 +106,33 @@ namespace EGMS.BusinessAssociates.Data.EF
             }
         }
 
-        public void AddAddressForOperatingContext(Address address, int operatingContextId)
+
+        public void AddEMailForAssociate(EMail email, int associateId)
         {
-            _context.OperatingContexts[operatingContextId].Addresses.Add(address);
+            try
+            {
+                _context.EMails.Add(email);
+
+                _context.AssociateEMails.Add(new AssociateEMail
+                {
+                    EMailId = email.Id,
+                    AssociateId = associateId
+                });
+            }
+            catch
+            {
+                EMail toRemove = _context.EMails.SingleOrDefault(e => e.Id == email.Id);
+
+                if (toRemove != null)
+                    _context.EMails.Remove(toRemove);
+
+                throw;
+            }
+        }
+
+        public void AddAddressForAssociate(Address address, int associateId)
+        {
+            _context.Associates[associateId].Addresses.Add(address);
         }
 
         public void AddAgentRelationship(AgentRelationship agentRelationship)
@@ -204,7 +252,30 @@ namespace EGMS.BusinessAssociates.Data.EF
                 throw;
             }
         }
-        
+
+        public void AddEMailForCustomer(EMail eMail, int customerId)
+        {
+            try
+            {
+                _context.EMails.Add(eMail);
+
+                _context.CustomerEMails.Add(new CustomerEMail
+                {
+                    CustomerId = customerId,
+                    EMailId = eMail.Id
+                });
+            }
+            catch
+            {
+                EMail toRemove = _context.EMails.SingleOrDefault(e => e.Id == eMail.Id);
+
+                if (toRemove != null)
+                    _context.EMails.Remove(toRemove);
+
+                throw;
+            }
+        }
+
         public void AddOperatingContext(OperatingContext operatingContext)
         {
             _context.OperatingContexts.Add(operatingContext);
@@ -229,6 +300,53 @@ namespace EGMS.BusinessAssociates.Data.EF
                 _context.ContactPhones.Add(new ContactPhone
                 {
                     ContactId = contactId,
+                    PhoneId = phone.Id
+                });
+            }
+            catch
+            {
+                Phone toRemove = _context.Phones.SingleOrDefault(p => p.Id == phone.Id);
+
+                if (toRemove != null)
+                    _context.Phones.Remove(toRemove);
+
+                throw;
+            }
+        }
+
+        public void AddPhoneForCustomer(Phone phone, int customerId)
+        {
+            try
+            {
+                _context.Phones.Add(phone);
+
+                _context.CustomerPhones.Add(new CustomerPhone
+                {
+                    CustomerId = customerId,
+                    PhoneId = phone.Id
+                });
+            }
+            catch
+            {
+                Phone toRemove = _context.Phones.SingleOrDefault(p => p.Id == phone.Id);
+
+                if (toRemove != null)
+                    _context.Phones.Remove(toRemove);
+
+                throw;
+            }
+        }
+
+
+        public void AddPhoneForAssociate(Phone phone, int associateId)
+        {
+            try
+            {
+                _context.Phones.Add(phone);
+
+                _context.AssociatePhones.Add(new AssociatePhone
+                {
+                    AssociateId = associateId,
                     PhoneId = phone.Id
                 });
             }
@@ -297,11 +415,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             return contact.Addresses.FirstOrDefault(a => a == address) != null;
         }
 
-        public bool AddressExistsForOperatingContext(Address address, int operatingContextId)
+        public bool AddressExistsForAssociate(Address address, int associateId)
         {
-            OperatingContext operatingContext = _context.OperatingContexts[operatingContextId];
+            Associate associate = _context.Associates[associateId];
 
-            return operatingContext.Addresses.FirstOrDefault(a => a == address) != null;
+            return associate.Addresses.FirstOrDefault(a => a == address) != null;
         }
 
         public bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId)

@@ -136,8 +136,8 @@ namespace EGMS.BusinessAssociates.Command
                 case Commands.V1.OperatingContext.CreateForCustomer cmd:
                     return CreateOperatingContextForCustomer(cmd);
 
-                case Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd:
-                    return CreateAddressForOperatingContext(cmd);
+                case Commands.V1.Associate.Address.CreateForAssociate cmd:
+                    return CreateAddressForAssociate(cmd);
 
                 case Commands.V1.OperatingContext.Certification.CreateForOperatingContext cmd:
                     return CreateCertificationForOperatingContext(cmd);
@@ -349,7 +349,7 @@ namespace EGMS.BusinessAssociates.Command
             return GetEGMSPermissionRM(permission);
         }
 
-        private AddressRM CreateAddressForOperatingContext(Commands.V1.OperatingContext.Address.CreateForOperatingContext cmd)
+        private AddressRM CreateAddressForAssociate(Commands.V1.Associate.Address.CreateForAssociate cmd)
         {
             Address address = Address.Create(_addresses++, cmd.IsActive, cmd.EndDate, AddressLine.Create(cmd.Address1),
                 AddressLine.Create(cmd.Address2), AddressLine.Create(cmd.Address3), AddressLine.Create(cmd.Address4),
@@ -357,12 +357,12 @@ namespace EGMS.BusinessAssociates.Command
                 City.Create(cmd.City), Comments.Create(cmd.Comments), PostalCode.Create(cmd.PostalCode),
                 StateCodeLookup.StateCodes[cmd.GeographicState]);
 
-            if (_repository.AddressExistsForOperatingContext(address, cmd.OperatingContextId))
+            if (_repository.AddressExistsForAssociate(address, cmd.OperatingContextId))
             {
                 throw new InvalidOperationException($"Address already exists for Operating Context {cmd.OperatingContextId}");
             }
 
-            _repository.AddAddressForOperatingContext(address, cmd.OperatingContextId);
+            _repository.AddAddressForAssociate(address, cmd.OperatingContextId);
 
             return GetAddressRM(address);
         }

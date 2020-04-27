@@ -15,40 +15,17 @@ namespace EGMS.BusinessAssociates.Domain
             Initialize();
         }
 
-        //public Associate(int id, string longName, string shortName, bool isParent, bool isInternal, bool isDeactivating,
-        //    AssociateTypeLookup associateType, StatusCodeLookup statusCode) : this()
-        //{
-        //    Initialize();
-
-        //    Events.AssociateCreated associateCreated = new Events.AssociateCreated
-        //    {
-        //        Id = id,
-        //        LongName = longName,
-        //        ShortName = shortName,
-        //        IsParent = isParent,
-        //        AssociateType = associateType.AssociateTypeId,
-        //        StatusCode = statusCode
-        //    };
-
-        //    Id = id;
-        //    DUNSNumber = DUNSNumber.Create(id);
-        //    LongName = LongName.Create(longName);
-        //    ShortName = ShortName.Create(shortName);
-        //    IsParent = isParent;
-        //    AssociateType = associateType;
-        //    StatusCode = statusCode;
-
-        //    Apply(associateCreated);
-        //}
-
         private void Initialize()
         {
-            OperatingContexts = new HashSet<OperatingContext>();
+            Addresses = new HashSet<Address>();
             AgentUsers = new HashSet<AgentUser>();
             AssociateCustomers = new HashSet<AssociateCustomer>();
             AssociateOperatingContexts = new HashSet<AssociateOperatingContext>();
             AssociateUsers = new HashSet<AssociateUser>();
             Customers = new HashSet<Customer>();
+            EMails = new HashSet<EMail>();
+            OperatingContexts = new HashSet<OperatingContext>();
+            Phones = new HashSet<Phone>();
             PredecessorBusinessAssociates = new HashSet<Associate>();
         }
 
@@ -81,21 +58,26 @@ namespace EGMS.BusinessAssociates.Domain
         public StatusCodeLookup StatusCode { get; set; }
         public int StatusCodeId { get; set; }
 
+        public int PrimaryEMailId { get; set; }
+        public int PrimaryPhoneId { get; set; }
+        public int PrimaryAddressId { get; set; }
         public bool IsInternal { get; set; }
         public bool IsDeactivating { get; set; }
         public bool IsParent { get; set; }
 
-
+        public HashSet<Address> Addresses { get; set; }
         public HashSet<AgentUser> AgentUsers { get; set; }
         public HashSet<AssociateCustomer> AssociateCustomers { get; set; }
         public HashSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
         public HashSet<AssociateUser> AssociateUsers { get; set; }
         public HashSet<Customer> Customers { get; set; }
         public HashSet<Contact> Contacts { get; set; }
+        public HashSet<EMail> EMails { get; set; }
 
         // TO DO:  This is for third-party suppliers only.  We may need to consolidate this into 
         //   AssociateOperatingContexts
         public HashSet<OperatingContext> OperatingContexts { get; set;}
+        public HashSet<Phone> Phones { get; set; }
         public HashSet<Associate> PredecessorBusinessAssociates { get; set; }
 
         public void UpdateDUNSNumber(DUNSNumber dunsNumber) => Apply(new Events.AssociateDUNSNumberUpdated

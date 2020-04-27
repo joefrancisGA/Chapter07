@@ -45,12 +45,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/operatingcontexts/{operatingContextId}/Addresses")]
         [HttpPost]
-        public IActionResult PostAddressForOperatingContext(int operatingContextId, [FromBody]Commands.V1.OperatingContext.Address.Create request)
+        public IActionResult PostAddressForAssociate(int associateId, [FromBody]Commands.V1.Associate.Address.Create request)
         {
-            Commands.V1.OperatingContext.Address.CreateForOperatingContext createForOperatingContext =
-                new Commands.V1.OperatingContext.Address.CreateForOperatingContext(operatingContextId, request);
+            Commands.V1.Associate.Address.CreateForAssociate createForAssociate =
+                new Commands.V1.Associate.Address.CreateForAssociate(associateId, request);
 
-            return CreatedAtAction("PostAddressForOperatingContext", (AddressRM)_appService.Handle(createForOperatingContext).Result);
+            return CreatedAtAction("PostAddressForAssociate", (AddressRM)_appService.Handle(createForAssociate).Result);
         }
 
         [Route("{associateId}/contacts")]

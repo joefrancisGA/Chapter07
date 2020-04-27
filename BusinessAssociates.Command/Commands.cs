@@ -58,6 +58,56 @@ namespace EGMS.BusinessAssociates.Command
                     public int Id { get; set; }
                     public int Status { get; set; }
                 }
+
+                public static class Address
+                {
+                    public class CreateForAssociate : Create
+                    {
+                        public CreateForAssociate() { }
+
+                        public CreateForAssociate(int operatingContextId, Create create)
+                        {
+                            OperatingContextId = operatingContextId;
+                            AddressType = create.AddressType;
+                            Address1 = create.Address1;
+                            Address2 = create.Address2;
+                            Address3 = create.Address3;
+                            Address4 = create.Address4;
+                            City = create.City;
+                            GeographicState = create.GeographicState;
+                            PostalCode = create.PostalCode;
+                            Country = create.Country;
+                            Attention = create.Attention;
+                            Comments = create.Comments;
+                            StartDate = create.StartDate;
+                            EndDate = create.EndDate;
+                            IsPrimary = create.IsPrimary;
+                            IsActive = create.IsActive;
+                        }
+
+                        public int OperatingContextId;
+                    }
+
+
+                    public class Create
+                    {
+                        public int AddressType { get; set; }
+                        public string Address1 { get; set; }
+                        public string Address2 { get; set; }
+                        public string Address3 { get; set; }
+                        public string Address4 { get; set; }
+                        public string City { get; set; }
+                        public int GeographicState { get; set; }
+                        public string PostalCode { get; set; }
+                        public int Country { get; set; }
+                        public string Attention { get; set; }
+                        public string Comments { get; set; }
+                        public DateTime StartDate { get; set; }
+                        public DateTime EndDate { get; set; }
+                        public bool IsPrimary { get; set; }
+                        public bool IsActive { get; set; }
+                    }
+                }
             }
 
             public static class AgentRelationship
@@ -490,54 +540,6 @@ namespace EGMS.BusinessAssociates.Command
 
             public static class OperatingContext
             {
-                public static class Address
-                {
-                    public class CreateForOperatingContext : Create
-                    {
-                        public CreateForOperatingContext(int operatingContextId, Create create)
-                        {
-                            OperatingContextId = operatingContextId;
-                            AddressType = create.AddressType;
-                            Address1 = create.Address1;
-                            Address2 = create.Address2;
-                            Address3 = create.Address3;
-                            Address4 = create.Address4;
-                            City = create.City;
-                            GeographicState = create.GeographicState;
-                            PostalCode = create.PostalCode;
-                            Country = create.Country;
-                            Attention = create.Attention;
-                            Comments = create.Comments;
-                            StartDate = create.StartDate;
-                            EndDate = create.EndDate;
-                            IsPrimary = create.IsPrimary;
-                            IsActive = create.IsActive;
-                        }
-
-                        public int OperatingContextId;
-                    }
-
-
-                    public class Create
-                    {
-                        public int AddressType { get; set; }
-                        public string Address1 { get; set; }
-                        public string Address2 { get; set; }
-                        public string Address3 { get; set; }
-                        public string Address4 { get; set; }
-                        public string City { get; set; }
-                        public int GeographicState { get; set; }
-                        public string PostalCode { get; set; }
-                        public int Country { get; set; }
-                        public string Attention { get; set; }
-                        public string Comments { get; set; }
-                        public DateTime StartDate { get; set; }
-                        public DateTime EndDate { get; set; }
-                        public bool IsPrimary { get; set; }
-                        public bool IsActive { get; set; }
-                    }
-                }
-
                 public static class Certification
                 {
                     public class CreateForOperatingContext : Create

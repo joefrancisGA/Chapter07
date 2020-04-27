@@ -27,17 +27,22 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
 
         #region Add and Link
 
+        void AddAddressForAssociate(Address address, int associateId);
         void AddAddressForContact(Address address, int contactId);
-        void AddAddressForOperatingContext(Address address, int operatingContextId);
+        void AddAddressForCustomer(Address address, int customerId);
         void AddCertificationForOperatingContext(Certification certification, int operatingContextId);
         void AddContactForAssociate(Contact contact, int associateId);
         void AddContactConfigurationForContact(ContactConfiguration contactConfiguration, int contactId);
         void AddCustomerForAssociate(Customer customer, int associateId);
         void AddCustomerForOperatingContext(Customer customer, int operatingContextId);
+        void AddEMailForAssociate(EMail eMail, int associateId);
         void AddEMailForContact(EMail eMail, int contactId);
+        void AddEMailForCustomer(EMail eMail, int customerId);
         void AddOperatingContextForAssociate(OperatingContext operatingContext, int associateId);
         void AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
+        void AddPhoneForAssociate(Phone phone, int contactId);
         void AddPhoneForContact(Phone phone, int contactId);
+        void AddPhoneForCustomer(Phone phone, int customerId);
         void AddUserForAssociate(User user, int associateId);
 
         #endregion Add and Link
@@ -45,7 +50,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         #region Existence checks
 
         bool AddressExistsForContact(Address address, int contactId);
-        bool AddressExistsForOperatingContext(Address address, int operatingContextId);
+        bool AddressExistsForAssociate(Address address, int associateId);
         bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId);
         bool AlternateFuelExistsForCustomer(int alternateFuelId, int customerId);
 
