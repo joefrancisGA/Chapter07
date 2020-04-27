@@ -96,14 +96,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/agentrelationships/{agentId}/Users")]
         [HttpPost]
-        public async Task<IActionResult> PostUserForAgent(int agentId, [FromBody]Commands.V1.AgentRelationship.User.CreateForAgent request)
+        public IActionResult PostUserForAgent(int agentId, [FromBody]Commands.V1.AgentRelationship.User.Create request)
         {
-            request.AgentId = agentId;
-            object x = await _appService.Handle(request);
+            Commands.V1.AgentRelationship.User.CreateForAgent createForAgent =
+                new Commands.V1.AgentRelationship.User.CreateForAgent(agentId, request);
 
-            AgentRelationshipRM agentRelationshipRM = (AgentRelationshipRM)x;
-
-            return CreatedAtAction("PostUserForAgent", agentRelationshipRM);
+            return CreatedAtAction("PostUserForAgent", (UserRM)_appService.Handle(createForAgent).Result);
         }
 
         [Route("{associateId}/customers")]
