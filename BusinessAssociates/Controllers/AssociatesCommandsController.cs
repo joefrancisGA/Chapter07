@@ -106,7 +106,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/customers")]
         [HttpPost]
-        public IActionResult PostCustomerForAssociate(int associateId, [FromBody]Commands.V1.Customer.CreateForAssociate request)
+        public IActionResult PostCustomerForAssociate(int associateId, [FromBody]Commands.V1.Customer.Create request)
         {
             Commands.V1.Customer.CreateForAssociate createForAssociate =
                 new Commands.V1.Customer.CreateForAssociate(associateId, request);
@@ -116,85 +116,74 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [Route("{associateId}/operatingcontexts/{operatingContextId}/Certification")]
         [HttpPost]
-        public async Task<IActionResult> PostCertificationForOperatingContext(int operatingContextId, [FromBody]Commands.V1.OperatingContext.Certification.CreateForOperatingContext request)
+        public IActionResult PostCertificationForOperatingContext(int operatingContextId, [FromBody]Commands.V1.OperatingContext.Certification.Create request)
         {
-            request.OperatingContextId = operatingContextId;
-            object x = await _appService.Handle(request);
+            Commands.V1.OperatingContext.Certification.CreateForOperatingContext createForOperatingContext =
+                new Commands.V1.OperatingContext.Certification.CreateForOperatingContext(operatingContextId, request);
 
-            CertificationRM certificationRM = (CertificationRM)x;
-
-            return CreatedAtAction("PostCertificationForOperatingContext", certificationRM);
+            return CreatedAtAction("PostCertificationForOperatingContext", (CustomerRM)_appService.Handle(createForOperatingContext).Result);
         }
 
         [Route("{associateId}/contacts/{contactId}/Configuration")]
         [HttpPost]
-        public async Task<IActionResult> PostContactConfigurationForContact(int contactId, [FromBody]Commands.V1.Contact.ContactConfiguration.CreateForContact request)
+        public IActionResult PostContactConfigurationForContact(int contactId, [FromBody]Commands.V1.Contact.ContactConfiguration.Create request)
         {
-            request.ContactId = contactId;
-            object x = await _appService.Handle(request);
-            
-            ContactConfigurationRM contactConfigurationRM = (ContactConfigurationRM)x;
+            Commands.V1.Contact.ContactConfiguration.CreateForContact createForContact =
+                new Commands.V1.Contact.ContactConfiguration.CreateForContact(contactId, request);
 
-            return CreatedAtAction("PostContactConfigurationForContact", contactConfigurationRM);
+            return CreatedAtAction("PostContactConfigurationForContact", (ContactConfigurationRM)_appService.Handle(createForContact).Result);
         }
 
         [Route("{associateId}/contacts/{contactId}/Emails")]
         [HttpPost]
-        public async Task<IActionResult> PostEMailForContact(int contactId, [FromBody]Commands.V1.Contact.EMail.CreateForContact request)
+        public IActionResult PostEMailForContact(int contactId, [FromBody]Commands.V1.Contact.EMail.Create request)
         {
-            request.ContactId = contactId;
-            object x = await _appService.Handle(request);
+            Commands.V1.Contact.EMail.CreateForContact createForContact =
+                new Commands.V1.Contact.EMail.CreateForContact(contactId, request);
 
-            EMailRM eMailRM = (EMailRM)x;
-
-            return CreatedAtAction("PostEMailForContact", eMailRM);
+            return CreatedAtAction("PostEMailForContact", (EMailRM)_appService.Handle(createForContact).Result);
         }
 
         [Route("{associateId}/contacts/{contactId}/Phones")]
         [HttpPost]
-        public async Task<IActionResult> PostPhoneForContact(int contactId, [FromBody]Commands.V1.Contact.Phone.CreateForContact request)
+        public IActionResult PostPhoneForContact(int contactId, [FromBody]Commands.V1.Contact.Phone.Create request)
         {
-            request.ContactId = contactId;
-            object x = await _appService.Handle(request);
+            Commands.V1.Contact.Phone.CreateForContact createForContact =
+                new Commands.V1.Contact.Phone.CreateForContact(contactId, request);
 
-            PhoneRM phoneRM = (PhoneRM)x;
-
-            return CreatedAtAction("PostPhoneForContact", phoneRM);
+            return CreatedAtAction("PostPhoneForContact", (PhoneRM)_appService.Handle(createForContact).Result);
         }
 
         // TO DO:  Do we want to return Ok() under all circumstances?
         [Route("{associateId}/customers/{customerId}/AlternateFuels")]
         [HttpPost]
-        public async Task<IActionResult> PostAlternateFuelForCustomer(int customerId, [FromBody]Commands.V1.Customer.AlternateFuel.CreateForCustomer request)
+        public async Task<IActionResult> PostAlternateFuelForCustomer(int customerId, [FromBody]Commands.V1.Customer.AlternateFuel.Create request)
         {
-            request.CustomerId = customerId;
-            await _appService.Handle(request);
+            Commands.V1.Customer.AlternateFuel.CreateForCustomer createForCustomer =
+                new Commands.V1.Customer.AlternateFuel.CreateForCustomer(customerId, request);
+
+            await _appService.Handle(createForCustomer);
 
             return Ok();
         }
 
         [Route("{associateId}/customers/{customerId}/OperatingContexts")]
         [HttpPost]
-        public async Task<IActionResult> PostOperatingContextForCustomer(int customerId, [FromBody]Commands.V1.OperatingContext.CreateForCustomer request)
+        public IActionResult PostOperatingContextForCustomer(int customerId, [FromBody]Commands.V1.OperatingContext.Create request)
         {
-            request.CustomerId = customerId;
-            object x = await _appService.Handle(request);
+            Commands.V1.OperatingContext.CreateForCustomer createForCustomer =
+                new Commands.V1.OperatingContext.CreateForCustomer(customerId, request);
 
-            OperatingContextRM operatingContextRM = (OperatingContextRM)x;
-
-            return CreatedAtAction("PostOperatingContextForCustomer", operatingContextRM);
+            return CreatedAtAction("PostOperatingContextForCustomer", (OperatingContextRM)_appService.Handle(createForCustomer).Result);
         }
 
         [Route("{associateId}/OperatingContexts/{operatingContextId}/Customers")]
         [HttpPost]
-        public async Task<IActionResult> PostCustomerForOperatingContext(int operatingContextId, [FromBody]Commands.V1.OperatingContext.Customer.CreateForOperatingContext request)
+        public IActionResult PostCustomerForOperatingContext(int operatingContextId, [FromBody]Commands.V1.OperatingContext.Customer.Create request)
         {
-            request.OperatingContextId = operatingContextId;
-            object x = await _appService.Handle(request);
-            
-            CustomerRM customerRM = (CustomerRM)x;
-
-            return CreatedAtAction("PostCustomerForOperatingContext", customerRM);
+            Commands.V1.OperatingContext.Customer.CreateForOperatingContext createForOperatingContext =
+                new Commands.V1.OperatingContext.Customer.CreateForOperatingContext(operatingContextId, request);
+            return CreatedAtAction("PostCustomerForOperatingContext", (ContactConfigurationRM)_appService.Handle(createForOperatingContext).Result);
         }
 
         [Route("{associateId}/roles")]
