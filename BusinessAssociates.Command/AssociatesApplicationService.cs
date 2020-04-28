@@ -220,7 +220,7 @@ namespace EGMS.BusinessAssociates.Command
 
             _repository.AddAssociate(associate);
 
-            return GetAssociateRM(associate);
+            return _mapper.Map<Associate, AssociateRM>(associate);
         }
 
         private ContactConfigurationRM CreateContactConfigurationForContact(Commands.V1.Contact.ContactConfiguration.CreateForContact cmd)
