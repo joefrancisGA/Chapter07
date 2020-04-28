@@ -6,7 +6,7 @@ using EGMS.BusinessAssociates.Data.EF;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Query.ReadModels;
-using Microsoft.Extensions.Configuration;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
@@ -75,6 +75,36 @@ namespace BusinessAssociates.Tests
             Debug.WriteLine("EFTEST:  Getting ContactRM");
 
             ContactRM contactRM = (ContactRM)appService.Handle(createContactForAssociateCommand).Result;
+
+            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+            Debug.WriteLine("EFTEST:  Setting up Joe Francis contact");
+
+            Commands.V1.Contact.Address.Create createAddressCommand = new Commands.V1.Contact.Address.Create
+            {
+                StartDate = DateTime.Now,
+                Address1 = "401 Bloombridge Way",
+                AddressType = (int) AddressTypeLookup.AddressTypeEnum.Physical,
+                Attention = "Joe Francis",
+                City = "Marietta",
+                Country = 1,
+                GeographicState = 1,
+                EndDate = DateTime.Now.AddYears(10),
+                IsActive = true,
+                Comments = "None",
+                PostalCode = "30066",
+                IsPrimary = true
+            };
+
+            Commands.V1.Contact.Address.CreateForContact createAddressForContactCommand =
+                new Commands.V1.Contact.Address.CreateForContact(contactRM.Id, createAddressCommand);
+
+            Debug.WriteLine("EFTEST:  Getting AddressRM");
+
+            // ReSharper disable once UnusedVariable
+            AddressRM addressRM = (AddressRM)appService.Handle(createAddressForContactCommand).Result;
+
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 

@@ -407,9 +407,12 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool AddressExistsForContact(Address address, int contactId)
         {
-            Contact contact = _context.Contacts[contactId];
+            Contact contact = _context.Contacts.FirstOrDefault(c => c.Id == contactId);
 
             if (contact == null)
+                return false;
+
+            if (contact.Addresses.Count == 0)
                 return false;
 
             return contact.Addresses.FirstOrDefault(a => a == address) != null;
@@ -417,7 +420,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool AddressExistsForAssociate(Address address, int associateId)
         {
-            Associate associate = _context.Associates[associateId];
+            Associate associate = _context.Associates.FirstOrDefault(a => a.Id == associateId);
 
             return associate.Addresses.FirstOrDefault(a => a == address) != null;
         }
@@ -441,14 +444,22 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId)
         {
-            return _context.OperatingContexts[operatingContextId].CertificationId != null;
+            OperatingContext operatingContext =
+                _context.OperatingContexts.FirstOrDefault(oc => oc.Id == operatingContextId);
+
+            if (operatingContext == null)
+                return false;
+
+            return operatingContext.CertificationId != null;
         }
 
         public bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId)
         {
-            return _context.Contacts[contactId].ContactConfigurations.FirstOrDefault(cc =>
-                cc.FacilityId == contactConfiguration.FacilityId &&
-                cc.ContactTypeId == contactConfiguration.ContactTypeId) != null;
+            Contact contact = _context.Contacts.FirstOrDefault(c => c.Id == contactId);
+
+            return contact?.ContactConfigurations.FirstOrDefault(cc =>
+                       cc.FacilityId == contactConfiguration.FacilityId &&
+                       cc.ContactTypeId == contactConfiguration.ContactTypeId) != null;
         }
 
         public bool CustomerExistsForAssociate(Customer customer, int associateId)
@@ -471,7 +482,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool EMailExistsForContact(EMail eMail, int contactId)
         {
-            Contact contact = _context.Contacts[contactId];
+            Contact contact = _context.Contacts.FirstOrDefault(c => c.Id == contactId);
 
             return contact?.Emails.FirstOrDefault(e => e == eMail) != null;
         }
@@ -493,7 +504,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         
         public bool PhoneExistsForContact(Phone phone, int contactId)
         {
-            Contact contact = _context.Contacts[contactId];
+            Contact contact = _context.Contacts.FirstOrDefault(c => c.Id == contactId);
 
             if (contact == null)
                 return false;

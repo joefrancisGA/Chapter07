@@ -525,23 +525,6 @@ namespace EGMS.BusinessAssociates.Command
             return GetContactRM(contact);
         }
 
-        // TO DO:  Move RM code to RM file
-        AssociateRM GetAssociateRM(Associate associate)
-        {
-            return new AssociateRM
-            {
-                AssociateTypeId = associate.AssociateTypeId,
-                DUNSNumber = associate.DUNSNumber,
-                Id = associate.Id,
-                IsDeactivating = associate.IsDeactivating,
-                IsInternal = associate.IsInternal,
-                IsParent = associate.IsParent,
-                LongName = associate.LongName,
-                ShortName = associate.ShortName,
-                StatusCodeId = associate.StatusCodeId
-            };
-        }
-
         ContactRM GetContactRM(Contact contact)
         {
             return new ContactRM
