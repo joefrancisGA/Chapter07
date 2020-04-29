@@ -27,6 +27,7 @@
 
         public class ContactQueryParams : BaseQueryParams
         {
+            public int? AssociateId { get; set; }
             public int? Id { get; set; }
         }
 

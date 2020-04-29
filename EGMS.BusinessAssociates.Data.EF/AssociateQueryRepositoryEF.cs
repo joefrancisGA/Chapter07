@@ -29,6 +29,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(int associateId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<AgentRelationshipRM> GetAgentRelationshipAsync(int agentRelationshipId)
         {
             throw new NotImplementedException();
@@ -39,12 +44,22 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<ContactRM> GetContactAsync(int associateId, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<ContactRM> GetContactAsync(int contactId)
         {
             throw new NotImplementedException();
         }
 
         public Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(QueryModels.ContactQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(int associateId)
         {
             throw new NotImplementedException();
         }
@@ -69,6 +84,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<PagedGridResult<IEnumerable<CustomerRM>>> GetCustomersAsync(int associateId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<EMailRM> GetEMailAsync(int eMailId)
         {
             throw new NotImplementedException();
@@ -80,6 +100,26 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
         public Task<OperatingContextRM> GetOperatingContextAsync(int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForAssociateAsync(QueryModels.OperatingContextQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForAssociateAsync(int associateId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForCustomerAsync(QueryModels.OperatingContextQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForCustomerAsync(int associateId, int customerId)
         {
             throw new NotImplementedException();
         }
@@ -129,12 +169,22 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<UserRM> GetUserAsync(int associateId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<UserRM> GetUserAsync(int userId)
         {
             throw new NotImplementedException();
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(QueryModels.UserQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(int associateId)
         {
             throw new NotImplementedException();
         }

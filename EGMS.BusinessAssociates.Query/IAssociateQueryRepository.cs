@@ -12,24 +12,30 @@ namespace EGMS.BusinessAssociates.Query
 
         Task<AddressRM> GetAddressAsync(int addressId);
         Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(QueryModels.AddressQueryParams queryParams);
-        
+        Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(int associateId);
+
         Task<AgentRelationshipRM> GetAgentRelationshipAsync(int agentRelationshipId);
         Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams);
 
-        Task<ContactRM> GetContactAsync(int contactId);
+        Task<ContactRM> GetContactAsync(int associateId, int contactId);
         Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(QueryModels.ContactQueryParams queryParams);
+        Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(int associateId);
 
         Task<ContactConfigurationRM> GetContactConfigurationAsync(int contactConfigurationId);
         Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsAsync(QueryModels.ContactConfigurationQueryParams queryParams);
         
         Task<CustomerRM> GetCustomerAsync(int customerId);
         Task<PagedGridResult<IEnumerable<CustomerRM>>> GetCustomersAsync(QueryModels.CustomerQueryParams queryParams);
+        Task<PagedGridResult<IEnumerable<CustomerRM>>> GetCustomersAsync(int associateId);
 
         Task<EMailRM> GetEMailAsync(int eMailId);
         Task<PagedGridResult<IEnumerable<EMailRM>>> GetEMailsAsync(QueryModels.EMailQueryParams queryParams);
 
         Task<OperatingContextRM> GetOperatingContextAsync(int operatingContextId);
-        Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsAsync(QueryModels.OperatingContextQueryParams queryParams);
+        Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForAssociateAsync(QueryModels.OperatingContextQueryParams queryParams);
+        Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForAssociateAsync(int associateId);
+        Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForCustomerAsync(QueryModels.OperatingContextQueryParams queryParams);
+        Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForCustomerAsync(int associateId, int customerId);
 
         Task<PhoneRM> GetPhoneAsync(int phoneId);
         Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesAsync(QueryModels.PhoneQueryParams queryParams);
@@ -43,8 +49,9 @@ namespace EGMS.BusinessAssociates.Query
         Task<RoleEGMSPermissionRM> GetRoleEGMSPermission(int roleEGMSPermissionId);
         Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsAsync(QueryModels.RoleEGMSPermissionQueryParams queryParams);
 
-        Task<UserRM> GetUserAsync(int userId);
+        Task<UserRM> GetUserAsync(int associateId, int userId);
         Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(QueryModels.UserQueryParams queryParams);
+        Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(int associateId);
 
 
         

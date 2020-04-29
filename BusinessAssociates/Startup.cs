@@ -46,13 +46,13 @@ namespace EGMS.BusinessAssociates.API
             });
 
             // Just statically reference the EF automapper config for now.
-            MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AutoMapperEF(Configuration));
-            });
+            //MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new AutoMapperEF(Configuration));
+            //});
 
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            //IMapper mapper = mappingConfig.CreateMapper();
+            //services.AddSingleton(mapper);
 
 
             services.AddControllers().AddJsonOptions(options =>
