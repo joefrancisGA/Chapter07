@@ -13,17 +13,199 @@ using Newtonsoft.Json;
 
 namespace EFTest
 {
+    // TO DO:  Add seeding
+
     class Program
     {
         private static int _instanceType;
         private static int _dunsNumber = new Random().Next(100000000,900000000);
-        
+
+
+        // What about new third party supplier ID?
+
+        #region Associate
+        // Need to test internal and external
+        // Need to test Marketer, Pooler, Shipper, Asset Manager
         private const string CreateAssociateAPI = @"/api/associate";
+        private const string GetAssociateAPI = @"/api/associate/{associateId}";
+        private const string UpdateAssociateAPI = @"/api/associate/{associateId}";
+        private const string GetAssociatesAPI = @"/api/associate";
+
+        #endregion Associate
+
+        #region ContactForAssociate
+
         private const string CreateContactForAssociateAPI = @"/api/associate/{associateId}/contacts";
+        private const string UpdateContactForAssociateAPI = @"/api/associate/{associateId}/contacts/{contactId}";
+        private const string GetContactForAssociateAPI = @"/api/associate/{associateId}/contacts/{contactId}";
+        private const string GetContactsForAssociateAPI = @"/api/associate/{associateId}/contacts";
+        private const string RemoveContactForAssociateAPI = @"/api/associate/{associateId}/contacts";
+
+        #endregion ContactForAssociate
+
+        #region UserForAssociate
+
         private const string CreateUserForAssociateAPI = @"/api/associate/{associateId}/users";
+        private const string UpdateUserForAssociateAPI = @"/api/associate/{associateId}/users/{userId}";
+        private const string GetUserForAssociateAPI = @"/api/associate/{associateId}/users/{userId}";
+        private const string GetUsersForAssociateAPI = @"/api/associate/{associateId}/users";
+        private const string RemoveUserForAssociateAPI = @"/api/associate/{associateId}/users/{userId}";
+
+        #endregion UserForAssociate
+
+        #region CustomerForAssociate
+
         private const string CreateCustomerForAssociateAPI = @"/api/associate/{associateId}/customers";
+        private const string UpdateCustomerForAssociateAPI = @"/api/associate/{associateId}/customers/{customerId}";
+        private const string GetCustomerForAssociateAPI = @"/api/associate/{associateId}/customers/{customerId}";
+        private const string GetCustomersForAssociateAPI = @"/api/associate/{associateId}/customers";
+        private const string RemoveCustomerForAssociateAPI = @"/api/associate/{associateId}/customers/{customerId}";
+
+        #endregion CustomerForAssociate
+
+        #region OperatingContextForAssociate
+
+        // Need to text internal and external
         private const string CreateOperatingContextForAssociateAPI = @"/api/associate/{associateId}/operatingcontexts";
+        private const string GetOperatingContextForAssociateAPI = @"/api/associate/{associateId}/operatingcontexts/{operatingContextId}";
+        private const string UpdateOperatingContextForAssociateAPI = @"/api/associate/{associateId}/operatingcontexts/{operatingContextId}";
+        private const string GetOperatingContextsForAssociateAPI = @"/api/associate/{associateId}/operatingcontexts";
+        private const string RemoveOperatingContextForAssociateAPI = @"/api/associate/{associateId}/operatingcontexts/{operationcontextid}";
+
+        #endregion OperatingContextForAssociate
+
+        #region OperatingContextForCustomer
+
         private const string CreateOperatingContextForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts";
+        private const string UpdateOperatingContextForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts/{operatingContextId}";
+        private const string GetOperatingContextForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts/{operatingContextId}";
+        private const string GetOperatingContextsForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts";
+        private const string RemoveOperatingContextForCustomerAPI = @"/api/associate/{associateId}/customers/{customerId}/operatingcontexts/{operatingcontextId}";
+
+        #endregion OperatingContextForCustomer
+
+        #region AddressForOperatingContext
+
+        private const string CreateAddressForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Addresses";
+        private const string UpdateAddressForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Addresses/{addressId}";
+        private const string GetAddressForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Addresses/{addressId}";
+        private const string RemoveAddressForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Addresses/{addressId]";
+        private const string GetAddressesForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Addresses";
+
+        #endregion AddressForOperatingContext
+
+        #region AddressForContact
+
+        private const string CreateAddressForContactAPI = @"{associateId}/contacts/{contactId}/Addresses";
+        private const string UpdateAddressForContactAPI = @"{associateId}/contact/{contactId}/Addresses/{addressId}";
+        private const string GetAddressForContactAPI = @"{associateId}/contact/{contactId}/Addresses/{addressId}";
+        private const string RemoveAddressForContactAPI = @"{associateId}/contact/{contactId}/Addresses/{addressId}";
+        private const string GetAddressesForContactAPI = @"{associateId}/contacts/{contactId}/Addresses";
+
+        #endregion AddressForContact
+
+        #region AgentRelationships
+
+        private const string CreateAgentRelationshipForPrincipalAPI = @"{principalId}/agentrelationships";
+        private const string GetAgentRelationshipsForPrincipalAPI = @"{principalId}/agentrelationships";
+        private const string GetAgentRelationshipForPrincipalAPI = @"{principalId}/agentrelationships/{agentRelationshipId}";
+        private const string UpdateAgentRelationshipForPrincipalAPI = @"{principalId}/agentrelationships/{agentRelationshipId}";
+        private const string RemoveAgentRelationshipForPrincipalAPI = @"{principalId}/agentrelationships/{agentRelationshipId}";
+
+        #endregion AgentRelationships
+
+        #region AgentRelationshipUser
+
+        private const string CreateUserForAgentRelationshipAPI = @"{associateId}/agentrelationships/{agentId}/Users";           // POST
+        private const string GetUserForAgentRelationshipAPI = @"{associateId}/agentrelationships/{agentId}/Users";              // GET
+        private const string GetUsersForAgentRelationshipAPI = @"{associateId}/agentrelationships/{agentId}/Users/{userId}";    // GET
+        private const string RemoveUserFromAgentRelationshipAPI = @"{associateId}/agentrelationships/{agentId}/Users/{userId}";          // DELETE
+        private const string DeleteUserFromAgentRelationshipAPI = @"{associateId}/agentrelationships/{agentId}/Users/{serId}";          // DELETE
+
+        #endregion AgentRelationshipUser
+
+        #region Certification
+
+        private const string CreateCertificationForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Certification";
+        private const string GetCertificationForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Certification/{certificationId}";
+        private const string UpdateCertificationForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Certification/{certificationId}";
+        private const string RemoveCertificationForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Certification";
+
+        #endregion Certification
+
+        #region ContactConfiguration
+
+        private const string CreateContactConfigurationForContactAPI = @"{associateId}/contacts/{contactId}/ContactConfiguration";
+        private const string GetContactConfigurationForContactAPI = @"{associateId}/contacts/{contactId}/ContactConfiguration/{contactConfigurationId}";
+        private const string GetContactConfigurationsForContactAPI = @"{associateId}/contacts/{contactId}/ContactConfiguration";
+        private const string UpdateContactConfigurationForContactAPI = @"{associateId}/contacts/{contactId}/ContactConfiguration/{configurationId}";
+        private const string RemoveContactConfigurationForContactAPI = @"{associateId}/contacts/{contactId}/ContactConfiguration/{configurationId}";
+
+        #endregion ContactConfiguration
+
+        #region EMail
+
+        private const string CreateEMailForAssociateAPI = @"{associateId}/contacts/{contactId}/Emails"; 
+        private const string GetEMailForAssociateAPI = @"{associateId}/contacts/{contactId}/Emails/{emailId}";
+        private const string GetEMailsForAssociateAPI = @"{associateId}/contacts/{contactId}/Emails";
+        private const string RemoveEMailForAssociateAPI = @"{associateId}/contacts/{contactId}/Emails/{emailId}";
+        private const string UpdateEMailForAssociateAPI = @"{associateId}/contacts/{contactId}/Emails/{emailId}";
+
+        #endregion EMail
+
+        #region Phone
+
+        private const string CreatePhoneForContactAPI = @"{associateId}/contacts/{contactId}/Phones";
+        private const string GetPhoneForContactAPI = @"{associateId}/contacts/{contactId}/Phones/{phoneId}";
+        private const string GetPhonesForContactAPI = @"{associateId}/contacts/{contactId}/Phones";
+        private const string UpdatePhoneForContactAPI = @"{associateId}/contacts/{contactId}/Phones/{phoneId}";
+        private const string RemovePhoneForContactAPI = @"{associateId}/contacts/{contactId}/Phones/{phoneId}";
+
+        #endregion Phone
+
+        #region AlternateFuel
+
+        private const string CreateAlternateFuelForCustomerAPI = @"{associateId}/customers/{customerId}/AlternateFuels/{alternateFuelId}";
+        private const string RemoveAlternateFuelForCustomerAPI = @"{associateId}/customers/{customerId}/AlternateFuels/{alternateFuelId}";
+
+        #endregion AlternateFuel
+
+        #region CustomerForOperatingContext
+
+        private const string CreateCustomerForOperatingContextAPI = @"{associateId}/OperatingContexts/{operatingContextId}/Customers";
+        private const string GetCustomerForOperatingContextAPI = @"{associateId}/OperatingContexts/{operatingContextId}/Customers/{customerId}";
+        private const string GetCustomersForOperatingContextAPI = @"{associateId}/OperatingContexts/{operatingContextId}/Customers";
+        private const string UpdateCustomerForOperatingContextAPI = @"{associateId}/OperatingContexts/{operatingContextId}/Customers/{CustomerId}";
+        private const string RemoveCustomerForOperatingContextAPI = @"{associateId}/OperatingContexts/{operatingContextId}/Customers/{CustomerId}";
+
+        #endregion CustomerForOperatingContext
+
+        #region Role
+
+        private const string CreateRoleAPI = @"{associateId}/roles";
+        private const string GetRoleAPI = @"{associateId}/roles/{roleId}";
+        private const string GetRolesAPI = @"{associateId}/roles";
+        private const string RemoveRoleAPI = @"{associateId}/roles/{roleId}";
+
+        #endregion Role
+
+        #region EGMSPermission
+
+        private const string CreateEGMSPermissionAPI = @"{associateId}/egmspermissions";
+        private const string GetEGMSPermissionAPI = @"{associateId}/egmspermission/{egmspermissionid}";
+        private const string GetEGMSPermissionsAPI = @"{associateId}/egmspermissions";
+        private const string RemoveEGMSPermissionAPI = @"{associateId}/egmspermissions/{egmspermissionId}";
+
+        #endregion EGMSPermission
+
+        #region RoleEGMSPermission
+
+        private const string CreateRoleEGMSPermissionAPI = @"{associateId}/roleegmspermissions";
+        private const string GetRoleEGMSPermissionAPI = @"{associateId}/roleegmspermissions/{roleegmspermissionid}";
+        private const string GetRoleEGMSPermissionsAPI = @"{associateId}/roleegmspermissions";
+        private const string RemoveRoleEGMSPermissionAPI = @"{associateId}/roleegmspermissions/{roleegmspermissionid}";
+
+        #endregion RoleEGMSPermission
 
 
         static void Main()
