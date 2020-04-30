@@ -299,7 +299,17 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<RoleEGMSPermissionRM> GetRoleEGMSPermissionForAssociateAsync(int associateId, int roleEGMSPermissionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsAsync(QueryModels.RoleEGMSPermissionQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsForAssociateAsync(int associateId)
         {
             throw new NotImplementedException();
         }

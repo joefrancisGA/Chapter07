@@ -333,15 +333,27 @@ namespace EGMS.BusinessAssociates.API.Controllers
         }
 
         [HttpGet]
-        [Route("{associateId}/egmspermission")]
+        [Route("{associateId}/egmspermissions")]
         public Task<IActionResult> GetEGMSPermissionsForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsForAssociateAsync(associateId), _log);
 
         #endregion EGMSPermission
 
         #region RoleEGMSPermission
 
-        private const string GetRoleEGMSPermissionAPI = @"{associateId}/roleegmspermissions/{roleegmspermissionid}";
-        private const string GetRoleEGMSPermissionsAPI = @"{associateId}/roleegmspermissions";
+        [HttpGet]
+        [Route("RoleEGMSPermissions")]
+        public Task<IActionResult> GetRoleEGMSPermissionsAsync([FromQuery]QueryModels.RoleEGMSPermissionQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetRoleEGMSPermissionsAsync(request), _log);
+
+        [HttpGet]
+        [Route("{associateId}/roleEGMSpermissions/{roleegmspermissionid}")]
+        public Task<IActionResult> GetRoleEGMSPermissionForAssociateAsync(int associateId, int roleEGMSPermissionId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetRoleEGMSPermissionForAssociateAsync(associateId, roleEGMSPermissionId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/roleEGMSpermissions")]
+        public Task<IActionResult> GetRoleEGMSPermissionsForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetRoleEGMSPermissionsForAssociateAsync(associateId), _log);
 
         #endregion RoleEGMSPermission
     }
