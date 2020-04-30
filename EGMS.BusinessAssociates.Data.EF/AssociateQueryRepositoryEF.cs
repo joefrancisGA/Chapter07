@@ -34,6 +34,66 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<AddressRM> GetAddressForContactAsync(int contactId, int addressId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(QueryModels.AddressQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(int associateId, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressForContactAsync(int associateId, int contactId, int addressRelationshipId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<AgentRelationshipRM> IAssociateQueryRepository.GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsForPrincipalAsync(QueryModels.AgentRelationshipQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserRM> GetUserForAgentRelationshipAsync(int associateId, int agentRelationshipId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserRM> GetUserForAgentRelationshipAsync(int agentRelationshipI, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(QueryModels.UserQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int associateId, int agentRelationshipId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int associateId, int principalId, int agentRelationshipId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<AgentRelationshipRM> GetAgentRelationshipAsync(int agentRelationshipId)
         {
             throw new NotImplementedException();

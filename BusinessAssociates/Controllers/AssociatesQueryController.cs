@@ -42,7 +42,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [HttpGet]
         [Route("{associateId}/addresses/{addressId}")]
-        public Task<IActionResult> GetAddressAsync(int addressId) => RequestHandler.HandleQuery(() => _queryRepo.GetAddressAsync(addressId), _log);
+        public Task<IActionResult> GetAddressForAssociateAsync(int addressId) => RequestHandler.HandleQuery(() => _queryRepo.GetAddressAsync(addressId), _log);
 
         #endregion
 
@@ -137,49 +137,67 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         #endregion OperatingContextForCustomer
 
-        #region AddressForOperatingContext
-
-
-        //[HttpGet]
-        //[Route("operatingcontexts")]
-        //public Task<IActionResult> GetOperatingContextsAsync([FromQuery]QueryModels.OperatingContextQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextsForAssociateAsync(request), _log);
-
-
-        //[HttpGet]
-        //[Route("{associateId}/customers/{customerId}/operatingcontexts")]
-        //public Task<IActionResult> GetOperatingContextsForCustomerAsync(int associateId, int customerId, [FromQuery]QueryModels.OperatingContextQueryParams request)
-        //{
-        //    return RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextsForCustomerAsync(associateId, customerId), _log);
-        //}
-
-        //[HttpGet]
-        //[Route("{associateId}/customers/{customerId}/operatingcontexts/{operatingContextId}")]
-        //public Task<IActionResult> GetOperatingContextForCustomerAsync(int associateId, int customerId, int operatingContextId) => RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextAsync(operatingContextId), _log);
-
-
-        private const string GetAddressForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Addresses/{addressId}";
-        private const string GetAddressesForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Addresses";
-
-        #endregion AddressForOperatingContext
-
         #region AddressForContact
 
-        private const string GetAddressForContactAPI = @"{associateId}/contact/{contactId}/Addresses/{addressId}";
-        private const string GetAddressesForContactAPI = @"{associateId}/contacts/{contactId}/Addresses";
+        [HttpGet]
+        [Route("{associateId}/contact/{contactId}")]
+        public Task<IActionResult> GetAddressForContactAsync(int associateId, int customerId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetAddressForContactAsync(associateId, customerId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/contact/{contactId}/Addresses/{addressId}")]
+        public Task<IActionResult> GetAddressForContactAsync(int associateId, int customerId, int addressId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetAddressForContactAsync(customerId, addressId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/contacts/{contactId}/Addresses")]
+        public Task<IActionResult> GetAddressesForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetAddressesForContactAsync(associateId, contactId), _log);
 
         #endregion AddressForContact
 
+
         #region AgentRelationships
 
-        private const string GetAgentRelationshipsForPrincipalAPI = @"{principalId}/agentrelationships";
-        private const string GetAgentRelationshipForPrincipalAPI = @"{principalId}/agentrelationships/{agentRelationshipId}";
+        [HttpGet]
+        [Route("agentrelationships")]
+        public Task<IActionResult> GetAgentRelationshipsAsync([FromQuery]QueryModels.AgentRelationshipQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationshipsAsync(request), _log);
+
+        [HttpGet]
+        [Route("{principalId}/agentrelationships")]
+        public Task<IActionResult> GetAgentRelationshipsForPrincipalAsync(int principalId, [FromQuery]QueryModels.AgentRelationshipQueryParams request)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationshipsForPrincipalAsync(request), _log);
+        }
+
+        [HttpGet]
+        [Route("{principalId}/agentrelationships/{agentRelationshipId}")]
+        public Task<IActionResult> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId) => RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationshipForPrincipalAsync(principalId, agentRelationshipId), _log);
 
         #endregion AgentRelationships
 
         #region AgentRelationshipUser
 
-        private const string GetUserForAgentRelationshipAPI = @"{associateId}/agentrelationships/{agentId}/Users";              // GET
-        private const string GetUsersForAgentRelationshipAPI = @"{associateId}/agentrelationships/{agentId}/Users/{userId}";    // GET
+        [HttpGet]
+        [Route("{associateId}/agentrelationships/{agentRelationshipId}/Users/{UserId}")]
+        public Task<IActionResult> GetUserForAgentRelationshipAsync(int associateId, int agentRelationshipId, int userId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetUserForAgentRelationshipAsync(associateId, agentRelationshipId, userId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/agentrelationships/{agentRelationshipId}/Users")]
+        public Task<IActionResult> GetUsersForAgentRelationshipAsync(int agentRelationshipId, [FromQuery]QueryModels.UserQueryParams request)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAgentRelationshipAsync(request), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/agentrelationships/{agentRelationshipId}")]
+        public Task<IActionResult> GetUsersForAgentRelationshipAsync(int associateId, int agentRelationshipId) => RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAgentRelationshipAsync(associateId, agentRelationshipId), _log);
 
         #endregion AgentRelationshipUser
 
