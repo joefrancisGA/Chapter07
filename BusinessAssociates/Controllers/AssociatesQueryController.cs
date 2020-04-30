@@ -158,8 +158,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
         public Task<IActionResult> GetAddressesForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetAddressesForContactAsync(associateId, contactId), _log);
 
         #endregion AddressForContact
-
-
+        
         #region AgentRelationships
 
         [HttpGet]
@@ -218,20 +217,55 @@ namespace EGMS.BusinessAssociates.API.Controllers
         [Route("{associateId}/operatingcontexts/{operatingContextId/Certification/{certificationId}")]
         public Task<IActionResult> GetCertificationForOperatingContextAsync(int associateId, int operatingContextId, int certificationId) => RequestHandler.HandleQuery(() => _queryRepo.GetCertificationForOperatingContextAsync(associateId, operatingContextId, certificationId), _log);
 
-
         #endregion Certification
 
         #region ContactConfiguration
 
-        private const string GetContactConfigurationForContactAPI = @"{associateId}/contacts/{contactId}/ContactConfiguration/{contactConfigurationId}";
-        private const string GetContactConfigurationsForContactAPI = @"{associateId}/contacts/{contactId}/ContactConfiguration";
+        [HttpGet]
+        [Route("contactconfigurations")]
+        public Task<IActionResult> GetContactConfigurationsAsync([FromQuery]QueryModels.ContactConfigurationQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationsForContactAsync(request), _log);
+
+        [HttpGet]
+        [Route("{associateId}/contacts/{contactId}/ContactConfiguration/{contactConfigurationId}")]
+        public Task<IActionResult> GetContactConfigurationForContactAsync(int associateId, int contactId, int configurationContactId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationForContactAsync(associateId, contactId, configurationContactId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/contacts/{contactId/ContactConfigurations")]
+        public Task<IActionResult> GetContactConfigurationsForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationsForContactAsync(associateId, contactId), _log);
 
         #endregion ContactConfiguration
 
         #region EMail
 
-        private const string GetEMailForAssociateAPI = @"{associateId}/contacts/{contactId}/Emails/{emailId}";
-        private const string GetEMailsForAssociateAPI = @"{associateId}/contacts/{contactId}/Emails";
+        [HttpGet]
+        [Route("emails")]
+        public Task<IActionResult> GetEMailsAsync([FromQuery]QueryModels.EMailQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetEMailsAsync(request), _log);
+
+        [HttpGet]
+        [Route("{associateId}/contacts/{contactId}/Emails/{emailId}")]
+        public Task<IActionResult> GetEMailForContactAsync(int associateId, int contactId, int eMailId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetEMailForContactAsync(associateId, contactId, eMailId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/contacts/{contactId}/Emails")]
+        public Task<IActionResult> GetEMailsForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetEMailsForContactAsync(associateId, contactId), _log);
+
+
+        [HttpGet]
+        [Route("{associateId}/Emails/{emailId}")]
+        public Task<IActionResult> GetEMailForAssociateAsync(int associateId, int eMailId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetEMailForAssociateAsync(associateId, eMailId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/Emails")]
+        public Task<IActionResult> GetEMailsForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetEMailsForAssociateAsync(associateId), _log);
 
         #endregion EMail
 
