@@ -31,6 +31,11 @@
             public int? Id { get; set; }
         }
 
+        public class CertificationQueryParams : BaseQueryParams
+        {
+            public int? Id { get; set; }
+        }
+
         public class ContactConfigurationQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }

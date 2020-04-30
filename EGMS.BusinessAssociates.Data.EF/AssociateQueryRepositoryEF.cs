@@ -248,5 +248,36 @@ namespace EGMS.BusinessAssociates.Data.EF
         {
             throw new NotImplementedException();
         }
+
+        public Task<CertificationRM> GetCertificationsAsync(QueryModels.CertificationQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContext,
+            QueryModels.CertificationQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationForOperatingContextAsync(int associateId, int operatingContextId, int certificationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int operatingContext, QueryModels.CertificationQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId, int certificationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

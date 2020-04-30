@@ -202,9 +202,22 @@ namespace EGMS.BusinessAssociates.API.Controllers
         #endregion AgentRelationshipUser
 
         #region Certification
+        
+        [HttpGet]
+        [Route("certifications")]
+        public Task<IActionResult> GetCertificationsAsync([FromQuery]QueryModels.CertificationQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetCertificationsAsync(request), _log);
 
-        private const string CreateCertificationForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Certification";
-        private const string GetCertificationForOperatingContextAPI = @"{associateId}/operatingcontexts/{operatingContextId}/Certification/{certificationId}";
+        [HttpGet]
+        [Route("{associateId}/operatingcontexts/{operatingContextId}/Certifications")]
+        public Task<IActionResult> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId, [FromQuery]QueryModels.CertificationQueryParams request)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetCertificationsForOperatingContextAsync(associateId, operatingContextId, request), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/operatingcontexts/{operatingContextId/Certification/{certificationId}")]
+        public Task<IActionResult> GetCertificationForOperatingContextAsync(int associateId, int operatingContextId, int certificationId) => RequestHandler.HandleQuery(() => _queryRepo.GetCertificationForOperatingContextAsync(associateId, operatingContextId, certificationId), _log);
+
 
         #endregion Certification
 
