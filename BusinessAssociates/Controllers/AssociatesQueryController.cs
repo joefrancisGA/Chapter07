@@ -271,29 +271,70 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         #region Phone
 
-        private const string GetPhoneForContactAPI = @"{associateId}/contacts/{contactId}/Phones/{phoneId}";
-        private const string GetPhonesForContactAPI = @"{associateId}/contacts/{contactId}/Phones";
+        [HttpGet]
+        [Route("phones")]
+        public Task<IActionResult> GetPhonesAsync([FromQuery]QueryModels.PhoneQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetPhonesAsync(request), _log);
+
+        [HttpGet]
+        [Route("{associateId}/contacts/{contactId}/Phones/{phoneId}")]
+        public Task<IActionResult> GetPhoneForContactAsync(int associateId, int contactId, int phoneId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetPhoneForContactAsync(associateId, contactId, phoneId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/contacts/{contactId}/Phones")]
+        public Task<IActionResult> GetPhonesForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetPhonesForContactAsync(associateId, contactId), _log);
+
+
+        [HttpGet]
+        [Route("{associateId}/Phones/{phoneId}")]
+        public Task<IActionResult> GetPhoneForAssociateAsync(int associateId, int phoneId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetPhoneForAssociateAsync(associateId, phoneId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/Phones")]
+        public Task<IActionResult> GetPhonesForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetPhonesForAssociateAsync(associateId), _log);
 
         #endregion Phone
-
-        #region CustomerForOperatingContext
-
-        private const string GetCustomerForOperatingContextAPI = @"{associateId}/OperatingContexts/{operatingContextId}/Customers/{customerId}";
-        private const string GetCustomersForOperatingContextAPI = @"{associateId}/OperatingContexts/{operatingContextId}/Customers";
-
-        #endregion CustomerForOperatingContext
-
+            
         #region Role
 
-        private const string GetRoleAPI = @"{associateId}/roles/{roleId}";
-        private const string GetRolesAPI = @"{associateId}/roles";
+        [HttpGet]
+        [Route("roles")]
+        public Task<IActionResult> GetRolesAsync([FromQuery]QueryModels.RoleQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetRolesAsync(request), _log);
+
+        [HttpGet]
+        [Route("{associateId}/operatingcontexts/{operatingContextId}/roles")]
+        public Task<IActionResult> GetRolesForOperatingContextAsync(int associateId, int operatingContextId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetRolesForOperatingContextAsync(associateId, operatingContextId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/operatingcontexts/{operatingContextId}/roles/{roleId}")]
+        public Task<IActionResult> GetRoleForOperatingContextAsync(int associateId, int operatingContextId, int roleId) => RequestHandler.HandleQuery(() => _queryRepo.GetRoleForOperatingContextAsync(associateId, operatingContextId, roleId), _log);
 
         #endregion Role
 
         #region EGMSPermission
 
-        private const string GetEGMSPermissionAPI = @"{associateId}/egmspermission/{egmspermissionid}";
-        private const string GetEGMSPermissionsAPI = @"{associateId}/egmspermissions";
+        [HttpGet]
+        [Route("EGMSPermissions")]
+        public Task<IActionResult> GetEGMSPermissionsAsync([FromQuery]QueryModels.EGMSPermissionQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsAsync(request), _log);
+
+        [HttpGet]
+        [Route("{associateId}/egmspermission/{egmspermissionid}")]
+        public Task<IActionResult> GetEGMSPermissionForAssociateAsync(int associateId, int egmsPermissionId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionForAssociateAsync(associateId, egmsPermissionId), _log);
+        }
+
+        [HttpGet]
+        [Route("{associateId}/egmspermission")]
+        public Task<IActionResult> GetEGMSPermissionsForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsForAssociateAsync(associateId), _log);
 
         #endregion EGMSPermission
 

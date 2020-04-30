@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using EGMS.BusinessAssociates.Query.ReadModels;
+using Microsoft.VisualBasic.CompilerServices;
 
 
 namespace EGMS.BusinessAssociates.Query
@@ -55,13 +56,21 @@ namespace EGMS.BusinessAssociates.Query
         Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForCustomerAsync(int associateId, int customerId);
 
         Task<PhoneRM> GetPhoneAsync(int phoneId);
+        Task<PhoneRM> GetPhoneForContactAsync(int associateId, int contactId, int phoneId);
+        Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForContactAsync(int associateId, int contactId);
+        Task<PhoneRM> GetPhoneForAssociateAsync(int associateId, int phoneId);
+        Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForAssociateAsync(int associateId);
         Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesAsync(QueryModels.PhoneQueryParams queryParams);
 
         Task<RoleRM> GetRoleAsync(int roleId);
         Task<PagedGridResult<IEnumerable<RoleRM>>> GetRolesAsync(QueryModels.RoleQueryParams queryParams);
+        Task<RoleRM> GetRoleForOperatingContextAsync(int associateId, int operatingContextId, int roleId);
+        Task<PagedGridResult<IEnumerable<RoleRM>>> GetRolesForOperatingContextAsync(int associateId, int operatingContextId);
 
         Task<EGMSPermissionRM> GetEGMSPermissionAsync(int egmsPermissionId);
-        Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams queryParams);
+        Task<EGMSPermissionRM> GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams request);
+        Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsForAssociateAsync(int associateId);
+        Task<EGMSPermissionRM> GetEGMSPermissionForAssociateAsync(int associateId, int roleId);
 
         Task<RoleEGMSPermissionRM> GetRoleEGMSPermission(int roleEGMSPermissionId);
         Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsAsync(QueryModels.RoleEGMSPermissionQueryParams queryParams);
@@ -70,7 +79,6 @@ namespace EGMS.BusinessAssociates.Query
         Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(QueryModels.UserQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(int associateId);
 
-        //Task<CertificationRM> GetCertificationAsync(int certificationId);
         Task<CertificationRM> GetCertificationsAsync(QueryModels.CertificationQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContext, QueryModels.CertificationQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationForOperatingContextAsync(int associateId, int operatingContextId, int certificationId);

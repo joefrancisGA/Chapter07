@@ -124,6 +124,21 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<ContactConfigurationRM> GetContactConfigurationForContactAsync(int associateId, int contactId, int contactConfigurationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsForContactAsync(QueryModels.ContactConfigurationQueryParams queryParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsForContactAsync(int associateId, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<ContactConfigurationRM> GetContactConfigurationAsync(int contactConfigurationId)
         {
             throw new NotImplementedException();
@@ -150,6 +165,26 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
         public Task<EMailRM> GetEMailAsync(int eMailId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EMailRM> GetEMailForContactAsync(int associateId, int contactId, int eMailId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<EMailRM>>> GetEMailsForContactAsync(int associateId, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EMailRM> GetEMailForAssociateAsync(int associateId, int eMailId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<EMailRM>>> GetEMailsForAssociateAsync(int associateId)
         {
             throw new NotImplementedException();
         }
@@ -194,6 +229,26 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<PhoneRM> GetPhoneForContactAsync(int associateId, int contactId, int phoneId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForContactAsync(int associateId, int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PhoneRM> GetPhoneForAssociateAsync(int associateId, int phoneId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForAssociateAsync(int associateId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesAsync(QueryModels.PhoneQueryParams queryParams)
         {
             throw new NotImplementedException();
@@ -209,7 +264,27 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
+        public Task<RoleRM> GetRoleForOperatingContextAsync(int associateId, int operatingContextId, int roleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<RoleRM>>> GetRolesForOperatingContextAsync(int associateId, int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<EGMSPermissionRM> GetEGMSPermissionAsync(int egmsPermissionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsForAssociateAsync(int associateId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<EGMSPermissionRM> GetEGMSPermissionForAssociateAsync(int associateId, int roleId)
         {
             throw new NotImplementedException();
         }
@@ -276,6 +351,11 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
         public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<EGMSPermissionRM> IAssociateQueryRepository.GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams request)
         {
             throw new NotImplementedException();
         }
