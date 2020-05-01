@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Repositories;
@@ -132,7 +133,14 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void AddAddressForAssociate(Address address, int associateId)
         {
-            _context.Associates[associateId].Addresses.Add(address);
+            Associate associate = _context.Associates.FirstOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+            {
+                throw new InvalidOperationException("Associate not found in AddAddressForAssociate");
+            }
+
+            associate.Addresses.Add(address);
         }
 
         public void AddAgentRelationship(AgentRelationship agentRelationship)
@@ -438,7 +446,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         
         public bool AssociateExists(int id)
         {
-            return _context.Associates.Find(a => a.DUNSNumber == id) != null;
+            return _context.Associates.FirstOrDefault(a => a.DUNSNumber == id) != null;
         }
 
         public bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId)

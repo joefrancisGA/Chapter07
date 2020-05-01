@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
@@ -9,7 +8,6 @@ using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using EGMS.BusinessAssociates.Data.EF;
 
 namespace EGMS.BusinessAssociates.Data.EF
 {
