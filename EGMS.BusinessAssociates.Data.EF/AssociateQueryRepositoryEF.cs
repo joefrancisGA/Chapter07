@@ -1,17 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
+using Microsoft.Extensions.Logging;
 
 namespace EGMS.BusinessAssociates.Data.EF
 {
     class AssociateQueryRepositoryEF : IAssociateQueryRepository
     {
+        private readonly BusinessAssociatesContext _context;
+        // TO DO:  Need to use logging
+        // ReSharper disable once NotAccessedField.Local
+        private readonly ILogger _log;
+        private readonly IMapper _mapper;
+
+        public AssociateQueryRepositoryEF(BusinessAssociatesContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+
         public Task<AssociateRM> GetAssociateAsync(int associateId)
         {
-            throw new NotImplementedException();
+            AssociateRM associateRM = _mapper.Map<Associate, AssociateRM> (_context.Associates.SingleOrDefault(a => a.Id == associateId));
+
+            return Task.FromResult(associateRM);
         }
 
         public Task<PagedGridResult<IEnumerable<AssociateRM>>> GetAssociatesAsync(QueryModels.AssociateQueryParams queryParams)
