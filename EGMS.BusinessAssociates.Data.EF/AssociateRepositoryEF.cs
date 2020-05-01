@@ -429,13 +429,15 @@ namespace EGMS.BusinessAssociates.Data.EF
         {
             Associate associate = _context.Associates.FirstOrDefault(a => a.Id == associateId);
 
+            if (associate == null)
+                return false;
+
             return associate.Addresses.FirstOrDefault(a => a == address) != null;
         }
 
         public bool AgentRelationshipExistsForPrincipal(AgentRelationship agentRelationship, int principalId)
         {
-            return _context.AgentRelationships.Exists(ar =>
-                ar.PrincipalId == principalId && ar.AgentId == agentRelationship.AgentId);
+            return (_context.AgentRelationships.FirstOrDefault(ar => ar.PrincipalId == principalId && ar.AgentId == agentRelationship.AgentId) == null);
         }
 
         public bool AlternateFuelExistsForCustomer(int alternateFuelTypeId, int customerId)

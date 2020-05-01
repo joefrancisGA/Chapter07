@@ -23,7 +23,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
 
         // Links
-        public List<AgentRelationship> AgentRelationships { get; set; } = new List<AgentRelationship>();
+        public DbSet<AgentRelationship> AgentRelationships { get; set; }
         public List<AssociateContact> AssociateContacts { get; set; } = new List<AssociateContact>();
         public List<AssociateCustomer> AssociateCustomers { get; set; } = new List<AssociateCustomer>();
         public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; } = new List<AssociateOperatingContext>();

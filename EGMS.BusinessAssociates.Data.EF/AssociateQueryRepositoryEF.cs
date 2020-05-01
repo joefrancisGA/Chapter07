@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
-using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.EntityFrameworkCore;
@@ -67,9 +66,6 @@ namespace EGMS.BusinessAssociates.Data.EF
         public Task<AddressRM> GetAddressAsync(int addressId)
         {
             var addresses = _context.Addresses;
-            //.Include("AggregatePools.PrimaryPools.BasicPools.TransferLocations.Location")
-            //.Include("Locations.TransferLocations.BasicPool")
-            //.Include(f => f.Assets);
 
             var result = addresses.SingleOrDefault(a => a.Id == addressId);
 
@@ -107,7 +103,9 @@ namespace EGMS.BusinessAssociates.Data.EF
             return retVal;
         }
 
+#pragma warning disable 1998
         public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForAssociateAsync(int associateId)
+#pragma warning restore 1998
         {
             List<AssociateAddress> associateAddresses = _context.AssociateAddresses.FindAll(aa => aa.AssociateId == associateId);
 
@@ -152,26 +150,28 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(retVal);
         }
 
+#pragma warning disable 1998
         public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(int associateId, int contactId)
+#pragma warning restore 1998
         {
             List<ContactAddress> contactAddresses = _context.ContactAddresses.FindAll(aa => aa.ContactId == contactId);
 
             if (contactAddresses == null)
                 throw new InvalidOperationException("No addresses found for specified contact.");
 
-            List<Address> addresses2 = new List<Address>();
+            List<Address> addresses = new List<Address>();
 
             foreach (ContactAddress aa in contactAddresses)
             {
-                addresses2.Add(_context.Addresses.Find(aa.AddressId));
+                addresses.Add(_context.Addresses.Find(aa.AddressId));
             }
 
-            var retData = _mapper.Map<IEnumerable<AddressRM>>(addresses2);
+            var retData = _mapper.Map<IEnumerable<AddressRM>>(addresses);
 
             var retVal = new PagedGridResult<IEnumerable<AddressRM>>
             {
                 Data = retData,
-                Total = addresses2.Count,
+                Total = addresses.Count,
                 Errors = null,
                 AggregateResult = null
             };
@@ -180,17 +180,36 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
 
-        Task<AgentRelationshipRM> IAssociateQueryRepository.GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams)
+        public async Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var agentRelationships = _context.AgentRelationships;
+
+            var filtered = agentRelationships.ApplyQuery(queryParams);
+
+            var results = await filtered.ToListAsync();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = agentRelationships.ApplyQuery(queryParams, false);
+                totalCount = await countQuery.CountAsync();
+            }
+
+            var retData = _mapper.Map<IEnumerable<AgentRelationshipRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<AgentRelationshipRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return retVal;
         }
 
-        public Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsForPrincipalAsync(QueryModels.AgentRelationshipQueryParams queryParams)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId)
+        public Task<AgentRelationshipRM> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId)
         {
             throw new NotImplementedException();
         }
@@ -221,11 +240,6 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
         public Task<AgentRelationshipRM> GetAgentRelationshipAsync(int agentRelationshipId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams)
         {
             throw new NotImplementedException();
         }
