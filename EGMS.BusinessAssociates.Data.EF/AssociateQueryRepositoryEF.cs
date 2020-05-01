@@ -7,7 +7,9 @@ using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using EGMS.BusinessAssociates.Data.EF;
 
 namespace EGMS.BusinessAssociates.Data.EF
 {
@@ -23,23 +25,56 @@ namespace EGMS.BusinessAssociates.Data.EF
         {
             _context = context;
             _mapper = mapper;
+
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public Task<AssociateRM> GetAssociateAsync(int associateId)
         {
-            AssociateRM associateRM = _mapper.Map<Associate, AssociateRM> (_context.Associates.SingleOrDefault(a => a.Id == associateId));
-
-            return Task.FromResult(associateRM);
+            return Task.FromResult(_mapper.Map<Associate, AssociateRM> (_context.Associates.SingleOrDefault(a => a.Id == associateId)));
         }
 
-        public Task<PagedGridResult<IEnumerable<AssociateRM>>> GetAssociatesAsync(QueryModels.AssociateQueryParams queryParams)
+        public async Task<PagedGridResult<IEnumerable<AssociateRM>>> GetAssociatesAsync(QueryModels.AssociateQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var associates = _context.Associates;
+
+            var filtered = associates.ApplyQuery(queryParams);
+
+            var results = await filtered.ToListAsync();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = associates.ApplyQuery(queryParams, false);
+                totalCount = await countQuery.CountAsync();
+            }
+
+            var retData = _mapper.Map<IEnumerable<AssociateRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<AssociateRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return retVal;
         }
 
         public Task<AddressRM> GetAddressAsync(int addressId)
         {
-            throw new NotImplementedException();
+            var addresses = _context.Addresses;
+            //.Include("AggregatePools.PrimaryPools.BasicPools.TransferLocations.Location")
+            //.Include("Locations.TransferLocations.BasicPool")
+            //.Include(f => f.Assets);
+
+            var result = addresses.SingleOrDefault(a => a.Id == addressId);
+
+            var retVal = _mapper.Map<AddressRM>(result);
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(QueryModels.AddressQueryParams queryParams)

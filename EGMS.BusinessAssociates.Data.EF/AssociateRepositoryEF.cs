@@ -140,7 +140,6 @@ namespace EGMS.BusinessAssociates.Data.EF
             _context.AgentRelationships.Add(agentRelationship);
         }
 
-
         public void AddAssociate(Associate associate)
         {
             _context.Associates.Add(associate);

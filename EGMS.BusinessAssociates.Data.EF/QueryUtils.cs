@@ -7,7 +7,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 {
     public static class QueryUtils
     {
-        public static IQueryable<Associate> ApplyQuery(this IQueryable<Associate> query, AssociateQueryParams queryParams)
+        public static IQueryable<Associate> ApplyQuery(this IQueryable<Associate> query, AssociateQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
