@@ -13,12 +13,10 @@ namespace EGMS.BusinessAssociates.Query
 
         Task<AddressRM> GetAddressAsync(int addressId);
         Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(QueryModels.AddressQueryParams queryParams);
-        Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(int associateId);
+        Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForAssociateAsync(int associateId);
 
         Task<AddressRM> GetAddressForContactAsync(int contactId, int addressId);
-        Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(QueryModels.AddressQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(int associateId, int contactId);
-        Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressForContactAsync(int associateId, int contactId, int addressRelationshipId);
 
         Task<AgentRelationshipRM> GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsForPrincipalAsync(QueryModels.AgentRelationshipQueryParams queryParams);

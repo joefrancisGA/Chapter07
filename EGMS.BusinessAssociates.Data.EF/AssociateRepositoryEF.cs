@@ -575,7 +575,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void UpdateAddress(Address address)
         {
-            _context.Addresses[address.Id] = address;
+            throw new NotImplementedException();
         }
         
         public void UpdateOperatingContext(OperatingContext operatingContext)

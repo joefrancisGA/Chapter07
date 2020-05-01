@@ -10,7 +10,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public BusinessAssociatesContext(DbContextOptions<BusinessAssociatesContext> options) : base(options) { }
 
         // Entities
-        public List<Address> Addresses { get; set; } = new List<Address>();
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Associate> Associates { get; set; }
         public List<Contact> Contacts { get; set; } = new List<Contact>();
         public List<OperatingContext> OperatingContexts { get; set; } = new List<OperatingContext>();

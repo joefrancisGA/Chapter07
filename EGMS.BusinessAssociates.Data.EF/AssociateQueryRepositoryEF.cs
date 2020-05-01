@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
+using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,9 @@ namespace EGMS.BusinessAssociates.Data.EF
         private readonly BusinessAssociatesContext _context;
         // TO DO:  Need to use logging
         // ReSharper disable once NotAccessedField.Local
+#pragma warning disable 169
         private readonly ILogger _log;
+#pragma warning restore 169
         private readonly IMapper _mapper;
 
         public AssociateQueryRepositoryEF(BusinessAssociatesContext context, IMapper mapper)
@@ -75,35 +78,107 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(retVal);
         }
 
-        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(QueryModels.AddressQueryParams queryParams)
+        public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(QueryModels.AddressQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var addresses = _context.Addresses;
+
+            var filtered = addresses.ApplyQuery(queryParams);
+
+            var results = await filtered.ToListAsync();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = addresses.ApplyQuery(queryParams, false);
+                totalCount = await countQuery.CountAsync();
+            }
+
+            var retData = _mapper.Map<IEnumerable<AddressRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<AddressRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return retVal;
         }
 
-        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(int associateId)
+        public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForAssociateAsync(int associateId)
         {
-            throw new NotImplementedException();
+            List<AssociateAddress> associateAddresses = _context.AssociateAddresses.FindAll(aa => aa.AssociateId == associateId);
+
+            if (associateAddresses == null)
+                throw new InvalidOperationException("No addresses found for specified associate.");
+
+            List<Address> addresses2 = new List<Address>();
+
+            foreach (AssociateAddress aa in associateAddresses)
+            {
+                addresses2.Add(_context.Addresses.Find(aa.AddressId));
+            }
+
+            var retData = _mapper.Map<IEnumerable<AddressRM>>(addresses2);
+
+            var retVal = new PagedGridResult<IEnumerable<AddressRM>>
+            {
+                Data = retData,
+                Total = addresses2.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return retVal;
         }
 
         public Task<AddressRM> GetAddressForContactAsync(int contactId, int addressId)
         {
-            throw new NotImplementedException();
+            ContactAddress contactAddress =
+                _context.ContactAddresses.SingleOrDefault(ca => ca.ContactId == contactId && ca.AddressId == addressId);
+
+            if (contactAddress == null)
+                throw new InvalidOperationException("Specified address not found for specified contact.");
+
+            Address address = _context.Addresses.SingleOrDefault(a => a.Id == addressId);
+
+            if (address == null)
+                throw new InvalidOperationException("Address not found.");
+
+            var retVal = _mapper.Map<AddressRM>(address);
+
+            return Task.FromResult(retVal);
         }
 
-        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(QueryModels.AddressQueryParams queryParams)
+        public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(int associateId, int contactId)
         {
-            throw new NotImplementedException();
+            List<ContactAddress> contactAddresses = _context.ContactAddresses.FindAll(aa => aa.ContactId == contactId);
+
+            if (contactAddresses == null)
+                throw new InvalidOperationException("No addresses found for specified contact.");
+
+            List<Address> addresses2 = new List<Address>();
+
+            foreach (ContactAddress aa in contactAddresses)
+            {
+                addresses2.Add(_context.Addresses.Find(aa.AddressId));
+            }
+
+            var retData = _mapper.Map<IEnumerable<AddressRM>>(addresses2);
+
+            var retVal = new PagedGridResult<IEnumerable<AddressRM>>
+            {
+                Data = retData,
+                Total = addresses2.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return retVal;
         }
 
-        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(int associateId, int contactId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressForContactAsync(int associateId, int contactId, int addressRelationshipId)
-        {
-            throw new NotImplementedException();
-        }
 
         Task<AgentRelationshipRM> IAssociateQueryRepository.GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams)
         {
