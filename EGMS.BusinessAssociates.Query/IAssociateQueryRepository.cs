@@ -23,9 +23,8 @@ namespace EGMS.BusinessAssociates.Query
         Task<AgentRelationshipRM> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId);
 
         Task<UserRM> GetUserForAgentRelationshipAsync(int associateId, int agentRelationshipId, int userId);
-        Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(QueryModels.UserQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int associateId, int agentRelationshipId);
-
+        Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(QueryModels.UserQueryParams queryParams);
 
         Task<ContactRM> GetContactAsync(int associateId, int contactId);
         Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(QueryModels.ContactQueryParams queryParams);
