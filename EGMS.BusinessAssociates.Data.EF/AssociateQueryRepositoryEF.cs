@@ -575,7 +575,29 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<CustomerRM>>> GetCustomersAsync(int associateId)
         {
-            throw new NotImplementedException();
+            List<AssociateCustomer> associateCustomers = _context.AssociateCustomers.FindAll(ac => ac.AssociateId == associateId);
+
+            if (associateCustomers == null)
+                throw new InvalidOperationException("No customers found for specified associate.");
+
+            List<Customer> customers = new List<Customer>();
+
+            foreach (AssociateCustomer ac in associateCustomers)
+            {
+                customers.Add(_context.Customers.Find(ac.CustomerId));
+            }
+
+            var retData = _mapper.Map<IEnumerable<CustomerRM>>(customers);
+
+            var retVal = new PagedGridResult<IEnumerable<CustomerRM>>
+            {
+                Data = retData,
+                Total = customers.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<EMailRM> GetEMailAsync(int eMailId)
