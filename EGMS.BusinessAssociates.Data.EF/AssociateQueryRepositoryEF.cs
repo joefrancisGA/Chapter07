@@ -405,17 +405,62 @@ namespace EGMS.BusinessAssociates.Data.EF
         public Task<ContactRM> GetContactAsync(int contactId)
         {
             return Task.FromResult(_mapper.Map<Contact, ContactRM>(_context.Contacts.SingleOrDefault(c => c.Id == contactId)));
-
         }
 
         public Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(QueryModels.ContactQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var contacts = _context.Contacts;
+
+            var filtered = contacts.ApplyQuery(queryParams);
+
+            var results = filtered.ToList();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = contacts.ApplyQuery(queryParams, false);
+                totalCount = countQuery.Count();
+            }
+
+            var retData = _mapper.Map<IEnumerable<ContactRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<ContactRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(int associateId)
         {
-            throw new NotImplementedException();
+            List<AssociateContact> associateContacts = _context.AssociateContacts.FindAll(ac => ac.AssociateId == associateId);
+
+            if (associateContacts == null)
+                throw new InvalidOperationException("No contacts found for specified associate.");
+
+            List<Contact> contacts = new List<Contact>();
+
+            foreach (AssociateContact ac in associateContacts)
+            {
+                contacts.Add(_context.Contacts.Find(ac.ContactId));
+            }
+
+            var retData = _mapper.Map<IEnumerable<ContactRM>>(contacts);
+
+            var retVal = new PagedGridResult<IEnumerable<ContactRM>>
+            {
+                Data = retData,
+                Total = contacts.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<ContactConfigurationRM> GetContactConfigurationForContactAsync(int associateId, int contactId, int contactConfigurationId)

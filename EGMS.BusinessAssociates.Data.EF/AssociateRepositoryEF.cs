@@ -188,7 +188,12 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void AddContactConfigurationForContact(ContactConfiguration contactConfiguration, int contactId)
         {
-            _context.Contacts[contactId].ContactConfigurations.Add(contactConfiguration);
+            Contact contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
+
+            if (contact == null)
+                throw new InvalidOperationException("Contact not found.");
+
+            contact.ContactConfigurations.Add(contactConfiguration);
         }
 
         public void AddCustomerForAssociate(Customer customer, int associateId)
