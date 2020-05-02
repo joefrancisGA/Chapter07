@@ -539,7 +539,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<CustomerRM> GetCustomerAsync(int customerId)
         {
-            throw new NotImplementedException();
+            Customer customer = _context.Customers.SingleOrDefault(c => c.Id == customerId);
+
+            return Task.FromResult(_mapper.Map<Customer, CustomerRM>(customer));
         }
 
         public Task<PagedGridResult<IEnumerable<CustomerRM>>> GetCustomersAsync(QueryModels.CustomerQueryParams queryParams)
