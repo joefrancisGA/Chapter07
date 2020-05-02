@@ -532,7 +532,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<ContactConfigurationRM> GetContactConfigurationAsync(int contactConfigurationId)
         {
-            throw new NotImplementedException();
+            ContactConfiguration contactConfiguration = _context.ContactConfigurations.SingleOrDefault(cc => cc.Id == contactConfigurationId);
+            
+            return Task.FromResult(_mapper.Map<ContactConfiguration, ContactConfigurationRM>(contactConfiguration));
         }
 
         public Task<CustomerRM> GetCustomerAsync(int customerId)
