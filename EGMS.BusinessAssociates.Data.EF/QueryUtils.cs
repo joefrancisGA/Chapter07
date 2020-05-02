@@ -77,6 +77,16 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
+        public static IQueryable<EMail> ApplyQuery(this IQueryable<EMail> query, EMailQueryParams queryParams, bool usePaging = true)
+        {
+            if (queryParams.Id.HasValue)
+            {
+                query = query.Where(x => x.Id == queryParams.Id.Value);
+            }
+
+            return query.ApplyBaseQuery(queryParams);
+        }
+
         public static IQueryable<T> ApplyBaseQuery<T>(this IQueryable<T> query, BaseQueryParams queryParams)
         {
             if (queryParams.Page != null && queryParams.PageSize != null)
