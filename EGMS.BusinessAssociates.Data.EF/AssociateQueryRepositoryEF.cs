@@ -303,9 +303,40 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(retVal);
         }
 
-        public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int associateId, int agentRelationshipId)
+        public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int principalId, int agentRelationshipId)
         {
-            throw new NotImplementedException();
+            AgentRelationship agentRelationship =
+                _context.AgentRelationships.SingleOrDefault(ar => ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
+
+            if (agentRelationship == null)
+                throw new InvalidOperationException("Agent relationship not found for specified principal.");
+
+            IEnumerable<AgentUser> agentUsers = _context.AgentUsers.Where(au => au.AgentId == agentRelationship.AgentId);
+
+            if (agentUsers == null)
+                throw new InvalidOperationException("Users not found for AgentRelationship.");
+
+            List<User> users = new List<User>();
+
+            foreach (AgentUser agentUser in agentUsers)
+            {
+                User user = _context.Users.Single(u => u.Id == agentUser.UserId);
+
+                if (user != null)
+                    users.Add(user);
+            }
+
+            var retData = _mapper.Map<IEnumerable<UserRM>>(users);
+
+            var retVal = new PagedGridResult<IEnumerable<UserRM>>
+            {
+                Data = retData,
+                Total = users.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int associateId, int principalId, int agentRelationshipId)
