@@ -602,7 +602,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<EMailRM> GetEMailAsync(int eMailId)
         {
-            throw new NotImplementedException();
+            EMail email = _context.EMails.SingleOrDefault(e => e.Id == eMailId);
+
+            return Task.FromResult(_mapper.Map<EMail, EMailRM>(email));
         }
 
         public Task<EMailRM> GetEMailForContactAsync(int associateId, int contactId, int eMailId)
