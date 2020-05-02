@@ -479,9 +479,33 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(_mapper.Map<ContactConfiguration, ContactConfigurationRM>(contactConfiguration));
         }
 
-        public Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsForContactAsync(QueryModels.ContactConfigurationQueryParams queryParams)
+        public Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsAsync(QueryModels.ContactConfigurationQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var contactConfigurations = _context.ContactConfigurations;
+
+            var filtered = contactConfigurations.ApplyQuery(queryParams);
+
+            var results = filtered.ToList();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = contactConfigurations.ApplyQuery(queryParams, false);
+                totalCount = countQuery.Count();
+            }
+
+            var retData = _mapper.Map<IEnumerable<ContactConfigurationRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<ContactConfigurationRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsForContactAsync(int associateId, int contactId)
@@ -490,11 +514,6 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
         public Task<ContactConfigurationRM> GetContactConfigurationAsync(int contactConfigurationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsAsync(QueryModels.ContactConfigurationQueryParams queryParams)
         {
             throw new NotImplementedException();
         }

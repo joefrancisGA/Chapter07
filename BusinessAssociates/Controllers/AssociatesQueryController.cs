@@ -223,7 +223,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [HttpGet]
         [Route("contactconfigurations")]
-        public Task<IActionResult> GetContactConfigurationsAsync([FromQuery]QueryModels.ContactConfigurationQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationsForContactAsync(request), _log);
+        public Task<IActionResult> GetContactConfigurationsAsync([FromQuery]QueryModels.ContactConfigurationQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationsAsync(request), _log);
 
         [HttpGet]
         [Route("{associateId}/contacts/{contactId}/ContactConfiguration/{contactConfigurationId}")]

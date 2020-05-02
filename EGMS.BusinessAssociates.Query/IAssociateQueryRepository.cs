@@ -31,7 +31,7 @@ namespace EGMS.BusinessAssociates.Query
         Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(int associateId);
 
         Task<ContactConfigurationRM> GetContactConfigurationForContactAsync(int associateId, int contactId, int contactConfigurationId);
-        Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsForContactAsync(QueryModels.ContactConfigurationQueryParams queryParams);
+        Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsAsync(QueryModels.ContactConfigurationQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsForContactAsync(int associateId, int contactId);
         
         Task<CustomerRM> GetCustomerAsync(int customerId);

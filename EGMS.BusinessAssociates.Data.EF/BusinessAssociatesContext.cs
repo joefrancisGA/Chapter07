@@ -46,7 +46,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         // TO DO:  The first release should include support for the first three lists
         public List<AgentUser> AgentUsers { get; set; } = new List<AgentUser>();
         public List<Certification> Certifications { get; set; } = new List<Certification>();
-        public List<ContactConfiguration> ContactConfigurations { get; set; } = new List<ContactConfiguration>();
+        public DbSet<ContactConfiguration> ContactConfigurations { get; set; }
 
         // TO DO:  Not important until Lifecycle release
         public List<Associate> PredecessorBusinessAssociates { get; set; } = new List<Associate>();
