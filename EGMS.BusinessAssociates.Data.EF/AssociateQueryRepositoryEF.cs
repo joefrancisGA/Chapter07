@@ -656,7 +656,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<EMailRM> GetEMailForAssociateAsync(int associateId, int eMailId)
         {
-            throw new NotImplementedException();
+            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+                throw new InvalidOperationException("Associate not found.");
+
+            AssociateEMail associateEMail = _context.AssociateEMails.SingleOrDefault(ae => ae.AssociateId == associateId && ae.EMailId == eMailId);
+
+            if (associateEMail == null)
+                throw new InvalidOperationException("EMails not found for Contact.");
+
+            EMail eMail = _context.EMails.SingleOrDefault(e => e.Id == eMailId);
+
+            return Task.FromResult(_mapper.Map<EMail, EMailRM>(eMail));
         }
 
         public Task<PagedGridResult<IEnumerable<EMailRM>>> GetEMailsForAssociateAsync(int associateId)
