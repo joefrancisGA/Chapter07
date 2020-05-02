@@ -376,7 +376,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<AgentRelationshipRM> GetAgentRelationshipAsync(int agentRelationshipId)
         {
-            throw new NotImplementedException();
+            var agentRelationships = _context.AgentRelationships;
+
+            var result = agentRelationships.SingleOrDefault(ar => ar.Id == agentRelationshipId);
+
+            var retVal = _mapper.Map<AgentRelationshipRM>(result);
+
+            return Task.FromResult(retVal);
         }
 
         public Task<ContactRM> GetContactAsync(int associateId, int contactId)
