@@ -19,7 +19,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public List<EMail> EMails { get; set; } = new List<EMail>();
         public List<Phone> Phones { get; set; } = new List<Phone>();
         public List<Role> Roles { get; set; } = new List<Role>();
-        public List<User> Users { get; set; } = new List<User>();
+        public DbSet<User> Users { get; set; }
 
 
         // Links

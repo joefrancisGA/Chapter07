@@ -274,14 +274,33 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(retData);
         }
 
-        public Task<UserRM> GetUserForAgentRelationshipAsync(int agentRelationshipId, int userId)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(QueryModels.UserQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var users = _context.Users;
+
+            var filtered = users.ApplyQuery(queryParams);
+
+            var results = filtered.ToList();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = users.ApplyQuery(queryParams, false);
+                totalCount = countQuery.Count();
+            }
+
+            var retData = _mapper.Map<IEnumerable<UserRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<UserRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int associateId, int agentRelationshipId)
