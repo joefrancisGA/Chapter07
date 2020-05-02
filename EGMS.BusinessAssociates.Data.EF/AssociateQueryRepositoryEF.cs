@@ -546,7 +546,31 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<CustomerRM>>> GetCustomersAsync(QueryModels.CustomerQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var customers = _context.Customers;
+
+            var filtered = customers.ApplyQuery(queryParams);
+
+            var results = filtered.ToList();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = customers.ApplyQuery(queryParams, false);
+                totalCount = countQuery.Count();
+            }
+
+            var retData = _mapper.Map<IEnumerable<CustomerRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<CustomerRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<CustomerRM>>> GetCustomersAsync(int associateId)

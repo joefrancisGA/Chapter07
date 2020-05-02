@@ -56,8 +56,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             return query.ApplyBaseQuery(queryParams);
         }
-
-
+        
         public static IQueryable<ContactConfiguration> ApplyQuery(this IQueryable<ContactConfiguration> query, ContactConfigurationQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
@@ -68,6 +67,15 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
+        public static IQueryable<Customer> ApplyQuery(this IQueryable<Customer> query, CustomerQueryParams queryParams, bool usePaging = true)
+        {
+            if (queryParams.Id.HasValue)
+            {
+                query = query.Where(x => x.Id == queryParams.Id.Value);
+            }
+
+            return query.ApplyBaseQuery(queryParams);
+        }
 
         public static IQueryable<T> ApplyBaseQuery<T>(this IQueryable<T> query, BaseQueryParams queryParams)
         {
