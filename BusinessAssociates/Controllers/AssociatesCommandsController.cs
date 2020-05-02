@@ -195,7 +195,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
             return Ok();
         }
 
-        [Route("{associateId}/permissions")]
+        [Route("{associateId}/egmspermissions")]
         [HttpPost]
         public async Task<IActionResult> PostEGMSPermission([FromBody]Commands.V1.EGMSPermission.Create request)
         {
@@ -204,7 +204,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
             return Ok();
         }
 
-        [Route("{associateId}/rolepermissions")]
+        [Route("{associateId}/roleegmspermissions")]
         [HttpPost]
         public async Task<IActionResult> PostRoleEGMSPermissionForAssociate([FromBody]Commands.V1.RoleEGMSPermission.Create request)
         {
