@@ -387,12 +387,25 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<ContactRM> GetContactAsync(int associateId, int contactId)
         {
-            throw new NotImplementedException();
+            var associateContacts = _context.AssociateContacts;
+
+            Contact contact = null;
+
+            foreach (AssociateContact associateContact in associateContacts)
+            {
+                if (associateContact.ContactId == contactId && associateContact.AssociateId == associateId)
+                {
+                    contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
+                }
+            }
+
+            return Task.FromResult(_mapper.Map<Contact, ContactRM>(contact));
         }
 
         public Task<ContactRM> GetContactAsync(int contactId)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(_mapper.Map<Contact, ContactRM>(_context.Contacts.SingleOrDefault(c => c.Id == contactId)));
+
         }
 
         public Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(QueryModels.ContactQueryParams queryParams)
