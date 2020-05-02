@@ -609,7 +609,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<EMailRM> GetEMailForContactAsync(int associateId, int contactId, int eMailId)
         {
-            throw new NotImplementedException();
+            Contact contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
+
+            if (contact == null)
+                throw new InvalidOperationException("Contact not found.");
+
+            ContactEMail contactEMail = _context.ContactEMails.SingleOrDefault(ce => ce.ContactId == contactId && ce.EMailId == eMailId);
+
+            if (contactEMail == null)
+                throw new InvalidOperationException("EMails not found for Contact.");
+
+            EMail eMail = _context.EMails.SingleOrDefault(e => e.Id == eMailId);
+
+            return Task.FromResult(_mapper.Map<EMail, EMailRM>(eMail));
         }
 
         public Task<PagedGridResult<IEnumerable<EMailRM>>> GetEMailsForContactAsync(int associateId, int contactId)
