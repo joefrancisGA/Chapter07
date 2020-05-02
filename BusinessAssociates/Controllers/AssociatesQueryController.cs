@@ -169,7 +169,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
         [Route("{principalId}/agentrelationships")]
         public Task<IActionResult> GetAgentRelationshipsForPrincipalAsync(int principalId, [FromQuery]QueryModels.AgentRelationshipQueryParams request)
         {
-            return RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationshipsForPrincipalAsync(request), _log);
+            return RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationshipsForPrincipalAsync(principalId, request), _log);
         }
 
         [HttpGet]

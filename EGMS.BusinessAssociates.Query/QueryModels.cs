@@ -23,6 +23,7 @@
         public class AgentRelationshipQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? PrincipalId { get; set; }
         }
 
         public class ContactQueryParams : BaseQueryParams

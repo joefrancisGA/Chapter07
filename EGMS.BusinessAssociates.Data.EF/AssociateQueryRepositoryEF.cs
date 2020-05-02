@@ -209,17 +209,72 @@ namespace EGMS.BusinessAssociates.Data.EF
             return retVal;
         }
 
+        public async Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsForPrincipalAsync(int principalId, QueryModels.AgentRelationshipQueryParams queryParams)
+        {
+            var agentRelationships = _context.AgentRelationships;
+
+            queryParams.PrincipalId = principalId;
+
+            var filtered = agentRelationships.ApplyQuery(queryParams);
+
+            var results = await filtered.ToListAsync();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = agentRelationships.ApplyQuery(queryParams, false);
+                totalCount = await countQuery.CountAsync();
+            }
+
+            var retData = _mapper.Map<IEnumerable<AgentRelationshipRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<AgentRelationshipRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return retVal;
+        }
+
+
         public Task<AgentRelationshipRM> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId)
         {
-            throw new NotImplementedException();
+            AgentRelationship agentRelationship =
+                _context.AgentRelationships.SingleOrDefault(ar => ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
+
+            if (agentRelationship == null)
+                throw new InvalidOperationException("Specified agent relationship not found for specified principal.");
+
+            var retVal = _mapper.Map<AgentRelationshipRM>(agentRelationship);
+
+            return Task.FromResult(retVal);
         }
 
-        public Task<UserRM> GetUserForAgentRelationshipAsync(int associateId, int agentRelationshipId, int userId)
+        public Task<UserRM> GetUserForAgentRelationshipAsync(int principalId, int agentRelationshipId, int userId)
         {
-            throw new NotImplementedException();
+            AgentRelationship agentRelationship =
+                _context.AgentRelationships.SingleOrDefault(ar => ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
+
+            if (agentRelationship == null)
+                throw new InvalidOperationException("Agent relationship not found for specified principal.");
+
+            IEnumerable<AgentUser> agentUsers = _context.AgentUsers.Where(au => au.AgentId == agentRelationship.AgentId);
+
+            if (agentUsers == null)
+                throw new InvalidOperationException("Users not found for AgentRelationship.");
+
+            User user = _context.Users.SingleOrDefault(u => u.Id == userId);
+            
+            UserRM retData = _mapper.Map<UserRM>(user);
+
+            return Task.FromResult(retData);
         }
 
-        public Task<UserRM> GetUserForAgentRelationshipAsync(int agentRelationshipI, int userId)
+        public Task<UserRM> GetUserForAgentRelationshipAsync(int agentRelationshipId, int userId)
         {
             throw new NotImplementedException();
         }
