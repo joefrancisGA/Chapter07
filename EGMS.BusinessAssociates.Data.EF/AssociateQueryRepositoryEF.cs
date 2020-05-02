@@ -510,7 +510,24 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsForContactAsync(int associateId, int contactId)
         {
-            throw new NotImplementedException();
+            Contact contact = _context.Contacts.SingleOrDefault(ar => ar.Id == contactId);
+
+            if (contact == null)
+                throw new InvalidOperationException("Contact not found.");
+
+            IEnumerable<ContactConfiguration> contactConfigurations = contact.ContactConfigurations;
+            
+            var retData = _mapper.Map<IEnumerable<ContactConfigurationRM>>(contactConfigurations);
+
+            var retVal = new PagedGridResult<IEnumerable<ContactConfigurationRM>>
+            {
+                Data = retData,
+                Total = contactConfigurations.Count(),
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<ContactConfigurationRM> GetContactConfigurationAsync(int contactConfigurationId)
