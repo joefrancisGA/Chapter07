@@ -803,7 +803,32 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForCustomerAsync(int associateId, int customerId)
         {
-            throw new NotImplementedException();
+            List<CustomerOperatingContext> customerOperatingContexts = _context.CustomerOperatingContexts.FindAll(aoc => aoc.CustomerId == customerId);
+
+            if (customerOperatingContexts == null)
+                throw new InvalidOperationException("No Operating Contexts found for Customer.");
+
+            List<OperatingContext> operatingContexts = new List<OperatingContext>();
+
+            foreach (CustomerOperatingContext customerOperatingContext in customerOperatingContexts)
+            {
+                OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(e => e.Id == customerOperatingContext.OperatingContextId);
+
+                if (operatingContext != null)
+                    operatingContexts.Add(operatingContext);
+            }
+
+            var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts);
+
+            var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
+            {
+                Data = retData,
+                Total = operatingContexts.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PhoneRM> GetPhoneAsync(int phoneId)
@@ -943,32 +968,33 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsForAssociateAsync(int associateId)
         {
-            List<Associate> associateOperatingContexts = _context.AssociateOperatingContexts.FindAll(aoc => aoc.AssociateId == associateId);
+            throw new NotImplementedException();
+            //List<Associate> associateOperatingContexts = _context.AssociateOperatingContexts.FindAll(aoc => aoc.AssociateId == associateId);
 
-            if (associateOperatingContexts == null)
-                throw new InvalidOperationException("No Operating Contexts found for Associate.");
+            //if (associateOperatingContexts == null)
+            //    throw new InvalidOperationException("No Operating Contexts found for Associate.");
 
-            List<OperatingContext> operatingContexts = new List<OperatingContext>();
+            //List<OperatingContext> operatingContexts = new List<OperatingContext>();
 
-            foreach (AssociateOperatingContext associateOperatingContext in associateOperatingContexts)
-            {
-                OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(e => e.Id == associateOperatingContext.OperatingContextId);
+            //foreach (AssociateOperatingContext associateOperatingContext in associateOperatingContexts)
+            //{
+            //    OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(e => e.Id == associateOperatingContext.OperatingContextId);
 
-                if (operatingContext != null)
-                    operatingContexts.Add(operatingContext);
-            }
+            //    if (operatingContext != null)
+            //        operatingContexts.Add(operatingContext);
+            //}
 
-            var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts);
+            //var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts);
 
-            var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
-            {
-                Data = retData,
-                Total = operatingContexts.Count,
-                Errors = null,
-                AggregateResult = null
-            };
+            //var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
+            //{
+            //    Data = retData,
+            //    Total = operatingContexts.Count,
+            //    Errors = null,
+            //    AggregateResult = null
+            //};
 
-            return Task.FromResult(retVal);
+            //return Task.FromResult(retVal);
 
         }
 

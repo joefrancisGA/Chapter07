@@ -35,9 +35,11 @@ namespace EGMS.BusinessAssociates.Data.EF
         public List<ContactEMail> ContactEMails { get; set; } = new List<ContactEMail>();
         public List<ContactPhone> ContactPhones { get; set; } = new List<ContactPhone>();
         public List<CustomerAddress> CustomerAddresses { get; set; } = new List<CustomerAddress>();
+        public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; } = new List<CustomerAlternateFuel>();
         public List<CustomerEMail> CustomerEMails { get; set; } = new List<CustomerEMail>();
         public List<CustomerPhone> CustomerPhones { get; set; } = new List<CustomerPhone>();
-        public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; } = new List<CustomerAlternateFuel>();
+        public List<CustomerOperatingContext> CustomerOperatingContexts { get; set; } =
+            new List<CustomerOperatingContext>();
         public DbSet<RoleEGMSPermission> RoleEGMSPermissions { get; set; }
         public List<OperatingContextCustomer> OperatingContextCustomers { get; set; } = new List<OperatingContextCustomer>();
 
