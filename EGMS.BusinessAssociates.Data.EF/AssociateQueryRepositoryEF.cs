@@ -902,7 +902,31 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var egmsPermissions = _context.EGMSPermissions;
+
+            var filtered = egmsPermissions.ApplyQuery(queryParams);
+
+            var results = filtered.ToList();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = egmsPermissions.ApplyQuery(queryParams, false);
+                totalCount = countQuery.Count();
+            }
+
+            var retData = _mapper.Map<IEnumerable<EGMSPermissionRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<EGMSPermissionRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<RoleEGMSPermissionRM> GetRoleEGMSPermissionAsync(int roleEGMSPermissionId)
