@@ -850,7 +850,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PhoneRM> GetPhoneForAssociateAsync(int associateId, int phoneId)
         {
-            throw new NotImplementedException();
+            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+                throw new InvalidOperationException("Associate not found.");
+
+            AssociatePhone associatePhone = _context.AssociatePhones.SingleOrDefault(ae => ae.AssociateId == associateId && ae.PhoneId == phoneId);
+
+            if (associatePhone == null)
+                throw new InvalidOperationException("Phone not found for associate.");
+
+            Phone phone = _context.Phones.SingleOrDefault(e => e.Id == phoneId);
+
+            return Task.FromResult(_mapper.Map<Phone, PhoneRM>(phone));
         }
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForAssociateAsync(int associateId)
