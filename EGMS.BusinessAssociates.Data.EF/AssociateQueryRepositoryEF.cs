@@ -810,7 +810,31 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesAsync(QueryModels.PhoneQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var phones = _context.Phones;
+
+            var filtered = phones.ApplyQuery(queryParams);
+
+            var results = filtered.ToList();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = phones.ApplyQuery(queryParams, false);
+                totalCount = countQuery.Count();
+            }
+
+            var retData = _mapper.Map<IEnumerable<PhoneRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<PhoneRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<RoleRM> GetRoleAsync(int roleId)
