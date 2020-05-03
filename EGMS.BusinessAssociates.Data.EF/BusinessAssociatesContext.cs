@@ -47,7 +47,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         // UnhandledLists
         // TO DO:  The first release should include support for the first three lists
         public List<AgentUser> AgentUsers { get; set; } = new List<AgentUser>();
-        public List<Certification> Certifications { get; set; } = new List<Certification>();
+        public DbSet<Certification> Certifications { get; set; }
         public DbSet<ContactConfiguration> ContactConfigurations { get; set; }
 
         // TO DO:  Not important until Lifecycle release

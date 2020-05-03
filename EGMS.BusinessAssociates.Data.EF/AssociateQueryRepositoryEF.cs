@@ -1187,23 +1187,36 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(int associateId)
+        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsAsync(QueryModels.CertificationQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var certifications = _context.Certifications;
+
+            var filtered = certifications.ApplyQuery(queryParams);
+
+            var results = filtered.ToList();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = certifications.ApplyQuery(queryParams, false);
+                totalCount = countQuery.Count();
+            }
+
+            var retData = _mapper.Map<IEnumerable<CertificationRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<CertificationRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
-        public Task<CertificationRM> GetCertificationsAsync(QueryModels.CertificationQueryParams queryParams)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContext,
-            QueryModels.CertificationQueryParams queryParams)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationForOperatingContextAsync(int associateId, int operatingContextId, int certificationId)
+        public Task<CertificationRM> GetCertificationForOperatingContextAsync(int associateId, int operatingContextId, int certificationId)
         {
             throw new NotImplementedException();
         }

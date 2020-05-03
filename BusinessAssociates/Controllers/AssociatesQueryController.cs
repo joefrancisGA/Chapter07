@@ -192,12 +192,12 @@ namespace EGMS.BusinessAssociates.API.Controllers
         [Route("certifications")]
         public Task<IActionResult> GetCertificationsAsync([FromQuery]QueryModels.CertificationQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetCertificationsAsync(request), _log);
 
-        [HttpGet]
-        [Route("{associateId}/operatingcontexts/{operatingContextId}/Certifications")]
-        public Task<IActionResult> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId, [FromQuery]QueryModels.CertificationQueryParams request)
-        {
-            return RequestHandler.HandleQuery(() => _queryRepo.GetCertificationsForOperatingContextAsync(associateId, operatingContextId, request), _log);
-        }
+        //[HttpGet]
+        //[Route("{associateId}/operatingcontexts/{operatingContextId}/Certifications")]
+        //public Task<IActionResult> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId, [FromQuery]QueryModels.CertificationQueryParams request)
+        //{
+        //    return RequestHandler.HandleQuery(() => _queryRepo.GetCertificationsForOperatingContextAsync(associateId, operatingContextId, request), _log);
+        //}
 
         [HttpGet]
         [Route("{associateId}/operatingcontexts/{operatingContextId/Certification/{certificationId}")]
