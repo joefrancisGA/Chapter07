@@ -331,17 +331,6 @@ namespace EGMS.BusinessAssociates.API.Controllers
         [Route("RoleEGMSPermissions")]
         public Task<IActionResult> GetRoleEGMSPermissionsAsync([FromQuery]QueryModels.RoleEGMSPermissionQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetRoleEGMSPermissionsAsync(request), _log);
 
-        [HttpGet]
-        [Route("{associateId}/roleEGMSpermissions/{roleegmspermissionid}")]
-        public Task<IActionResult> GetRoleEGMSPermissionForAssociateAsync(int associateId, int roleEGMSPermissionId)
-        {
-            return RequestHandler.HandleQuery(() => _queryRepo.GetRoleEGMSPermissionForAssociateAsync(associateId, roleEGMSPermissionId), _log);
-        }
-
-        [HttpGet]
-        [Route("{associateId}/roleEGMSpermissions")]
-        public Task<IActionResult> GetRoleEGMSPermissionsForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetRoleEGMSPermissionsForAssociateAsync(associateId), _log);
-
         #endregion RoleEGMSPermission
     }
 }

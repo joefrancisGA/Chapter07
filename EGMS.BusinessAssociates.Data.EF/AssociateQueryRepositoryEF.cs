@@ -1147,11 +1147,6 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(_mapper.Map<RoleEGMSPermission, RoleEGMSPermissionRM>(roleEGMSPermission));
         }
 
-        public Task<RoleEGMSPermissionRM> GetRoleEGMSPermissionForAssociateAsync(int associateId, int roleEGMSPermissionId)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsAsync(QueryModels.RoleEGMSPermissionQueryParams queryParams)
         {
             var roleEGMSPermissions = _context.RoleEGMSPermissions;
@@ -1179,11 +1174,6 @@ namespace EGMS.BusinessAssociates.Data.EF
             };
 
             return Task.FromResult(retVal);
-        }
-
-        public Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsForAssociateAsync(int associateId)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<UserRM> GetUserAsync(int userId)
