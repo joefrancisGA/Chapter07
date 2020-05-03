@@ -840,7 +840,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PhoneRM> GetPhoneForContactAsync(int associateId, int contactId, int phoneId)
         {
-            throw new NotImplementedException();
+            Contact contact = _context.Contacts.SingleOrDefault(a => a.Id == contactId);
+
+            if (contact == null)
+                throw new InvalidOperationException("Contact not found.");
+
+            AssociatePhone associatePhone = _context.AssociatePhones.SingleOrDefault(ae => ae.AssociateId == associateId && ae.PhoneId == phoneId);
+
+            if (associatePhone == null)
+                throw new InvalidOperationException("Phone not found for Contact.");
+
+            Phone phone = _context.Phones.SingleOrDefault(e => e.Id == phoneId);
+
+            return Task.FromResult(_mapper.Map<Phone, PhoneRM>(phone));
         }
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForContactAsync(int associateId, int contactId)
@@ -893,7 +905,6 @@ namespace EGMS.BusinessAssociates.Data.EF
             };
 
             return Task.FromResult(retVal);
-
         }
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesAsync(QueryModels.PhoneQueryParams queryParams)
