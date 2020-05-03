@@ -857,7 +857,37 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForContactAsync(int associateId, int contactId)
         {
-            throw new NotImplementedException();
+            Contact contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
+
+            if (contact == null)
+                throw new InvalidOperationException("Contact not found.");
+
+            List<ContactPhone> contactPhones = _context.ContactPhones.FindAll(cp => cp.ContactId == contactId);
+
+            if (contactPhones == null)
+                throw new InvalidOperationException("No phones found for Contact");
+
+            List<Phone> phones = new List<Phone>();
+
+            foreach (ContactPhone contactPhone in contactPhones)
+            {
+                Phone phone = _context.Phones.SingleOrDefault(oc => oc.Id == contactPhone.PhoneId);
+
+                if (phone != null)
+                    phones.Add(phone);
+            }
+
+            var retData = _mapper.Map<IEnumerable<PhoneRM>>(phones);
+
+            var retVal = new PagedGridResult<IEnumerable<PhoneRM>>
+            {
+                Data = retData,
+                Total = phones.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PhoneRM> GetPhoneForAssociateAsync(int associateId, int phoneId)
