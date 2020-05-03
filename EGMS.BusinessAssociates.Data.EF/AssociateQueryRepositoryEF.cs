@@ -791,7 +791,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<RoleRM> GetRoleAsync(int roleId)
         {
-            throw new NotImplementedException();
+            Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
+
+            return Task.FromResult(_mapper.Map<Role, RoleRM>(role));
         }
 
         public Task<PagedGridResult<IEnumerable<RoleRM>>> GetRolesAsync(QueryModels.RoleQueryParams queryParams)
