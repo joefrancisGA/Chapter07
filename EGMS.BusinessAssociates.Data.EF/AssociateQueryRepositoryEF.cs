@@ -1133,7 +1133,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<UserRM> GetUserAsync(int userId)
         {
-            throw new NotImplementedException();
+            User user = _context.Users.SingleOrDefault(a => a.Id == userId);
+
+            return Task.FromResult(_mapper.Map<User, UserRM>(user));
         }
 
         public Task<UserRM> GetUserForAssociateAsync(int associateId, int userId)
@@ -1221,16 +1223,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int operatingContext, QueryModels.CertificationQueryParams queryParams)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId, int certificationId)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId)
         {
             throw new NotImplementedException();

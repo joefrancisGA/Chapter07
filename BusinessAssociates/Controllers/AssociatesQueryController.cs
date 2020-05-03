@@ -212,15 +212,15 @@ namespace EGMS.BusinessAssociates.API.Controllers
         public Task<IActionResult> GetContactConfigurationsAsync([FromQuery]QueryModels.ContactConfigurationQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationsAsync(request), _log);
 
         [HttpGet]
-        [Route("{associateId}/contacts/{contactId}/ContactConfiguration/{contactConfigurationId}")]
+        [Route("{associateId}/contacts/{contactId/ContactConfigurations")]
+        public Task<IActionResult> GetContactConfigurationsForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationsForContactAsync(associateId, contactId), _log);
+
+        [HttpGet]
+        [Route("{associateId}/contacts/{contactId}/ContactConfigurations/{contactConfigurationId}")]
         public Task<IActionResult> GetContactConfigurationForContactAsync(int associateId, int contactId, int configurationContactId)
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationForContactAsync(associateId, contactId, configurationContactId), _log);
         }
-
-        [HttpGet]
-        [Route("{associateId}/contacts/{contactId/ContactConfigurations")]
-        public Task<IActionResult> GetContactConfigurationsForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurationsForContactAsync(associateId, contactId), _log);
 
         #endregion ContactConfiguration
 
@@ -312,16 +312,17 @@ namespace EGMS.BusinessAssociates.API.Controllers
         public Task<IActionResult> GetEGMSPermissionsAsync([FromQuery]QueryModels.EGMSPermissionQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsAsync(request), _log);
 
         [HttpGet]
-        [Route("{associateId}/egmspermission/{egmspermissionid}")]
+        [Route("{associateId}/egmspermissions")]
+        public Task<IActionResult> GetEGMSPermissionsForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsForAssociateAsync(associateId), _log);
+
+
+        [HttpGet]
+        [Route("{associateId}/egmspermissions/{egmspermissionid}")]
         public Task<IActionResult> GetEGMSPermissionForAssociateAsync(int associateId, int egmsPermissionId)
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionForAssociateAsync(associateId, egmsPermissionId), _log);
         }
-
-        [HttpGet]
-        [Route("{associateId}/egmspermissions")]
-        public Task<IActionResult> GetEGMSPermissionsForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsForAssociateAsync(associateId), _log);
-
+        
         #endregion EGMSPermission
 
         #region RoleEGMSPermission
