@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using EGMS.BusinessAssociates.Query.ReadModels;
-using Microsoft.VisualBasic.CompilerServices;
 
 
 namespace EGMS.BusinessAssociates.Query

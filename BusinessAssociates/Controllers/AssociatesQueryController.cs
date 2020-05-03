@@ -231,6 +231,13 @@ namespace EGMS.BusinessAssociates.API.Controllers
         public Task<IActionResult> GetEMailsAsync([FromQuery]QueryModels.EMailQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetEMailsAsync(request), _log);
 
         [HttpGet]
+        [Route("{associateId}/Emails/{emailId}")]
+        public Task<IActionResult> GetEMailAsync(int eMailId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetEMailAsync(eMailId), _log);
+        }
+
+        [HttpGet]
         [Route("{associateId}/contacts/{contactId}/Emails/{emailId}")]
         public Task<IActionResult> GetEMailForContactAsync(int associateId, int contactId, int eMailId)
         {
