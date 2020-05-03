@@ -1092,9 +1092,23 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(retVal);
         }
 
-        public Task<EGMSPermissionRM> GetEGMSPermissionForRoleAsync(int associateId, int roleId)
+        public Task<EGMSPermissionRM> GetEGMSPermissionForRoleAsync(int roleId, int permissionId)
         {
-            throw new NotImplementedException();
+            Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
+
+            if (role == null)
+                throw new InvalidOperationException("Role not found.");
+
+            RoleEGMSPermission roleEGMSPermissions = _context.RoleEGMSPermissions.SingleOrDefault(rep => rep.RoleId == roleId && rep.EGMSPermissionId == permissionId);
+
+            if (roleEGMSPermissions == null)
+                throw new InvalidOperationException("EGMSPermissions not found for role.");
+
+            EGMSPermission egmsPermission = _context.EGMSPermissions.SingleOrDefault(ep => ep.Id == permissionId);
+
+            var retVal = _mapper.Map<EGMSPermissionRM>(egmsPermission);
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams queryParams)
