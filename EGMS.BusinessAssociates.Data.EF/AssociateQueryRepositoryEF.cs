@@ -813,7 +813,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<EGMSPermissionRM> GetEGMSPermissionAsync(int egmsPermissionId)
         {
-            throw new NotImplementedException();
+            EGMSPermission egmsPermission = _context.EGMSPermissions.SingleOrDefault(ep => ep.Id == egmsPermissionId);
+
+            return Task.FromResult(_mapper.Map<EGMSPermission, EGMSPermissionRM>(egmsPermission));
         }
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsForAssociateAsync(int associateId)
