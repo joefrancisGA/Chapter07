@@ -1250,10 +1250,20 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<CertificationRM> GetCertificationForOperatingContextAsync(int associateId, int operatingContextId, int certificationId)
         {
-            throw new NotImplementedException();
+            OperatingContext operatingContext =
+                _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId);
+
+            if (operatingContext == null)
+                throw new InvalidOperationException("OperatingContext not found.");
+
+            Certification certification = _context.Certifications.SingleOrDefault(c => c.Id == operatingContext.CertificationId);
+
+            var retVal = _mapper.Map<Certification, CertificationRM>(certification);
+
+            return Task.FromResult(retVal);
         }
 
-       
+
         public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId)
         {
             throw new NotImplementedException();
