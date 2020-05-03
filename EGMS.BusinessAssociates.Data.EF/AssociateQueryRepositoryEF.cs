@@ -943,7 +943,33 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsForAssociateAsync(int associateId)
         {
-            throw new NotImplementedException();
+            List<Associate> associateOperatingContexts = _context.AssociateOperatingContexts.FindAll(aoc => aoc.AssociateId == associateId);
+
+            if (associateOperatingContexts == null)
+                throw new InvalidOperationException("No Operating Contexts found for Associate.");
+
+            List<OperatingContext> operatingContexts = new List<OperatingContext>();
+
+            foreach (AssociateOperatingContext associateOperatingContext in associateOperatingContexts)
+            {
+                OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(e => e.Id == associateOperatingContext.OperatingContextId);
+
+                if (operatingContext != null)
+                    operatingContexts.Add(operatingContext);
+            }
+
+            var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts);
+
+            var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
+            {
+                Data = retData,
+                Total = operatingContexts.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
+
         }
 
         public Task<EGMSPermissionRM> GetEGMSPermissionForAssociateAsync(int associateId, int roleId)

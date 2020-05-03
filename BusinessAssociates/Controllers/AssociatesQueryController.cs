@@ -107,11 +107,11 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [HttpGet]
         [Route("operatingcontexts")]
-        public Task<IActionResult> GetOperatingContextsAsync([FromQuery]QueryModels.OperatingContextQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextsForAssociateAsync(request), _log);
+        public Task<IActionResult> GetOperatingContextsAsync([FromQuery]QueryModels.OperatingContextQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextsAsync(request), _log);
 
         [HttpGet]
         [Route("{associateId}/operatingcontexts")]
-        public Task<IActionResult> GetOperatingContextsForAssociateAsync(int associateId, [FromQuery]QueryModels.OperatingContextQueryParams request)
+        public Task<IActionResult> GetOperatingContextsForAssociateAsync(int associateId)
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextsForAssociateAsync(associateId), _log);
         }
@@ -126,7 +126,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [HttpGet]
         [Route("{associateId}/customers/{customerId}/operatingcontexts")]
-        public Task<IActionResult> GetOperatingContextsForCustomerAsync(int associateId, int customerId, [FromQuery]QueryModels.OperatingContextQueryParams request)
+        public Task<IActionResult> GetOperatingContextsForCustomerAsync(int associateId, int customerId)
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextsForCustomerAsync(associateId, customerId), _log);
         }
@@ -140,22 +140,15 @@ namespace EGMS.BusinessAssociates.API.Controllers
         #region AddressForContact
 
         [HttpGet]
-        [Route("{associateId}/contact/{contactId}")]
-        public Task<IActionResult> GetAddressForContactAsync(int associateId, int customerId)
-        {
-            return RequestHandler.HandleQuery(() => _queryRepo.GetAddressForContactAsync(associateId, customerId), _log);
-        }
+        [Route("{associateId}/contacts/{contactId}/Addresses")]
+        public Task<IActionResult> GetAddressesForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetAddressesForContactAsync(associateId, contactId), _log);
 
         [HttpGet]
         [Route("{associateId}/contact/{contactId}/Addresses/{addressId}")]
-        public Task<IActionResult> GetAddressForContactAsync(int associateId, int customerId, int addressId)
+        public Task<IActionResult> GetAddressForContactAsync(int associateId, int contactId, int addressId)
         {
-            return RequestHandler.HandleQuery(() => _queryRepo.GetAddressForContactAsync(customerId, addressId), _log);
+            return RequestHandler.HandleQuery(() => _queryRepo.GetAddressForContactAsync(contactId, addressId), _log);
         }
-
-        [HttpGet]
-        [Route("{associateId}/contacts/{contactId}/Addresses")]
-        public Task<IActionResult> GetAddressesForContactAsync(int associateId, int contactId) => RequestHandler.HandleQuery(() => _queryRepo.GetAddressesForContactAsync(associateId, contactId), _log);
 
         #endregion AddressForContact
         
@@ -166,14 +159,14 @@ namespace EGMS.BusinessAssociates.API.Controllers
         public Task<IActionResult> GetAgentRelationshipsAsync([FromQuery]QueryModels.AgentRelationshipQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationshipsAsync(request), _log);
 
         [HttpGet]
-        [Route("{principalId}/agentrelationships")]
+        [Route("{associateId}/agentrelationships")]
         public Task<IActionResult> GetAgentRelationshipsForPrincipalAsync(int principalId, [FromQuery]QueryModels.AgentRelationshipQueryParams request)
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationshipsForPrincipalAsync(principalId, request), _log);
         }
 
         [HttpGet]
-        [Route("{principalId}/agentrelationships/{agentRelationshipId}")]
+        [Route("{associateId}/agentrelationships/{agentRelationshipId}")]
         public Task<IActionResult> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId) => RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationshipForPrincipalAsync(principalId, agentRelationshipId), _log);
 
         #endregion AgentRelationships
@@ -181,22 +174,15 @@ namespace EGMS.BusinessAssociates.API.Controllers
         #region AgentRelationshipUser
 
         [HttpGet]
+        [Route("{associateId}/agentrelationships/{agentRelationshipId}/Users")]
+        public Task<IActionResult> GetUsersForAgentRelationshipAsync(int associateId, int agentRelationshipId) => RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAgentRelationshipAsync(associateId, agentRelationshipId), _log);
+
+        [HttpGet]
         [Route("{associateId}/agentrelationships/{agentRelationshipId}/Users/{UserId}")]
         public Task<IActionResult> GetUserForAgentRelationshipAsync(int associateId, int agentRelationshipId, int userId)
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetUserForAgentRelationshipAsync(associateId, agentRelationshipId, userId), _log);
         }
-
-        [HttpGet]
-        [Route("{associateId}/agentrelationships/{agentRelationshipId}/Users")]
-        public Task<IActionResult> GetUsersForAgentRelationshipAsync(int agentRelationshipId, [FromQuery]QueryModels.UserQueryParams request)
-        {
-            return RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAgentRelationshipAsync(request), _log);
-        }
-
-        [HttpGet]
-        [Route("{associateId}/agentrelationships/{agentRelationshipId}")]
-        public Task<IActionResult> GetUsersForAgentRelationshipAsync(int associateId, int agentRelationshipId) => RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAgentRelationshipAsync(associateId, agentRelationshipId), _log);
 
         #endregion AgentRelationshipUser
 
