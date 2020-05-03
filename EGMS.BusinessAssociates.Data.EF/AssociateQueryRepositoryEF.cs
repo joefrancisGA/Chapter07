@@ -1022,7 +1022,32 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<RoleRM>>> GetRolesForOperatingContextAsync(int associateId, int operatingContextId)
         {
-            throw new NotImplementedException();
+            List<OperatingContextRole> operatingContextRoles = _context.OperatingContextRoles.FindAll(ocr =>ocr.OperatingContextId == operatingContextId);
+
+            if (operatingContextRoles == null)
+                throw new InvalidOperationException("No Roles found for OperatingContext.");
+
+            List<Role> roles = new List<Role>();
+
+            foreach (OperatingContextRole operatingContextRole in operatingContextRoles)
+            {
+                Role role = _context.Roles.SingleOrDefault(r => r.Id == operatingContextRole.RoleId);
+
+                if (role != null)
+                    roles.Add(role);
+            }
+
+            var retData = _mapper.Map<IEnumerable<RoleRM>>(roles);
+
+            var retVal = new PagedGridResult<IEnumerable<RoleRM>>
+            {
+                Data = retData,
+                Total = roles.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<EGMSPermissionRM> GetEGMSPermissionAsync(int egmsPermissionId)
