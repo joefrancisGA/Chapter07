@@ -312,15 +312,15 @@ namespace EGMS.BusinessAssociates.API.Controllers
         public Task<IActionResult> GetEGMSPermissionsAsync([FromQuery]QueryModels.EGMSPermissionQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsAsync(request), _log);
 
         [HttpGet]
-        [Route("{associateId}/egmspermissions")]
-        public Task<IActionResult> GetEGMSPermissionsForAssociateAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsForAssociateAsync(associateId), _log);
+        [Route("roles/{roleId}/egmspermissions")]
+        public Task<IActionResult> GetEGMSPermissionsForRoleAsync(int associateId) => RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionsForRoleAsync(associateId), _log);
 
 
         [HttpGet]
-        [Route("{associateId}/egmspermissions/{egmspermissionid}")]
-        public Task<IActionResult> GetEGMSPermissionForAssociateAsync(int associateId, int egmsPermissionId)
+        [Route("roles/{roleId}/egmspermissions/{egmspermissionid}")]
+        public Task<IActionResult> GetEGMSPermissionForRoleAsync(int associateId, int egmsPermissionId)
         {
-            return RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionForAssociateAsync(associateId, egmsPermissionId), _log);
+            return RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionForRoleAsync(associateId, egmsPermissionId), _log);
         }
         
         #endregion EGMSPermission

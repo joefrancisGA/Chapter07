@@ -1057,39 +1057,42 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(_mapper.Map<EGMSPermission, EGMSPermissionRM>(egmsPermission));
         }
 
-        public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsForAssociateAsync(int associateId)
+        public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsForRoleAsync(int roleId)
         {
-            throw new NotImplementedException();
-            //List<Associate> associateOperatingContexts = _context.AssociateOperatingContexts.FindAll(aoc => aoc.AssociateId == associateId);
+            Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
 
-            //if (associateOperatingContexts == null)
-            //    throw new InvalidOperationException("No Operating Contexts found for Associate.");
+            if (role == null)
+                throw new InvalidOperationException("Role not found.");
 
-            //List<OperatingContext> operatingContexts = new List<OperatingContext>();
+            IQueryable<RoleEGMSPermission> roleEGMSPermissions = _context.RoleEGMSPermissions.Where(rep => rep.RoleId == roleId);
 
-            //foreach (AssociateOperatingContext associateOperatingContext in associateOperatingContexts)
-            //{
-            //    OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(e => e.Id == associateOperatingContext.OperatingContextId);
+            if (roleEGMSPermissions == null)
+                throw new InvalidOperationException("No EGMSPermissions found for role.");
 
-            //    if (operatingContext != null)
-            //        operatingContexts.Add(operatingContext);
-            //}
+            List<EGMSPermission> egmsPermissions = new List<EGMSPermission>();
 
-            //var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts);
+            foreach (RoleEGMSPermission roleEGMSPermission in roleEGMSPermissions)
+            {
+                EGMSPermission egmsPermission = _context.EGMSPermissions.SingleOrDefault(ep => ep.Id == roleEGMSPermission.EGMSPermissionId);
 
-            //var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
-            //{
-            //    Data = retData,
-            //    Total = operatingContexts.Count,
-            //    Errors = null,
-            //    AggregateResult = null
-            //};
+                if (egmsPermission != null)
+                    egmsPermissions.Add(egmsPermission);
+            }
 
-            //return Task.FromResult(retVal);
+            var retData = _mapper.Map<IEnumerable<EGMSPermissionRM>>(egmsPermissions);
 
+            var retVal = new PagedGridResult<IEnumerable<EGMSPermissionRM>>
+            {
+                Data = retData,
+                Total = egmsPermissions.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
-        public Task<EGMSPermissionRM> GetEGMSPermissionForAssociateAsync(int associateId, int roleId)
+        public Task<EGMSPermissionRM> GetEGMSPermissionForRoleAsync(int associateId, int roleId)
         {
             throw new NotImplementedException();
         }
