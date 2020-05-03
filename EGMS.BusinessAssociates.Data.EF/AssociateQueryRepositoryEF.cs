@@ -1186,7 +1186,37 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAssociateAsync(int associateId)
         {
-            throw new NotImplementedException();
+            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+                throw new InvalidOperationException("Associate not found.");
+
+            List<AssociateUser> associateUsers = _context.AssociateUsers.FindAll(au => au.AssociateId == associateId);
+
+            if (associateUsers == null)
+                throw new InvalidOperationException("Users not found for associate.");
+
+            List<User> users = new List<User>();
+
+            foreach (AssociateUser associateUser in associateUsers)
+            {
+                User user = _context.Users.SingleOrDefault(u => u.Id == associateUser.UserId);
+
+                if (user != null)
+                    users.Add(user);
+            }
+            
+            var retData = _mapper.Map<IEnumerable<UserRM>>(users);
+
+            var retVal = new PagedGridResult<IEnumerable<UserRM>>
+            {
+                Data = retData,
+                Total = users.Count,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsAsync(QueryModels.CertificationQueryParams queryParams)
