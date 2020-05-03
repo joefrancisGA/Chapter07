@@ -133,7 +133,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [HttpGet]
         [Route("{associateId}/customers/{customerId}/operatingcontexts/{operatingContextId}")]
-        public Task<IActionResult> GetOperatingContextForCustomerAsync(int associateId, int customerId, int operatingContextId) => RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextAsync(operatingContextId), _log);
+        public Task<IActionResult> GetOperatingContextForCustomerAsync(int associateId, int customerId, int operatingContextId) => RequestHandler.HandleQuery(() => _queryRepo.GetOperatingContextForCustomerAsync(associateId, customerId, operatingContextId), _log);
 
         #endregion OperatingContextForCustomer
 

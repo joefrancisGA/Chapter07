@@ -742,6 +742,32 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(_mapper.Map<OperatingContext, OperatingContextRM>(operatingContext));
         }
 
+        public Task<OperatingContextRM> GetOperatingContextForCustomerAsync(int associateId, int customerId, int operatingContextId)
+        {
+            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+                throw new InvalidOperationException("Associate not found.");
+
+            AssociateCustomer associateCustomer =
+                _context.AssociateCustomers.SingleOrDefault(ac =>
+                    ac.AssociateId == associate.Id && ac.CustomerId == customerId);
+            
+            if (associateCustomer == null)
+                throw new InvalidOperationException("Customer not found for associate.");
+
+            CustomerOperatingContext customerOperatingContext =
+                _context.CustomerOperatingContexts.SingleOrDefault(coc =>
+                    coc.CustomerId == customerId && coc.OperatingContextId == operatingContextId);
+
+            if (customerOperatingContext == null)
+                throw new InvalidOperationException("OperatingContext not found for Customer.");
+
+            OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId);
+
+            return Task.FromResult(_mapper.Map<OperatingContext, OperatingContextRM>(operatingContext));
+        }
+
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsAsync(QueryModels.OperatingContextQueryParams queryParams)
         {
             var operatingContexts = _context.OperatingContexts;
