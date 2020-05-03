@@ -13,7 +13,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Associate> Associates { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public List<OperatingContext> OperatingContexts { get; set; } = new List<OperatingContext>();
+        public DbSet<OperatingContext> OperatingContexts { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public List<EGMSPermission> EGMSPermissions { get; set; } = new List<EGMSPermission>();
         public DbSet<EMail> EMails { get; set; }

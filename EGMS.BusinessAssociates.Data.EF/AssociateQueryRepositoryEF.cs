@@ -744,7 +744,31 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsAsync(QueryModels.OperatingContextQueryParams queryParams)
         {
-            throw new NotImplementedException();
+            var operatingContexts = _context.OperatingContexts;
+
+            var filtered = operatingContexts.ApplyQuery(queryParams);
+
+            var results = filtered.ToList();
+
+            int totalCount = results.Count;
+
+            if (queryParams.Page != null && queryParams.PageSize != null)
+            {
+                var countQuery = operatingContexts.ApplyQuery(queryParams, false);
+                totalCount = countQuery.Count();
+            }
+
+            var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(results);
+
+            var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
+            {
+                Data = retData,
+                Total = totalCount,
+                Errors = null,
+                AggregateResult = null
+            };
+
+            return Task.FromResult(retVal);
         }
 
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForAssociateAsync(int associateId)
@@ -833,9 +857,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public Task<RoleEGMSPermissionRM> GetRoleEGMSPermission(int roleEGMSPermissionId)
+        public Task<RoleEGMSPermissionRM> GetRoleEGMSPermissionAsync(int roleEGMSPermissionId)
         {
-            throw new NotImplementedException();
+            RoleEGMSPermission roleEGMSPermission = _context.RoleEGMSPermissions.SingleOrDefault(rep => rep.Id == roleEGMSPermissionId);
+
+            return Task.FromResult(_mapper.Map<RoleEGMSPermission, RoleEGMSPermissionRM>(roleEGMSPermission));
         }
 
         public Task<RoleEGMSPermissionRM> GetRoleEGMSPermissionForAssociateAsync(int associateId, int roleEGMSPermissionId)
@@ -900,11 +926,6 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
         public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<EGMSPermissionRM> IAssociateQueryRepository.GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams request)
         {
             throw new NotImplementedException();
         }
