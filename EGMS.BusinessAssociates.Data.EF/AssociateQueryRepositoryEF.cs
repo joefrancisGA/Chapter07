@@ -737,7 +737,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<OperatingContextRM> GetOperatingContextAsync(int operatingContextId)
         {
-            throw new NotImplementedException();
+            OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId);
+
+            return Task.FromResult(_mapper.Map<OperatingContext, OperatingContextRM>(operatingContext));
         }
 
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForAssociateAsync(QueryModels.OperatingContextQueryParams queryParams)
