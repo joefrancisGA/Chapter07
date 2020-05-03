@@ -18,7 +18,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         public List<EGMSPermission> EGMSPermissions { get; set; } = new List<EGMSPermission>();
         public DbSet<EMail> EMails { get; set; }
         public DbSet<Phone> Phones { get; set; }
-        public List<Role> Roles { get; set; } = new List<Role>();
+        public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
 
 
