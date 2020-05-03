@@ -71,9 +71,10 @@ namespace EGMS.BusinessAssociates.Query
         Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsAsync(QueryModels.RoleEGMSPermissionQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsForAssociateAsync(int associateId);
 
-        Task<UserRM> GetUserAsync(int associateId, int userId);
+        Task<UserRM> GetUserAsync(int userId);
+        Task<UserRM> GetUserForAssociateAsync(int associateId, int userId);
         Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(QueryModels.UserQueryParams queryParams);
-        Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(int associateId);
+        Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAssociateAsync(int associateId);
 
         Task<CertificationRM> GetCertificationsAsync(QueryModels.CertificationQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContext, QueryModels.CertificationQueryParams queryParams);

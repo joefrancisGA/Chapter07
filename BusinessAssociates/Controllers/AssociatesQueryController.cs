@@ -73,14 +73,14 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [HttpGet]
         [Route("{associateId}/users")]
-        public Task<IActionResult> GetUsersForAssociateAsync(int associateId, [FromQuery]QueryModels.UserQueryParams request)
+        public Task<IActionResult> GetUsersForAssociateAsync(int associateId)
         {
-            return RequestHandler.HandleQuery(() => _queryRepo.GetUsersAsync(associateId), _log);
+            return RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAssociateAsync(associateId), _log);
         }
 
         [HttpGet]
         [Route("{associateId}/users/{userId}")]
-        public Task<IActionResult> GetUsersForAssociateAsync(int associateId, int userId) => RequestHandler.HandleQuery(() => _queryRepo.GetUserAsync(associateId, userId), _log);
+        public Task<IActionResult> GetUsersForAssociateAsync(int associateId, int userId) => RequestHandler.HandleQuery(() => _queryRepo.GetUserForAssociateAsync(associateId, userId), _log);
 
         #endregion UserForAssociate
 

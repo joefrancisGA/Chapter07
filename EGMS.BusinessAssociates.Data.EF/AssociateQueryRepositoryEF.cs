@@ -1131,14 +1131,26 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public Task<UserRM> GetUserAsync(int associateId, int userId)
+        public Task<UserRM> GetUserAsync(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UserRM> GetUserAsync(int userId)
+        public Task<UserRM> GetUserForAssociateAsync(int associateId, int userId)
         {
-            throw new NotImplementedException();
+            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+                throw new InvalidOperationException("Associate not found.");
+
+            AssociateUser associateUser = _context.AssociateUsers.SingleOrDefault(au => au.AssociateId == associateId && au.UserId == userId);
+
+            if (associateUser == null)
+                throw new InvalidOperationException("User not found for associate.");
+
+            User user = _context.Users.SingleOrDefault(u => u.Id == userId);
+
+            return Task.FromResult(_mapper.Map<User, UserRM>(user));
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(QueryModels.UserQueryParams queryParams)
@@ -1168,6 +1180,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             };
 
             return Task.FromResult(retVal);
+        }
+
+        public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAssociateAsync(int associateId)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(int associateId)

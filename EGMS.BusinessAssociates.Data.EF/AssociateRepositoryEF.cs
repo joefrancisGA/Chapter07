@@ -29,8 +29,12 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void LinkAlternateFuelToCustomer(int alternateFuelTypeId, int customerId)
         {
-            _context.Customers[customerId].CustomerAlternateFuels
-                .Add(new CustomerAlternateFuel(customerId, alternateFuelTypeId));
+            Customer customer = _context.Customers.SingleOrDefault(c => c.Id == customerId);
+
+            if (customer == null)
+                throw new InvalidOperationException("Customer not found");
+
+            customer.CustomerAlternateFuels.Add(new CustomerAlternateFuel(customerId, alternateFuelTypeId));
         }
 
         #endregion Links
@@ -178,7 +182,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public void AddCertificationForOperatingContext(Certification certification, int operatingContextId)
         {
-            _context.OperatingContexts[operatingContextId].Certification = certification;
+            OperatingContext operatingContext =
+                _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId);
+
+            if (operatingContext == null)
+                throw new InvalidOperationException("OperatingContext not found.");
+
+            operatingContext.Certification = certification;
         }
 
         public void AddContact(Contact contact)
@@ -513,7 +523,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool PermissionExists(string permissionName)
         {
-            return _context.EGMSPermissions.Exists(p => p.PermissionName == permissionName);
+            return (_context.EGMSPermissions.FirstOrDefault(p => p.PermissionName == permissionName) != null);
         }
         
         public bool PhoneExistsForContact(Phone phone, int contactId)
@@ -528,13 +538,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public bool RoleEGMSPermissionExists(int roleId, int egmsPermissionId)
         {
-            return _context.RoleEGMSPermissions.Exists(rep =>
-                rep.EGMSPermissionId == egmsPermissionId && rep.RoleId == roleId);
+            return _context.RoleEGMSPermissions.SingleOrDefault(rep =>
+                rep.EGMSPermissionId == egmsPermissionId && rep.RoleId == roleId) != null;
         }
         
         public bool RoleExists(string roleName)
         {
-            return _context.Roles.Exists(r => r.RoleName == roleName);
+            return _context.Roles.SingleOrDefault(r => r.RoleName == roleName) != null;
         }
         
         public bool UserExistsForAssociate(User user, int associateId)
@@ -587,7 +597,12 @@ namespace EGMS.BusinessAssociates.Data.EF
         
         public void UpdateOperatingContext(OperatingContext operatingContext)
         {
-            _context.OperatingContexts[operatingContext.Id] = operatingContext;
+            OperatingContext foundOperatingContext = _context.OperatingContexts.FirstOrDefault(oc => oc.Id == operatingContext.Id);
+
+            if (foundOperatingContext == null)
+                throw new InvalidOperationException("OperatingContext not found.");
+
+            foundOperatingContext = operatingContext;
         }
 
         #endregion Updates
