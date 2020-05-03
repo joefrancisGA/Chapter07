@@ -42,6 +42,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             new List<CustomerOperatingContext>();
         public DbSet<RoleEGMSPermission> RoleEGMSPermissions { get; set; }
         public List<OperatingContextCustomer> OperatingContextCustomers { get; set; } = new List<OperatingContextCustomer>();
+        public List<OperatingContextRole> OperatingContextRoles { get; set; } = new List<OperatingContextRole>();
 
 
         // UnhandledLists

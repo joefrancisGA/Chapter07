@@ -1004,7 +1004,20 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<RoleRM> GetRoleForOperatingContextAsync(int associateId, int operatingContextId, int roleId)
         {
-            throw new NotImplementedException();
+            OperatingContext operatingContext =
+                _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId);
+
+            if (operatingContext == null)
+                throw new InvalidOperationException("OperatingContext not found.");
+
+            OperatingContextRole operatingContextRole = _context.OperatingContextRoles.SingleOrDefault(ocr => ocr.RoleId == roleId);
+
+            if (operatingContextRole == null)
+                throw new InvalidOperationException("Role not found for OperatingContext.");
+
+            Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
+
+            return Task.FromResult(_mapper.Map<Role, RoleRM>(role));
         }
 
         public Task<PagedGridResult<IEnumerable<RoleRM>>> GetRolesForOperatingContextAsync(int associateId, int operatingContextId)
@@ -1261,12 +1274,6 @@ namespace EGMS.BusinessAssociates.Data.EF
             var retVal = _mapper.Map<Certification, CertificationRM>(certification);
 
             return Task.FromResult(retVal);
-        }
-
-
-        public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsForOperatingContextAsync(int associateId, int operatingContextId)
-        {
-            throw new NotImplementedException();
         }
     }
 }
