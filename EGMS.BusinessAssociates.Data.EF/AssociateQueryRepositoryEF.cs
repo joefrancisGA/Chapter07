@@ -742,7 +742,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(_mapper.Map<OperatingContext, OperatingContextRM>(operatingContext));
         }
 
-        public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForAssociateAsync(QueryModels.OperatingContextQueryParams queryParams)
+        public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsAsync(QueryModels.OperatingContextQueryParams queryParams)
         {
             throw new NotImplementedException();
         }
@@ -752,24 +752,16 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
 
-        public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForCustomerAsync(QueryModels.OperatingContextQueryParams queryParams)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForCustomerAsync(int associateId, int customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsAsync(QueryModels.OperatingContextQueryParams queryParams)
         {
             throw new NotImplementedException();
         }
 
         public Task<PhoneRM> GetPhoneAsync(int phoneId)
         {
-            throw new NotImplementedException();
+            Phone phone = _context.Phones.SingleOrDefault(oc => oc.Id == phoneId);
+
+            return Task.FromResult(_mapper.Map<Phone, PhoneRM>(phone));
         }
 
         public Task<PhoneRM> GetPhoneForContactAsync(int associateId, int contactId, int phoneId)
