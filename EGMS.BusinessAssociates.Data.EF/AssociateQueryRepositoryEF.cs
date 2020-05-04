@@ -729,9 +729,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (associatePhone == null)
                 throw new InvalidOperationException("Phone not found for associate.");
 
-            Phone phone = _context.Phones.SingleOrDefault(e => e.Id == phoneId);
-
-            return Task.FromResult(_mapper.Map<Phone, PhoneRM>(phone));
+            return Task.FromResult(_mapper.Map<Phone, PhoneRM>(_context.Phones.SingleOrDefault(e => e.Id == phoneId)));
         }
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForAssociateAsync(int associateId)
@@ -743,15 +741,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             List<Phone> phones = associatePhones.Select(associatePhone => _context.Phones.SingleOrDefault(p => p.Id == associatePhone.PhoneId)).Where(phone => phone != null).ToList();
 
-            var retVal = new PagedGridResult<IEnumerable<PhoneRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<PhoneRM>>
             {
                 Data = _mapper.Map<IEnumerable<PhoneRM>>(phones),
                 Total = phones.Count,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesAsync(QueryModels.PhoneQueryParams queryParams)
