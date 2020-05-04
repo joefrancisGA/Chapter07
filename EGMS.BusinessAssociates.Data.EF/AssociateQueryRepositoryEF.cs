@@ -887,10 +887,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<EGMSPermissionRM> GetEGMSPermissionForRoleAsync(int roleId, int permissionId)
         {
-            Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
-
-            if (role == null)
-                throw new InvalidOperationException("Role not found.");
+            ValidateRoleExists(roleId);
 
             RoleEGMSPermission roleEGMSPermissions = _context.RoleEGMSPermissions.SingleOrDefault(rep => rep.RoleId == roleId && rep.EGMSPermissionId == permissionId);
 
@@ -904,9 +901,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams queryParams)
         {
-            var results = _context.EGMSPermissions.ApplyQuery(queryParams).ToList();
+            List<EGMSPermission> egmsPermissions = _context.EGMSPermissions.ApplyQuery(queryParams).ToList();
 
-            int totalCount = results.Count;
+            int totalCount = egmsPermissions.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
@@ -916,7 +913,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             var retVal = new PagedGridResult<IEnumerable<EGMSPermissionRM>>
             {
-                Data = _mapper.Map<IEnumerable<EGMSPermissionRM>>(results),
+                Data = _mapper.Map<IEnumerable<EGMSPermissionRM>>(egmsPermissions),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -1073,6 +1070,16 @@ namespace EGMS.BusinessAssociates.Data.EF
                 throw new InvalidOperationException("OperatingContext not found.");
 
             return operatingContext;
+        }
+
+        private Role ValidateRoleExists(int roleId)
+        {
+            Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
+
+            if (role == null)
+                throw new InvalidOperationException("Role not found.");
+
+            return role;
         }
 
         #endregion
