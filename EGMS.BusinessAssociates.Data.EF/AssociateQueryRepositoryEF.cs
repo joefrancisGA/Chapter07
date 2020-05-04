@@ -93,17 +93,12 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (associateAddresses == null)
                 throw new InvalidOperationException("No addresses found for specified associate.");
 
-            List<Address> addresses2 = new List<Address>();
-
-            foreach (AssociateAddress aa in associateAddresses)
-            {
-                addresses2.Add(_context.Addresses.Find(aa.AddressId));
-            }
+            List<Address> addresses = associateAddresses.Select(aa => _context.Addresses.Find(aa.AddressId)).ToList();
 
             return new PagedGridResult<IEnumerable<AddressRM>>
             {
-                Data = _mapper.Map<IEnumerable<AddressRM>>(addresses2),
-                Total = addresses2.Count,
+                Data = _mapper.Map<IEnumerable<AddressRM>>(addresses),
+                Total = addresses.Count,
                 Errors = null,
                 AggregateResult = null
             };
@@ -155,31 +150,23 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public async Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams)
         {
-            var agentRelationships = _context.AgentRelationships;
+            List<AgentRelationship> agentRelationships = _context.AgentRelationships.ApplyQuery(queryParams).ToList();
 
-            var filtered = agentRelationships.ApplyQuery(queryParams);
-
-            var results = await filtered.ToListAsync();
-
-            int totalCount = results.Count;
+            int totalCount = agentRelationships.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = agentRelationships.ApplyQuery(queryParams, false);
+                var countQuery = _context.AgentRelationships.ApplyQuery(queryParams, false);
                 totalCount = await countQuery.CountAsync();
             }
 
-            var retData = _mapper.Map<IEnumerable<AgentRelationshipRM>>(results);
-
-            var retVal = new PagedGridResult<IEnumerable<AgentRelationshipRM>>
+            return new PagedGridResult<IEnumerable<AgentRelationshipRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<AgentRelationshipRM>>(agentRelationships),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
             };
-
-            return retVal;
         }
 
         public Task<AgentRelationshipRM> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId)
@@ -207,12 +194,8 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             if (agentUsers == null)
                 throw new InvalidOperationException("Users not found for AgentRelationship.");
-
-            User user = _context.Users.SingleOrDefault(u => u.Id == userId);
             
-            UserRM retData = _mapper.Map<UserRM>(user);
-
-            return Task.FromResult(retData);
+            return Task.FromResult(_mapper.Map<UserRM>(_context.Users.SingleOrDefault(u => u.Id == userId)));
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int principalId, int agentRelationshipId)
@@ -227,21 +210,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (agentUsers == null)
                 throw new InvalidOperationException("Users not found for AgentRelationship.");
 
-            List<User> users = new List<User>();
-
-            foreach (AgentUser agentUser in agentUsers)
-            {
-                User user = _context.Users.SingleOrDefault(u => u.Id == agentUser.UserId);
-
-                if (user != null)
-                    users.Add(user);
-            }
-
-            var retData = _mapper.Map<IEnumerable<UserRM>>(users);
+            List<User> users = agentUsers.Select(agentUser => _context.Users.SingleOrDefault(u => u.Id == agentUser.UserId)).Where(user => user != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<UserRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<UserRM>>(users),
                 Total = users.Count,
                 Errors = null,
                 AggregateResult = null
@@ -252,9 +225,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(QueryModels.UserQueryParams queryParams)
         {
-            var users = _context.Users;
-
-            var filtered = users.ApplyQuery(queryParams);
+            var filtered = _context.Users.ApplyQuery(queryParams);
 
             var results = filtered.ToList();
 
@@ -262,15 +233,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = users.ApplyQuery(queryParams, false);
+                var countQuery = _context.Users.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<UserRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<UserRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<UserRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -281,6 +250,8 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int associateId, int principalId, int agentRelationshipId)
         {
+            ValidateAssociateExists(associateId);
+
             AgentRelationship agentRelationship =
                 _context.AgentRelationships.SingleOrDefault(ar => ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
 
@@ -292,21 +263,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (agentUsers == null)
                 throw new InvalidOperationException("Users not found for AgentRelationship.");
 
-            List<User> users = new List<User>();
-
-            foreach (AgentUser agentUser in agentUsers)
-            {
-                User user = _context.Users.Single(u => u.Id == agentUser.UserId);
-
-                if (user != null)
-                    users.Add(user);
-            }
-
-            var retData = _mapper.Map<IEnumerable<UserRM>>(users);
+            List<User> users = agentUsers.Select(agentUser => _context.Users.Single(u => u.Id == agentUser.UserId)).Where(user => user != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<UserRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<UserRM>>(users),
                 Total = users.Count,
                 Errors = null,
                 AggregateResult = null
@@ -317,13 +278,8 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<AgentRelationshipRM> GetAgentRelationshipAsync(int agentRelationshipId)
         {
-            var agentRelationships = _context.AgentRelationships;
-
-            var result = agentRelationships.SingleOrDefault(ar => ar.Id == agentRelationshipId);
-
-            var retVal = _mapper.Map<AgentRelationshipRM>(result);
-
-            return Task.FromResult(retVal);
+            var result = _context.AgentRelationships.SingleOrDefault(ar => ar.Id == agentRelationshipId);
+            return Task.FromResult(_mapper.Map<AgentRelationshipRM>(result));
         }
 
         public Task<ContactRM> GetContactAsync(int associateId, int contactId)
@@ -332,12 +288,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             Contact contact = null;
 
-            foreach (AssociateContact associateContact in associateContacts)
+            foreach (var associateContact in associateContacts.Where(associateContact => associateContact.ContactId == contactId && associateContact.AssociateId == associateId))
             {
-                if (associateContact.ContactId == contactId && associateContact.AssociateId == associateId)
-                {
-                    contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
-                }
+                contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
             }
 
             return Task.FromResult(_mapper.Map<Contact, ContactRM>(contact));
@@ -350,9 +303,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(QueryModels.ContactQueryParams queryParams)
         {
-            var contacts = _context.Contacts;
-
-            var filtered = contacts.ApplyQuery(queryParams);
+            var filtered = _context.Contacts.ApplyQuery(queryParams);
 
             var results = filtered.ToList();
 
@@ -360,15 +311,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = contacts.ApplyQuery(queryParams, false);
+                var countQuery = _context.Contacts.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<ContactRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<ContactRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<ContactRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -384,18 +333,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (associateContacts == null)
                 throw new InvalidOperationException("No contacts found for specified associate.");
 
-            List<Contact> contacts = new List<Contact>();
-
-            foreach (AssociateContact ac in associateContacts)
-            {
-                contacts.Add(_context.Contacts.Find(ac.ContactId));
-            }
-
-            var retData = _mapper.Map<IEnumerable<ContactRM>>(contacts);
+            List<Contact> contacts = associateContacts.Select(ac => _context.Contacts.Find(ac.ContactId)).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<ContactRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<ContactRM>>(contacts),
                 Total = contacts.Count,
                 Errors = null,
                 AggregateResult = null
@@ -422,9 +364,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsAsync(QueryModels.ContactConfigurationQueryParams queryParams)
         {
-            var contactConfigurations = _context.ContactConfigurations;
-
-            var filtered = contactConfigurations.ApplyQuery(queryParams);
+            var filtered = _context.ContactConfigurations.ApplyQuery(queryParams);
 
             var results = filtered.ToList();
 
@@ -432,15 +372,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = contactConfigurations.ApplyQuery(queryParams, false);
+                var countQuery = _context.ContactConfigurations.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<ContactConfigurationRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<ContactConfigurationRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<ContactConfigurationRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -457,12 +395,10 @@ namespace EGMS.BusinessAssociates.Data.EF
                 throw new InvalidOperationException("Contact not found.");
 
             IEnumerable<ContactConfiguration> contactConfigurations = contact.ContactConfigurations;
-            
-            var retData = _mapper.Map<IEnumerable<ContactConfigurationRM>>(contactConfigurations);
 
             var retVal = new PagedGridResult<IEnumerable<ContactConfigurationRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<ContactConfigurationRM>>(contactConfigurations),
                 Total = contactConfigurations.Count(),
                 Errors = null,
                 AggregateResult = null
@@ -487,9 +423,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<CustomerRM>>> GetCustomersAsync(QueryModels.CustomerQueryParams queryParams)
         {
-            var customers = _context.Customers;
-
-            var filtered = customers.ApplyQuery(queryParams);
+            var filtered = _context.Customers.ApplyQuery(queryParams);
 
             var results = filtered.ToList();
 
@@ -497,15 +431,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = customers.ApplyQuery(queryParams, false);
+                var countQuery = _context.Customers.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<CustomerRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<CustomerRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<CustomerRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -521,18 +453,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (associateCustomers == null)
                 throw new InvalidOperationException("No customers found for specified associate.");
 
-            List<Customer> customers = new List<Customer>();
-
-            foreach (AssociateCustomer ac in associateCustomers)
-            {
-                customers.Add(_context.Customers.Find(ac.CustomerId));
-            }
-
-            var retData = _mapper.Map<IEnumerable<CustomerRM>>(customers);
+            List<Customer> customers = associateCustomers.Select(ac => _context.Customers.Find(ac.CustomerId)).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<CustomerRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<CustomerRM>>(customers),
                 Total = customers.Count,
                 Errors = null,
                 AggregateResult = null
@@ -572,21 +497,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (contactEMails == null)
                 throw new InvalidOperationException("No emails found for contact.");
 
-            List<EMail> eMails = new List<EMail>();
-
-            foreach (ContactEMail contactEMail in contactEMails)
-            {
-                EMail email = _context.EMails.SingleOrDefault(e => e.Id == contactEMail.EMailId);
-
-                if (email != null)
-                    eMails.Add(email);
-            }
-
-            var retData = _mapper.Map<IEnumerable<EMailRM>>(eMails);
+            List<EMail> eMails = contactEMails.Select(contactEMail => _context.EMails.SingleOrDefault(e => e.Id == contactEMail.EMailId)).Where(email => email != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<EMailRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<EMailRM>>(eMails),
                 Total = eMails.Count,
                 Errors = null,
                 AggregateResult = null
@@ -614,31 +529,18 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<EMailRM>>> GetEMailsForAssociateAsync(int associateId)
         {
-            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
-
-            if (associate == null)
-                throw new InvalidOperationException("Associate not found.");
+            ValidateAssociateExists(associateId);
 
             List<AssociateEMail> associateEMails = _context.AssociateEMails.FindAll(ce => ce.AssociateId == associateId);
 
             if (associateEMails == null)
                 throw new InvalidOperationException("EMails not found for Associate.");
             
-            List<EMail> eMails = new List<EMail>();
-
-            foreach (AssociateEMail associateEMail in associateEMails)
-            {
-                EMail email = _context.EMails.SingleOrDefault(e => e.Id == associateEMail.EMailId);
-
-                if (email != null)
-                    eMails.Add(email);
-            }
-
-            var retData = _mapper.Map<IEnumerable<EMailRM>>(eMails);
+            List<EMail> eMails = associateEMails.Select(associateEMail => _context.EMails.SingleOrDefault(e => e.Id == associateEMail.EMailId)).Where(email => email != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<EMailRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<EMailRM>>(eMails),
                 Total = eMails.Count,
                 Errors = null,
                 AggregateResult = null
@@ -649,25 +551,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<EMailRM>>> GetEMailsAsync(QueryModels.EMailQueryParams queryParams)
         {
-            var emails = _context.EMails;
-
-            var filtered = emails.ApplyQuery(queryParams);
-
-            var results = filtered.ToList();
+            var results = _context.EMails.ApplyQuery(queryParams).ToList();
 
             int totalCount = results.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = emails.ApplyQuery(queryParams, false);
+                var countQuery = _context.EMails.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<EMailRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<EMailRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<EMailRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -711,25 +607,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsAsync(QueryModels.OperatingContextQueryParams queryParams)
         {
-            var operatingContexts = _context.OperatingContexts;
-
-            var filtered = operatingContexts.ApplyQuery(queryParams);
-
-            var results = filtered.ToList();
+            var results = _context.OperatingContexts.ApplyQuery(queryParams).ToList();
 
             int totalCount = results.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = operatingContexts.ApplyQuery(queryParams, false);
+                var countQuery = _context.OperatingContexts.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<OperatingContextRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -745,21 +635,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (associateOperatingContexts == null)
                 throw new InvalidOperationException("No Operating Contexts found for Associate.");
 
-            List<OperatingContext> operatingContexts = new List<OperatingContext>();
-
-            foreach (AssociateOperatingContext associateOperatingContext in associateOperatingContexts)
-            {
-                OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(e => e.Id == associateOperatingContext.OperatingContextId);
-
-                if (operatingContext != null)
-                    operatingContexts.Add(operatingContext);
-            }
-
-            var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts);
+            List<OperatingContext> operatingContexts = associateOperatingContexts.Select(associateOperatingContext => _context.OperatingContexts.SingleOrDefault(e => e.Id == associateOperatingContext.OperatingContextId)).Where(operatingContext => operatingContext != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts),
                 Total = operatingContexts.Count,
                 Errors = null,
                 AggregateResult = null
@@ -775,21 +655,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (customerOperatingContexts == null)
                 throw new InvalidOperationException("No Operating Contexts found for Customer.");
 
-            List<OperatingContext> operatingContexts = new List<OperatingContext>();
-
-            foreach (CustomerOperatingContext customerOperatingContext in customerOperatingContexts)
-            {
-                OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(e => e.Id == customerOperatingContext.OperatingContextId);
-
-                if (operatingContext != null)
-                    operatingContexts.Add(operatingContext);
-            }
-
-            var retData = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts);
+            List<OperatingContext> operatingContexts = customerOperatingContexts.Select(customerOperatingContext => _context.OperatingContexts.SingleOrDefault(e => e.Id == customerOperatingContext.OperatingContextId)).Where(operatingContext => operatingContext != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts),
                 Total = operatingContexts.Count,
                 Errors = null,
                 AggregateResult = null
@@ -834,21 +704,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (contactPhones == null)
                 throw new InvalidOperationException("No phones found for Contact");
 
-            List<Phone> phones = new List<Phone>();
-
-            foreach (ContactPhone contactPhone in contactPhones)
-            {
-                Phone phone = _context.Phones.SingleOrDefault(oc => oc.Id == contactPhone.PhoneId);
-
-                if (phone != null)
-                    phones.Add(phone);
-            }
-
-            var retData = _mapper.Map<IEnumerable<PhoneRM>>(phones);
+            List<Phone> phones = contactPhones.Select(contactPhone => _context.Phones.SingleOrDefault(oc => oc.Id == contactPhone.PhoneId)).Where(phone => phone != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<PhoneRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<PhoneRM>>(phones),
                 Total = phones.Count,
                 Errors = null,
                 AggregateResult = null
@@ -881,21 +741,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (associatePhones == null)
                 throw new InvalidOperationException("No Phones found for Associate.");
 
-            List<Phone> phones = new List<Phone>();
-
-            foreach (AssociatePhone associatePhone in associatePhones)
-            {
-                Phone phone = _context.Phones.SingleOrDefault(p => p.Id == associatePhone.PhoneId);
-
-                if (phone != null)
-                    phones.Add(phone);
-            }
-
-            var retData = _mapper.Map<IEnumerable<PhoneRM>>(phones);
+            List<Phone> phones = associatePhones.Select(associatePhone => _context.Phones.SingleOrDefault(p => p.Id == associatePhone.PhoneId)).Where(phone => phone != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<PhoneRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<PhoneRM>>(phones),
                 Total = phones.Count,
                 Errors = null,
                 AggregateResult = null
@@ -906,25 +756,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesAsync(QueryModels.PhoneQueryParams queryParams)
         {
-            var phones = _context.Phones;
-
-            var filtered = phones.ApplyQuery(queryParams);
-
-            var results = filtered.ToList();
+            var results = _context.Phones.ApplyQuery(queryParams).ToList();
 
             int totalCount = results.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = phones.ApplyQuery(queryParams, false);
+                var countQuery = _context.Phones.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<PhoneRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<PhoneRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<PhoneRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -942,25 +786,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<RoleRM>>> GetRolesAsync(QueryModels.RoleQueryParams queryParams)
         {
-            var roles = _context.Roles;
-
-            var filtered = roles.ApplyQuery(queryParams);
-
-            var results = filtered.ToList();
+            var results = _context.Roles.ApplyQuery(queryParams).ToList();
 
             int totalCount = results.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = roles.ApplyQuery(queryParams, false);
+                var countQuery = _context.Roles.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<RoleRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<RoleRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<RoleRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -994,21 +832,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (operatingContextRoles == null)
                 throw new InvalidOperationException("No Roles found for OperatingContext.");
 
-            List<Role> roles = new List<Role>();
-
-            foreach (OperatingContextRole operatingContextRole in operatingContextRoles)
-            {
-                Role role = _context.Roles.SingleOrDefault(r => r.Id == operatingContextRole.RoleId);
-
-                if (role != null)
-                    roles.Add(role);
-            }
-
-            var retData = _mapper.Map<IEnumerable<RoleRM>>(roles);
+            List<Role> roles = operatingContextRoles.Select(operatingContextRole => _context.Roles.SingleOrDefault(r => r.Id == operatingContextRole.RoleId)).Where(role => role != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<RoleRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<RoleRM>>(roles),
                 Total = roles.Count,
                 Errors = null,
                 AggregateResult = null
@@ -1046,11 +874,9 @@ namespace EGMS.BusinessAssociates.Data.EF
                     egmsPermissions.Add(egmsPermission);
             }
 
-            var retData = _mapper.Map<IEnumerable<EGMSPermissionRM>>(egmsPermissions);
-
             var retVal = new PagedGridResult<IEnumerable<EGMSPermissionRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<EGMSPermissionRM>>(egmsPermissions),
                 Total = egmsPermissions.Count,
                 Errors = null,
                 AggregateResult = null
@@ -1073,32 +899,24 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             EGMSPermission egmsPermission = _context.EGMSPermissions.SingleOrDefault(ep => ep.Id == permissionId);
 
-            var retVal = _mapper.Map<EGMSPermissionRM>(egmsPermission);
-
-            return Task.FromResult(retVal);
+            return Task.FromResult(_mapper.Map<EGMSPermissionRM>(egmsPermission));
         }
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams queryParams)
         {
-            var egmsPermissions = _context.EGMSPermissions;
-
-            var filtered = egmsPermissions.ApplyQuery(queryParams);
-
-            var results = filtered.ToList();
+            var results = _context.EGMSPermissions.ApplyQuery(queryParams).ToList();
 
             int totalCount = results.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = egmsPermissions.ApplyQuery(queryParams, false);
+                var countQuery = _context.EGMSPermissions.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<EGMSPermissionRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<EGMSPermissionRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<EGMSPermissionRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
@@ -1169,17 +987,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(QueryModels.UserQueryParams queryParams)
         {
-            var users = _context.Users;
-
-            var filtered = users.ApplyQuery(queryParams);
-
-            var results = filtered.ToList();
+            List<User> results = _context.Users.ApplyQuery(queryParams).ToList();
 
             int totalCount = results.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = users.ApplyQuery(queryParams, false);
+                var countQuery = _context.Users.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
@@ -1205,21 +1019,11 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (associateUsers == null)
                 throw new InvalidOperationException("Users not found for associate.");
 
-            List<User> users = new List<User>();
-
-            foreach (AssociateUser associateUser in associateUsers)
-            {
-                User user = _context.Users.SingleOrDefault(u => u.Id == associateUser.UserId);
-
-                if (user != null)
-                    users.Add(user);
-            }
-            
-            var retData = _mapper.Map<IEnumerable<UserRM>>(users);
+            List<User> users = associateUsers.Select(associateUser => _context.Users.SingleOrDefault(u => u.Id == associateUser.UserId)).Where(user => user != null).ToList();
 
             var retVal = new PagedGridResult<IEnumerable<UserRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<UserRM>>(users),
                 Total = users.Count,
                 Errors = null,
                 AggregateResult = null
@@ -1230,25 +1034,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsAsync(QueryModels.CertificationQueryParams queryParams)
         {
-            var certifications = _context.Certifications;
-
-            var filtered = certifications.ApplyQuery(queryParams);
-
-            var results = filtered.ToList();
+            var results = _context.Certifications.ApplyQuery(queryParams).ToList();
 
             int totalCount = results.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = certifications.ApplyQuery(queryParams, false);
+                var countQuery = _context.Certifications.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<CertificationRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<CertificationRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<CertificationRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
