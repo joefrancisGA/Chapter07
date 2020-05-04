@@ -36,31 +36,23 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public async Task<PagedGridResult<IEnumerable<AssociateRM>>> GetAssociatesAsync(QueryModels.AssociateQueryParams queryParams)
         {
-            var associates = _context.Associates;
+            List<Associate> associates = await _context.Associates.ApplyQuery(queryParams).ToListAsync();
 
-            var filtered = associates.ApplyQuery(queryParams);
-
-            var results = await filtered.ToListAsync();
-
-            int totalCount = results.Count;
+            int totalCount = associates.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = associates.ApplyQuery(queryParams, false);
+                var countQuery = _context.Associates.ApplyQuery(queryParams, false);
                 totalCount = await countQuery.CountAsync();
             }
 
-            var retData = _mapper.Map<IEnumerable<AssociateRM>>(results);
-
-            var retVal = new PagedGridResult<IEnumerable<AssociateRM>>
+            return new PagedGridResult<IEnumerable<AssociateRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<AssociateRM>>(associates),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
             };
-
-            return retVal;
         }
 
         public Task<AddressRM> GetAddressAsync(int addressId)
@@ -81,17 +73,13 @@ namespace EGMS.BusinessAssociates.Data.EF
                 totalCount = await countQuery.CountAsync();
             }
 
-            var retData = _mapper.Map<IEnumerable<AddressRM>>(addresses);
-
-            var retVal = new PagedGridResult<IEnumerable<AddressRM>>
+            return new PagedGridResult<IEnumerable<AddressRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<AddressRM>>(addresses),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
             };
-
-            return retVal;
         }
 
 #pragma warning disable 1998
@@ -112,17 +100,13 @@ namespace EGMS.BusinessAssociates.Data.EF
                 addresses2.Add(_context.Addresses.Find(aa.AddressId));
             }
 
-            var retData = _mapper.Map<IEnumerable<AddressRM>>(addresses2);
-
-            var retVal = new PagedGridResult<IEnumerable<AddressRM>>
+            return new PagedGridResult<IEnumerable<AddressRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<AddressRM>>(addresses2),
                 Total = addresses2.Count,
                 Errors = null,
                 AggregateResult = null
             };
-
-            return retVal;
         }
 
         public Task<AddressRM> GetAddressForContactAsync(int contactId, int addressId)
@@ -138,9 +122,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (address == null)
                 throw new InvalidOperationException("Address not found.");
 
-            var retVal = _mapper.Map<AddressRM>(address);
-
-            return Task.FromResult(retVal);
+            return Task.FromResult(_mapper.Map<AddressRM>(address));
         }
 
 #pragma warning disable 1998
@@ -161,17 +143,13 @@ namespace EGMS.BusinessAssociates.Data.EF
                 addresses.Add(_context.Addresses.Find(aa.AddressId));
             }
 
-            var retData = _mapper.Map<IEnumerable<AddressRM>>(addresses);
-
-            var retVal = new PagedGridResult<IEnumerable<AddressRM>>
+            return new PagedGridResult<IEnumerable<AddressRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<AddressRM>>(addresses),
                 Total = addresses.Count,
                 Errors = null,
                 AggregateResult = null
             };
-
-            return retVal;
         }
 
 
