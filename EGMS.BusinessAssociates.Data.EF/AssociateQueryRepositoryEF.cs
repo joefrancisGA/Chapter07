@@ -677,19 +677,17 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PhoneRM> GetPhoneForContactAsync(int associateId, int contactId, int phoneId)
         {
-            Contact contact = _context.Contacts.SingleOrDefault(a => a.Id == contactId);
+            ValidateAssociateExists(associateId);
+            ValidateContactExists(contactId);
 
-            if (contact == null)
-                throw new InvalidOperationException("Contact not found.");
+            ContactPhone contactPhone = _context.ContactPhones.SingleOrDefault(ae => ae.ContactId == contactId && ae.PhoneId == phoneId);
 
-            AssociatePhone associatePhone = _context.AssociatePhones.SingleOrDefault(ae => ae.AssociateId == associateId && ae.PhoneId == phoneId);
-
-            if (associatePhone == null)
+            if (contactPhone == null)
                 throw new InvalidOperationException("Phone not found for Contact.");
 
             Phone phone = _context.Phones.SingleOrDefault(e => e.Id == phoneId);
 
-            return Task.FromResult(_mapper.Map<Phone, PhoneRM>(phone));
+            return Task.FromResult(_mapper.Map<Phone, PhoneRM>(_context.Phones.SingleOrDefault(e => e.Id == phoneId)));
         }
 
         public Task<PagedGridResult<IEnumerable<PhoneRM>>> GetPhonesForContactAsync(int associateId, int contactId)
@@ -719,10 +717,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PhoneRM> GetPhoneForAssociateAsync(int associateId, int phoneId)
         {
-            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
-
-            if (associate == null)
-                throw new InvalidOperationException("Associate not found.");
+            ValidateAssociateExists(associateId);
 
             AssociatePhone associatePhone = _context.AssociatePhones.SingleOrDefault(ae => ae.AssociateId == associateId && ae.PhoneId == phoneId);
 
@@ -984,15 +979,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             List<User> users = associateUsers.Select(associateUser => _context.Users.SingleOrDefault(u => u.Id == associateUser.UserId)).Where(user => user != null).ToList();
 
-            var retVal = new PagedGridResult<IEnumerable<UserRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<UserRM>>
             {
                 Data = _mapper.Map<IEnumerable<UserRM>>(users),
                 Total = users.Count,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<PagedGridResult<IEnumerable<CertificationRM>>> GetCertificationsAsync(QueryModels.CertificationQueryParams queryParams)
@@ -1007,15 +1000,13 @@ namespace EGMS.BusinessAssociates.Data.EF
                 totalCount = countQuery.Count();
             }
 
-            var retVal = new PagedGridResult<IEnumerable<CertificationRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<CertificationRM>>
             {
                 Data = _mapper.Map<IEnumerable<CertificationRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         // TO DO:  Add checks for AssociateId
@@ -1049,15 +1040,22 @@ namespace EGMS.BusinessAssociates.Data.EF
             return operatingContext;
         }
 
-        private Role ValidateRoleExists(int roleId)
+        private void ValidateRoleExists(int roleId)
         {
             Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
 
             if (role == null)
                 throw new InvalidOperationException("Role not found.");
-
-            return role;
         }
+
+        private void ValidateContactExists(int contactId)
+        {
+            Contact contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
+
+            if (contact == null)
+                throw new InvalidOperationException("Contact not found.");
+        }
+
 
         #endregion
     }
