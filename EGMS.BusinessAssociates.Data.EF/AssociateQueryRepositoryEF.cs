@@ -160,11 +160,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<UserRM> GetUserForAgentRelationshipAsync(int principalId, int agentRelationshipId, int userId)
         {
-            AgentRelationship agentRelationship =
-                _context.AgentRelationships.SingleOrDefault(ar => ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
-
-            if (agentRelationship == null)
-                throw new InvalidOperationException("Agent relationship not found for specified principal.");
+            AgentRelationship agentRelationship = ValidateAgentRelationshipExists(principalId, agentRelationshipId);
 
             IEnumerable<AgentUser> agentUsers = _context.AgentUsers.Where(au => au.AgentId == agentRelationship.AgentId);
 
@@ -176,10 +172,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int principalId, int agentRelationshipId)
         {
-            AgentRelationship agentRelationship = _context.AgentRelationships.SingleOrDefault(ar => ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
-
-            if (agentRelationship == null)
-                throw new InvalidOperationException("Agent relationship not found for specified principal.");
+            AgentRelationship agentRelationship = ValidateAgentRelationshipExists(principalId, agentRelationshipId);
 
             IEnumerable<AgentUser> agentUsers = _context.AgentUsers.Where(au => au.AgentId == agentRelationship.AgentId);
 
@@ -188,15 +181,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             List<User> users = agentUsers.Select(agentUser => _context.Users.SingleOrDefault(u => u.Id == agentUser.UserId)).Where(user => user != null).ToList();
 
-            var retVal = new PagedGridResult<IEnumerable<UserRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<UserRM>>
             {
                 Data = _mapper.Map<IEnumerable<UserRM>>(users),
                 Total = users.Count,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(QueryModels.UserQueryParams queryParams)
