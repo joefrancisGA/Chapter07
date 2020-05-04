@@ -57,29 +57,25 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<AddressRM> GetAddressAsync(int addressId)
         {
-            Address address = _context.Addresses.SingleOrDefault(a => a.Id == addressId);
-            return Task.FromResult(_mapper.Map<AddressRM>(address));
+            return Task.FromResult(_mapper.Map<AddressRM>(_context.Addresses.SingleOrDefault(a => a.Id == addressId)));
         }
 
-        public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(QueryModels.AddressQueryParams queryParams)
+        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(QueryModels.AddressQueryParams queryParams)
         {
-            List<Address> addresses = await _context.Addresses.ApplyQuery(queryParams).ToListAsync();
+            List<Address> addresses = _context.Addresses.ApplyQuery(queryParams).ToList();
 
             int totalCount = addresses.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
-            {
-                var countQuery = _context.Addresses.ApplyQuery(queryParams, false);
-                totalCount = await countQuery.CountAsync();
-            }
+                totalCount = _context.Addresses.ApplyQuery(queryParams, false).Count();
 
-            return new PagedGridResult<IEnumerable<AddressRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<AddressRM>>
             {
                 Data = _mapper.Map<IEnumerable<AddressRM>>(addresses),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
+            });
         }
 
 #pragma warning disable 1998
