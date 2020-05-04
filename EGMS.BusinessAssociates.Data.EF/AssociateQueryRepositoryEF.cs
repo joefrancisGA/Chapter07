@@ -913,15 +913,13 @@ namespace EGMS.BusinessAssociates.Data.EF
                 totalCount = countQuery.Count();
             }
 
-            var retVal = new PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>
             {
                 Data = _mapper.Map<IEnumerable<RoleEGMSPermissionRM>>(roleEGMSPermissions),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<UserRM> GetUserAsync(int userId)
