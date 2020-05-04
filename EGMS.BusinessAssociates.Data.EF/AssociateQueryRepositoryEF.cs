@@ -945,9 +945,9 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(QueryModels.UserQueryParams queryParams)
         {
-            List<User> results = _context.Users.ApplyQuery(queryParams).ToList();
+            List<User> users = _context.Users.ApplyQuery(queryParams).ToList();
 
-            int totalCount = results.Count;
+            int totalCount = users.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
@@ -955,17 +955,13 @@ namespace EGMS.BusinessAssociates.Data.EF
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<UserRM>>(results);
-
-            var retVal = new PagedGridResult<IEnumerable<UserRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<UserRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<UserRM>>(users),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAssociateAsync(int associateId)
