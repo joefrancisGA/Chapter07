@@ -970,19 +970,14 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<UserRM> GetUserForAssociateAsync(int associateId, int userId)
         {
-            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
-
-            if (associate == null)
-                throw new InvalidOperationException("Associate not found.");
+            ValidateAssociateExists(associateId);
 
             AssociateUser associateUser = _context.AssociateUsers.SingleOrDefault(au => au.AssociateId == associateId && au.UserId == userId);
 
             if (associateUser == null)
                 throw new InvalidOperationException("User not found for associate.");
 
-            User user = _context.Users.SingleOrDefault(u => u.Id == userId);
-
-            return Task.FromResult(_mapper.Map<User, UserRM>(user));
+            return Task.FromResult(_mapper.Map<User, UserRM>(_context.Users.SingleOrDefault(u => u.Id == userId)));
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersAsync(QueryModels.UserQueryParams queryParams)
