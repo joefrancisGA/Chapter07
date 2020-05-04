@@ -809,20 +809,14 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<RoleRM> GetRoleForOperatingContextAsync(int associateId, int operatingContextId, int roleId)
         {
-            OperatingContext operatingContext =
-                _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId);
-
-            if (operatingContext == null)
-                throw new InvalidOperationException("OperatingContext not found.");
+            ValidateOperatingContextExists(operatingContextId);
 
             OperatingContextRole operatingContextRole = _context.OperatingContextRoles.SingleOrDefault(ocr => ocr.RoleId == roleId);
 
             if (operatingContextRole == null)
                 throw new InvalidOperationException("Role not found for OperatingContext.");
 
-            Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
-
-            return Task.FromResult(_mapper.Map<Role, RoleRM>(role));
+            return Task.FromResult(_mapper.Map<Role, RoleRM>(_context.Roles.SingleOrDefault(r => r.Id == roleId)));
         }
 
         public Task<PagedGridResult<IEnumerable<RoleRM>>> GetRolesForOperatingContextAsync(int associateId, int operatingContextId)
@@ -847,17 +841,12 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<EGMSPermissionRM> GetEGMSPermissionAsync(int egmsPermissionId)
         {
-            EGMSPermission egmsPermission = _context.EGMSPermissions.SingleOrDefault(ep => ep.Id == egmsPermissionId);
-
-            return Task.FromResult(_mapper.Map<EGMSPermission, EGMSPermissionRM>(egmsPermission));
+            return Task.FromResult(_mapper.Map<EGMSPermission, EGMSPermissionRM>(_context.EGMSPermissions.SingleOrDefault(ep => ep.Id == egmsPermissionId)));
         }
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsForRoleAsync(int roleId)
         {
-            Role role = _context.Roles.SingleOrDefault(r => r.Id == roleId);
-
-            if (role == null)
-                throw new InvalidOperationException("Role not found.");
+            ValidateRoleExists(roleId);
 
             IQueryable<RoleEGMSPermission> roleEGMSPermissions = _context.RoleEGMSPermissions.Where(rep => rep.RoleId == roleId);
 
@@ -894,9 +883,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (roleEGMSPermissions == null)
                 throw new InvalidOperationException("EGMSPermissions not found for role.");
 
-            EGMSPermission egmsPermission = _context.EGMSPermissions.SingleOrDefault(ep => ep.Id == permissionId);
-
-            return Task.FromResult(_mapper.Map<EGMSPermissionRM>(egmsPermission));
+            return Task.FromResult(_mapper.Map<EGMSPermissionRM>(_context.EGMSPermissions.SingleOrDefault(ep => ep.Id == permissionId)));
         }
 
         public Task<PagedGridResult<IEnumerable<EGMSPermissionRM>>> GetEGMSPermissionsAsync(QueryModels.EGMSPermissionQueryParams queryParams)
