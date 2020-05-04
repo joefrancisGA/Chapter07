@@ -766,15 +766,13 @@ namespace EGMS.BusinessAssociates.Data.EF
                 totalCount = countQuery.Count();
             }
 
-            var retVal = new PagedGridResult<IEnumerable<PhoneRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<PhoneRM>>
             {
                 Data = _mapper.Map<IEnumerable<PhoneRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<RoleRM> GetRoleAsync(int roleId)
@@ -796,15 +794,13 @@ namespace EGMS.BusinessAssociates.Data.EF
                 totalCount = countQuery.Count();
             }
 
-            var retVal = new PagedGridResult<IEnumerable<RoleRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<RoleRM>>
             {
                 Data = _mapper.Map<IEnumerable<RoleRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<RoleRM> GetRoleForOperatingContextAsync(int associateId, int operatingContextId, int roleId)
@@ -828,15 +824,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             List<Role> roles = operatingContextRoles.Select(operatingContextRole => _context.Roles.SingleOrDefault(r => r.Id == operatingContextRole.RoleId)).Where(role => role != null).ToList();
 
-            var retVal = new PagedGridResult<IEnumerable<RoleRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<RoleRM>>
             {
                 Data = _mapper.Map<IEnumerable<RoleRM>>(roles),
                 Total = roles.Count,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<EGMSPermissionRM> GetEGMSPermissionAsync(int egmsPermissionId)
