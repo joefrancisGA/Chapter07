@@ -199,31 +199,22 @@ namespace EGMS.BusinessAssociates.Data.EF
             int totalCount = results.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
-            {
-                var countQuery = _context.Users.ApplyQuery(queryParams, false);
-                totalCount = countQuery.Count();
-            }
+                totalCount = _context.Users.ApplyQuery(queryParams, false).Count();
 
-            var retVal = new PagedGridResult<IEnumerable<UserRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<UserRM>>
             {
                 Data = _mapper.Map<IEnumerable<UserRM>>(results),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationshipAsync(int associateId, int principalId, int agentRelationshipId)
         {
             ValidateAssociateExists(associateId);
 
-            AgentRelationship agentRelationship =
-                _context.AgentRelationships.SingleOrDefault(ar => ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
-
-            if (agentRelationship == null)
-                throw new InvalidOperationException("Agent relationship not found for specified principal.");
+            AgentRelationship agentRelationship = ValidateAgentRelationshipExists(principalId, agentRelationshipId);
 
             IEnumerable<AgentUser> agentUsers = _context.AgentUsers.Where(au => au.AgentId == agentRelationship.AgentId);
 
@@ -232,21 +223,18 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             List<User> users = agentUsers.Select(agentUser => _context.Users.Single(u => u.Id == agentUser.UserId)).Where(user => user != null).ToList();
 
-            var retVal = new PagedGridResult<IEnumerable<UserRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<UserRM>>
             {
                 Data = _mapper.Map<IEnumerable<UserRM>>(users),
                 Total = users.Count,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<AgentRelationshipRM> GetAgentRelationshipAsync(int agentRelationshipId)
         {
-            var result = _context.AgentRelationships.SingleOrDefault(ar => ar.Id == agentRelationshipId);
-            return Task.FromResult(_mapper.Map<AgentRelationshipRM>(result));
+            return Task.FromResult(_mapper.Map<AgentRelationshipRM>(_context.AgentRelationships.SingleOrDefault(ar => ar.Id == agentRelationshipId)));
         }
 
         public Task<ContactRM> GetContactAsync(int associateId, int contactId)
