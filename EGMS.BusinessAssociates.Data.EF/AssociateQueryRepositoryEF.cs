@@ -122,12 +122,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (contactAddresses == null)
                 throw new InvalidOperationException("No addresses found for specified contact.");
 
-            List<Address> addresses = new List<Address>();
-
-            foreach (ContactAddress aa in contactAddresses)
-            {
-                addresses.Add(_context.Addresses.Find(aa.AddressId));
-            }
+            List<Address> addresses = contactAddresses.Select(aa => _context.Addresses.Find(aa.AddressId)).ToList();
 
             return new PagedGridResult<IEnumerable<AddressRM>>
             {
@@ -139,38 +134,28 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
 
-        public async Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams)
+        public Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsAsync(QueryModels.AgentRelationshipQueryParams queryParams)
         {
             List<AgentRelationship> agentRelationships = _context.AgentRelationships.ApplyQuery(queryParams).ToList();
 
             int totalCount = agentRelationships.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
-            {
-                var countQuery = _context.AgentRelationships.ApplyQuery(queryParams, false);
-                totalCount = await countQuery.CountAsync();
-            }
+                totalCount = _context.AgentRelationships.ApplyQuery(queryParams, false).Count();
 
-            return new PagedGridResult<IEnumerable<AgentRelationshipRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<AgentRelationshipRM>>
             {
                 Data = _mapper.Map<IEnumerable<AgentRelationshipRM>>(agentRelationships),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
+            });
         }
 
         public Task<AgentRelationshipRM> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId)
         {
-            AgentRelationship agentRelationship =
-                _context.AgentRelationships.SingleOrDefault(ar => ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
-
-            if (agentRelationship == null)
-                throw new InvalidOperationException("Specified agent relationship not found for specified principal.");
-
-            var retVal = _mapper.Map<AgentRelationshipRM>(agentRelationship);
-
-            return Task.FromResult(retVal);
+            AgentRelationship agentRelationship = ValidateAgentRelationshipExists(principalId, agentRelationshipId);
+            return Task.FromResult(_mapper.Map<AgentRelationshipRM>(agentRelationship));
         }
 
         public Task<UserRM> GetUserForAgentRelationshipAsync(int principalId, int agentRelationshipId, int userId)
@@ -572,10 +557,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<OperatingContextRM> GetOperatingContextForCustomerAsync(int associateId, int customerId, int operatingContextId)
         {
-            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
-
-            if (associate == null)
-                throw new InvalidOperationException("Associate not found.");
+            Associate associate = ValidateAssociateExists(associateId);
 
             AssociateCustomer associateCustomer =
                 _context.AssociateCustomers.SingleOrDefault(ac =>
@@ -591,32 +573,25 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (customerOperatingContext == null)
                 throw new InvalidOperationException("OperatingContext not found for Customer.");
 
-            OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId);
-
-            return Task.FromResult(_mapper.Map<OperatingContext, OperatingContextRM>(operatingContext));
+            return Task.FromResult(_mapper.Map<OperatingContext, OperatingContextRM>(_context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId)));
         }
 
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsAsync(QueryModels.OperatingContextQueryParams queryParams)
         {
-            var results = _context.OperatingContexts.ApplyQuery(queryParams).ToList();
+            List<OperatingContext> operatingContexts = _context.OperatingContexts.ApplyQuery(queryParams).ToList();
 
-            int totalCount = results.Count;
+            int totalCount = operatingContexts.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
-            {
-                var countQuery = _context.OperatingContexts.ApplyQuery(queryParams, false);
-                totalCount = countQuery.Count();
-            }
+                totalCount = _context.OperatingContexts.ApplyQuery(queryParams, false).Count();
 
-            var retVal = new PagedGridResult<IEnumerable<OperatingContextRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<OperatingContextRM>>
             {
-                Data = _mapper.Map<IEnumerable<OperatingContextRM>>(results),
+                Data = _mapper.Map<IEnumerable<OperatingContextRM>>(operatingContexts),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<PagedGridResult<IEnumerable<OperatingContextRM>>> GetOperatingContextsForAssociateAsync(int associateId)
@@ -1007,12 +982,14 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         #region Helper Methods
 
-        private void ValidateAssociateExists(int associateId)
+        private Associate ValidateAssociateExists(int associateId)
         {
             Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
 
             if (associate == null)
                 throw new InvalidOperationException("Associate not found.");
+
+            return associate;
         }
 
         private OperatingContext ValidateOperatingContextExists(int operatingContextId)
@@ -1041,6 +1018,17 @@ namespace EGMS.BusinessAssociates.Data.EF
                 throw new InvalidOperationException("Contact not found.");
         }
 
+        private AgentRelationship ValidateAgentRelationshipExists(int principalId, int agentRelationshipId)
+        {
+            AgentRelationship agentRelationship =
+                _context.AgentRelationships.SingleOrDefault(ar =>
+                    ar.PrincipalId == principalId && ar.Id == agentRelationshipId);
+
+            if (agentRelationship == null)
+                throw new InvalidOperationException("Agent relationship not found for specified principal.");
+
+            return agentRelationship;
+        }
 
         #endregion
     }
