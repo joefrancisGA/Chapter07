@@ -1055,19 +1055,14 @@ namespace EGMS.BusinessAssociates.Data.EF
             return Task.FromResult(retVal);
         }
 
+        // TO DO:  Add checks for AssociateId
         public Task<CertificationRM> GetCertificationForOperatingContextAsync(int associateId, int operatingContextId, int certificationId)
         {
-            OperatingContext operatingContext =
-                _context.OperatingContexts.SingleOrDefault(oc => oc.Id == operatingContextId);
+            OperatingContext operatingContext = ValidateOperatingContextExists(operatingContextId);
 
-            if (operatingContext == null)
-                throw new InvalidOperationException("OperatingContext not found.");
+            CertificationRM certificationRM = _mapper.Map<Certification, CertificationRM>(_context.Certifications.SingleOrDefault(c => c.Id == operatingContext.CertificationId));
 
-            Certification certification = _context.Certifications.SingleOrDefault(c => c.Id == operatingContext.CertificationId);
-
-            var retVal = _mapper.Map<Certification, CertificationRM>(certification);
-
-            return Task.FromResult(retVal);
+            return Task.FromResult(certificationRM);
         }
 
 
@@ -1079,6 +1074,16 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             if (associate == null)
                 throw new InvalidOperationException("Associate not found.");
+        }
+
+        private OperatingContext ValidateOperatingContextExists(int operatingContextId)
+        {
+            OperatingContext operatingContext = _context.OperatingContexts.SingleOrDefault(a => a.Id == operatingContextId);
+
+            if (operatingContext == null)
+                throw new InvalidOperationException("OperatingContext not found.");
+
+            return operatingContext;
         }
 
         #endregion
