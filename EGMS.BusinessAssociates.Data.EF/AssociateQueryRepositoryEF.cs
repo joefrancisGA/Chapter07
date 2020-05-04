@@ -934,25 +934,19 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>> GetRoleEGMSPermissionsAsync(QueryModels.RoleEGMSPermissionQueryParams queryParams)
         {
-            var roleEGMSPermissions = _context.RoleEGMSPermissions;
+            List<RoleEGMSPermission> roleEGMSPermissions = _context.RoleEGMSPermissions.ApplyQuery(queryParams).ToList();
 
-            var filtered = roleEGMSPermissions.ApplyQuery(queryParams);
-
-            var results = filtered.ToList();
-
-            int totalCount = results.Count;
+            int totalCount = roleEGMSPermissions.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = roleEGMSPermissions.ApplyQuery(queryParams, false);
+                var countQuery = _context.RoleEGMSPermissions.ApplyQuery(queryParams, false);
                 totalCount = countQuery.Count();
             }
 
-            var retData = _mapper.Map<IEnumerable<RoleEGMSPermissionRM>>(results);
-
             var retVal = new PagedGridResult<IEnumerable<RoleEGMSPermissionRM>>
             {
-                Data = retData,
+                Data = _mapper.Map<IEnumerable<RoleEGMSPermissionRM>>(roleEGMSPermissions),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
