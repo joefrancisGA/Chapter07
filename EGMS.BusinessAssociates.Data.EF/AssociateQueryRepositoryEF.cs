@@ -79,7 +79,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         }
 
 #pragma warning disable 1998
-        public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForAssociateAsync(int associateId)
+        public Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForAssociateAsync(int associateId)
 #pragma warning restore 1998
         {
             ValidateAssociateExists(associateId);
@@ -91,13 +91,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             List<Address> addresses = associateAddresses.Select(aa => _context.Addresses.Find(aa.AddressId)).ToList();
 
-            return new PagedGridResult<IEnumerable<AddressRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<AddressRM>>
             {
                 Data = _mapper.Map<IEnumerable<AddressRM>>(addresses),
                 Total = addresses.Count,
                 Errors = null,
                 AggregateResult = null
-            };
+            });
         }
 
         public Task<AddressRM> GetAddressForContactAsync(int contactId, int addressId)
@@ -108,12 +108,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (contactAddress == null)
                 throw new InvalidOperationException("Specified address not found for specified contact.");
 
-            Address address = _context.Addresses.SingleOrDefault(a => a.Id == addressId);
-
-            if (address == null)
-                throw new InvalidOperationException("Address not found.");
-
-            return Task.FromResult(_mapper.Map<AddressRM>(address));
+            return Task.FromResult(_mapper.Map<AddressRM>(_context.Addresses.SingleOrDefault(a => a.Id == addressId)));
         }
 
 #pragma warning disable 1998
