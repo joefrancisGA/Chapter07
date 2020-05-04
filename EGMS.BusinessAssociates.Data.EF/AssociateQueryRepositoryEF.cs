@@ -239,16 +239,13 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<ContactRM> GetContactAsync(int associateId, int contactId)
         {
-            var associateContacts = _context.AssociateContacts;
+            AssociateContact associateContact = _context.AssociateContacts.SingleOrDefault(ac =>
+                ac.ContactId == contactId && ac.AssociateId == associateId);
 
-            Contact contact = null;
+            if (associateContact == null)
+                throw new InvalidOperationException("Contact not found for Associate.");
 
-            foreach (var associateContact in associateContacts.Where(associateContact => associateContact.ContactId == contactId && associateContact.AssociateId == associateId))
-            {
-                contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
-            }
-
-            return Task.FromResult(_mapper.Map<Contact, ContactRM>(contact));
+            return GetContactAsync(contactId);
         }
 
         public Task<ContactRM> GetContactAsync(int contactId)
@@ -258,27 +255,20 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(QueryModels.ContactQueryParams queryParams)
         {
-            var filtered = _context.Contacts.ApplyQuery(queryParams);
+            List<Contact> contacts = _context.Contacts.ApplyQuery(queryParams).ToList();
 
-            var results = filtered.ToList();
-
-            int totalCount = results.Count;
+            int totalCount = contacts.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
-            {
-                var countQuery = _context.Contacts.ApplyQuery(queryParams, false);
-                totalCount = countQuery.Count();
-            }
+                totalCount = _context.Contacts.ApplyQuery(queryParams, false).Count();
 
-            var retVal = new PagedGridResult<IEnumerable<ContactRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<ContactRM>>
             {
-                Data = _mapper.Map<IEnumerable<ContactRM>>(results),
+                Data = _mapper.Map<IEnumerable<ContactRM>>(contacts),
                 Total = totalCount,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<PagedGridResult<IEnumerable<ContactRM>>> GetContactsAsync(int associateId)
@@ -290,23 +280,20 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             List<Contact> contacts = associateContacts.Select(ac => _context.Contacts.Find(ac.ContactId)).ToList();
 
-            var retVal = new PagedGridResult<IEnumerable<ContactRM>>
+            return Task.FromResult(new PagedGridResult<IEnumerable<ContactRM>>
             {
                 Data = _mapper.Map<IEnumerable<ContactRM>>(contacts),
                 Total = contacts.Count,
                 Errors = null,
                 AggregateResult = null
-            };
-
-            return Task.FromResult(retVal);
+            });
         }
 
         public Task<ContactConfigurationRM> GetContactConfigurationForContactAsync(int associateId, int contactId, int contactConfigurationId)
         {
-            Contact contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
+            ValidateAssociateExists(associateId);
+            Contact contact = ValidateContactExists(contactId);
 
-            if (contact == null)
-                throw new InvalidOperationException("Contact not found.");
 
             ContactConfiguration contactConfiguration =
                 contact.ContactConfigurations.SingleOrDefault(cc => cc.Id == contactConfigurationId);
@@ -989,12 +976,14 @@ namespace EGMS.BusinessAssociates.Data.EF
                 throw new InvalidOperationException("Role not found.");
         }
 
-        private void ValidateContactExists(int contactId)
+        private Contact ValidateContactExists(int contactId)
         {
             Contact contact = _context.Contacts.SingleOrDefault(c => c.Id == contactId);
 
             if (contact == null)
                 throw new InvalidOperationException("Contact not found.");
+
+            return contact;
         }
 
         private AgentRelationship ValidateAgentRelationshipExists(int principalId, int agentRelationshipId)
