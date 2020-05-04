@@ -65,32 +65,23 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<AddressRM> GetAddressAsync(int addressId)
         {
-            var addresses = _context.Addresses;
-
-            var result = addresses.SingleOrDefault(a => a.Id == addressId);
-
-            var retVal = _mapper.Map<AddressRM>(result);
-
-            return Task.FromResult(retVal);
+            Address address = _context.Addresses.SingleOrDefault(a => a.Id == addressId);
+            return Task.FromResult(_mapper.Map<AddressRM>(address));
         }
 
         public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesAsync(QueryModels.AddressQueryParams queryParams)
         {
-            var addresses = _context.Addresses;
+            List<Address> addresses = await _context.Addresses.ApplyQuery(queryParams).ToListAsync();
 
-            var filtered = addresses.ApplyQuery(queryParams);
-
-            var results = await filtered.ToListAsync();
-
-            int totalCount = results.Count;
+            int totalCount = addresses.Count;
 
             if (queryParams.Page != null && queryParams.PageSize != null)
             {
-                var countQuery = addresses.ApplyQuery(queryParams, false);
+                var countQuery = _context.Addresses.ApplyQuery(queryParams, false);
                 totalCount = await countQuery.CountAsync();
             }
 
-            var retData = _mapper.Map<IEnumerable<AddressRM>>(results);
+            var retData = _mapper.Map<IEnumerable<AddressRM>>(addresses);
 
             var retVal = new PagedGridResult<IEnumerable<AddressRM>>
             {
@@ -107,6 +98,8 @@ namespace EGMS.BusinessAssociates.Data.EF
         public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForAssociateAsync(int associateId)
 #pragma warning restore 1998
         {
+            ValidateAssociateExists(associateId);
+
             List<AssociateAddress> associateAddresses = _context.AssociateAddresses.FindAll(aa => aa.AssociateId == associateId);
 
             if (associateAddresses == null)
@@ -154,6 +147,8 @@ namespace EGMS.BusinessAssociates.Data.EF
         public async Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContactAsync(int associateId, int contactId)
 #pragma warning restore 1998
         {
+            ValidateAssociateExists(associateId);
+
             List<ContactAddress> contactAddresses = _context.ContactAddresses.FindAll(aa => aa.ContactId == contactId);
 
             if (contactAddresses == null)
@@ -208,38 +203,6 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             return retVal;
         }
-
-        public async Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationshipsForPrincipalAsync(int principalId, QueryModels.AgentRelationshipQueryParams queryParams)
-        {
-            var agentRelationships = _context.AgentRelationships;
-
-            queryParams.PrincipalId = principalId;
-
-            var filtered = agentRelationships.ApplyQuery(queryParams);
-
-            var results = await filtered.ToListAsync();
-
-            int totalCount = results.Count;
-
-            if (queryParams.Page != null && queryParams.PageSize != null)
-            {
-                var countQuery = agentRelationships.ApplyQuery(queryParams, false);
-                totalCount = await countQuery.CountAsync();
-            }
-
-            var retData = _mapper.Map<IEnumerable<AgentRelationshipRM>>(results);
-
-            var retVal = new PagedGridResult<IEnumerable<AgentRelationshipRM>>
-            {
-                Data = retData,
-                Total = totalCount,
-                Errors = null,
-                AggregateResult = null
-            };
-
-            return retVal;
-        }
-
 
         public Task<AgentRelationshipRM> GetAgentRelationshipForPrincipalAsync(int principalId, int agentRelationshipId)
         {
@@ -1257,10 +1220,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 
         public Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAssociateAsync(int associateId)
         {
-            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
-
-            if (associate == null)
-                throw new InvalidOperationException("Associate not found.");
+            ValidateAssociateExists(associateId);
 
             List<AssociateUser> associateUsers = _context.AssociateUsers.FindAll(au => au.AssociateId == associateId);
 
@@ -1333,5 +1293,18 @@ namespace EGMS.BusinessAssociates.Data.EF
 
             return Task.FromResult(retVal);
         }
+
+
+        #region Helper Methods
+
+        private void ValidateAssociateExists(int associateId)
+        {
+            Associate associate = _context.Associates.SingleOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+                throw new InvalidOperationException("Associate not found.");
+        }
+
+        #endregion
     }
 }
