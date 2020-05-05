@@ -35,7 +35,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [HttpGet]
         [Route("{associateId}/addresses")]
-        public Task<IActionResult> GetAddresses(int associateId, [FromQuery]QueryModels.AddressQueryParams request)
+        public Task<IActionResult> GetAddresses(int associateId)
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetAddressesForAssociate(associateId), _log);
         }
