@@ -171,6 +171,13 @@ namespace EGMS.BusinessAssociates.API.Controllers
         public Task<IActionResult> GetUsersForAgentRelationship(int associateId, int agentRelationshipId) => RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAgentRelationship(associateId, agentRelationshipId), _log);
 
         [HttpGet]
+        [Route("agentrelationships/users")]
+        public Task<IActionResult> GetUserForAgentRelationship([FromQuery]QueryModels.UserQueryParams request)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAgentRelationship(request), _log);
+        }
+
+        [HttpGet]
         [Route("{associateId}/agentrelationships/{agentRelationshipId}/Users/{UserId}")]
         public Task<IActionResult> GetUserForAgentRelationship(int associateId, int agentRelationshipId, int userId)
         {

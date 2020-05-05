@@ -21,6 +21,7 @@ namespace EGMS.BusinessAssociates.Query
         Task<AgentRelationshipRM> GetAgentRelationshipForPrincipal(int principalId, int agentRelationshipId);
 
         Task<UserRM> GetUserForAgentRelationship(int associateId, int agentRelationshipId, int userId);
+        Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationship(QueryModels.UserQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationship(int associateId, int agentRelationshipId);
 
         Task<ContactRM> GetContact(int associateId, int contactId);

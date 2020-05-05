@@ -18,6 +18,8 @@
         public class AddressQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
+            public int? ContactId { get; set; }
         }
 
         public class AgentRelationshipQueryParams : BaseQueryParams
@@ -28,43 +30,54 @@
 
         public class ContactQueryParams : BaseQueryParams
         {
-            public int? AssociateId { get; set; }
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
         }
 
         public class CertificationQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
         }
 
         public class ContactConfigurationQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
         }
 
         public class CustomerQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
         }
 
         public class EMailQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
+            public int? ContactId { get; set; }
         }
 
         public class OperatingContextQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
+            public int? CustomerId { get; set; }
         }
         
         public class PhoneQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
+            public int? ContactId { get; set; }
         }
 
         public class RoleQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
+            public int? OperatingContextId { get; set; }
         }
 
         public class EGMSPermissionQueryParams : BaseQueryParams
@@ -80,8 +93,7 @@
         public class UserQueryParams : BaseQueryParams
         {
             public int? Id { get; set; }
+            public int? AssociateId { get; set; }
         }
-
-
     }
 }

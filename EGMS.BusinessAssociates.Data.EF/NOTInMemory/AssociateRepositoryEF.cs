@@ -51,14 +51,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
 
         public void AddAssociate(Associate associate)
         {
-            try
-            {
-                _context.Associates.Add(associate);
-            }
-            catch (Exception ex)
-            {
-                ex = ex;
-            }
+            _context.Associates.Add(associate);
         }
 
 
