@@ -17,6 +17,7 @@ namespace EGMS.BusinessAssociates.Query
         Task<AddressRM> GetAddressForContact(int contactId, int addressId);
         Task<PagedGridResult<IEnumerable<AddressRM>>> GetAddressesForContact(int associateId, int contactId);
 
+        Task<AgentRelationshipRM> GetAgentRelationship(int agentRelationshipId);
         Task<PagedGridResult<IEnumerable<AgentRelationshipRM>>> GetAgentRelationships(QueryModels.AgentRelationshipQueryParams queryParams);
         Task<AgentRelationshipRM> GetAgentRelationshipForPrincipal(int principalId, int agentRelationshipId);
 
@@ -24,10 +25,12 @@ namespace EGMS.BusinessAssociates.Query
         Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationship(QueryModels.UserQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<UserRM>>> GetUsersForAgentRelationship(int associateId, int agentRelationshipId);
 
+        Task<ContactRM> GetContact(int contactId);
         Task<ContactRM> GetContact(int associateId, int contactId);
         Task<PagedGridResult<IEnumerable<ContactRM>>> GetContacts(QueryModels.ContactQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<ContactRM>>> GetContacts(int associateId);
 
+        Task<ContactConfigurationRM> GetContactConfiguration(int contactConfigurationId);
         Task<ContactConfigurationRM> GetContactConfigurationForContact(int associateId, int contactId, int contactConfigurationId);
         Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurations(QueryModels.ContactConfigurationQueryParams queryParams);
         Task<PagedGridResult<IEnumerable<ContactConfigurationRM>>> GetContactConfigurationsForContact(int associateId, int contactId);

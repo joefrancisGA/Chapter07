@@ -157,6 +157,11 @@ namespace EGMS.BusinessAssociates.API.Controllers
         [HttpGet]
         [Route("agentrelationships")]
         public Task<IActionResult> GetAgentRelationships([FromQuery]QueryModels.AgentRelationshipQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationships(request), _log);
+        
+        [HttpGet]
+        [Route("agentrelationships/{agentRelationshipId}")]
+        public Task<IActionResult> GetAgentRelationship(int agentRelationshipId) => RequestHandler.HandleQuery(() => _queryRepo.GetAgentRelationship(agentRelationshipId), _log);
+
 
         [HttpGet]
         [Route("{associateId}/agentrelationships/{agentRelationshipId}")]
@@ -172,7 +177,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
         [HttpGet]
         [Route("agentrelationships/users")]
-        public Task<IActionResult> GetUserForAgentRelationship([FromQuery]QueryModels.UserQueryParams request)
+        public Task<IActionResult> GetUsersForAgentRelationship([FromQuery]QueryModels.UserQueryParams request)
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetUsersForAgentRelationship(request), _log);
         }
@@ -203,6 +208,14 @@ namespace EGMS.BusinessAssociates.API.Controllers
         [HttpGet]
         [Route("contactconfigurations")]
         public Task<IActionResult> GetContactConfigurations([FromQuery]QueryModels.ContactConfigurationQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetContactConfigurations(request), _log);
+
+        [HttpGet]
+        [Route("contactconfigurations/{contactConfigurationId}")]
+        public Task<IActionResult> GetContactConfiguration(int configurationContactId)
+        {
+            return RequestHandler.HandleQuery(() => _queryRepo.GetContactConfiguration(configurationContactId), _log);
+        }
+
 
         [HttpGet]
         [Route("{associateId}/contacts/{contactId/ContactConfigurations")]
