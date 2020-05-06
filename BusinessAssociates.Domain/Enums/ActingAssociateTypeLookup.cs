@@ -9,13 +9,13 @@ namespace EGMS.BusinessAssociates.Domain.Enums
     {
         protected ActingAssociateTypeLookup() { }
 
-
         public enum ActingAssociateTypeEnum
         {
             SelfProvider = 1,
-            CustomerProvider = 2,
-            RegulatedUtilityProvider = 3,
-            AssetManagerProvider = 4
+            Customer = 2,
+            RegulatedUtility = 3,
+            AssetManager = 4,
+            Pipeline = 5
         }
 
         public static readonly
@@ -23,33 +23,33 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                 new Dictionary<int, ActingAssociateTypeLookup>
                 {
                     {
-                        (int) ActingAssociateTypeEnum.AssetManagerProvider,
+                        (int) ActingAssociateTypeEnum.AssetManager,
                         new ActingAssociateTypeLookup
                         {
-                            Id = (int) ActingAssociateTypeEnum.AssetManagerProvider,
-                            ActingAssociateTypeId = (int) ActingAssociateTypeEnum.AssetManagerProvider,
-                            Name = AssociateTypeName.FromString("AssetManagerProvider"),
-                            Desc = AssociateTypeDesc.FromString("AssetManagerProvider Description"),
+                            Id = (int) ActingAssociateTypeEnum.AssetManager,
+                            ActingAssociateTypeId = (int) ActingAssociateTypeEnum.AssetManager,
+                            Name = AssociateTypeName.FromString("AssetManager"),
+                            Desc = AssociateTypeDesc.FromString("AssetManager Description"),
                         }
                     },
                     {
-                        (int) ActingAssociateTypeEnum.CustomerProvider,
+                        (int) ActingAssociateTypeEnum.Customer,
                         new ActingAssociateTypeLookup
                         {
-                            Id = (int) ActingAssociateTypeEnum.CustomerProvider,
-                            ActingAssociateTypeId = (int) ActingAssociateTypeEnum.CustomerProvider,
-                            Name = AssociateTypeName.FromString("CustomerProvider"),
-                            Desc = AssociateTypeDesc.FromString("CustomerProvider Description"),
+                            Id = (int) ActingAssociateTypeEnum.Customer,
+                            ActingAssociateTypeId = (int) ActingAssociateTypeEnum.Customer,
+                            Name = AssociateTypeName.FromString("Customer"),
+                            Desc = AssociateTypeDesc.FromString("Customer Description"),
                         }
                     },
                     {
-                        (int) ActingAssociateTypeEnum.RegulatedUtilityProvider,
+                        (int) ActingAssociateTypeEnum.RegulatedUtility,
                         new ActingAssociateTypeLookup
                         {
-                            Id = (int) ActingAssociateTypeEnum.RegulatedUtilityProvider,
-                            ActingAssociateTypeId = (int) ActingAssociateTypeEnum.RegulatedUtilityProvider,
-                            Name = AssociateTypeName.FromString("RegulatedUtilityProvider"),
-                            Desc = AssociateTypeDesc.FromString("RegulatedUtilityProvider Description"),
+                            Id = (int) ActingAssociateTypeEnum.RegulatedUtility,
+                            ActingAssociateTypeId = (int) ActingAssociateTypeEnum.RegulatedUtility,
+                            Name = AssociateTypeName.FromString("RegulatedUtility"),
+                            Desc = AssociateTypeDesc.FromString("RegulatedUtility Description"),
                         }
                     },
                     {
@@ -60,6 +60,16 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             ActingAssociateTypeId = (int) ActingAssociateTypeEnum.SelfProvider,
                             Name = AssociateTypeName.FromString("SelfProvider"),
                             Desc = AssociateTypeDesc.FromString("SelfProvider Description"),
+                        }
+                    },
+                    {
+                        (int) ActingAssociateTypeEnum.Pipeline,
+                        new ActingAssociateTypeLookup
+                        {
+                            Id = (int) ActingAssociateTypeEnum.Pipeline,
+                            ActingAssociateTypeId = (int) ActingAssociateTypeEnum.Pipeline,
+                            Name = AssociateTypeName.FromString("Pipeline"),
+                            Desc = AssociateTypeDesc.FromString("Pipeline Description"),
                         }
                     }
                 };
@@ -72,7 +82,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
  
         protected override void When(object @event)
         {
-            throw new InvalidOperationException($"{nameof(AssociateTypeLookup)} events not supported.");
+            throw new InvalidOperationException($"{nameof(ActingAssociateTypeLookup)} events not supported.");
         }
 
         public override void OnLoadInit(Action<object> parentHandler)

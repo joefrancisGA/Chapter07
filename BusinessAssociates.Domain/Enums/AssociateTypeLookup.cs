@@ -8,8 +8,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
     public class AssociateTypeLookup : Entity<int>
     {
         protected AssociateTypeLookup() { }
-
-
+        
         public enum AssociateTypeEnum
         {
             InternalParent = 1,
