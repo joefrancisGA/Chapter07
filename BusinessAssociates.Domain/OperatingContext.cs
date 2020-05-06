@@ -31,7 +31,7 @@ namespace EGMS.BusinessAssociates.Domain
         }
 
         public OperatingContext(int operatingContextId, OperatingContextTypeLookup operatingContextType,
-            DatabaseId facilityId, DatabaseId thirdPartySupplierId, ActingAssociateTypeLookup actingBATypeId, 
+            DatabaseId facilityId, DatabaseId thirdPartySupplierId, ExternalAssociateTypeLookup externalBATypeId, 
             NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId, 
             DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
             DateTime startDate, StatusCodeLookup status) : this()
@@ -39,7 +39,7 @@ namespace EGMS.BusinessAssociates.Domain
             OperatingContextType = operatingContextType;
             FacilityId = facilityId;
             ThirdPartySupplierId = thirdPartySupplierId;
-            ActingBAType = actingBATypeId;
+            ExternalBAType = externalBATypeId;
             CertificationId = certificationId;
             LegacyId = legacyId;
             PrimaryAddressId = primaryAddressId;
@@ -66,7 +66,7 @@ namespace EGMS.BusinessAssociates.Domain
         public ProviderTypeLookup ProviderType { get; set; }
         public int ProviderTypeId { get; set; }
 
-        public ActingAssociateTypeLookup ActingBAType { get; set; }
+        public ExternalAssociateTypeLookup ExternalBAType { get; set; }
         public int ActingBATypeId { get; set; }
 
         public Certification Certification { get; set; }

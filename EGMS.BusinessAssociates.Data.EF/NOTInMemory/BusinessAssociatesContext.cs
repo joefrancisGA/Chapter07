@@ -428,7 +428,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
                 entity.OwnsOne(x => x.FacilityId, cb => { cb.Property(e => e.Value).HasColumnName("FacilityId"); });
 
-                entity.OwnsOne(x => x.ActingBAType,
+                entity.OwnsOne(x => x.ExternalBAType,
                     cb =>
                     {
                         cb.Property(e => e.Id).HasColumnName("ActingBATypeId");
@@ -436,7 +436,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                         cb.Ignore(e => e.Desc);
                     });
 
-                //entity.HasOne(d => d.ActingBAType).WithMany(p1 => p1.OperatingContexts).HasForeignKey(d => d.ActingBATypeId)
+                //entity.HasOne(d => d.ExternalBAType).WithMany(p1 => p1.OperatingContexts).HasForeignKey(d => d.ActingBATypeId)
                 //    .HasConstraintName("FK_OperatingContexts_ActingBAType");
                 entity.OwnsOne(x => x.CertificationId, cb => { cb.Property(e => e.Value).HasColumnName("CertificationId"); });
                 entity.HasOne(d => d.OperatingContextType).WithMany(p3 => p3.OperatingContexts).HasForeignKey(d => d.OperatingContextTypeId)

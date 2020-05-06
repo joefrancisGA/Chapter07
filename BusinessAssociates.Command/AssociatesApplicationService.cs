@@ -182,7 +182,7 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Associate with id {cmd.AssociateId} cannot be found");
 
             OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
-                cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
+                cmd.ThirdPartySupplierId, ExternalAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
                 cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
 
@@ -199,7 +199,7 @@ namespace EGMS.BusinessAssociates.Command
                 throw new InvalidOperationException($"Customer with id {cmd.CustomerId} cannot be found");
 
             OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
-                cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
+                cmd.ThirdPartySupplierId, ExternalAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
                 cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
                 cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
 
@@ -296,7 +296,7 @@ namespace EGMS.BusinessAssociates.Command
         private OperatingContextRM CreateOperatingContextForCustomer(Commands.V1.OperatingContext.CreateForCustomer cmd)
         {
             OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType],
-                cmd.FacilityId, cmd.ThirdPartySupplierId, ActingAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID],
+                cmd.FacilityId, cmd.ThirdPartySupplierId, ExternalAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID],
                 cmd.CertificationId, cmd.IsDeactivating, cmd.LegacyId, cmd.PrimaryAddressId,
                 cmd.PrimaryEmailId, cmd.PrimaryPhoneId, cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
 

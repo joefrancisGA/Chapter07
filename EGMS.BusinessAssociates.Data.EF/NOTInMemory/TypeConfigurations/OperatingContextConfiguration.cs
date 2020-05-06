@@ -22,7 +22,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory.TypeConfigurations
             builder.OwnsOne(oc => oc.CertificationId,
                 cb => { cb.Property(e => e.Value).HasColumnName("CertificationId"); });
 
-            builder.Property(oc => oc.ActingBAType).HasColumnName("ActingBATypeId");
+            builder.Property(oc => oc.ExternalBAType).HasColumnName("ActingBATypeId");
             builder.Property(oc => oc.OperatingContextType).HasColumnName("OperatingContextTypeId");
             builder.Property(oc => oc.ProviderType).HasColumnName("ProviderTypeId");
             builder.Property(oc => oc.Status).HasColumnName("StatusCodeId");

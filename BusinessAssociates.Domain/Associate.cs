@@ -111,12 +111,12 @@ namespace EGMS.BusinessAssociates.Domain
         });
 
         //public void AddOperatingContext(AssociateId associateId, OperatingContextType operatingContextType, DatabaseId facilityId, 
-        //    DatabaseId thirdPartySupplierId, AssociateType actingBATypeId, NullableDatabaseId certificationId, bool isDeactivating,
+        //    DatabaseId thirdPartySupplierId, AssociateType externalBATypeId, NullableDatabaseId certificationId, bool isDeactivating,
         //    int legacyId, DatabaseId primaryAddressId, DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
         //    DateTime startDate, Status status)
         //{
         //    OperatingContext operatingContext = new OperatingContext(operatingContextType, facilityId, thirdPartySupplierId,
-        //        actingBATypeId, certificationId, isDeactivating, legacyId, primaryAddressId, primaryEmailId, primaryPhoneId,
+        //        externalBATypeId, certificationId, isDeactivating, legacyId, primaryAddressId, primaryEmailId, primaryPhoneId,
         //        providerTypeId, startDate, status);
 
         //    if (AssociateOperatingContexts == null)
@@ -138,7 +138,7 @@ namespace EGMS.BusinessAssociates.Domain
         //        OperatingContextType = (int)operatingContextType,
         //        FacilityId = facilityId,
         //        ThirdPartySupplierId = thirdPartySupplierId, 
-        //        ActingBATypeId = (int)actingBATypeId,
+        //        ActingBATypeId = (int)externalBATypeId,
         //        CertificationId = certificationId,
         //        IsDeactivating = isDeactivating, 
         //        LegacyId = legacyId, 
@@ -219,7 +219,7 @@ namespace EGMS.BusinessAssociates.Domain
                     FacilityId = operatingContext.FacilityId,
                     ThirdPartySupplierId = operatingContext.ThirdPartySupplierId,
                     LegacyId = operatingContext.LegacyId,
-                    ActingBATypeId = operatingContext.ActingBAType.ActingAssociateTypeId,
+                    ActingBATypeId = operatingContext.ExternalBAType.ActingAssociateTypeId,
                     CertificationId = operatingContext.CertificationId,
                     StatusCodeId = operatingContext.Status.StatusCodeId,
                     IsDeactivating = operatingContext.IsDeactivating,
