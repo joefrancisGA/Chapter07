@@ -431,7 +431,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                 entity.OwnsOne(x => x.ExternalBAType,
                     cb =>
                     {
-                        cb.Property(e => e.Id).HasColumnName("ActingBATypeId");
+                        cb.Property(e => e.Id).HasColumnName("ExternalBATypeId");
                         cb.Ignore(e => e.Name);
                         cb.Ignore(e => e.Desc);
                     });
@@ -526,14 +526,14 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             {
                 entity.HasKey(e => e.Id);
 
-                var ownedEGMSAccountStatus = entity.OwnsOne(x => x.EGMSAccountStatus);
+                var ownedEGMSAccountStatus = entity.OwnsOne(e => e.EGMSAccountStatus);
                 ownedEGMSAccountStatus.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                ownedEGMSAccountStatus.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("AccountStatusDescription"); });
+                ownedEGMSAccountStatus.Property(e => e.Desc).HasColumnName("AccountStatusDescription");
                 ownedEGMSAccountStatus.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("AccountStatusName"); });
                 
                 var ownedIDMSAccountStatus = entity.OwnsOne(x => x.IDMSAccountStatus);
                 ownedIDMSAccountStatus.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                ownedIDMSAccountStatus.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("AccountStatusDescription"); });
+                ownedIDMSAccountStatus.Property(e => e.Desc).HasColumnName("AccountStatusDescription");
                 ownedIDMSAccountStatus.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("AccountStatusName"); });
                 
                 entity.Property(e => e.EGMSConfigured).HasColumnName("EGMSConfigured");

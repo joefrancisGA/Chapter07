@@ -19,7 +19,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int AccountStatusId { get; private set; }
 
         public AccountStatusName Name { get; private set; }
-        public AccountStatusDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         protected IDMSAccountStatusLookup() { }
 

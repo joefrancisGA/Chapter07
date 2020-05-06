@@ -458,7 +458,7 @@ namespace EFTest
 
             Commands.V1.Associate.Create createAssociateCommandForAgent = new Commands.V1.Associate.Create
             {
-                AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManagerProvider].ActingAssociateTypeId,
+                AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManager].ActingAssociateTypeId,
                 DUNSNumber = _dunsNumber++,
                 IsDeactivating = false,
                 IsInternal = true,
@@ -520,7 +520,7 @@ namespace EFTest
 
             Commands.V1.Associate.Create createAssetManagerForTPS = new Commands.V1.Associate.Create
             {
-                AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManagerProvider].ActingAssociateTypeId,
+                AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManager].ActingAssociateTypeId,
                 DUNSNumber = _dunsNumber++,
                 IsDeactivating = false,
                 IsInternal = true,
