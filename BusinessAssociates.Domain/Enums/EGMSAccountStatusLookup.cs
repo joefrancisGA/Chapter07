@@ -7,12 +7,36 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public class EGMSAccountStatusLookup : Entity<int>
     {
-        public enum EGMSAccountStatusEnum { }
+        public enum EGMSAccountStatusEnum
+        {
+            Active = 1,
+            Disabled = 2
+        }
 
         public static readonly
             IReadOnlyDictionary<int, EGMSAccountStatusLookup> EGMSAccountStatusTypes =
                 new Dictionary<int, EGMSAccountStatusLookup>
                 {
+                    {
+                        (int) EGMSAccountStatusEnum.Active,
+                        new EGMSAccountStatusLookup
+                        {
+                            Id = (int) EGMSAccountStatusEnum.Active,
+                            EGMSAccountStatusId = (int) EGMSAccountStatusEnum.Active,
+                            Name = AccountStatusName.FromString("Active"),
+                            Desc = "Active Description"
+                        }
+                    },
+                    {
+                        (int) EGMSAccountStatusEnum.Disabled,
+                        new EGMSAccountStatusLookup
+                        {
+                            Id = (int) EGMSAccountStatusEnum.Disabled,
+                            EGMSAccountStatusId = (int) EGMSAccountStatusEnum.Disabled,
+                            Name = AccountStatusName.FromString("Disabled"),
+                            Desc = "Disabled Description"
+                        }
+                    }
                 };
 
         public int EGMSAccountStatusId { get; private set; }

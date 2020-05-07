@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory
 {
+    // ReSharper disable once InconsistentNaming
     public class _AssociateRepositoryEF// : IAssociateRepository
     {
         private readonly BusinessAssociatesContext _context;

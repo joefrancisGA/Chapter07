@@ -15,6 +15,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         // TO DO:  Need to use logging
         // ReSharper disable once NotAccessedField.Local
         private readonly ILogger _log;
+        // ReSharper disable once NotAccessedField.Local
         private readonly IMapper _mapper;
 
         // ReSharper disable once SuggestBaseTypeForParameter
@@ -595,6 +596,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
         
+        // TO DO:  This method is not complete
         public void UpdateOperatingContext(OperatingContext operatingContext)
         {
             OperatingContext foundOperatingContext = _context.OperatingContexts.FirstOrDefault(oc => oc.Id == operatingContext.Id);
