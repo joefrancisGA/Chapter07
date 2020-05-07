@@ -7,9 +7,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public class AddressTypeLookup : Entity<int>
     {
-        protected AddressTypeLookup()
-        {
-        }
+        protected AddressTypeLookup() { }
 
         public enum AddressTypeEnum
         {
