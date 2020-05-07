@@ -28,7 +28,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) StatusCodeEnum.Pending,
                             StatusCodeId = (int) StatusCodeEnum.Pending,
                             Name = AddressTypeName.FromString("Pending"),
-                            Desc = AddressTypeDesc.FromString("Pending Description"),
+                            Desc = "Pending Description"
                         }
                     },
                     {
@@ -38,7 +38,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) StatusCodeEnum.Active,
                             StatusCodeId = (int) StatusCodeEnum.Active,
                             Name = AddressTypeName.FromString("Active"),
-                            Desc = AddressTypeDesc.FromString("Active Description"),
+                            Desc = "Active Description"
                         }
                     },                    
                     {
@@ -48,7 +48,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) StatusCodeEnum.Inactive,
                             StatusCodeId = (int) StatusCodeEnum.Inactive,
                             Name = AddressTypeName.FromString("Inactive"),
-                            Desc = AddressTypeDesc.FromString("Inactive Description"),
+                            Desc = "Inactive Description"
                         }
                     }
                 };
@@ -56,7 +56,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int StatusCodeId { get; private set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Associate> Associates { get; set; }
         public List<ContactConfiguration> ContactConfigurations { get; set; }

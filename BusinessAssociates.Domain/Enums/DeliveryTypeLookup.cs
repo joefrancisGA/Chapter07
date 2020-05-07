@@ -24,7 +24,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) DeliveryTypeEnum.Firm,
                             DeliveryTypeId = (int) DeliveryTypeEnum.Firm,
                             Name = AddressTypeName.FromString("Firm"),
-                            Desc = AddressTypeDesc.FromString("Firm Description"),
+                            Desc ="Firm Description"
                         }
                     },
                     {
@@ -34,7 +34,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) DeliveryTypeEnum.Interruptible,
                             DeliveryTypeId = (int) DeliveryTypeEnum.Interruptible,
                             Name = AddressTypeName.FromString("Interruptible"),
-                            Desc = AddressTypeDesc.FromString("Interruptible Description"),
+                            Desc = "Interruptible Description"
                         }
                     },
                 };
@@ -42,7 +42,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int DeliveryTypeId { get; private set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Customer> Customers { get; set; }
 

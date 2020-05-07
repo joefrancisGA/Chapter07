@@ -29,9 +29,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Coal,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Coal,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Coal,
                             Name = AlternateFuelTypeName.FromString("Coal"),
-                            Desc = AlternateFuelTypeDesc.FromString("Coal Description"),
+                            Desc = "Coal Description"
                         }
                     },
                     {
@@ -39,9 +39,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Electricity,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Electricity,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Electricity,
                             Name = AlternateFuelTypeName.FromString("Electricity"),
-                            Desc = AlternateFuelTypeDesc.FromString("Electricity Description"),
+                            Desc = "Electricity Description"
                         }
                     },
                     {
@@ -49,9 +49,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Number2Oil,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Number2Oil,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Number2Oil,
                             Name = AlternateFuelTypeName.FromString("Number2Oil"),
-                            Desc = AlternateFuelTypeDesc.FromString("Number2Oil Description"),
+                            Desc = "Number2Oil Description"
                         }
                     },
                     {
@@ -59,9 +59,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Number4Oil,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Number4Oil,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Number4Oil,
                             Name = AlternateFuelTypeName.FromString("Number4Oil"),
-                            Desc = AlternateFuelTypeDesc.FromString("Number4Oil Description"),
+                            Desc = "Number4Oil Description"
                         }
                     },
                     {
@@ -69,9 +69,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Number5Oil,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Number5Oil,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Number5Oil,
                             Name = AlternateFuelTypeName.FromString("Number5Oil"),
-                            Desc = AlternateFuelTypeDesc.FromString("Number5Oil Description"),
+                            Desc = "Number5Oil Description"
                         }
                     },
                     {
@@ -79,9 +79,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Number6Oil,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Number6Oil,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Number6Oil,
                             Name = AlternateFuelTypeName.FromString("Number6Oil"),
-                            Desc = AlternateFuelTypeDesc.FromString("Number6Oil Description"),
+                            Desc = "Number6Oil Description"
                         }
                     },
                     {
@@ -89,9 +89,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Propane,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Propane,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Propane,
                             Name = AlternateFuelTypeName.FromString("Propane"),
-                            Desc = AlternateFuelTypeDesc.FromString("Propane Description"),
+                            Desc = "Propane Description"
                         }
                     },
                     {
@@ -99,9 +99,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Wood,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Wood,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Wood,
                             Name = AlternateFuelTypeName.FromString("Wood"),
-                            Desc = AlternateFuelTypeDesc.FromString("Wood Description"),
+                            Desc = "Wood Description"
                         }
                     },
                     {
@@ -109,17 +109,17 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         new AlternateFuelTypeLookup
                         {
                             Id = (int) AlternateFuelTypeEnum.Other,
-                            AddressTypeId = (int) AlternateFuelTypeEnum.Other,
+                            AlternateFuelTypeId = (int) AlternateFuelTypeEnum.Other,
                             Name = AlternateFuelTypeName.FromString("Other"),
-                            Desc = AlternateFuelTypeDesc.FromString("Other Description"),
+                            Desc = "Other Description"
                         }
                     },
                 };
 
-        public int AddressTypeId { get; private set; }
+        public int AlternateFuelTypeId { get; private set; }
 
         public AlternateFuelTypeName Name { get; private set; }
-        public AlternateFuelTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; }
 

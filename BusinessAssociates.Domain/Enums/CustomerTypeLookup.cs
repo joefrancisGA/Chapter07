@@ -24,7 +24,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) CustomerTypeEnum.Industrial,
                             CustomerTypeId = (int) CustomerTypeEnum.Industrial,
                             Name = AddressTypeName.FromString("Industrial"),
-                            Desc = AddressTypeDesc.FromString("Industrial Description"),
+                            Desc = "Industrial Description"
                         }
                     },
                     {
@@ -34,7 +34,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) CustomerTypeEnum.Commercial,
                             CustomerTypeId = (int) CustomerTypeEnum.Commercial,
                             Name = AddressTypeName.FromString("Commercial"),
-                            Desc = AddressTypeDesc.FromString("Commercial Description"),
+                            Desc = "Commercial Description"
                         }
                     },
                 };
@@ -42,7 +42,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int CustomerTypeId { get; private set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Customer> Customers { get; set; }
 

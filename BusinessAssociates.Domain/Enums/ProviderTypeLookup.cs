@@ -27,7 +27,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ProviderTypeEnum.Marketer,
                             ProviderTypeId = (int) ProviderTypeEnum.Marketer,
                             Name = AddressTypeName.FromString("Marketer"),
-                            Desc = AddressTypeDesc.FromString("Marketer Description"),
+                            Desc = "Marketer Description",
                         }
                     },
                     {
@@ -37,7 +37,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ProviderTypeEnum.Pooler,
                             ProviderTypeId = (int) ProviderTypeEnum.Pooler,
                             Name = AddressTypeName.FromString("Pooler"),
-                            Desc = AddressTypeDesc.FromString("Pooler Description"),
+                            Desc = "Pooler Description"
                         }
                     },
                     {
@@ -47,7 +47,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ProviderTypeEnum.Shipper,
                             ProviderTypeId = (int) ProviderTypeEnum.Shipper,
                             Name = AddressTypeName.FromString("Shipper"),
-                            Desc = AddressTypeDesc.FromString("Shipper Description"),
+                            Desc = "Shipper Description"
                         }
                     },
                     {
@@ -57,7 +57,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         Id = (int) ProviderTypeEnum.Supplier,
                         ProviderTypeId = (int) ProviderTypeEnum.Supplier,
                         Name = AddressTypeName.FromString("Supplier"),
-                        Desc = AddressTypeDesc.FromString("Supplier Description"),
+                        Desc = "Supplier Description"
                     }
                 },
                     {
@@ -67,7 +67,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ProviderTypeEnum.AssetManager,
                             ProviderTypeId = (int) ProviderTypeEnum.AssetManager,
                             Name = AddressTypeName.FromString("AssetManager"),
-                            Desc = AddressTypeDesc.FromString("AssetManager Description"),
+                            Desc = "AssetManager Description"
                         }
                     }
                 };
@@ -75,7 +75,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int ProviderTypeId { get; private set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<OperatingContext> OperatingContexts { get; set; }
 

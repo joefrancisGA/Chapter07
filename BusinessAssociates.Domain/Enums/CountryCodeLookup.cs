@@ -27,7 +27,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) CountryCodeEnum.UnitedStates,
                             CountryCodeId = (int) CountryCodeEnum.UnitedStates,
                             Name = AssociateTypeName.FromString("UnitedStates"),
-                            Desc = AssociateTypeDesc.FromString("UhitedStates Description"),
+                            Desc = "UnitedStates Description"
                         }
                     },
                     {
@@ -37,7 +37,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) CountryCodeEnum.Canada,
                             CountryCodeId = (int) CountryCodeEnum.Canada,
                             Name = AssociateTypeName.FromString("Canada"),
-                            Desc = AssociateTypeDesc.FromString("Canada Description"),
+                            Desc = "Canada Description"
                         }
                     },
                     {
@@ -47,7 +47,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) CountryCodeEnum.Mexico,
                             CountryCodeId = (int) CountryCodeEnum.Mexico,
                             Name = AssociateTypeName.FromString("Mexico"),
-                            Desc = AssociateTypeDesc.FromString("Mexico Description"),
+                            Desc = "Mexico Description"
                         }
                     },
                 };
@@ -55,7 +55,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int CountryCodeId { get; private set; }
 
         public AssociateTypeName Name { get; private set; }
-        public AssociateTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<StateCodeLookup> StateCodes { get; set; }
 

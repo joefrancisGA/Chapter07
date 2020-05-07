@@ -29,7 +29,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ExternalAssociateTypeEnum.AssetManager,
                             ActingAssociateTypeId = (int) ExternalAssociateTypeEnum.AssetManager,
                             Name = AssociateTypeName.FromString("AssetManager"),
-                            Desc = AssociateTypeDesc.FromString("AssetManager Description"),
+                            Desc = "AssetManager Description"
                         }
                     },
                     {
@@ -39,7 +39,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ExternalAssociateTypeEnum.Customer,
                             ActingAssociateTypeId = (int) ExternalAssociateTypeEnum.Customer,
                             Name = AssociateTypeName.FromString("Customer"),
-                            Desc = AssociateTypeDesc.FromString("Customer Description"),
+                            Desc = "Customer Description"
                         }
                     },
                     {
@@ -49,7 +49,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ExternalAssociateTypeEnum.RegulatedUtility,
                             ActingAssociateTypeId = (int) ExternalAssociateTypeEnum.RegulatedUtility,
                             Name = AssociateTypeName.FromString("RegulatedUtility"),
-                            Desc = AssociateTypeDesc.FromString("RegulatedUtility Description"),
+                            Desc = "RegulatedUtility Description"
                         }
                     },
                     {
@@ -59,7 +59,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ExternalAssociateTypeEnum.SelfProvider,
                             ActingAssociateTypeId = (int) ExternalAssociateTypeEnum.SelfProvider,
                             Name = AssociateTypeName.FromString("SelfProvider"),
-                            Desc = AssociateTypeDesc.FromString("SelfProvider Description"),
+                            Desc = "SelfProvider Description"
                         }
                     },
                     {
@@ -69,7 +69,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ExternalAssociateTypeEnum.Pipeline,
                             ActingAssociateTypeId = (int) ExternalAssociateTypeEnum.Pipeline,
                             Name = AssociateTypeName.FromString("Pipeline"),
-                            Desc = AssociateTypeDesc.FromString("Pipeline Description"),
+                            Desc = "Pipeline Description"
                         }
                     }
                 };
@@ -77,7 +77,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int ActingAssociateTypeId { get; private set; }
 
         public AssociateTypeName Name { get; private set; }
-        public AssociateTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
  
         protected override void When(object @event)

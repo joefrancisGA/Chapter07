@@ -29,7 +29,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) IDMSLinkTypeEnum.AddEGMS,
                             IDMSLinkTypeId = (int) IDMSLinkTypeEnum.AddEGMS,
                             Name = AddressTypeName.FromString("AddEGMS"),
-                            Desc = AddressTypeDesc.FromString("AddEGMS Description"),
+                            Desc = "AddEGMS Description"
                         }
                     },
                     {
@@ -39,7 +39,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) IDMSLinkTypeEnum.AddUserAccount,
                             IDMSLinkTypeId = (int) IDMSLinkTypeEnum.AddUserAccount,
                             Name = AddressTypeName.FromString("AddUserAccount"),
-                            Desc = AddressTypeDesc.FromString("AddUserAccount Description"),
+                            Desc = "AddUserAccount Description"
                         }
                     },
                     {
@@ -49,7 +49,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) IDMSLinkTypeEnum.DisableOrModifyUserAccount,
                             IDMSLinkTypeId = (int) IDMSLinkTypeEnum.DisableOrModifyUserAccount,
                             Name = AddressTypeName.FromString("DisableOrModifyUserAccount"),
-                            Desc = AddressTypeDesc.FromString("DisableOrModifyUserAccount Description"),
+                            Desc = "DisableOrModifyUserAccount Description"
                         }
                     },
                     {
@@ -59,7 +59,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) IDMSLinkTypeEnum.ReactivateUserAccount,
                             IDMSLinkTypeId = (int) IDMSLinkTypeEnum.ReactivateUserAccount,
                             Name = AddressTypeName.FromString("ReactivateUserAccount"),
-                            Desc = AddressTypeDesc.FromString("ReactivateUserAccount Description"),
+                            Desc = "ReactivateUserAccount Description"
                         }
                     },
                 };
@@ -67,7 +67,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int IDMSLinkTypeId { get; private set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
 
         protected override void When(object @event)

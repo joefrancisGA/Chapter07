@@ -26,7 +26,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) PhoneTypeEnum.Office,
                             PhoneTypeId = (int) PhoneTypeEnum.Office,
                             Name = AddressTypeName.FromString("Office"),
-                            Desc = AddressTypeDesc.FromString("Office Description"),
+                            Desc = "Office Description"
                         }
                     },
                     {
@@ -36,7 +36,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) PhoneTypeEnum.Mobile,
                             PhoneTypeId = (int) PhoneTypeEnum.Mobile,
                             Name = AddressTypeName.FromString("Mobile"),
-                            Desc = AddressTypeDesc.FromString("Mobile Description"),
+                            Desc = "Mobile Description"
                         }
                     },
                     {
@@ -46,7 +46,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) PhoneTypeEnum.Home,
                             PhoneTypeId = (int) PhoneTypeEnum.Home,
                             Name = AddressTypeName.FromString("Home"),
-                            Desc = AddressTypeDesc.FromString("Home Description"),
+                            Desc = "Home Description"
                         }
                     },
                     {
@@ -56,7 +56,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         Id = (int) PhoneTypeEnum.Fax,
                         PhoneTypeId = (int) PhoneTypeEnum.Fax,
                         Name = AddressTypeName.FromString("Fax"),
-                        Desc = AddressTypeDesc.FromString("Fax Description"),
+                        Desc = "Fax Description",
                     }
                 }
                 };
@@ -64,7 +64,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int PhoneTypeId { get; private set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Phone> Phones { get; set; }
 

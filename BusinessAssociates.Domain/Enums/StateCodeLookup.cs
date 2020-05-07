@@ -25,7 +25,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) StateCodeEnum.GA,
                             StateCodeId = (int) StateCodeEnum.GA,
                             Name = AddressTypeName.FromString("GA"),
-                            Desc = AddressTypeDesc.FromString("GA Description"),
+                            Desc = "GA Description"
                         }
                     },
                 };
@@ -36,7 +36,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int CountryCodeId { get; set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Address> Addresses { get; set; }
 

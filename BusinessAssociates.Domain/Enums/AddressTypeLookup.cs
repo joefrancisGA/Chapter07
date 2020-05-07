@@ -27,7 +27,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AddressTypeEnum.Billing,
                             AddressTypeId = (int) AddressTypeEnum.Billing,
                             Name = AddressTypeName.FromString("Billing"),
-                            Desc = AddressTypeDesc.FromString("Billing Description"),
+                            Desc = "Billing Description",
                         }
                     },
                     {
@@ -37,7 +37,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AddressTypeEnum.Curtailment,
                             AddressTypeId = (int) AddressTypeEnum.Curtailment,
                             Name = AddressTypeName.FromString("Curtailment"),
-                            Desc = AddressTypeDesc.FromString("Curtailment Description"),
+                            Desc = "Curtailment Description"
                         }
                     },
                     {
@@ -47,7 +47,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AddressTypeEnum.Physical,
                             AddressTypeId = (int) AddressTypeEnum.Physical,
                             Name = AddressTypeName.FromString("Physical"),
-                            Desc = AddressTypeDesc.FromString("Physical Description"),
+                            Desc = "Physical Description"
                         }
                     }
                 };
@@ -55,7 +55,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int AddressTypeId { get; private set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Address> Addresses { get; set; }
 

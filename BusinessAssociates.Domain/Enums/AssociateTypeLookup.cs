@@ -30,7 +30,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AssociateTypeEnum.InternalLDCFacility,
                             AssociateTypeId = (int) AssociateTypeEnum.InternalLDCFacility,
                             Name = AssociateTypeName.FromString("InternalLDCFacility"),
-                            Desc = AssociateTypeDesc.FromString("InternalLDCFacility Description"),
+                            Desc = "InternalLDCFacility Description"
                         }
                     },
                     {
@@ -40,7 +40,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AssociateTypeEnum.InternalOperatingCompany,
                             AssociateTypeId = (int) AssociateTypeEnum.InternalOperatingCompany,
                             Name = AssociateTypeName.FromString("InternalOperatingCompany"),
-                            Desc = AssociateTypeDesc.FromString("InternalOperatingCompany Description"),
+                            Desc = "InternalOperatingCompany Description"
                         }
                     },
                     {
@@ -50,7 +50,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AssociateTypeEnum.InternalParent,
                             AssociateTypeId = (int) AssociateTypeEnum.InternalParent,
                             Name = AssociateTypeName.FromString("InternalParent"),
-                            Desc = AssociateTypeDesc.FromString("InternalParent Description"),
+                            Desc = "InternalParent Description"
                         }
                     },
                     {
@@ -60,7 +60,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AssociateTypeEnum.SubordinateDistinctUtilityProvider,
                             AssociateTypeId = (int) AssociateTypeEnum.SubordinateDistinctUtilityProvider,
                             Name = AssociateTypeName.FromString("SubordinateDistinctUtilityProvider"),
-                            Desc = AssociateTypeDesc.FromString("SubordinateDistinctUtilityProvider Description"),
+                            Desc = "SubordinateDistinctUtilityProvider Description"
                         }
                     },
                     {
@@ -70,7 +70,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AssociateTypeEnum.SubordinateRegulatedProvider,
                             AssociateTypeId = (int) AssociateTypeEnum.SubordinateRegulatedProvider,
                             Name = AssociateTypeName.FromString("SubordinateRegulatedFacility"),
-                            Desc = AssociateTypeDesc.FromString("SubordinateRegulatedFacility Description"),
+                            Desc = "SubordinateRegulatedFacility Description"
                         }
                     },
                     {
@@ -80,7 +80,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) AssociateTypeEnum.SubordinateUtilityProvider,
                             AssociateTypeId = (int) AssociateTypeEnum.SubordinateUtilityProvider,
                             Name = AssociateTypeName.FromString("SubordinateUtilityProvider"),
-                            Desc = AssociateTypeDesc.FromString("SubordinateUtilityProvider Description"),
+                            Desc = "SubordinateUtilityProvider Description"
                         }
                     },
                 };
@@ -88,7 +88,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int AssociateTypeId { get; private set; }
 
         public AssociateTypeName Name { get; private set; }
-        public AssociateTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
  
         protected override void When(object @event)

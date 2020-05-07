@@ -86,7 +86,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             {
                 entity.HasKey(e => e.Id);
                 //entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("AddressTypeDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("AddressTypeDescription"); 
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("AddressTypeName"); });
             });
 
@@ -147,8 +147,8 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<AlternateFuelTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("AlternateFuelTypeDescription"); });
-                entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("AlternateFuelTypeName"); });
+                entity.Property(e => e.Desc).HasColumnName("AlternateFuelTypeDescription"); 
+                entity.OwnsOne(e => e.Name, cb => { cb.Property(e => e.Value).HasColumnName("AlternateFuelTypeName"); });
             });
 
             modelBuilder.Entity<AssociateCustomer>(entity =>
@@ -269,7 +269,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<CountryCodeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("CountryCodeDescription"); });
+                entity.Property(e => e.Desc).HasColumnName("CountryCodeDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("CountryCodeName"); });
             });
 
@@ -340,14 +340,14 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<CustomerTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("CustomerTypeDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("CustomerTypeDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("CustomerTypeName"); });
             });
 
             modelBuilder.Entity<DeliveryTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("CustomerTypeDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("CustomerTypeDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("CustomerTypeName"); });
             });
 
@@ -460,7 +460,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<PhoneTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("PhoneTypeDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("PhoneTypeDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("PhoneTypeName"); });
             });
 
@@ -478,7 +478,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<ProviderTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("ProviderTypeDescription"); });
+                entity.Property(e => e.Desc).HasColumnName("ProviderTypeDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("ProviderTypeName"); });
             });
 
@@ -509,7 +509,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<StateCodeLookup>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("StateCodeDescription"); });
+                entity.Property(e => e.Desc).HasColumnName("StateCodeDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("StateCodeName"); });
                 entity.HasOne(d => d.CountryCode).WithMany(p => p.StateCodes).HasForeignKey(d => d.CountryCodeId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_StateCodes_CountryCodes");
@@ -518,7 +518,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<StatusCodeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("StatusCodeDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("StatusCodeDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("StatusCodeName"); });
             });
 
@@ -543,13 +543,13 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                 var ownedEGMSLinkType = entity.OwnsOne(x => x.EGMSLinkType);
                 ownedEGMSLinkType.ToTable("EGMSLinkTypes");
                 ownedEGMSLinkType.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                ownedEGMSLinkType.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("EGMSLinkTypeDescription"); });
+                ownedEGMSLinkType.Property(x => x.Desc).HasColumnName("EGMSLinkTypeDescription");
                 ownedEGMSLinkType.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("EGMSLinkTypeName"); });
 
                 var ownedIDMSLinkType = entity.OwnsOne(x => x.IDMSLinkType);
                 ownedIDMSLinkType.ToTable("IDMSLinkTypes");
                 ownedIDMSLinkType.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                ownedIDMSLinkType.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("IDMSLinkTypeDescription"); });
+                ownedIDMSLinkType.Property(o => o.Desc).HasColumnName("IDMSLinkTypeDescription");
                 ownedIDMSLinkType.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("IDMSLinkTypeName"); });
             });
 

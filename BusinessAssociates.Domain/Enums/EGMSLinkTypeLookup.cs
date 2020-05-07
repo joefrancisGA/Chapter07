@@ -26,7 +26,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) EGMSLinkTypeEnum.ConfigureUser,
                             EGMSLinkTypeId = (int) EGMSLinkTypeEnum.ConfigureUser,
                             Name = AddressTypeName.FromString("ConfigureUser"),
-                            Desc = AddressTypeDesc.FromString("ConfigureUser Description"),
+                            Desc = "ConfigureUser Description"
                         }
                     },
                     {
@@ -36,7 +36,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) EGMSLinkTypeEnum.ModifyUser,
                             EGMSLinkTypeId = (int) EGMSLinkTypeEnum.ModifyUser,
                             Name = AddressTypeName.FromString("ModifyUser"),
-                            Desc = AddressTypeDesc.FromString("ModifyUser Description"),
+                            Desc = "ModifyUser Description"
                         }
                     },
                 };
@@ -44,7 +44,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int EGMSLinkTypeId { get; private set; }
 
         public AddressTypeName Name { get; private set; }
-        public AddressTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
 
         protected override void When(object @event)
