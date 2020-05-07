@@ -7,7 +7,9 @@ namespace EGMS.BusinessAssociates.Domain.Enums
 {
     public class AddressTypeLookup : Entity<int>
     {
-        protected AddressTypeLookup() { }
+        protected AddressTypeLookup()
+        {
+        }
 
         public enum AddressTypeEnum
         {
@@ -16,41 +18,24 @@ namespace EGMS.BusinessAssociates.Domain.Enums
             Physical = 3
         }
 
-        public static readonly
-            IReadOnlyDictionary<int, AddressTypeLookup> AddressTypes =
-                new Dictionary<int, AddressTypeLookup>
-                {
-                    {
-                        (int) AddressTypeEnum.Billing,
-                        new AddressTypeLookup
-                        {
-                            Id = (int) AddressTypeEnum.Billing,
-                            AddressTypeId = (int) AddressTypeEnum.Billing,
-                            Name = AddressTypeName.FromString("Billing"),
-                            Desc = "Billing Description",
-                        }
-                    },
-                    {
-                        (int) AddressTypeEnum.Curtailment,
-                        new AddressTypeLookup
-                        {
-                            Id = (int) AddressTypeEnum.Curtailment,
-                            AddressTypeId = (int) AddressTypeEnum.Curtailment,
-                            Name = AddressTypeName.FromString("Curtailment"),
-                            Desc = "Curtailment Description"
-                        }
-                    },
-                    {
-                        (int) AddressTypeEnum.Physical,
-                        new AddressTypeLookup
-                        {
-                            Id = (int) AddressTypeEnum.Physical,
-                            AddressTypeId = (int) AddressTypeEnum.Physical,
-                            Name = AddressTypeName.FromString("Physical"),
-                            Desc = "Physical Description"
-                        }
-                    }
-                };
+        public static AddressTypeLookup GetAddressTypeLookup(AddressTypeEnum addressTypeEnum)
+        {
+            return new AddressTypeLookup
+            {
+                Id = (int) addressTypeEnum,
+                AddressTypeId = (int) addressTypeEnum,
+                Name = AddressTypeName.FromString(addressTypeEnum.ToString()),
+                Desc = addressTypeEnum + " Description"
+            };
+        }
+
+        public static readonly IReadOnlyDictionary<int, AddressTypeLookup> AddressTypes =
+            new Dictionary<int, AddressTypeLookup>
+            {
+                { (int)AddressTypeEnum.Billing, GetAddressTypeLookup(AddressTypeEnum.Billing)},
+                { (int) AddressTypeEnum.Curtailment, GetAddressTypeLookup(AddressTypeEnum.Curtailment)},
+                { (int) AddressTypeEnum.Physical, GetAddressTypeLookup(AddressTypeEnum.Physical)}
+            };
 
         public int AddressTypeId { get; private set; }
 

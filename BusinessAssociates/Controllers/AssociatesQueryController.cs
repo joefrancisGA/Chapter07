@@ -335,10 +335,15 @@ namespace EGMS.BusinessAssociates.API.Controllers
         {
             return RequestHandler.HandleQuery(() => _queryRepo.GetEGMSPermissionForRole(associateId, egmsPermissionId), _log);
         }
-        
+
         #endregion EGMSPermission
 
         #region RoleEGMSPermission
+
+
+        [HttpGet]
+        [Route("RoleEGMSPermissions/{roleEGMSPermissionId}")]
+        public Task<IActionResult> GetRoleEGMSPermission(int egmsPermissionId) => RequestHandler.HandleQuery(() => _queryRepo.GetRoleEGMSPermission(egmsPermissionId), _log);
 
         [HttpGet]
         [Route("RoleEGMSPermissions")]
