@@ -1,2 +1,260 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="EGMS.BusinessAssociates.Domain.Associate">
+    <Position X="18.5" Y="8.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>DAHJAAAECCGCQQAIAAAAAAAAgCgBAcCAIICQoAEAAQA=</HashCode>
+      <FileName>Associate.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Addresses" />
+      <Property Name="AssociateUsers" />
+      <Property Name="AgentUsers" />
+      <Property Name="AssociateCustomers" />
+      <Property Name="AssociateOperatingContexts" />
+      <Property Name="Contacts" />
+      <Property Name="Customers" />
+      <Property Name="EMails" />
+      <Property Name="OperatingContexts" />
+      <Property Name="PredecessorBusinessAssociates" />
+      <Property Name="Phones" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Address">
+    <Position X="5.75" Y="10.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>ASAAAAABACAAAAAJuAkEAAAgAAYAANAAAAAAgEQAIiA=</HashCode>
+      <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.AgentRelationship">
+    <Position X="26.5" Y="19.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAACAQAAAAEAMAAAAoACAAAFAAAAAAAEAAAAA=</HashCode>
+      <FileName>AgentRelationship.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Agent" />
+      <Property Name="Principal" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="AgentRelationshipUserList" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.AgentRelationshipUser">
+    <Position X="22" Y="22.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAECAAAAAAAAEAAAgAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AgentRelationshipUser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AgentRelationship" />
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.User">
+    <Position X="14.75" Y="21" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAASQAAGAAAAAAAAAAIQVEAAEAAAAAAAAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Contact" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="AgentUsers" />
+      <Property Name="AssociateUsers" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.AgentUser">
+    <Position X="23.25" Y="19" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAQAAAAAAEAAAgAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>AgentUser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.AssociateUser">
+    <Position X="10.75" Y="4" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAABABAAACAAAAAAAAAAAAgAAAAAABAAAIAAAAAAAAA=</HashCode>
+      <FileName>AssociateUser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.AssociateCustomer">
+    <Position X="19.25" Y="16.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAUAABBAACAAAAAAAAAAAAAAAAAAABAAAIAAAAAAAAA=</HashCode>
+      <FileName>AssociateCustomer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Customer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.AssociateOperatingContext">
+    <Position X="19.5" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABCAACAAAAAABAAAAAAAAAAAABAAAIAAAAAAAAA=</HashCode>
+      <FileName>AssociateOperatingContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="OperatingContext" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Contact">
+    <Position X="10.5" Y="16.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>CABAAGAAADAGAUAAEAAAAAAAAAABAFAAAAAAIEgAAAg=</HashCode>
+      <FileName>Contact.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PrimaryAddress" />
+      <Property Name="PrimaryEMail" />
+      <Property Name="PrimaryPhone" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ContactConfigurations" />
+      <Property Name="ContactPhones" />
+      <Property Name="Addresses" />
+      <Property Name="Emails" />
+      <Property Name="Phones" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Customer">
+    <Position X="23.25" Y="4.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>EhAAkhQCACeo0QgYoAKGAGAhBSpCANCApAAEgMAABiA=</HashCode>
+      <FileName>Customer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="CustomerAlternateFuels" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.EMail">
+    <Position X="15.5" Y="16.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAAACAAAAAACAAAAIgAAAAAAFEAAAAAgAAAAAA=</HashCode>
+      <FileName>EMail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.OperatingContext">
+    <Position X="13.5" Y="8.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>CCBAAAIECDEGQUoAEAIgAAAAAyCBCBAAEIABoEEABAA=</HashCode>
+      <FileName>OperatingContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Certification" />
+      <Property Name="PrimaryAddress" />
+      <Property Name="PrimaryEmail" />
+      <Property Name="PrimaryPhone" />
+      <Property Name="Role" />
+      <Property Name="ThirdPartySupplier" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Addresses" />
+      <Property Name="EMails" />
+      <Property Name="Phones" />
+      <Property Name="OperatingContextCustomers" />
+      <Property Name="Roles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Phone">
+    <Position X="15.25" Y="3" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAgCAAAAAACAAARAAAAAAAAVEAAAAAgAAAAiA=</HashCode>
+      <FileName>Phone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.CustomerAlternateFuel">
+    <Position X="28.25" Y="10" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAEQAAAAACAAAAAAAAAAAAAAAAAAABAAAAgAAAAAAAA=</HashCode>
+      <FileName>CustomerAlternateFuel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AlternateFuel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.ContactConfiguration">
+    <Position X="10.5" Y="25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEACAAUAIECAEAAAAgAAAAAFEAAAAAAEAAAAA=</HashCode>
+      <FileName>ContactConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.ContactPhone">
+    <Position X="5.25" Y="19.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAACAAAAAAAAAIAABEAAAAAIAAAAAA=</HashCode>
+      <FileName>ContactPhone.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Phone" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Certification">
+    <Position X="6.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAAAAgAAAAAAAEACAAFAAAAAAgAAAAAA=</HashCode>
+      <FileName>Certification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.OperatingContextCustomer">
+    <Position X="23.25" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAEAAACAACAAAAAABAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>OperatingContextCustomer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Customer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Role">
+    <Position X="6.75" Y="6.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAQAgMAAAAAAAAAAAAFAAEAAAkAAAAAA=</HashCode>
+      <FileName>Role.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="RoleEGMSPermissions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Enums.AlternateFuelTypeLookup">
+    <Position X="32.25" Y="9.25" Width="3" />
+    <NestedTypes>
+      <Enum Name="EGMS.BusinessAssociates.Domain.Enums.AlternateFuelTypeLookup.AlternateFuelTypeEnum" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Enums\AlternateFuelTypeLookup.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAQAAAAAABAAAAgEQAQAAAA=</HashCode>
+      <FileName>Enums\AlternateFuelTypeLookup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.RoleEGMSPermission">
+    <Position X="2.75" Y="6.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAIAACIAAAAAEAAAAAAAAAAAAFAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoleEGMSPermission.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="EGMSPermission" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.EGMSPermission">
+    <Position X="0.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAASAEAAAAAAAAAAAAFAAAAAAAAAAAAA=</HashCode>
+      <FileName>EGMSPermission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

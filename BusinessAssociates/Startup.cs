@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using AutoMapper;
 using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Data.EF;
 using EGMS.BusinessAssociates.Domain.Repositories;

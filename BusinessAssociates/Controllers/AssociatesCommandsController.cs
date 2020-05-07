@@ -13,6 +13,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
         private readonly AssociatesApplicationService _appService;
 
         // TO DO:  Use this or eliminate it
+        // ReSharper disable once NotAccessedField.Local
         private readonly ILogger<AssociatesCommandsController> _log;
 
         public AssociatesCommandsController(AssociatesApplicationService appService, ILogger<AssociatesCommandsController> log)

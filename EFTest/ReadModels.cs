@@ -1,5 +1,4 @@
-﻿using EGMS.BusinessAssociates.Domain;
-using EGMS.BusinessAssociates.Query.ReadModels;
+﻿using EGMS.BusinessAssociates.Query.ReadModels;
 using Newtonsoft.Json;
 
 namespace EFTest

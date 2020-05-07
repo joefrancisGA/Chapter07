@@ -596,7 +596,6 @@ namespace EGMS.BusinessAssociates.Data.EF
             throw new NotImplementedException();
         }
         
-        // TO DO:  This method is not complete
         public void UpdateOperatingContext(OperatingContext operatingContext)
         {
             OperatingContext foundOperatingContext = _context.OperatingContexts.FirstOrDefault(oc => oc.Id == operatingContext.Id);
@@ -604,7 +603,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             if (foundOperatingContext == null)
                 throw new InvalidOperationException("OperatingContext not found.");
 
-            foundOperatingContext = operatingContext;
+            _context.OperatingContexts.Update(operatingContext);
         }
 
         #endregion Updates
