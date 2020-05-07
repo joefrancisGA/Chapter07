@@ -25,7 +25,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) LossTierTypeEnum.Unknown,
                             LossTierTypeId = (int) LossTierTypeEnum.Unknown,
                             Name = BalancingLevelTypeName.FromString("Unknown"),
-                            Desc = BalancingLevelTypeDesc.FromString("Unknown Description"),
+                            Desc = "Unknown Description"
                         }
                     }
                 };
@@ -33,7 +33,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int LossTierTypeId { get; private set; }
 
         public BalancingLevelTypeName Name { get; private set; }
-        public BalancingLevelTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Customer> Customers { get; set; }
 

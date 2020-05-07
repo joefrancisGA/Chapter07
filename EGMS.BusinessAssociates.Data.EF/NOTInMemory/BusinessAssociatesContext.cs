@@ -216,7 +216,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<BalancingLevelTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("BalancingLevelTypeDescription"); });
+                entity.Property(e => e.Desc).HasColumnName("BalancingLevelTypeDescription"); 
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("BalancingLevelTypeName"); });
             });
 
@@ -254,7 +254,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<ContactTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("ContactTypeDescription"); });
+                entity.Property(e => e.Desc).HasColumnName("ContactTypeDescription"); 
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("ContactTypeName"); });
             });
 
@@ -379,7 +379,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<GroupTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("GroupTypeDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("GroupTypeDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("GroupTypeName"); });
             });
 
@@ -394,14 +394,14 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<LossTierTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("LossTierDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("LossTierDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("LossTierName"); });
             });
 
             modelBuilder.Entity<NominationLevelTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("NominationLevelDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("NominationLevelDescription");
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("NominationLevelName"); });
             });
 
@@ -417,7 +417,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<OperatingContextTypeLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("OperatingContextTypeDescription"); });
+                entity.Property(x => x.Desc).HasColumnName("OperatingContextTypeDescription"); 
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("OperatingContextTypeName"); });
             });
 

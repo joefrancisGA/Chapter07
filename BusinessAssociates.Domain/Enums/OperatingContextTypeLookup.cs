@@ -28,7 +28,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) OperatingContextTypeEnum.Internal,
                             OperatingContextTypeId = (int) OperatingContextTypeEnum.Internal,
                             Name = BalancingLevelTypeName.FromString("Internal"),
-                            Desc = BalancingLevelTypeDesc.FromString("Internal Description"),
+                            Desc = "Internal Description"
                         }
                     },
                     {
@@ -38,7 +38,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                         Id = (int) OperatingContextTypeEnum.External,
                         OperatingContextTypeId = (int) OperatingContextTypeEnum.External,
                         Name = BalancingLevelTypeName.FromString("External"),
-                        Desc = BalancingLevelTypeDesc.FromString("External Description"),
+                        Desc = "External Description"
                     }
                 },
                     {
@@ -48,7 +48,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) OperatingContextTypeEnum.ActingBA,
                             OperatingContextTypeId = (int) OperatingContextTypeEnum.ActingBA,
                             Name = BalancingLevelTypeName.FromString("ActingBA"),
-                            Desc = BalancingLevelTypeDesc.FromString("ActingBA Description"),
+                            Desc = "ActingBA Description"
                         }
                     },
                     {
@@ -58,7 +58,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) OperatingContextTypeEnum.Provider,
                             OperatingContextTypeId = (int) OperatingContextTypeEnum.Provider,
                             Name = BalancingLevelTypeName.FromString("Provider"),
-                            Desc = BalancingLevelTypeDesc.FromString("Provider Description"),
+                            Desc = "Provider Description"
                         }
                     }
                 };
@@ -66,7 +66,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int OperatingContextTypeId { get; private set; }
 
         public BalancingLevelTypeName Name { get; private set; }
-        public BalancingLevelTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<OperatingContext> OperatingContexts { get; set; }
 

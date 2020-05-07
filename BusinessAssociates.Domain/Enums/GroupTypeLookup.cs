@@ -27,7 +27,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) GroupTypeEnum.LocationBased,
                             GroupTypeId = (int) GroupTypeEnum.LocationBased,
                             Name = BalancingLevelTypeName.FromString("LocationBased"),
-                            Desc = BalancingLevelTypeDesc.FromString("LocationBased Description"),
+                            Desc = "LocationBased Description"
                         }
                     },
                     {
@@ -37,7 +37,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) GroupTypeEnum.DeliveryGroup,
                             GroupTypeId = (int) GroupTypeEnum.DeliveryGroup,
                             Name = BalancingLevelTypeName.FromString("DeliveryGroup"),
-                            Desc = BalancingLevelTypeDesc.FromString("DeliveryGroup Description"),
+                            Desc = "DeliveryGroup Description"
                         }
                     },
                     {
@@ -47,7 +47,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) GroupTypeEnum.None,
                             GroupTypeId = (int) GroupTypeEnum.None,
                             Name = BalancingLevelTypeName.FromString("None"),
-                            Desc = BalancingLevelTypeDesc.FromString("None Description"),
+                            Desc = "None Description"
                         }
                     }
                 };
@@ -55,7 +55,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int GroupTypeId { get; private set; }
 
         public BalancingLevelTypeName Name { get; private set; }
-        public BalancingLevelTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Customer> Customers { get; set; }
 

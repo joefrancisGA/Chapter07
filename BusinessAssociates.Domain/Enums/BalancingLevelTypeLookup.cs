@@ -25,7 +25,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) BalancingLevelTypeEnum.Customer,
                             BalancingLevelTypeId = (int) BalancingLevelTypeEnum.Customer,
                             Name = BalancingLevelTypeName.FromString("Customer"),
-                            Desc = BalancingLevelTypeDesc.FromString("Customer Description"),
+                            Desc = "Customer Description"
                         }
                     },
                     {
@@ -35,7 +35,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) BalancingLevelTypeEnum.Group,
                             BalancingLevelTypeId = (int) BalancingLevelTypeEnum.Group,
                             Name = BalancingLevelTypeName.FromString("Group"),
-                            Desc = BalancingLevelTypeDesc.FromString("Group Description"),
+                            Desc = "Group Description"
                         }
                     },
                     {
@@ -45,7 +45,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) BalancingLevelTypeEnum.TPS,
                             BalancingLevelTypeId = (int) BalancingLevelTypeEnum.TPS,
                             Name = BalancingLevelTypeName.FromString("TPS"),
-                            Desc = BalancingLevelTypeDesc.FromString("TPS Description"),
+                            Desc = "TPS Description"
                         }
                     },
                 };
@@ -53,7 +53,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int BalancingLevelTypeId { get; private set; }
 
         public BalancingLevelTypeName Name { get; private set; }
-        public BalancingLevelTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Customer> Customers { get; set; }
 

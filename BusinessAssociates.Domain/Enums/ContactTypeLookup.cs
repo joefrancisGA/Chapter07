@@ -41,7 +41,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Billing,
                             ContactTypeId = (int) ContactTypeEnum.Billing,
                             Name = BalancingLevelTypeName.FromString("Billing"),
-                            Desc = BalancingLevelTypeDesc.FromString("Billing Description"),
+                            Desc = "Billing Description"
                         }
                     },
                     {
@@ -51,7 +51,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Contract,
                             ContactTypeId = (int) ContactTypeEnum.Contract,
                             Name = BalancingLevelTypeName.FromString("Contract"),
-                            Desc = BalancingLevelTypeDesc.FromString("Contract Description"),
+                            Desc = "Contract Description"
                         }
                     },
                     {
@@ -61,7 +61,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Curtailment,
                             ContactTypeId = (int) ContactTypeEnum.Curtailment,
                             Name = BalancingLevelTypeName.FromString("Curtailment"),
-                            Desc = BalancingLevelTypeDesc.FromString("Curtailment Description"),
+                            Desc = "Curtailment Description"
                         }
                     },
                     {
@@ -71,7 +71,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Internal,
                             ContactTypeId = (int) ContactTypeEnum.Internal,
                             Name = BalancingLevelTypeName.FromString("Internal"),
-                            Desc = BalancingLevelTypeDesc.FromString("Internal Description"),
+                            Desc = "Internal Description"
                         }
                     },
                     {
@@ -81,7 +81,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Mailing,
                             ContactTypeId = (int) ContactTypeEnum.Mailing,
                             Name = BalancingLevelTypeName.FromString("Mailing"),
-                            Desc = BalancingLevelTypeDesc.FromString("Mailing Description"),
+                            Desc = "Mailing Description"
                         }
                     },
                     {
@@ -91,7 +91,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Managerial,
                             ContactTypeId = (int) ContactTypeEnum.Managerial,
                             Name = BalancingLevelTypeName.FromString("Managerial"),
-                            Desc = BalancingLevelTypeDesc.FromString("Managerial Description"),
+                            Desc = "Managerial Description"
                         }
                     },
                     {
@@ -101,7 +101,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Nomination,
                             ContactTypeId = (int) ContactTypeEnum.Nomination,
                             Name = BalancingLevelTypeName.FromString("Nomination"),
-                            Desc = BalancingLevelTypeDesc.FromString("Nomination Description"),
+                            Desc = "Nomination Description"
                         }
                     },
                     {
@@ -111,7 +111,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Nominations,
                             ContactTypeId = (int) ContactTypeEnum.Nominations,
                             Name = BalancingLevelTypeName.FromString("Nominations"),
-                            Desc = BalancingLevelTypeDesc.FromString("Nominations Description"),
+                            Desc = "Nominations Description"
                         }
                     },
                     {
@@ -121,7 +121,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.OnCall,
                             ContactTypeId = (int) ContactTypeEnum.OnCall,
                             Name = BalancingLevelTypeName.FromString("OnCall"),
-                            Desc = BalancingLevelTypeDesc.FromString("OnCall Description"),
+                            Desc = "OnCall Description"
                         }
                     },
                     {
@@ -131,7 +131,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Operations,
                             ContactTypeId = (int) ContactTypeEnum.Operations,
                             Name = BalancingLevelTypeName.FromString("Operations"),
-                            Desc = BalancingLevelTypeDesc.FromString("Operations Description"),
+                            Desc = "Operations Description"
                         }
                     },
                     {
@@ -141,7 +141,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) ContactTypeEnum.Other,
                             ContactTypeId = (int) ContactTypeEnum.Other,
                             Name = BalancingLevelTypeName.FromString("Other"),
-                            Desc = BalancingLevelTypeDesc.FromString("Other Description"),
+                            Desc = "Other Description"
                         }
                     }
                 };
@@ -149,7 +149,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int ContactTypeId { get; private set; }
 
         public BalancingLevelTypeName Name { get; private set; }
-        public BalancingLevelTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<ContactConfiguration> ContactConfigurations { get; set; }
 
