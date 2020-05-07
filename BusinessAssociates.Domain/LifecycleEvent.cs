@@ -26,7 +26,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public override void OnLoadInit(Action<object> parentHandler)
         {
-            _parentHandler = parentHandler;
+            ParentHandler = parentHandler;
         }
     }
 }

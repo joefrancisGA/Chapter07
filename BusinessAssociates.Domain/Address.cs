@@ -8,6 +8,35 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Address : Entity<int>
     {
+        protected bool Equals(Address other)
+        {
+            return AddressTypeId == other.AddressTypeId && Equals(Address1, other.Address1) && Equals(Address2, other.Address2) && Equals(Address3, other.Address3) && Equals(Address4, other.Address4) && Equals(City, other.City) && StateCodeId == other.StateCodeId && Equals(PostalCode, other.PostalCode) && Equals(Country, other.Country) && Equals(Attention, other.Attention);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Address) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = new HashCode();
+            hashCode.Add(AddressTypeId);
+            hashCode.Add(Address1);
+            hashCode.Add(Address2);
+            hashCode.Add(Address3);
+            hashCode.Add(Address4);
+            hashCode.Add(City);
+            hashCode.Add(StateCodeId);
+            hashCode.Add(PostalCode);
+            hashCode.Add(Country);
+            hashCode.Add(Attention);
+            return hashCode.ToHashCode();
+        }
+
         private Address() { }
         public Address(Action<object> applier) : base(applier) { }
 
@@ -104,7 +133,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public override void OnLoadInit(Action<object> parentHandler)
         {
-            _parentHandler = parentHandler;
+            ParentHandler = parentHandler;
         }
     }
 }

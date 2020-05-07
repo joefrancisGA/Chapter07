@@ -55,7 +55,7 @@ namespace EGMS.BusinessAssociates.Domain
         // TO DO:  Why can't OnLoadInit be in the base class?
         public override void OnLoadInit(Action<object> parentHandler)
         {
-            _parentHandler = parentHandler;
+            ParentHandler = parentHandler;
         }
     }
 }

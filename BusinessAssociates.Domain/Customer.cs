@@ -8,6 +8,24 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class Customer : Framework.Entity<int>
     {
+        protected bool Equals(Customer other)
+        {
+            return CustomerTypeId == other.CustomerTypeId && DeliveryTypeId == other.DeliveryTypeId && Equals(DUNSNumber, other.DUNSNumber) && Equals(ShortName, other.ShortName);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Customer) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(CustomerTypeId, DeliveryTypeId, DUNSNumber, ShortName);
+        }
+
         private Customer()
         {
             Initialize();
@@ -187,7 +205,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public override void OnLoadInit(Action<object> parentHandler)
         {
-            _parentHandler = parentHandler;
+            ParentHandler = parentHandler;
         }
     }
 }
