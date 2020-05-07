@@ -32,8 +32,7 @@ namespace EGMS.BusinessAssociates.Data.EF.TypeConfigurations
             builder.OwnsOne(address => address.City,
                 cb => { cb.Property(e => e.Value).HasColumnName("City"); });
             
-            builder.OwnsOne(address => address.Comments,
-                cb => { cb.Property(e => e.Value).HasColumnName("Comments"); });
+            builder.Property(address => address.Comments).HasColumnName("Comments"); 
 
             builder.OwnsOne(address => address.PostalCode,
                 cb => { cb.Property(e => e.Value).HasColumnName("PostalCode"); });

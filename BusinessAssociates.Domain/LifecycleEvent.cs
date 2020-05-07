@@ -12,7 +12,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public LifecycleEventType LifecycleEventType { get; set; }
         public LifecycleEventStatus LifecycleEventStatus { get; set; }
-        public Comments Comments { get; set; }
+        public string Comments { get; set; }
         public bool IsInitiator { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

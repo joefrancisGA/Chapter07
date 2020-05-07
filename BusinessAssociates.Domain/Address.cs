@@ -25,7 +25,7 @@ namespace EGMS.BusinessAssociates.Domain
         public PostalCode PostalCode { get; set; }
         public CountryCodeLookup Country { get; set; }
         public Attention Attention { get; set; }
-        public Comments Comments { get; set; }
+        public string Comments { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public bool IsPrimary { get; set; }
@@ -76,7 +76,7 @@ namespace EGMS.BusinessAssociates.Domain
 
         public static Address Create(int addressId, bool isActive, DateTime endDate, AddressLine address1,
             AddressLine address2, AddressLine address3, AddressLine address4, bool isPrimary, AddressTypeLookup addressType,
-            Attention attention, City city, Comments comments, PostalCode postalCode, StateCodeLookup stateCode)
+            Attention attention, City city, string comments, PostalCode postalCode, StateCodeLookup stateCode)
         {
             return new Address
             {

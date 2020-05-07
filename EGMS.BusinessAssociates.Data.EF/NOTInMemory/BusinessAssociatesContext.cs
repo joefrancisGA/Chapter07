@@ -100,7 +100,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
                 entity.OwnsOne(x => x.Address4, cb => { cb.Property(e => e.Value).HasColumnName("Address4"); });
                 entity.OwnsOne(x => x.Attention, cb => { cb.Property(e => e.Value).HasColumnName("Attention"); });
                 entity.OwnsOne(x => x.City, cb => { cb.Property(e => e.Value).HasColumnName("City"); });
-                entity.OwnsOne(x => x.Comments, cb => { cb.Property(e => e.Value).HasColumnName("Comments"); });
+                entity.Property(x => x.Comments).HasColumnName("Comments");
                 entity.OwnsOne(x => x.PostalCode, cb => { cb.Property(e => e.Value).HasColumnName("PostalCode"); });
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
@@ -223,7 +223,7 @@ namespace EGMS.BusinessAssociates.Data.EF.InMemory
             modelBuilder.Entity<CertificationStatusLookup>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID").ValueGeneratedNever();
-                entity.OwnsOne(x => x.Desc, cb => { cb.Property(e => e.Value).HasColumnName("CertificationStatusDescription"); });
+                entity.Property(e => e.Desc).HasColumnName("CertificationStatusDescription"); 
                 entity.OwnsOne(x => x.Name, cb => { cb.Property(e => e.Value).HasColumnName("CertificationStatusName"); });
             });
 

@@ -29,7 +29,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) CertificationStatusEnum.Certified,
                             CertificationLevelId = (int) CertificationStatusEnum.Certified,
                             Name = CertificationLevelTypeName.FromString("Certified"),
-                            Desc = CertificationLevelTypeDesc.FromString("Decertified Description"),
+                            Desc = "Decertified Description"
                         }
                     },
                     {
@@ -39,7 +39,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) CertificationStatusEnum.Decertified, 
                             CertificationLevelId = (int) CertificationStatusEnum.Decertified,
                             Name = CertificationLevelTypeName.FromString("Decertified"),
-                            Desc = CertificationLevelTypeDesc.FromString("Decertified Description"),
+                            Desc = "Decertified Description"
                         }
                     },
                     {
@@ -49,7 +49,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
                             Id = (int) CertificationStatusEnum.NotCertified,
                             CertificationLevelId = (int) CertificationStatusEnum.NotCertified,
                             Name = CertificationLevelTypeName.FromString("NotCertified"),
-                            Desc = CertificationLevelTypeDesc.FromString("NotCertified Description"),
+                            Desc = "NotCertified Description"
                         }
                     },
                 };
@@ -57,7 +57,7 @@ namespace EGMS.BusinessAssociates.Domain.Enums
         public int CertificationLevelId { get; private set; }
 
         public CertificationLevelTypeName Name { get; private set; }
-        public CertificationLevelTypeDesc Desc { get; private set; }
+        public string Desc { get; private set; }
 
         public List<Certification> Certifications { get; set; }
 
