@@ -2,7 +2,7 @@
 using EGMS.BusinessAssociates.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace EGMS.BusinessAssociates.Data.EF.InMemory
+namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory
 {
     public class BusinessAssociatesContext : DbContext
     {

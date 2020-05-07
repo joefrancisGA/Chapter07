@@ -3,12 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
-using EGMS.BusinessAssociates.Domain.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace EGMS.BusinessAssociates.Data.EF.InMemory
+namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory
 {
     public class _AssociateRepositoryEF// : IAssociateRepository
     {

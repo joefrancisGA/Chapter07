@@ -1,7 +1,7 @@
 ﻿using System;
 using EGMS.BusinessAssociates.Domain.Services;
 
-namespace EGMS.BusinessAssociates.Data.EF.InMemory
+namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory
 {
     public class AssociateLookupEF : IAssociateLookup
     {

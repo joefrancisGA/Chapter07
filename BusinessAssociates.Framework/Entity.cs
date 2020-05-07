@@ -12,7 +12,10 @@ namespace EGMS.BusinessAssociates.Framework
             ParentHandler = parentHandler;
         }
 
+        // TO DO:  Need to figure out use of _applier
+#pragma warning disable 649
         private readonly Action<object> _applier;
+#pragma warning restore 649
         
         public TId Id { get; protected set; }
 

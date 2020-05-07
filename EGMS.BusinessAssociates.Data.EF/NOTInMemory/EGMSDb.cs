@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Data.SqlClient;
 
-namespace EGMS.BusinessAssociates.Data.EF.InMemory
+namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory
 {
     public class EGMSDb : IDisposable
     {

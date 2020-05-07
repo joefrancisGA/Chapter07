@@ -3,7 +3,7 @@ using EGMS.BusinessAssociates.Domain;
 using static EGMS.BusinessAssociates.Query.QueryModels;
 
 
-namespace EGMS.BusinessAssociates.Data.EF.InMemory
+namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory
 {
     public static class QueryUtils
     {

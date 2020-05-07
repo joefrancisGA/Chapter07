@@ -1,6 +1,5 @@
 ﻿using EGMS.Common.ValueTypes.EGMS.Common.ValueTypes;
 
-
 namespace EGMS.BusinessAssociates.Domain.ValueObjects
 {
     public class CertificationLevelTypeName : EGMSString<CertificationLevelTypeName>

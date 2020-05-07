@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EGMS.BusinessAssociates.Data.EF.InMemory.TypeConfigurations
+namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory.TypeConfigurations
 {
     class AddressConfiguration : IEntityTypeConfiguration<Address>
     {

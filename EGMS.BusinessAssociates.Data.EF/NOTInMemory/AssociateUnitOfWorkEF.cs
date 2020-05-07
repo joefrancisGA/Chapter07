@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EGMS.BusinessAssociates.Framework;
 
-namespace EGMS.BusinessAssociates.Data.EF.InMemory
+namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory
 {
     public class AssociateUnitOfWorkEF : IUnitOfWork
     {

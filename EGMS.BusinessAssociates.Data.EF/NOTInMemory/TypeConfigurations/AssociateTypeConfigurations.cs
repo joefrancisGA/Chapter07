@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace EGMS.BusinessAssociates.Data.EF.InMemory.TypeConfigurations
+namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory.TypeConfigurations
 {
     class AssociateTypeConfigurations
     {
