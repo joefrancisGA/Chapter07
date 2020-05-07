@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using EGMS.BusinessAssociates.Domain.Enums;
-using EGMS.BusinessAssociates.Domain.Messages;
 using EGMS.BusinessAssociates.Domain.ValueObjects;
 using EGMS.BusinessAssociates.Framework;
 
@@ -36,6 +35,7 @@ namespace EGMS.BusinessAssociates.Domain
             DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
             DateTime startDate, StatusCodeLookup status) : this()
         {
+            Id = operatingContextId;
             OperatingContextType = operatingContextType;
             FacilityId = facilityId;
             ThirdPartySupplierId = thirdPartySupplierId;
@@ -103,8 +103,8 @@ namespace EGMS.BusinessAssociates.Domain
         {
             switch (@event)
             { 
-                case Events.AssociateAddNewOperatingContext e:
-                    break;
+                //case Events.AssociateAddNewOperatingContext e:
+                //    break;
 
                 default:
                     throw new Exception("Unknown event " + @event);

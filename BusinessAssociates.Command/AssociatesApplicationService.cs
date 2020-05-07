@@ -191,25 +191,7 @@ namespace EGMS.BusinessAssociates.Command
             return Conversions.GetOperatingContextRM(operatingContext);
         }
 
-        private OperatingContextRM AddOperatingContextForCustomer(Commands.V1.OperatingContext.CreateForCustomer cmd)
-        {
-            Customer customer = _repository.GetCustomer(cmd.CustomerId);
-
-            if (customer == null)
-                throw new InvalidOperationException($"Customer with id {cmd.CustomerId} cannot be found");
-
-            OperatingContext operatingContext = new OperatingContext(_operatingContexts++, OperatingContextTypeLookup.OperatingContextTypes[cmd.OperatingContextType], cmd.FacilityId,
-                cmd.ThirdPartySupplierId, ExternalAssociateTypeLookup.ActingAssociateTypes[cmd.ActingBATypeID], cmd.CertificationId, cmd.IsDeactivating,
-                cmd.LegacyId, cmd.PrimaryAddressId, cmd.PrimaryEmailId, cmd.PrimaryPhoneId,
-                cmd.ProviderType, cmd.StartDate, StatusCodeLookup.StatusCodes[cmd.Status]);
-
-            _repository.AddOperatingContextForAssociate(operatingContext, customer.Id);
-
-            return _mapper.Map<OperatingContextRM>(operatingContext);
-        }
-
-
-        private AssociateRM CreateAssociate(Commands.V1.Associate.Create cmd)
+ private AssociateRM CreateAssociate(Commands.V1.Associate.Create cmd)
         {
             if (_repository.AssociateExists(cmd.DUNSNumber))
                 throw new InvalidOperationException($"Associate with DUNSNumber {cmd.DUNSNumber} already exists");

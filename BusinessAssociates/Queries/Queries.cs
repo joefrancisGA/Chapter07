@@ -20,6 +20,7 @@
         //    new { Id = query.AssociateId });
 
 
+        // ReSharper disable once UnusedMember.Local
         private static int Offset(int page, int pageSize) => page * pageSize;
     }
 }

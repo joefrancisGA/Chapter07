@@ -331,6 +331,7 @@ namespace BusinessAssociates.Tests
             Debug.WriteLine("EFTEST:  Get PredecessorManagerRM for predecessor");
 
             // ReSharper disable once NotAccessedVariable
+            // ReSharper disable once UnusedVariable
             AssociateRM predecessorManagerRM = (AssociateRM)appService.Handle(createPredecessor).Result;
         }
     }

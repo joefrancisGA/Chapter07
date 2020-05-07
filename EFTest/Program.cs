@@ -318,11 +318,14 @@ namespace EFTest
 
             Console.WriteLine("EFTEST:  Getting UserRM");
 
+            // ReSharper disable once NotAccessedVariable
             UserRM userRM;
 
             if (testType == 1)
+                // ReSharper disable once RedundantAssignment
                 userRM = (UserRM)appService.Handle(createUserForAssociateCommand).Result;
             else
+                // ReSharper disable once RedundantAssignment
                 userRM = CreateUserForAssociateWithREST(createUserForAssociateCommand);
             
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
