@@ -114,6 +114,8 @@ namespace EGMS.BusinessAssociates.Command
             {
                 public class CreateForPrincipal : Create
                 {
+                    public CreateForPrincipal() { }
+
                     public CreateForPrincipal(int principalId, Create create)
                     {
                         PrincipalId = principalId;
@@ -138,6 +140,8 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public class CreateForAgent : Create
                     {
+                        public CreateForAgent() { }
+
                         public CreateForAgent(int agentId, Create create)
                         {
                             AgentId = agentId;
@@ -168,6 +172,8 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public class CreateForContact : Create
                     {
+                        public CreateForContact() { }
+
                         public CreateForContact(int contactId, Create create)
                         {
                             ContactId = contactId;
@@ -197,6 +203,8 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public class CreateForContact : Create
                     {
+                        public CreateForContact() { }
+
                         public CreateForContact(int contactId, Create create)
                         {
                             ContactId = contactId;
@@ -220,6 +228,8 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public class CreateForContact : Create
                     {
+                        public CreateForContact() { }
+
                         public CreateForContact(int contactId, Create create)
                         {
                             ContactId = contactId;
@@ -244,6 +254,8 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public class CreateForContact : Create
                     {
+                        public CreateForContact() { }
+
                         public CreateForContact(int contactId, Create create)
                         {
                             ContactId = contactId;
@@ -344,10 +356,7 @@ namespace EGMS.BusinessAssociates.Command
 
             public static class Customer
             {
-                public class CreateForUser : Create
-                {
-
-                }
+                public class CreateForUser : Create { }
 
                 public class CreateForAssociate : Create
                 {
@@ -451,6 +460,8 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public class CreateForCustomer : Create
                     {
+                        public CreateForCustomer() { }
+
                         public CreateForCustomer(int customerId, Create create)
                         {
                             CustomerId = customerId;
@@ -544,6 +555,8 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public class CreateForOperatingContext : Create
                     {
+                        public CreateForOperatingContext() { }
+
                         public CreateForOperatingContext(int operatingContextId, Create create)
                         {
                             OperatingContextId = operatingContextId;
@@ -569,6 +582,8 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public class CreateForOperatingContext : Create
                     {
+                        public CreateForOperatingContext() { }
+
                         public CreateForOperatingContext(int operatingContextId, Create create)
                         {
                             OperatingContextId = operatingContextId;
@@ -671,6 +686,8 @@ namespace EGMS.BusinessAssociates.Command
                     {
                         public class CreateForCustomer : Create
                         {
+                            public CreateForCustomer() { }
+
                             public CreateForCustomer(int customerId, Create create)
                             {
                                 CustomerId = customerId;
