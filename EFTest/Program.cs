@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using AutoMapper;
+using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Data.EF;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Enums;
+using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -19,7 +22,7 @@ namespace EFTest
     {
         private static int _instanceType;
         private static int _dunsNumber = new Random().Next(100000000,900000000);
-
+        private readonly IAssociateQueryRepository _queryRepo;
 
         // What about new third party supplier ID?
 
@@ -268,6 +271,21 @@ namespace EFTest
                 associateRM = (AssociateRM)appService.Handle(createAssociateCommand).Result;
             else
                 associateRM = CreateAssociateWithREST(createAssociateCommand);
+
+
+            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+            
+            Console.WriteLine("EFTEST:  Get list of associates");
+
+            string json = null;
+
+            //if (testType == 1)
+                //System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult> x = RequestHandler.HandleQuery(() => _queryRepo.GetAssociates(associateId), loggerFactory); 
+           // else
+           //     json = GetREST(GetAssociatesAPI);
+
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -655,6 +673,37 @@ namespace EFTest
             Console.WriteLine("Full URL = " + fullURL);
 
             var response = client.PostAsync(fullURL, content).Result;
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Environment.Exit(0);
+            }
+
+            string jsonString = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine("Response Data: " + jsonString);
+
+            return jsonString;
+        }
+
+        public static string GetREST(string url)
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
+
+            using HttpClient client = new HttpClient(clientHandler);
+
+            string fullURL = (_instanceType == 1 ? @"https://localhost:44396" : @"http://localhost:5000") + url;
+
+            Console.WriteLine("Full URL = " + fullURL);
+
+            var response = client.GetAsync(fullURL).Result;
 
             try
             {

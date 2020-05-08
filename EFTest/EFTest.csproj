@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessAssociates.Command\EGMS.BusinessAssociates.Command.csproj" />
+    <ProjectReference Include="..\BusinessAssociates\EGMS.BusinessAssociates.API.csproj" />
   </ItemGroup>
 
 </Project>

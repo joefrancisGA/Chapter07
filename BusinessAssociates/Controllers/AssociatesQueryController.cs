@@ -21,7 +21,7 @@ namespace EGMS.BusinessAssociates.API.Controllers
 
 
         [HttpGet]
-        public Task<IActionResult> GetAssociate(QueryModels.AssociateQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetAssociates(request), _log);
+        public Task<IActionResult> GetAssociates(QueryModels.AssociateQueryParams request) => RequestHandler.HandleQuery(() => _queryRepo.GetAssociates(request), _log);
 
         [HttpGet]
         [Route("{associateId}")]
