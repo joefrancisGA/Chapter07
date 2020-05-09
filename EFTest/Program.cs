@@ -245,6 +245,19 @@ namespace EFTest
             DirectTest(testType);
         }
 
+        private static IEnumerable<AssociateRM> GetListOfAssociates(int testType)
+        {
+            Console.WriteLine("EFTEST:  Get list of associates");
+
+            IEnumerable<AssociateRM> associates = null;
+
+            associates = testType == 1 ? _queryRepo.GetAssociates().Result : JsonConvert.DeserializeObject<IEnumerable<AssociateRM>>(GetREST(GetAssociatesAPI));
+
+            Console.WriteLine("Number of retrieved associates = " + (associates?.Count() ?? 0));
+
+            return associates;
+        }
+
         static void DirectTest(int testType)
         {
             var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Associate, AssociateRM>(); });
@@ -289,20 +302,21 @@ namespace EFTest
 
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-            
-            
+
+            IEnumerable<AssociateRM> associates = GetListOfAssociates(testType);
+
             Console.WriteLine("EFTEST:  Get list of associates");
 
-            string json = null;
+            //string json = null;
 
-            Task<IEnumerable<AssociateRM>> associates = null;
+            //Task<IEnumerable<AssociateRM>> associates = null;
 
-            if (testType == 1)
-                associates = _queryRepo.GetAssociates();
-            else
-                json = GetREST(GetAssociatesAPI);
+            //if (testType == 1)
+            //    associates = _queryRepo.GetAssociates();
+            //else
+            //    json = GetREST(GetAssociatesAPI);
             
-            Console.WriteLine("Number of retrieved associates = " + (associates?.Result.Count() ?? 0));
+            //Console.WriteLine("Number of retrieved associates = " + (associates?.Result.Count() ?? 0));
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
