@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Data.EF;
 using EGMS.BusinessAssociates.Domain.Repositories;
+using EGMS.BusinessAssociates.Query;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -71,6 +72,7 @@ namespace EGMS.BusinessAssociates.API
             services.AddScoped<DbConnection>(c => new SqlConnection(connectionString));
             services.AddTransient(_ => new EGMSDb(connectionString));
             services.AddScoped<IAssociateRepository, AssociateRepositoryEF>();
+            services.AddScoped<IAssociateQueryRepository, AssociateQueryRepositoryEF>();
             //services.AddScoped<IAssociateRepository>(x => new AssociateRepository(x.GetRequiredService<EGMSDb>()));
             services.AddScoped<AssociatesApplicationService>();
             //services.AddScoped<IUnitOfWork, AssociateUnitOfWorkEF>();

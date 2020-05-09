@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using EGMS.BusinessAssociates.Domain;
 using static EGMS.BusinessAssociates.Query.QueryModels;
 
@@ -7,7 +8,7 @@ namespace EGMS.BusinessAssociates.Data.EF
 {
     public static class QueryUtils
     {
-        public static IQueryable<Associate> ApplyQuery(this IQueryable<Associate> query, AssociateQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<Associate> ApplyQuery(this IEnumerable<Associate> query, AssociateQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -17,7 +18,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<Address> ApplyQuery(this IQueryable<Address> query, AddressQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<Address> ApplyQuery(this IEnumerable<Address> query, AddressQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -27,7 +28,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<AgentRelationship> ApplyQuery(this IQueryable<AgentRelationship> query, AgentRelationshipQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<AgentRelationship> ApplyQuery(this IEnumerable<AgentRelationship> query, AgentRelationshipQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -37,7 +38,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<User> ApplyQuery(this IQueryable<User> query, UserQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<User> ApplyQuery(this IEnumerable<User> query, UserQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -47,7 +48,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<Certification> ApplyQuery(this IQueryable<Certification> query, CertificationQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<Certification> ApplyQuery(this IEnumerable<Certification> query, CertificationQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -57,7 +58,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<Contact> ApplyQuery(this IQueryable<Contact> query, ContactQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<Contact> ApplyQuery(this IEnumerable<Contact> query, ContactQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -67,7 +68,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
         
-        public static IQueryable<ContactConfiguration> ApplyQuery(this IQueryable<ContactConfiguration> query, ContactConfigurationQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<ContactConfiguration> ApplyQuery(this IEnumerable<ContactConfiguration> query, ContactConfigurationQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -77,7 +78,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<Customer> ApplyQuery(this IQueryable<Customer> query, CustomerQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<Customer> ApplyQuery(this IEnumerable<Customer> query, CustomerQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -87,7 +88,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<EMail> ApplyQuery(this IQueryable<EMail> query, EMailQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<EMail> ApplyQuery(this IEnumerable<EMail> query, EMailQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -97,7 +98,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<OperatingContext> ApplyQuery(this IQueryable<OperatingContext> query, OperatingContextQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<OperatingContext> ApplyQuery(this IEnumerable<OperatingContext> query, OperatingContextQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -107,7 +108,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<Phone> ApplyQuery(this IQueryable<Phone> query, PhoneQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<Phone> ApplyQuery(this IEnumerable<Phone> query, PhoneQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -117,7 +118,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<Role> ApplyQuery(this IQueryable<Role> query, RoleQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<Role> ApplyQuery(this IEnumerable<Role> query, RoleQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -127,7 +128,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<EGMSPermission> ApplyQuery(this IQueryable<EGMSPermission> query, EGMSPermissionQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<EGMSPermission> ApplyQuery(this IEnumerable<EGMSPermission> query, EGMSPermissionQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -137,7 +138,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<RoleEGMSPermission> ApplyQuery(this IQueryable<RoleEGMSPermission> query, RoleEGMSPermissionQueryParams queryParams, bool usePaging = true)
+        public static IEnumerable<RoleEGMSPermission> ApplyQuery(this IEnumerable<RoleEGMSPermission> query, RoleEGMSPermissionQueryParams queryParams, bool usePaging = true)
         {
             if (queryParams.Id.HasValue)
             {
@@ -147,7 +148,7 @@ namespace EGMS.BusinessAssociates.Data.EF
             return query.ApplyBaseQuery(queryParams);
         }
 
-        public static IQueryable<T> ApplyBaseQuery<T>(this IQueryable<T> query, BaseQueryParams queryParams)
+        public static IEnumerable<T> ApplyBaseQuery<T>(this IEnumerable<T> query, BaseQueryParams queryParams)
         {
             if (queryParams.Page != null && queryParams.PageSize != null)
             {

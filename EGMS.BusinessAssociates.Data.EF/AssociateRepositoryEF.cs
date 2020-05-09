@@ -464,7 +464,22 @@ namespace EGMS.BusinessAssociates.Data.EF
         
         public bool AssociateExists(int id)
         {
-            return _context.Associates.FirstOrDefault(a => a.DUNSNumber == id) != null;
+            Associate associate = null;
+
+            try
+            {
+                int count = _context.Associates.Count();
+
+                associate = _context.Associates.FirstOrDefault(a => a.DUNSNumber == id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+                
+            return (associate != null);
         }
 
         public bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId)
@@ -598,12 +613,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         
         public void UpdateOperatingContext(OperatingContext operatingContext)
         {
-            OperatingContext foundOperatingContext = _context.OperatingContexts.FirstOrDefault(oc => oc.Id == operatingContext.Id);
-
-            if (foundOperatingContext == null)
-                throw new InvalidOperationException("OperatingContext not found.");
-
-            _context.OperatingContexts.Update(operatingContext);
+            _context.OperatingContexts[operatingContext.Id] = operatingContext;
         }
 
         #endregion Updates

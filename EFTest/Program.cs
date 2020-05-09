@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
@@ -10,6 +12,9 @@ using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
@@ -22,7 +27,7 @@ namespace EFTest
     {
         private static int _instanceType;
         private static int _dunsNumber = new Random().Next(100000000,900000000);
-        private readonly IAssociateQueryRepository _queryRepo;
+        private static IAssociateQueryRepository _queryRepo;
 
         // What about new third party supplier ID?
 
@@ -223,14 +228,17 @@ namespace EFTest
                 throw new Exception("Must choose 1 or 2 for test type");
             }
 
-            Console.WriteLine("1 = Debugger on HTTPS port 44396");
-            Console.WriteLine("2 = Standalone on HTTP port 5000");
-
-            input = Console.ReadLine();
-            
-            if (!int.TryParse(input, out _instanceType) || _instanceType < 1 || _instanceType > 2)
+            if (testType == 2)
             {
-                throw new Exception("Must choose 1 or 2 for test type");
+                Console.WriteLine("1 = Debugger on HTTPS port 44396");
+                Console.WriteLine("2 = Standalone on HTTP port 5000");
+
+                input = Console.ReadLine();
+
+                if (!int.TryParse(input, out _instanceType) || _instanceType < 1 || _instanceType > 2)
+                {
+                    throw new Exception("Must choose 1 or 2 for test type");
+                }
             }
 
             DirectTest(testType);
@@ -243,10 +251,16 @@ namespace EFTest
             IMapper mapper = new Mapper(mapperConfig);
             ILoggerFactory loggerFactory = new NullLoggerFactory();
             ILogger<AssociateRepositoryEF> logger = new Logger<AssociateRepositoryEF>(loggerFactory);
-            BusinessAssociatesContext context = new BusinessAssociatesContext();
+
+            DbContextOptionsBuilder<BusinessAssociatesContext> optionsBuilder =
+                new DbContextOptionsBuilder<BusinessAssociatesContext>();
+            optionsBuilder.UseSqlServer("Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True").EnableSensitiveDataLogging(); 
+
+            BusinessAssociatesContext context = new BusinessAssociatesContext(optionsBuilder.Options);
             AssociateRepositoryEF repository = new AssociateRepositoryEF(context, logger, mapper);
             AssociatesApplicationService appService = new AssociatesApplicationService(repository, mapper);
-
+            _queryRepo = new AssociateQueryRepositoryEF(context, mapper);
+            
             // Set up Associate
 
             Console.WriteLine("EFTEST:  Setting up Internal Associate Atlanta Gas Light");
@@ -274,17 +288,18 @@ namespace EFTest
 
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-
+            
             
             Console.WriteLine("EFTEST:  Get list of associates");
 
             string json = null;
 
-            //if (testType == 1)
-                //System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult> x = RequestHandler.HandleQuery(() => _queryRepo.GetAssociates(associateId), loggerFactory); 
-           // else
-           //     json = GetREST(GetAssociatesAPI);
+            Task<IActionResult> associates;
+
+            if (testType == 1)
+                associates = RequestHandler.HandleQuery(() => _queryRepo.GetAssociates(), logger); 
+            else
+                json = GetREST(GetAssociatesAPI);
 
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
