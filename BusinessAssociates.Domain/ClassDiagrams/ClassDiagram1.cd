@@ -3,20 +3,19 @@
   <Class Name="EGMS.BusinessAssociates.Domain.Associate">
     <Position X="18.5" Y="8.75" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>DAHJAAAECCGCQQAIAAAAAAAAgCgBAcCAIICQoAEAAQA=</HashCode>
+      <HashCode>DAHJAAAECCGCQQAIAAAAAAAAACgBAcCAIICQoAEAAQA=</HashCode>
       <FileName>Associate.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Addresses" />
-      <Property Name="AssociateUsers" />
       <Property Name="AgentUsers" />
       <Property Name="AssociateCustomers" />
       <Property Name="AssociateOperatingContexts" />
-      <Property Name="Contacts" />
+      <Property Name="AssociateUsers" />
       <Property Name="Customers" />
+      <Property Name="Contacts" />
       <Property Name="EMails" />
       <Property Name="OperatingContexts" />
-      <Property Name="PredecessorBusinessAssociates" />
       <Property Name="Phones" />
     </ShowAsCollectionAssociation>
   </Class>
@@ -34,8 +33,8 @@
       <FileName>AgentRelationship.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Agent" />
       <Property Name="Principal" />
+      <Property Name="Agent" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="AgentRelationshipUserList" />
@@ -113,16 +112,16 @@
       <FileName>Contact.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="PrimaryAddress" />
-      <Property Name="PrimaryEMail" />
       <Property Name="PrimaryPhone" />
+      <Property Name="PrimaryEMail" />
+      <Property Name="PrimaryAddress" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="ContactConfigurations" />
       <Property Name="ContactPhones" />
-      <Property Name="Addresses" />
       <Property Name="Emails" />
       <Property Name="Phones" />
+      <Property Name="Addresses" />
+      <Property Name="ContactConfigurations" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EGMS.BusinessAssociates.Domain.Customer">
@@ -149,19 +148,19 @@
       <FileName>OperatingContext.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Property Name="ThirdPartySupplier" />
       <Property Name="Certification" />
-      <Property Name="PrimaryAddress" />
+      <Property Name="Role" />
       <Property Name="PrimaryEmail" />
       <Property Name="PrimaryPhone" />
-      <Property Name="Role" />
-      <Property Name="ThirdPartySupplier" />
+      <Property Name="PrimaryAddress" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Addresses" />
       <Property Name="EMails" />
       <Property Name="Phones" />
-      <Property Name="OperatingContextCustomers" />
+      <Property Name="Addresses" />
       <Property Name="Roles" />
+      <Property Name="OperatingContextCustomers" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EGMS.BusinessAssociates.Domain.Phone">

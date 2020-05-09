@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -294,13 +295,14 @@ namespace EFTest
 
             string json = null;
 
-            Task<IActionResult> associates;
+            Task<IEnumerable<AssociateRM>> associates = null;
 
             if (testType == 1)
-                associates = RequestHandler.HandleQuery(() => _queryRepo.GetAssociates(), logger); 
+                associates = _queryRepo.GetAssociates();
             else
                 json = GetREST(GetAssociatesAPI);
-
+            
+            Console.WriteLine("Number of retrieved associates = " + (associates?.Result.Count() ?? 0));
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
