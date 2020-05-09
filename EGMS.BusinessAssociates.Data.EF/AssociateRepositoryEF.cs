@@ -464,22 +464,7 @@ namespace EGMS.BusinessAssociates.Data.EF
         
         public bool AssociateExists(int id)
         {
-            Associate associate = null;
-
-            try
-            {
-                int count = _context.Associates.Count();
-
-                associate = _context.Associates.FirstOrDefault(a => a.DUNSNumber == id);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
-                
-            return (associate != null);
+            return _context.Associates.FirstOrDefault(a => a.DUNSNumber == id) != null;
         }
 
         public bool CertificationExistsForOperatingContext(Certification certification, int operatingContextId)
