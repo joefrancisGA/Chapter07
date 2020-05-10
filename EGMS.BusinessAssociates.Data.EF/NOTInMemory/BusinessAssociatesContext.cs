@@ -449,8 +449,6 @@ namespace EGMS.BusinessAssociates.Data.EF.NOTInMemory
                     .HasConstraintName("FK_OperatingContexts_PrimaryPhone");
                 entity.HasOne(d => d.ProviderType).WithMany(p7 => p7.OperatingContexts).HasForeignKey(d => d.ProviderTypeId)
                     .HasConstraintName("FK_OperatingContexts_ProviderTypes");
-                entity.HasOne(d => d.Role).WithMany(p8 => p8.OperatingContexts).HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK_OperatingContexts_Roles");
                 entity.HasOne(d => d.Status).WithMany(p9 => p9.OperatingContexts).HasForeignKey(d => d.StatusCodeId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_OperatingContexts_StatusCodes");
                 entity.HasOne(d => d.ThirdPartySupplier).WithMany(p10 => p10.OperatingContexts).HasForeignKey(d => d.ThirdPartySupplierId)

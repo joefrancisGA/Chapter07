@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="EGMS.BusinessAssociates.Domain.OperatingContext">
+    <Position X="3.75" Y="6.25" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>CCBAAAAECDEGQUoAAAIgAAAAAyCBCBAAEIABIEEABAA=</HashCode>
+      <FileName>OperatingContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Certification" />
+      <Property Name="PrimaryAddress" />
+      <Property Name="PrimaryPhone" />
+      <Property Name="ThirdPartySupplier" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="AssociateOperatingContexts" />
+      <Property Name="Addresses" />
+      <Property Name="EMails" />
+      <Property Name="OperatingContextCustomers" />
+      <Property Name="Phones" />
+      <Property Name="Roles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.AssociateOperatingContext">
+    <Position X="2.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABCAACAAAAAABAAAAAAAAAAAABAAAIAAAAAAAAA=</HashCode>
+      <FileName>AssociateOperatingContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Address">
+    <Position X="10.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ASAAAAABACAAAAAJuAkEAAAgAAYAANAAAAAAgEQAIiA=</HashCode>
+      <FileName>Address.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.EMail">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABAAAAACAAAAAACAAAAIgAAAAAAFEAAAAAgAAAAAA=</HashCode>
+      <FileName>EMail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.OperatingContextCustomer">
+    <Position X="5.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAACAACAAAAAABAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>OperatingContextCustomer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Phone">
+    <Position X="10.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAgCAAAAAACAAARAAAAAAAAVEAAAAAgAAAAiA=</HashCode>
+      <FileName>Phone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Certification">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAAAAgAAAAAAAEACAAFAAAAAAgAAAAAA=</HashCode>
+      <FileName>Certification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Role">
+    <Position X="10.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAQAgMAAAAAAAAAAAAFAAEAAAkAAAAAA=</HashCode>
+      <FileName>Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EGMS.BusinessAssociates.Domain.Associate">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DAHJAAAECCGCQQAIAAAAAAAAgCgBAcCAIICQoAEAAQA=</HashCode>
+      <FileName>Associate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

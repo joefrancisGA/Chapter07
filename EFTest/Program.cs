@@ -29,6 +29,7 @@ namespace EFTest
         private static int _instanceType;
         private static int _dunsNumber = new Random().Next(100000000,900000000);
         private static IAssociateQueryRepository _queryRepo;
+        private static AssociatesApplicationService _appService;
 
         // What about new third party supplier ID?
 
@@ -242,6 +243,7 @@ namespace EFTest
                 }
             }
 
+            Initialize();
             DirectTest(testType);
         }
 
@@ -258,7 +260,35 @@ namespace EFTest
             return associates;
         }
 
-        static void DirectTest(int testType)
+        private static AssociateRM CreateAssociate(int testType)
+        {
+            Console.WriteLine("EFTEST:  Setting up Internal Associate Atlanta Gas Light");
+
+            Commands.V1.Associate.Create createAssociateCommand = new Commands.V1.Associate.Create
+            {
+                AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
+                DUNSNumber = _dunsNumber++,
+                IsDeactivating = false,
+                IsInternal = true,
+                IsParent = false,
+                LongName = "Atlanta Gas Light",
+                ShortName = "AGL",
+                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            };
+
+            Console.WriteLine("EFTEST:  Getting AssociateRM");
+
+            AssociateRM associateRM;
+
+            if (testType == 1)
+                associateRM = (AssociateRM)_appService.Handle(createAssociateCommand).Result;
+            else
+                associateRM = CreateAssociateWithREST(createAssociateCommand);
+
+            return associateRM;
+        }
+
+        static void Initialize()
         {
             var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Associate, AssociateRM>(); });
 
@@ -268,13 +298,16 @@ namespace EFTest
 
             DbContextOptionsBuilder<BusinessAssociatesContext> optionsBuilder =
                 new DbContextOptionsBuilder<BusinessAssociatesContext>();
-            optionsBuilder.UseSqlServer("Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True").EnableSensitiveDataLogging(); 
+            optionsBuilder.UseSqlServer("Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True").EnableSensitiveDataLogging();
 
             BusinessAssociatesContext context = new BusinessAssociatesContext(optionsBuilder.Options);
             AssociateRepositoryEF repository = new AssociateRepositoryEF(context, logger, mapper);
-            AssociatesApplicationService appService = new AssociatesApplicationService(repository, mapper);
+            _appService = new AssociatesApplicationService(repository, mapper);
             _queryRepo = new AssociateQueryRepositoryEF(context, mapper);
-            
+        }
+
+        static void DirectTest(int testType)
+        {
             // Set up Associate
 
             Console.WriteLine("EFTEST:  Setting up Internal Associate Atlanta Gas Light");
@@ -296,7 +329,7 @@ namespace EFTest
             AssociateRM associateRM;
 
             if (testType == 1)
-                associateRM = (AssociateRM)appService.Handle(createAssociateCommand).Result;
+                associateRM = (AssociateRM)_appService.Handle(createAssociateCommand).Result;
             else
                 associateRM = CreateAssociateWithREST(createAssociateCommand);
 
@@ -304,19 +337,6 @@ namespace EFTest
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             IEnumerable<AssociateRM> associates = GetListOfAssociates(testType);
-
-            Console.WriteLine("EFTEST:  Get list of associates");
-
-            //string json = null;
-
-            //Task<IEnumerable<AssociateRM>> associates = null;
-
-            //if (testType == 1)
-            //    associates = _queryRepo.GetAssociates();
-            //else
-            //    json = GetREST(GetAssociatesAPI);
-            
-            //Console.WriteLine("Number of retrieved associates = " + (associates?.Result.Count() ?? 0));
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -342,7 +362,7 @@ namespace EFTest
             ContactRM contactRM;
 
             if (testType == 1)
-                contactRM = (ContactRM) appService.Handle(createContactForAssociateCommand).Result;
+                contactRM = (ContactRM) _appService.Handle(createContactForAssociateCommand).Result;
             else
                 contactRM = CreateContactForAssociateWithREST(associateRM.Id, createContactCommand);
 
@@ -372,7 +392,7 @@ namespace EFTest
 
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                userRM = (UserRM)appService.Handle(createUserForAssociateCommand).Result;
+                userRM = (UserRM)_appService.Handle(createUserForAssociateCommand).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 userRM = CreateUserForAssociateWithREST(createUserForAssociateCommand);
@@ -438,7 +458,7 @@ namespace EFTest
 
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                customerRM = (CustomerRM)appService.Handle(createCustomerForAssociateCommand).Result;
+                customerRM = (CustomerRM)_appService.Handle(createCustomerForAssociateCommand).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 customerRM = CreateCustomerForAssociateWithREST(createCustomerForAssociateCommand);
@@ -476,7 +496,7 @@ namespace EFTest
 
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                operatingContextRM = (OperatingContextRM)appService.Handle(createOperatingContextForCustomerCommand).Result;
+                operatingContextRM = (OperatingContextRM)_appService.Handle(createOperatingContextForCustomerCommand).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 operatingContextRM = CreateOperatingContextForCustomerWithREST(createOperatingContextForCustomerCommand);
@@ -495,7 +515,7 @@ namespace EFTest
 
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                operatingContextForAssociateRM = (OperatingContextRM)appService.Handle(createOperatingContextForAssociateCommand).Result;
+                operatingContextForAssociateRM = (OperatingContextRM)_appService.Handle(createOperatingContextForAssociateCommand).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 operatingContextForAssociateRM = CreateOperatingContextForAssociateWithREST(associateRM.Id, createOperatingContextCommand);
@@ -527,7 +547,7 @@ namespace EFTest
             
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                agentRM = (AssociateRM)appService.Handle(createAssociateCommandForAgent).Result;
+                agentRM = (AssociateRM)_appService.Handle(createAssociateCommandForAgent).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 agentRM = CreateAssociateWithREST(createAssociateCommandForAgent);
@@ -559,7 +579,7 @@ namespace EFTest
 
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                userRM2 = (UserRM) appService.Handle(createUserForAgent).Result;
+                userRM2 = (UserRM) _appService.Handle(createUserForAgent).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 userRM2 = CreateUserForAssociateWithREST(createUserForAgent);
@@ -589,7 +609,7 @@ namespace EFTest
             
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                assetManagerRM = (AssociateRM)appService.Handle(createAssetManagerForTPS).Result;
+                assetManagerRM = (AssociateRM)_appService.Handle(createAssetManagerForTPS).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 assetManagerRM = CreateAssociateWithREST(createAssetManagerForTPS);
@@ -619,7 +639,7 @@ namespace EFTest
             
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
-                predecessorManagerRM = (AssociateRM)appService.Handle(createPredecessor).Result;
+                predecessorManagerRM = (AssociateRM)_appService.Handle(createPredecessor).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 predecessorManagerRM = CreateAssociateWithREST(createPredecessor);

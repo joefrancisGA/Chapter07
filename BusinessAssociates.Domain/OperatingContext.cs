@@ -26,7 +26,6 @@ namespace EGMS.BusinessAssociates.Domain
             Roles = new HashSet<Role>();
             AssociateOperatingContexts = new HashSet<AssociateOperatingContext>();
             OperatingContextCustomers = new HashSet<OperatingContextCustomer>();
-            OperatingContexts = new HashSet<OperatingContext>();
         }
 
         public OperatingContext(int operatingContextId, OperatingContextTypeLookup operatingContextType,
@@ -72,10 +71,6 @@ namespace EGMS.BusinessAssociates.Domain
         public Certification Certification { get; set; }
         public NullableDatabaseId CertificationId { get; set; }
 
-        public Role Role { get; set; }
-        public int RoleId { get; set; }
-
-
         public StatusCodeLookup Status { get; set; }
         public int StatusCodeId { get; set; }
 
@@ -96,7 +91,6 @@ namespace EGMS.BusinessAssociates.Domain
         public HashSet<Role> Roles { get; set; }
         public HashSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
         public HashSet<OperatingContextCustomer> OperatingContextCustomers { get; set; }
-        public HashSet<OperatingContext> OperatingContexts { get; set; }
 
 
         protected override void When(object @event)

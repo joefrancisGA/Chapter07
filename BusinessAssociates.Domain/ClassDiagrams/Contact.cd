@@ -1,62 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="EGMS.BusinessAssociates.Domain.Contact">
-    <Position X="23.5" Y="18" Width="6.25" />
+    <Position X="5.5" Y="8" Width="6.25" />
     <TypeIdentifier>
       <HashCode>CABAAGAAADAGAUAAEAAAAAAAAAABAFAAAAAAIEgAAAg=</HashCode>
       <FileName>Contact.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="PrimaryAddress" />
-      <Property Name="PrimaryEMail" />
       <Property Name="PrimaryPhone" />
+      <Property Name="PrimaryEMail" />
+      <Property Name="PrimaryAddress" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Addresses" />
-      <Property Name="ContactConfigurations" />
       <Property Name="ContactPhones" />
       <Property Name="Emails" />
       <Property Name="Phones" />
+      <Property Name="Addresses" />
+      <Property Name="ContactConfigurations" />
       <Property Name="Users" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="EGMS.BusinessAssociates.Domain.Address">
-    <Position X="25.25" Y="22.5" Width="1.5" />
+    <Position X="7.25" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ASAAAAABACAAAAAJuAkEAAAgAAYAANAAAAAAgEQAIiA=</HashCode>
       <FileName>Address.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EGMS.BusinessAssociates.Domain.ContactConfiguration">
-    <Position X="28.25" Y="23.75" Width="1.5" />
+    <Position X="10.25" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEACAAUAIECAEAAAAgAAAAAFEAAAAAAEAAAAA=</HashCode>
       <FileName>ContactConfiguration.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EGMS.BusinessAssociates.Domain.ContactPhone">
-    <Position X="28.25" Y="12.5" Width="1.5" />
+    <Position X="10.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAACAAAAAAAAAIAABEAAAAAIAAAAAA=</HashCode>
       <FileName>ContactPhone.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EGMS.BusinessAssociates.Domain.EMail">
-    <Position X="24.75" Y="13" Width="2.5" />
+    <Position X="6.75" Y="3" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AQABAAAAACAAAAAACAAAAIgAAAAAAFEAAAAAgAAAAAA=</HashCode>
       <FileName>EMail.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EGMS.BusinessAssociates.Domain.Phone">
-    <Position X="31.25" Y="17.75" Width="1.5" />
+    <Position X="13.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAgCAAAAAACAAARAAAAAAAAVEAAAAAgAAAAiA=</HashCode>
       <FileName>Phone.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EGMS.BusinessAssociates.Domain.User">
-    <Position X="20.25" Y="17.75" Width="1.5" />
+    <Position X="2.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAACAASQAAGAAAAAAAAAAIQVEAAEAAAAAAAAA=</HashCode>
       <FileName>User.cs</FileName>
