@@ -288,59 +288,8 @@ namespace EFTest
             return associateRM;
         }
 
-        static void Initialize()
+        private static ContactRM CreateContact_JoeFrancis(int testType, AssociateRM associateRM)
         {
-            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Associate, AssociateRM>(); });
-
-            IMapper mapper = new Mapper(mapperConfig);
-            ILoggerFactory loggerFactory = new NullLoggerFactory();
-            ILogger<AssociateRepositoryEF> logger = new Logger<AssociateRepositoryEF>(loggerFactory);
-
-            DbContextOptionsBuilder<BusinessAssociatesContext> optionsBuilder =
-                new DbContextOptionsBuilder<BusinessAssociatesContext>();
-            optionsBuilder.UseSqlServer("Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True").EnableSensitiveDataLogging();
-
-            BusinessAssociatesContext context = new BusinessAssociatesContext(optionsBuilder.Options);
-            AssociateRepositoryEF repository = new AssociateRepositoryEF(context, logger, mapper);
-            _appService = new AssociatesApplicationService(repository, mapper);
-            _queryRepo = new AssociateQueryRepositoryEF(context, mapper);
-        }
-
-        static void DirectTest(int testType)
-        {
-            // Set up Associate
-
-            Console.WriteLine("EFTEST:  Setting up Internal Associate Atlanta Gas Light");
-
-            Commands.V1.Associate.Create createAssociateCommand = new Commands.V1.Associate.Create
-            {
-                AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
-                DUNSNumber = _dunsNumber++,
-                IsDeactivating = false,
-                IsInternal = true,
-                IsParent = false,
-                LongName = "Atlanta Gas Light",
-                ShortName = "AGL",
-                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
-            };
-
-            Console.WriteLine("EFTEST:  Getting AssociateRM");
-
-            AssociateRM associateRM;
-
-            if (testType == 1)
-                associateRM = (AssociateRM)_appService.Handle(createAssociateCommand).Result;
-            else
-                associateRM = CreateAssociateWithREST(createAssociateCommand);
-
-
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-            IEnumerable<AssociateRM> associates = GetListOfAssociates(testType);
-
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-            // Set up Contact
             Console.WriteLine("EFTEST:  Setting up Joe Francis contact");
 
             Commands.V1.Contact.Create createContactCommand = new Commands.V1.Contact.Create
@@ -362,14 +311,16 @@ namespace EFTest
             ContactRM contactRM;
 
             if (testType == 1)
-                contactRM = (ContactRM) _appService.Handle(createContactForAssociateCommand).Result;
+                contactRM = (ContactRM)_appService.Handle(createContactForAssociateCommand).Result;
             else
                 contactRM = CreateContactForAssociateWithREST(associateRM.Id, createContactCommand);
 
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            return contactRM;
+        }
 
-            // Set up User for Contact
-
+        
+        private static UserRM CreateUserForContact(int testType, AssociateRM associateRM, ContactRM contactRM)
+        {
             Console.WriteLine("EFTEST:  Setting up Joe Francis User from Joe Francis contact");
 
             Commands.V1.User.Create createUserCommand = new Commands.V1.User.Create
@@ -396,11 +347,12 @@ namespace EFTest
             else
                 // ReSharper disable once RedundantAssignment
                 userRM = CreateUserForAssociateWithREST(createUserForAssociateCommand);
-            
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-            // Set up Customer for Associate - can we get rid of this and just use relationship object
+            return userRM;
+        }
 
+        private static CustomerRM CreateCustomer_WalMart(int testType, AssociateRM associateRM)
+        {
             Console.WriteLine("EFTEST:  Setting up WalMart customer for Associate");
 
             Commands.V1.Customer.Create createCustomerCommand = new Commands.V1.Customer.Create
@@ -462,11 +414,12 @@ namespace EFTest
             else
                 // ReSharper disable once RedundantAssignment
                 customerRM = CreateCustomerForAssociateWithREST(createCustomerForAssociateCommand);
-            
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-            // Set Up Operating Context
+            return customerRM;
+        }
 
+        private static OperatingContextRM GetOperatingContext(int testType, CustomerRM customerRM)
+        {
             Commands.V1.OperatingContext.Create createOperatingContextCommand =
                 new Commands.V1.OperatingContext.Create
                 {
@@ -501,10 +454,32 @@ namespace EFTest
                 // ReSharper disable once RedundantAssignment
                 operatingContextRM = CreateOperatingContextForCustomerWithREST(createOperatingContextForCustomerCommand);
 
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+            return operatingContextRM;
+        }
+
+        private static OperatingContextRM GetOperatingContextForAssociate(int testType, AssociateRM associateRM)
+        {
+            Commands.V1.OperatingContext.Create createOperatingContextCommand =
+                new Commands.V1.OperatingContext.Create
+                {
+                    ActingBATypeID = 1,
+                    PrimaryAddressId = 1,
+                    Status = 1,
+                    CertificationId = 1,
+                    OperatingContextType = 1,
+                    IsDeactivating = false,
+                    ThirdPartySupplierId = 1,
+                    FacilityId = 1,
+                    ProviderType = 1,
+                    LegacyId = 1,
+                    PrimaryPhoneId = 1,
+                    PrimaryEmailId = 1,
+                    StartDate = DateTime.Now
+                };
+
 
             // Set up relationship between Associate and OperatingContext
-            
+
             Console.WriteLine("EFTEST:  Getting OperatingContextRM for Associate");
 
             // ReSharper disable once NotAccessedVariable
@@ -519,12 +494,12 @@ namespace EFTest
             else
                 // ReSharper disable once RedundantAssignment
                 operatingContextForAssociateRM = CreateOperatingContextForAssociateWithREST(associateRM.Id, createOperatingContextCommand);
+            
+            return operatingContextForAssociateRM;
+        }
 
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-            // Set up Associate as Agent
-
-            // Set up Associate
+        private static AssociateRM SetUpAGLServicesAgent(int testType)
+        {
 
             Console.WriteLine("EFTEST:  Setting up AGL Services Agent");
 
@@ -544,13 +519,78 @@ namespace EFTest
 
             // ReSharper disable once NotAccessedVariable
             AssociateRM agentRM;
-            
+
             if (testType == 1)
                 // ReSharper disable once RedundantAssignment
                 agentRM = (AssociateRM)_appService.Handle(createAssociateCommandForAgent).Result;
             else
                 // ReSharper disable once RedundantAssignment
                 agentRM = CreateAssociateWithREST(createAssociateCommandForAgent);
+
+            return agentRM;
+        }
+
+        static void Initialize()
+        {
+            var mapperConfig = new MapperConfiguration(cfg => { cfg.CreateMap<Associate, AssociateRM>(); });
+
+            IMapper mapper = new Mapper(mapperConfig);
+            ILoggerFactory loggerFactory = new NullLoggerFactory();
+            ILogger<AssociateRepositoryEF> logger = new Logger<AssociateRepositoryEF>(loggerFactory);
+
+            DbContextOptionsBuilder<BusinessAssociatesContext> optionsBuilder =
+                new DbContextOptionsBuilder<BusinessAssociatesContext>();
+            optionsBuilder.UseSqlServer("Server=localhost\\egms;Database=BusinessAssociates;Trusted_Connection=True").EnableSensitiveDataLogging();
+
+            BusinessAssociatesContext context = new BusinessAssociatesContext(optionsBuilder.Options);
+            AssociateRepositoryEF repository = new AssociateRepositoryEF(context, logger, mapper);
+            _appService = new AssociatesApplicationService(repository, mapper);
+            _queryRepo = new AssociateQueryRepositoryEF(context, mapper);
+        }
+
+        static void DirectTest(int testType)
+        {
+
+            AssociateRM associateRM = CreateAssociate_AtlantaGasLight(testType);
+            IEnumerable<AssociateRM> associates = GetListOfAssociates(testType);
+            ContactRM contactRM = CreateContact_JoeFrancis(testType, associateRM);
+            UserRM userRM = CreateUserForContact(testType, associateRM, contactRM);
+            CustomerRM customerRM = CreateCustomer_WalMart(testType, associateRM);
+            OperatingContextRM operatingContextRM = GetOperatingContext(testType, customerRM);
+            OperatingContextRM operatingContextForAssociateRM = GetOperatingContextForAssociate(testType, associateRM);
+            SetUpAGLServicesAgent(testType);
+
+
+  
+            // Set up Associate as Agent
+
+            // Set up Associate
+
+            //Console.WriteLine("EFTEST:  Setting up AGL Services Agent");
+
+            //Commands.V1.Associate.Create createAssociateCommandForAgent = new Commands.V1.Associate.Create
+            //{
+            //    AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManager].ActingAssociateTypeId,
+            //    DUNSNumber = _dunsNumber++,
+            //    IsDeactivating = false,
+            //    IsInternal = true,
+            //    IsParent = false,
+            //    LongName = "AGL Services",
+            //    ShortName = "SCS",
+            //    StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            //};
+
+            //Console.WriteLine("EFTEST:  Getting AssociateRM for Agent");
+
+            //// ReSharper disable once NotAccessedVariable
+            //AssociateRM agentRM;
+            
+            //if (testType == 1)
+            //    // ReSharper disable once RedundantAssignment
+            //    agentRM = (AssociateRM)_appService.Handle(createAssociateCommandForAgent).Result;
+            //else
+            //    // ReSharper disable once RedundantAssignment
+            //    agentRM = CreateAssociateWithREST(createAssociateCommandForAgent);
 
             // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
