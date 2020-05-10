@@ -26,6 +26,7 @@ namespace EGMS.BusinessAssociates.Domain
             Roles = new HashSet<Role>();
             AssociateOperatingContexts = new HashSet<AssociateOperatingContext>();
             OperatingContextCustomers = new HashSet<OperatingContextCustomer>();
+            OperatingContextRoles = new HashSet<OperatingContextRole>();
         }
 
         public OperatingContext(int operatingContextId, OperatingContextTypeLookup operatingContextType,
@@ -65,6 +66,9 @@ namespace EGMS.BusinessAssociates.Domain
         public ProviderTypeLookup ProviderType { get; set; }
         public int ProviderTypeId { get; set; }
 
+        public Role Role { get; set; }
+        public int RoleId { get; set; }
+
         public ExternalAssociateTypeLookup ExternalBAType { get; set; }
         public int ActingBATypeId { get; set; }
 
@@ -91,6 +95,8 @@ namespace EGMS.BusinessAssociates.Domain
         public HashSet<Role> Roles { get; set; }
         public HashSet<AssociateOperatingContext> AssociateOperatingContexts { get; set; }
         public HashSet<OperatingContextCustomer> OperatingContextCustomers { get; set; }
+        public HashSet<OperatingContextRole> OperatingContextRoles { get; set; }
+
 
 
         protected override void When(object @event)

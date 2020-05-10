@@ -1,10 +1,10 @@
-﻿    using EGMS.BusinessAssociates.Domain;
+﻿using EGMS.BusinessAssociates.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using EGMS.BusinessAssociates.Domain.Enums;
+using EGMS.BusinessAssociates.Domain.Enums;
 
-    namespace EGMS.BusinessAssociates.Data.EF
+
+namespace EGMS.BusinessAssociates.Data.EF
 {
     public class BusinessAssociatesContext : DbContext
     {
@@ -25,7 +25,7 @@ using System.Collections.Generic;
 
 
         // Links
-        public DbSet<AgentRelationship> AgentRelationships { get; set; }
+        public List<AgentRelationship> AgentRelationships { get; set; } = new List<AgentRelationship>();
         public List<AssociateContact> AssociateContacts { get; set; } = new List<AssociateContact>();
         public List<AssociateCustomer> AssociateCustomers { get; set; } = new List<AssociateCustomer>();
         public List<AssociateOperatingContext> AssociateOperatingContexts { get; set; } = new List<AssociateOperatingContext>();
@@ -40,8 +40,7 @@ using System.Collections.Generic;
         public List<CustomerAlternateFuel> CustomerAlternateFuels { get; set; } = new List<CustomerAlternateFuel>();
         public List<CustomerEMail> CustomerEMails { get; set; } = new List<CustomerEMail>();
         public List<CustomerPhone> CustomerPhones { get; set; } = new List<CustomerPhone>();
-        public List<CustomerOperatingContext> CustomerOperatingContexts { get; set; } =
-            new List<CustomerOperatingContext>();
+        public List<CustomerOperatingContext> CustomerOperatingContexts { get; set; } = new List<CustomerOperatingContext>();
         public DbSet<RoleEGMSPermission> RoleEGMSPermissions { get; set; }
         public List<OperatingContextCustomer> OperatingContextCustomers { get; set; } = new List<OperatingContextCustomer>();
         public List<OperatingContextRole> OperatingContextRoles { get; set; } = new List<OperatingContextRole>();
@@ -50,8 +49,8 @@ using System.Collections.Generic;
         // UnhandledLists
         // TO DO:  The first release should include support for the first three lists
         public List<AgentUser> AgentUsers { get; set; } = new List<AgentUser>();
-        public DbSet<Certification> Certifications { get; set; }
-        public DbSet<ContactConfiguration> ContactConfigurations { get; set; }
+        public List<Certification> Certifications { get; set; } = new List<Certification>();
+        public List<ContactConfiguration> ContactConfigurations { get; set; } = new List<ContactConfiguration>();
 
         // TO DO:  Not important until Lifecycle release
         public List<Associate> PredecessorBusinessAssociates { get; set; } = new List<Associate>();
@@ -472,6 +471,8 @@ using System.Collections.Generic;
                     .HasConstraintName("FK_OperatingContexts_PrimaryPhone");
                 entity.HasOne(d => d.ProviderType).WithMany(p7 => p7.OperatingContexts).HasForeignKey(d => d.ProviderTypeId)
                     .HasConstraintName("FK_OperatingContexts_ProviderTypes");
+                entity.HasOne(d => d.Role).WithMany(p8 => p8.OperatingContexts).HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK_OperatingContexts_Roles");
                 entity.HasOne(d => d.Status).WithMany(p9 => p9.OperatingContexts).HasForeignKey(d => d.StatusCodeId)
                     .OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_OperatingContexts_StatusCodes");
                 entity.HasOne(d => d.ThirdPartySupplier).WithMany(p10 => p10.OperatingContexts).HasForeignKey(d => d.ThirdPartySupplierId)

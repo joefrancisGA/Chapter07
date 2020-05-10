@@ -260,7 +260,7 @@ namespace EFTest
             return associates;
         }
 
-        private static AssociateRM CreateAssociate(int testType)
+        private static AssociateRM CreateAssociate_AtlantaGasLight(int testType)
         {
             Console.WriteLine("EFTEST:  Setting up Internal Associate Atlanta Gas Light");
 
