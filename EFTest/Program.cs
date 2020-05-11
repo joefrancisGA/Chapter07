@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
-using EGMS.BusinessAssociates.API.Infrastructure;
 using EGMS.BusinessAssociates.Command;
 using EGMS.BusinessAssociates.Data.EF;
 using EGMS.BusinessAssociates.Domain;
 using EGMS.BusinessAssociates.Domain.Enums;
 using EGMS.BusinessAssociates.Query;
 using EGMS.BusinessAssociates.Query.ReadModels;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
@@ -27,6 +22,8 @@ namespace EFTest
     class Program
     {
         private static int _instanceType;
+        //private static int _testType;
+        private static int _technologyType;
         private static int _dunsNumber = new Random().Next(100000000,900000000);
         private static IAssociateQueryRepository _queryRepo;
         private static AssociatesApplicationService _appService;
@@ -220,14 +217,39 @@ namespace EFTest
 
         static void Main()
         {
-            Console.WriteLine("1 = Direct Test");
-            Console.WriteLine("2 = REST Test");
+            Console.WriteLine("Select Technology");
+            Console.WriteLine("1 = Direct");
+            Console.WriteLine("2 = REST");
+
             string input = Console.ReadLine();
 
 
-            if (!int.TryParse(input, out var testType) || testType < 1 || testType > 2)
+            if (!int.TryParse(input, out _technologyType) || _technologyType < 1 || _technologyType > 2)
             {
-                throw new Exception("Must choose 1 or 2 for test type");
+                throw new Exception("Must choose 1 or 2 for technology type");
+            }
+
+            int testType;
+
+            Console.WriteLine("1 = Direct Test");
+            Console.WriteLine("2 = Landing Page");
+            Console.WriteLine("3 = Add Business Associate");
+            Console.WriteLine("4 = Add Internal Business Associate");
+            Console.WriteLine("5 = Add Internal Operating Context");
+            Console.WriteLine("6 = Add Asset Manager");
+            Console.WriteLine("7 = Add External Business Associate");
+            Console.WriteLine("8 = Add External Operating Context");
+            Console.WriteLine("9 = Add Agent");
+            Console.WriteLine("10 = Add Contact");
+            Console.WriteLine("11 = Add Customer");
+            Console.WriteLine("12 = Add Pipeline Company");
+
+            input = Console.ReadLine();
+
+
+            if (!int.TryParse(input, out testType) || testType < 1 || testType > 12)
+            {
+                throw new Exception("Must choose 1 through 12 for test type");
             }
 
             if (testType == 2)
@@ -239,296 +261,113 @@ namespace EFTest
 
                 if (!int.TryParse(input, out _instanceType) || _instanceType < 1 || _instanceType > 2)
                 {
-                    throw new Exception("Must choose 1 or 2 for test type");
+                    throw new Exception("Must choose 1 or 2 for instance type");
                 }
             }
 
-            Initialize();
-            DirectTest(testType);
-        }
+            if (_technologyType != 2)
+                Initialize();
 
-        private static IEnumerable<AssociateRM> GetListOfAssociates(int testType)
-        {
-            Console.WriteLine("EFTEST:  Get list of associates");
-
-            IEnumerable<AssociateRM> associates = null;
-
-            associates = testType == 1 ? _queryRepo.GetAssociates().Result : JsonConvert.DeserializeObject<IEnumerable<AssociateRM>>(GetREST(GetAssociatesAPI));
-
-            Console.WriteLine("Number of retrieved associates = " + (associates?.Count() ?? 0));
-
-            return associates;
-        }
-
-        private static AssociateRM CreateAssociate_AtlantaGasLight(int testType)
-        {
-            Console.WriteLine("EFTEST:  Setting up Internal Associate Atlanta Gas Light");
-
-            Commands.V1.Associate.Create createAssociateCommand = new Commands.V1.Associate.Create
+            switch (testType)
             {
-                AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
-                DUNSNumber = _dunsNumber++,
-                IsDeactivating = false,
-                IsInternal = true,
-                IsParent = false,
-                LongName = "Atlanta Gas Light",
-                ShortName = "AGL",
-                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
-            };
+                case 1:
+                    break;
 
-            Console.WriteLine("EFTEST:  Getting AssociateRM");
+                case 2:
+                    break;
 
-            AssociateRM associateRM;
+                case 3:
+                    break;
 
-            if (testType == 1)
-                associateRM = (AssociateRM)_appService.Handle(createAssociateCommand).Result;
-            else
-                associateRM = CreateAssociateWithREST(createAssociateCommand);
+                case 4:
+                    break;
 
-            return associateRM;
+                case 5:
+                    break;
+
+                case 6:
+                    break;
+
+                case 7:
+                    break;
+
+                case 8:
+                    break;
+
+                case 9:
+                    break;
+
+                case 10:
+                    break;
+
+                case 11:
+                    break;
+
+                case 12:
+                    break;
+
+                case 13:
+                    break;
+            }
+
+            DirectTest();
         }
 
-        private static ContactRM CreateContact_JoeFrancis(int testType, AssociateRM associateRM)
+        private void LandingPage()
         {
-            Console.WriteLine("EFTEST:  Setting up Joe Francis contact");
-
-            Commands.V1.Contact.Create createContactCommand = new Commands.V1.Contact.Create
-            {
-                PrimaryAddressId = 1,
-                IsActive = true,
-                PrimaryPhoneId = 1,
-                LastName = "Francis",
-                PrimaryEmailId = 1,
-                FirstName = "Joe",
-                Title = "Mr."
-            };
-
-            Commands.V1.Contact.CreateForAssociate createContactForAssociateCommand =
-                new Commands.V1.Contact.CreateForAssociate(associateRM.Id, createContactCommand);
-
-            Console.WriteLine("EFTEST:  Getting ContactRM");
-
-            ContactRM contactRM;
-
-            if (testType == 1)
-                contactRM = (ContactRM)_appService.Handle(createContactForAssociateCommand).Result;
-            else
-                contactRM = CreateContactForAssociateWithREST(associateRM.Id, createContactCommand);
-
-            return contactRM;
+            throw new NotImplementedException();
         }
 
-        
-        private static UserRM CreateUserForContact(int testType, AssociateRM associateRM, ContactRM contactRM)
+        private void AddBusinessAssociate()
         {
-            Console.WriteLine("EFTEST:  Setting up Joe Francis User from Joe Francis contact");
-
-            Commands.V1.User.Create createUserCommand = new Commands.V1.User.Create
-            {
-                ContactId = contactRM.Id,
-                IDMSSID = "1",
-                DepartmentCodeId = 1,
-                HasEGMSAccess = true,
-                IsActive = true,
-                IsInternal = true
-            };
-
-            Commands.V1.User.CreateForAssociate createUserForAssociateCommand =
-                new Commands.V1.User.CreateForAssociate(associateRM.Id, createUserCommand);
-
-            Console.WriteLine("EFTEST:  Getting UserRM");
-
-            // ReSharper disable once NotAccessedVariable
-            UserRM userRM;
-
-            if (testType == 1)
-                // ReSharper disable once RedundantAssignment
-                userRM = (UserRM)_appService.Handle(createUserForAssociateCommand).Result;
-            else
-                // ReSharper disable once RedundantAssignment
-                userRM = CreateUserForAssociateWithREST(createUserForAssociateCommand);
-
-            return userRM;
+            throw new NotImplementedException();
         }
 
-        private static CustomerRM CreateCustomer_WalMart(int testType, AssociateRM associateRM)
+        private void AddInternalBusinessAssociate()
         {
-            Console.WriteLine("EFTEST:  Setting up WalMart customer for Associate");
-
-            Commands.V1.Customer.Create createCustomerCommand = new Commands.V1.Customer.Create
-            {
-                StartDate = DateTime.Now,
-                AccountNumber = "12345678",
-                AlternateCustomerId = 1,
-                BalancingLevelId = 1,
-                BasicPoolId = 1,
-                ContractTypeId = 1,
-                CurrentDemand = 1,
-                DUNSNumber = _dunsNumber++,
-                DailyInterruptible = 1,
-                DeliveryLocationId = 1,
-                DeliveryPressure = 1,
-                CustomerTypeId = 1,
-                DeliveryTypeId = 1,
-                EndDate = DateTime.Now.AddYears(10),
-                IsFederal = false,
-                MDQ = 1,
-                GroupTypeId = 1,
-                LongName = "WalMart",
-                TurnOffDate = DateTime.Now.AddYears(10),
-                PreviousDemand = 1,
-                SS1 = false,
-                NominationLevelId = 1,
-                MaxHourlyInterruptible = 1,
-                NAICSCode = 1245,
-                MaxDailyInterruptible = 1,
-                StatusCodeId = 1,
-                ShipperId = 1,
-                HourlyInterruptible = 1,
-                LDCId = 1,
-                SICCode = 1,
-                InterstateSpecifiedFirm = 1,
-                TotalDailySpecifiedFirm = 1,
-                ShortName = "WMT",
-                SICCodePercentage = 1,
-                ShippersLetterToDate = DateTime.Now.AddYears(1),
-                IntrastateSpecifiedFirm = 1,
-                MaxHourlySpecifiedFirm = 1,
-                TotalHourlySpecifiedFirm = 1,
-                ShippersLetterFromDate = DateTime.Now.AddYears(-1),
-                LossTierTypeId = 1,
-                TurnOnDate = DateTime.Now.AddYears(-1)
-            };
-
-            Commands.V1.Customer.CreateForAssociate createCustomerForAssociateCommand =
-                new Commands.V1.Customer.CreateForAssociate(associateRM.Id, createCustomerCommand);
-
-            Console.WriteLine("EFTEST:  Getting CustomerRM");
-
-            // ReSharper disable once NotAccessedVariable
-            CustomerRM customerRM;
-
-            if (testType == 1)
-                // ReSharper disable once RedundantAssignment
-                customerRM = (CustomerRM)_appService.Handle(createCustomerForAssociateCommand).Result;
-            else
-                // ReSharper disable once RedundantAssignment
-                customerRM = CreateCustomerForAssociateWithREST(createCustomerForAssociateCommand);
-
-            return customerRM;
+            throw new NotImplementedException();
         }
 
-        private static OperatingContextRM GetOperatingContext(int testType, CustomerRM customerRM)
+        private void AddInternalOperatingContext()
         {
-            Commands.V1.OperatingContext.Create createOperatingContextCommand =
-                new Commands.V1.OperatingContext.Create
-                {
-                    ActingBATypeID = 1,
-                    PrimaryAddressId = 1,
-                    Status = 1,
-                    CertificationId = 1,
-                    OperatingContextType = 1,
-                    IsDeactivating = false,
-                    ThirdPartySupplierId = 1,
-                    FacilityId = 1,
-                    ProviderType = 1,
-                    LegacyId = 1,
-                    PrimaryPhoneId = 1,
-                    PrimaryEmailId = 1,
-                    StartDate = DateTime.Now
-                };
-
-            Commands.V1.OperatingContext.CreateForCustomer createOperatingContextForCustomerCommand =
-                new Commands.V1.OperatingContext.CreateForCustomer(customerRM.Id, createOperatingContextCommand);
-
-            Console.WriteLine("EFTEST:  Getting OperatingContextRM for Customer");
-
-
-            // ReSharper disable once NotAccessedVariable
-            OperatingContextRM operatingContextRM;
-
-            if (testType == 1)
-                // ReSharper disable once RedundantAssignment
-                operatingContextRM = (OperatingContextRM)_appService.Handle(createOperatingContextForCustomerCommand).Result;
-            else
-                // ReSharper disable once RedundantAssignment
-                operatingContextRM = CreateOperatingContextForCustomerWithREST(createOperatingContextForCustomerCommand);
-
-            return operatingContextRM;
+            throw new NotImplementedException();
         }
 
-        private static OperatingContextRM GetOperatingContextForAssociate(int testType, AssociateRM associateRM)
+        private void AddAssetManager()
         {
-            Commands.V1.OperatingContext.Create createOperatingContextCommand =
-                new Commands.V1.OperatingContext.Create
-                {
-                    ActingBATypeID = 1,
-                    PrimaryAddressId = 1,
-                    Status = 1,
-                    CertificationId = 1,
-                    OperatingContextType = 1,
-                    IsDeactivating = false,
-                    ThirdPartySupplierId = 1,
-                    FacilityId = 1,
-                    ProviderType = 1,
-                    LegacyId = 1,
-                    PrimaryPhoneId = 1,
-                    PrimaryEmailId = 1,
-                    StartDate = DateTime.Now
-                };
-
-
-            // Set up relationship between Associate and OperatingContext
-
-            Console.WriteLine("EFTEST:  Getting OperatingContextRM for Associate");
-
-            // ReSharper disable once NotAccessedVariable
-            OperatingContextRM operatingContextForAssociateRM;
-
-            Commands.V1.OperatingContext.CreateForAssociate createOperatingContextForAssociateCommand =
-                new Commands.V1.OperatingContext.CreateForAssociate(associateRM.Id, createOperatingContextCommand);
-
-            if (testType == 1)
-                // ReSharper disable once RedundantAssignment
-                operatingContextForAssociateRM = (OperatingContextRM)_appService.Handle(createOperatingContextForAssociateCommand).Result;
-            else
-                // ReSharper disable once RedundantAssignment
-                operatingContextForAssociateRM = CreateOperatingContextForAssociateWithREST(associateRM.Id, createOperatingContextCommand);
-            
-            return operatingContextForAssociateRM;
+            throw new NotImplementedException();
         }
 
-        private static AssociateRM SetUpAGLServicesAgent(int testType)
+        private void AddExternalBusinessAssociate()
         {
-
-            Console.WriteLine("EFTEST:  Setting up AGL Services Agent");
-
-            Commands.V1.Associate.Create createAssociateCommandForAgent = new Commands.V1.Associate.Create
-            {
-                AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManager].ActingAssociateTypeId,
-                DUNSNumber = _dunsNumber++,
-                IsDeactivating = false,
-                IsInternal = true,
-                IsParent = false,
-                LongName = "AGL Services",
-                ShortName = "SCS",
-                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
-            };
-
-            Console.WriteLine("EFTEST:  Getting AssociateRM for Agent");
-
-            // ReSharper disable once NotAccessedVariable
-            AssociateRM agentRM;
-
-            if (testType == 1)
-                // ReSharper disable once RedundantAssignment
-                agentRM = (AssociateRM)_appService.Handle(createAssociateCommandForAgent).Result;
-            else
-                // ReSharper disable once RedundantAssignment
-                agentRM = CreateAssociateWithREST(createAssociateCommandForAgent);
-
-            return agentRM;
+            throw new NotImplementedException();
         }
+
+        private void AddExternalOperatingContext()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddAgent()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddContact()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddCustomer()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddPipelineCompany()
+        {
+            throw new NotImplementedException();
+        }
+
 
         static void Initialize()
         {
@@ -548,151 +387,23 @@ namespace EFTest
             _queryRepo = new AssociateQueryRepositoryEF(context, mapper);
         }
 
-        static void DirectTest(int testType)
+        static void DirectTest()
         {
 
-            AssociateRM associateRM = CreateAssociate_AtlantaGasLight(testType);
-            IEnumerable<AssociateRM> associates = GetListOfAssociates(testType);
-            ContactRM contactRM = CreateContact_JoeFrancis(testType, associateRM);
-            UserRM userRM = CreateUserForContact(testType, associateRM, contactRM);
-            CustomerRM customerRM = CreateCustomer_WalMart(testType, associateRM);
-            OperatingContextRM operatingContextRM = GetOperatingContext(testType, customerRM);
-            OperatingContextRM operatingContextForAssociateRM = GetOperatingContextForAssociate(testType, associateRM);
-            SetUpAGLServicesAgent(testType);
-
-
-  
-            // Set up Associate as Agent
-
-            // Set up Associate
-
-            //Console.WriteLine("EFTEST:  Setting up AGL Services Agent");
-
-            //Commands.V1.Associate.Create createAssociateCommandForAgent = new Commands.V1.Associate.Create
-            //{
-            //    AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManager].ActingAssociateTypeId,
-            //    DUNSNumber = _dunsNumber++,
-            //    IsDeactivating = false,
-            //    IsInternal = true,
-            //    IsParent = false,
-            //    LongName = "AGL Services",
-            //    ShortName = "SCS",
-            //    StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
-            //};
-
-            //Console.WriteLine("EFTEST:  Getting AssociateRM for Agent");
-
-            //// ReSharper disable once NotAccessedVariable
-            //AssociateRM agentRM;
-            
-            //if (testType == 1)
-            //    // ReSharper disable once RedundantAssignment
-            //    agentRM = (AssociateRM)_appService.Handle(createAssociateCommandForAgent).Result;
-            //else
-            //    // ReSharper disable once RedundantAssignment
-            //    agentRM = CreateAssociateWithREST(createAssociateCommandForAgent);
-
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-            // AddAssociate User to Agent
-
-            Console.WriteLine("EFTEST:  Create User for Agent");
-
-            Commands.V1.User.Create createUserCommandForAgent = new Commands.V1.User.Create
-            {
-                IsActive = true,
-                IsInternal = true,
-                ContactId = contactRM.Id,
-                HasEGMSAccess = true,
-                IDMSSID = "1",
-                DeactivationDate = DateTime.Now.AddYears(10),
-                DepartmentCodeId = 1
-            };
-
-            Commands.V1.User.CreateForAssociate createUserForAgent =
-                new Commands.V1.User.CreateForAssociate(associateRM.Id, createUserCommandForAgent);
-
-            Console.WriteLine("EFTEST: Getting UserRM for Agent");
-
-            // ReSharper disable once NotAccessedVariable
-            UserRM userRM2;
-
-            if (testType == 1)
-                // ReSharper disable once RedundantAssignment
-                userRM2 = (UserRM) _appService.Handle(createUserForAgent).Result;
-            else
-                // ReSharper disable once RedundantAssignment
-                userRM2 = CreateUserForAssociateWithREST(createUserForAgent);
-
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-            // Set up Asset Manager for Associate for Third-Party Suppliers
-
-            Console.WriteLine("EFTEST:  Set up third party asset manager");
-
-            Commands.V1.Associate.Create createAssetManagerForTPS = new Commands.V1.Associate.Create
-            {
-                AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManager].ActingAssociateTypeId,
-                DUNSNumber = _dunsNumber++,
-                IsDeactivating = false,
-                IsInternal = true,
-                IsParent = false,
-                LongName = "AGL Services",
-                ShortName = "SCS",
-                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
-            };
-
-            Console.WriteLine("EFTEST:  Get AssociateRM for third party");
-
-            // ReSharper disable once NotAccessedVariable
-            AssociateRM assetManagerRM;
-            
-            if (testType == 1)
-                // ReSharper disable once RedundantAssignment
-                assetManagerRM = (AssociateRM)_appService.Handle(createAssetManagerForTPS).Result;
-            else
-                // ReSharper disable once RedundantAssignment
-                assetManagerRM = CreateAssociateWithREST(createAssetManagerForTPS);
-
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-            // Set up Associate as predecessor
-
-            Console.WriteLine("EFTEST:  Set up associate as predecessor");
-
-            Commands.V1.Associate.Create createPredecessor = new Commands.V1.Associate.Create
-            {
-                AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
-                DUNSNumber = _dunsNumber++,
-                IsDeactivating = false,
-                IsInternal = true,
-                IsParent = false,
-                LongName = "AGL Services",
-                ShortName = "SCS",
-                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
-            };
-
-            Console.WriteLine("EFTEST:  Get PredecessorManagerRM for predecessor");
-
-            // ReSharper disable once NotAccessedVariable
-            AssociateRM predecessorManagerRM;
-            
-            if (testType == 1)
-                // ReSharper disable once RedundantAssignment
-                predecessorManagerRM = (AssociateRM)_appService.Handle(createPredecessor).Result;
-            else
-                // ReSharper disable once RedundantAssignment
-                predecessorManagerRM = CreateAssociateWithREST(createPredecessor);
-
-            // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-            // Set up relationship between Associate and Predecessors
-
-
-            //Commands.V1.
-
-            //appService.Handle()
+            AssociateRM associateRM = CreateAssociate_AtlantaGasLight();
+            IEnumerable<AssociateRM> associates = GetListOfAssociates();
+            ContactRM contactRM = CreateContact_JoeFrancis(associateRM);
+            UserRM userRM = CreateUserForContact(associateRM, contactRM);
+            CustomerRM customerRM = CreateCustomer_WalMart(associateRM);
+            OperatingContextRM operatingContextRM = GetOperatingContext(customerRM);
+            OperatingContextRM operatingContextForAssociateRM = GetOperatingContextForAssociate(associateRM);
+            SetUpAGLServicesAgent();
+            CreateUserForAgent(contactRM, associateRM);
+            AssociateRM assetManagerRM = SetUpThirdPartyAssetManager();
+            SetUpAssociateAsPredecessor();
         }
+
+        #region REST Methods
 
         private static AssociateRM CreateAssociateWithREST(Commands.V1.Associate.Create cmd)
         {
@@ -745,6 +456,10 @@ namespace EFTest
 
             return ReadModels.GetOperatingContextRM(postREST);
         }
+
+        #endregion REST Methods
+
+        #region Creation Helpers
 
         public static string PostREST(string url, string jsonData)
         {
@@ -811,5 +526,312 @@ namespace EFTest
 
             return jsonString;
         }
+
+        #endregion Creation Helpers
+
+        #region Query Methods
+
+        private static IEnumerable<AssociateRM> GetListOfAssociates()
+        {
+            Console.WriteLine("EFTEST:  Get list of associates");
+
+            IEnumerable<AssociateRM> associates = null;
+
+            associates = _technologyType == 1 ? _queryRepo.GetAssociates().Result : JsonConvert.DeserializeObject<IEnumerable<AssociateRM>>(GetREST(GetAssociatesAPI));
+
+            Console.WriteLine("Number of retrieved associates = " + (associates?.Count() ?? 0));
+
+            return associates;
+        }
+
+        #endregion Query Methods
+
+        #region Command Methods
+
+        private static AssociateRM CreateAssociate_AtlantaGasLight()
+        {
+            Console.WriteLine("EFTEST:  Setting up Internal Associate Atlanta Gas Light");
+
+            Commands.V1.Associate.Create createAssociateCommand = new Commands.V1.Associate.Create
+            {
+                AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
+                DUNSNumber = _dunsNumber++,
+                IsDeactivating = false,
+                IsInternal = true,
+                IsParent = false,
+                LongName = "Atlanta Gas Light",
+                ShortName = "AGL",
+                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            };
+
+            Console.WriteLine("EFTEST:  Getting AssociateRM");
+
+            AssociateRM associateRM;
+
+            if (_technologyType == 1)
+                associateRM = (AssociateRM)_appService.Handle(createAssociateCommand).Result;
+            else
+                associateRM = CreateAssociateWithREST(createAssociateCommand);
+
+            return associateRM;
+        }
+
+        private static ContactRM CreateContact_JoeFrancis(AssociateRM associateRM)
+        {
+            Console.WriteLine("EFTEST:  Setting up Joe Francis contact");
+
+            Commands.V1.Contact.Create createContactCommand = new Commands.V1.Contact.Create
+            {
+                PrimaryAddressId = 1,
+                IsActive = true,
+                PrimaryPhoneId = 1,
+                LastName = "Francis",
+                PrimaryEmailId = 1,
+                FirstName = "Joe",
+                Title = "Mr."
+            };
+
+            Commands.V1.Contact.CreateForAssociate createContactForAssociateCommand =
+                new Commands.V1.Contact.CreateForAssociate(associateRM.Id, createContactCommand);
+
+            Console.WriteLine("EFTEST:  Getting ContactRM");
+
+            ContactRM contactRM;
+
+            if (_technologyType == 1)
+                contactRM = (ContactRM)_appService.Handle(createContactForAssociateCommand).Result;
+            else
+                contactRM = CreateContactForAssociateWithREST(associateRM.Id, createContactCommand);
+
+            return contactRM;
+        }
+
+        private static UserRM CreateUserForContact(AssociateRM associateRM, ContactRM contactRM)
+        {
+            Console.WriteLine("EFTEST:  Setting up Joe Francis User from Joe Francis contact");
+
+            Commands.V1.User.Create createUserCommand = new Commands.V1.User.Create
+            {
+                ContactId = contactRM.Id,
+                IDMSSID = "1",
+                DepartmentCodeId = 1,
+                HasEGMSAccess = true,
+                IsActive = true,
+                IsInternal = true
+            };
+
+            Commands.V1.User.CreateForAssociate createUserForAssociateCommand =
+                new Commands.V1.User.CreateForAssociate(associateRM.Id, createUserCommand);
+
+            UserRM userRM;
+
+            if (_technologyType == 1)
+                userRM = (UserRM)_appService.Handle(createUserForAssociateCommand).Result;
+            else
+                userRM = CreateUserForAssociateWithREST(createUserForAssociateCommand);
+
+            return userRM;
+        }
+
+        private static CustomerRM CreateCustomer_WalMart(AssociateRM associateRM)
+        {
+            Console.WriteLine("EFTEST:  Setting up WalMart customer for Associate");
+
+            Commands.V1.Customer.Create createCustomerCommand = new Commands.V1.Customer.Create
+            {
+                StartDate = DateTime.Now,
+                AccountNumber = "12345678",
+                AlternateCustomerId = 1,
+                BalancingLevelId = 1,
+                BasicPoolId = 1,
+                ContractTypeId = 1,
+                CurrentDemand = 1,
+                DUNSNumber = _dunsNumber++,
+                DailyInterruptible = 1,
+                DeliveryLocationId = 1,
+                DeliveryPressure = 1,
+                CustomerTypeId = 1,
+                DeliveryTypeId = 1,
+                EndDate = DateTime.Now.AddYears(10),
+                IsFederal = false,
+                MDQ = 1,
+                GroupTypeId = 1,
+                LongName = "WalMart",
+                TurnOffDate = DateTime.Now.AddYears(10),
+                PreviousDemand = 1,
+                SS1 = false,
+                NominationLevelId = 1,
+                MaxHourlyInterruptible = 1,
+                NAICSCode = 1245,
+                MaxDailyInterruptible = 1,
+                StatusCodeId = 1,
+                ShipperId = 1,
+                HourlyInterruptible = 1,
+                LDCId = 1,
+                SICCode = 1,
+                InterstateSpecifiedFirm = 1,
+                TotalDailySpecifiedFirm = 1,
+                ShortName = "WMT",
+                SICCodePercentage = 1,
+                ShippersLetterToDate = DateTime.Now.AddYears(1),
+                IntrastateSpecifiedFirm = 1,
+                MaxHourlySpecifiedFirm = 1,
+                TotalHourlySpecifiedFirm = 1,
+                ShippersLetterFromDate = DateTime.Now.AddYears(-1),
+                LossTierTypeId = 1,
+                TurnOnDate = DateTime.Now.AddYears(-1)
+            };
+
+            Commands.V1.Customer.CreateForAssociate createCustomerForAssociateCommand =
+                new Commands.V1.Customer.CreateForAssociate(associateRM.Id, createCustomerCommand);
+
+            CustomerRM customerRM;
+
+            if (_technologyType == 1)
+                customerRM = (CustomerRM)_appService.Handle(createCustomerForAssociateCommand).Result;
+            else
+                customerRM = CreateCustomerForAssociateWithREST(createCustomerForAssociateCommand);
+
+            return customerRM;
+        }
+
+        private static OperatingContextRM GetOperatingContext(CustomerRM customerRM)
+        {
+            Commands.V1.OperatingContext.Create createOperatingContextCommand =
+                new Commands.V1.OperatingContext.Create
+                {
+                    ActingBATypeID = 1,
+                    PrimaryAddressId = 1,
+                    Status = 1,
+                    CertificationId = 1,
+                    OperatingContextType = 1,
+                    IsDeactivating = false,
+                    ThirdPartySupplierId = 1,
+                    FacilityId = 1,
+                    ProviderType = 1,
+                    LegacyId = 1,
+                    PrimaryPhoneId = 1,
+                    PrimaryEmailId = 1,
+                    StartDate = DateTime.Now
+                };
+
+            Commands.V1.OperatingContext.CreateForCustomer createOperatingContextForCustomerCommand =
+                new Commands.V1.OperatingContext.CreateForCustomer(customerRM.Id, createOperatingContextCommand);
+
+            return _technologyType == 1 ? (OperatingContextRM)_appService.Handle(createOperatingContextForCustomerCommand).Result :
+                CreateOperatingContextForCustomerWithREST(createOperatingContextForCustomerCommand);
+        }
+
+        private static OperatingContextRM GetOperatingContextForAssociate(AssociateRM associateRM)
+        {
+            Commands.V1.OperatingContext.Create createOperatingContextCommand =
+                new Commands.V1.OperatingContext.Create
+                {
+                    ActingBATypeID = 1,
+                    PrimaryAddressId = 1,
+                    Status = 1,
+                    CertificationId = 1,
+                    OperatingContextType = 1,
+                    IsDeactivating = false,
+                    ThirdPartySupplierId = 1,
+                    FacilityId = 1,
+                    ProviderType = 1,
+                    LegacyId = 1,
+                    PrimaryPhoneId = 1,
+                    PrimaryEmailId = 1,
+                    StartDate = DateTime.Now
+                };
+
+            Commands.V1.OperatingContext.CreateForAssociate createOperatingContextForAssociateCommand =
+                new Commands.V1.OperatingContext.CreateForAssociate(associateRM.Id, createOperatingContextCommand);
+
+            return _technologyType == 1 ? (OperatingContextRM)_appService.Handle(createOperatingContextForAssociateCommand).Result : 
+                CreateOperatingContextForAssociateWithREST(associateRM.Id, createOperatingContextCommand);
+        }
+
+        private static AssociateRM SetUpAGLServicesAgent()
+        {
+
+            Console.WriteLine("EFTEST:  Setting up AGL Services Agent");
+
+            Commands.V1.Associate.Create createAssociateCommandForAgent = new Commands.V1.Associate.Create
+            {
+                AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManager].ActingAssociateTypeId,
+                DUNSNumber = _dunsNumber++,
+                IsDeactivating = false,
+                IsInternal = true,
+                IsParent = false,
+                LongName = "AGL Services",
+                ShortName = "SCS",
+                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            };
+
+            return _technologyType == 1 ? (AssociateRM)_appService.Handle(createAssociateCommandForAgent).Result :
+                CreateAssociateWithREST(createAssociateCommandForAgent);
+        }
+
+        private static UserRM CreateUserForAgent(ContactRM contactRM, AssociateRM associateRM)
+        {
+            Console.WriteLine("EFTEST:  Create User for Agent");
+
+            Commands.V1.User.Create createUserCommandForAgent = new Commands.V1.User.Create
+            {
+                IsActive = true,
+                IsInternal = true,
+                ContactId = contactRM.Id,
+                HasEGMSAccess = true,
+                IDMSSID = "1",
+                DeactivationDate = DateTime.Now.AddYears(10),
+                DepartmentCodeId = 1
+            };
+
+            Commands.V1.User.CreateForAssociate createUserForAgent =
+                new Commands.V1.User.CreateForAssociate(associateRM.Id, createUserCommandForAgent);
+
+            return _technologyType == 1 ? (UserRM)_appService.Handle(createUserForAgent).Result : 
+                CreateUserForAssociateWithREST(createUserForAgent);
+        }
+
+        private static AssociateRM SetUpThirdPartyAssetManager()
+        {
+            Console.WriteLine("EFTEST:  Set up third party asset manager");
+
+            Commands.V1.Associate.Create createAssetManagerForTPS = new Commands.V1.Associate.Create
+            {
+                AssociateTypeId = ExternalAssociateTypeLookup.ActingAssociateTypes[(int)ExternalAssociateTypeLookup.ExternalAssociateTypeEnum.AssetManager].ActingAssociateTypeId,
+                DUNSNumber = _dunsNumber++,
+                IsDeactivating = false,
+                IsInternal = true,
+                IsParent = false,
+                LongName = "AGL Services",
+                ShortName = "SCS",
+                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            };
+
+            return _technologyType == 1 ? (AssociateRM)_appService.Handle(createAssetManagerForTPS).Result :
+                CreateAssociateWithREST(createAssetManagerForTPS);
+        }
+
+        private static AssociateRM SetUpAssociateAsPredecessor()
+        {
+            Console.WriteLine("EFTEST:  Set up associate as predecessor");
+
+            Commands.V1.Associate.Create createPredecessor = new Commands.V1.Associate.Create
+            {
+                AssociateTypeId = (int)AssociateTypeLookup.AssociateTypeEnum.InternalLDCFacility,
+                DUNSNumber = _dunsNumber++,
+                IsDeactivating = false,
+                IsInternal = true,
+                IsParent = false,
+                LongName = "AGL Services",
+                ShortName = "SCS",
+                StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
+            };
+
+            return _technologyType == 1 ? (AssociateRM)_appService.Handle(createPredecessor).Result :
+                CreateAssociateWithREST(createPredecessor);
+        }
+
+        #endregion Command Methods
     }
 }
