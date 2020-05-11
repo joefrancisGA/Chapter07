@@ -271,6 +271,7 @@ namespace EFTest
             switch (testType)
             {
                 case 1:
+                    LandingPage();
                     break;
 
                 case 2:
@@ -313,57 +314,57 @@ namespace EFTest
             DirectTest();
         }
 
-        private void LandingPage()
+        private static void LandingPage()
         {
             throw new NotImplementedException();
         }
 
-        private void AddBusinessAssociate()
+        private static void AddBusinessAssociate()
         {
             throw new NotImplementedException();
         }
 
-        private void AddInternalBusinessAssociate()
+        private static void AddInternalBusinessAssociate()
         {
             throw new NotImplementedException();
         }
 
-        private void AddInternalOperatingContext()
+        private static void AddInternalOperatingContext()
         {
             throw new NotImplementedException();
         }
 
-        private void AddAssetManager()
+        private static void AddAssetManager()
         {
             throw new NotImplementedException();
         }
 
-        private void AddExternalBusinessAssociate()
+        private static void AddExternalBusinessAssociate()
         {
             throw new NotImplementedException();
         }
 
-        private void AddExternalOperatingContext()
+        private static void AddExternalOperatingContext()
         {
             throw new NotImplementedException();
         }
 
-        private void AddAgent()
+        private static void AddAgent()
         {
             throw new NotImplementedException();
         }
 
-        private void AddContact()
+        private static void AddContact()
         {
             throw new NotImplementedException();
         }
 
-        private void AddCustomer()
+        private static void AddCustomer()
         {
             throw new NotImplementedException();
         }
 
-        private void AddPipelineCompany()
+        private static void AddPipelineCompany()
         {
             throw new NotImplementedException();
         }
