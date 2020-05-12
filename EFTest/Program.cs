@@ -677,14 +677,8 @@ namespace EFTest
             Commands.V1.Customer.CreateForAssociate createCustomerForAssociateCommand =
                 new Commands.V1.Customer.CreateForAssociate(associateRM.Id, createCustomerCommand);
 
-            CustomerRM customerRM;
-
-            if (_technologyType == 1)
-                customerRM = (CustomerRM)_appService.Handle(createCustomerForAssociateCommand).Result;
-            else
-                customerRM = CreateCustomerForAssociateWithREST(createCustomerForAssociateCommand);
-
-            return customerRM;
+            return _technologyType == 1 ? (CustomerRM)_appService.Handle(createCustomerForAssociateCommand).Result :
+                CreateCustomerForAssociateWithREST(createCustomerForAssociateCommand);
         }
 
         private static OperatingContextRM GetOperatingContext(CustomerRM customerRM)
