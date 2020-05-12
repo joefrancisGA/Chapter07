@@ -275,39 +275,47 @@ namespace EFTest
                     break;
 
                 case 2:
+                    AddBusinessAssociate();
                     break;
 
                 case 3:
+                    AddInternalBusinessAssociate();
                     break;
 
                 case 4:
+                    AddInternalOperatingContext();
                     break;
 
                 case 5:
+                    AddAssetManager();
                     break;
 
                 case 6:
+                    AddExternalBusinessAssociate();
                     break;
 
                 case 7:
+                    AddExternalOperatingContext();
                     break;
 
                 case 8:
+                    AddAgent();
                     break;
 
                 case 9:
+                    AddContact();
                     break;
 
                 case 10:
+                    AddCustomer();
                     break;
 
                 case 11:
+                    AddInternalBusinessAssociate();
                     break;
 
                 case 12:
-                    break;
-
-                case 13:
+                    AddPipelineCompany();
                     break;
             }
 
@@ -316,12 +324,14 @@ namespace EFTest
 
         private static void LandingPage()
         {
-            throw new NotImplementedException();
+            // Just need to call GetAssociates()
+            List<AssociateRM> associates = GetListOfAssociates();
         }
 
         private static void AddBusinessAssociate()
         {
-            throw new NotImplementedException();
+            // Just need to post a business associate
+            CreateAssociate_AtlantaGasLight();
         }
 
         private static void AddInternalBusinessAssociate()
@@ -532,17 +542,15 @@ namespace EFTest
 
         #region Query Methods
 
-        private static IEnumerable<AssociateRM> GetListOfAssociates()
+        private static List<AssociateRM> GetListOfAssociates()
         {
             Console.WriteLine("EFTEST:  Get list of associates");
 
-            IEnumerable<AssociateRM> associates = null;
-
-            associates = _technologyType == 1 ? _queryRepo.GetAssociates().Result : JsonConvert.DeserializeObject<IEnumerable<AssociateRM>>(GetREST(GetAssociatesAPI));
+            List<AssociateRM> associates = (_technologyType == 1 ? _queryRepo.GetAssociates().Result : JsonConvert.DeserializeObject<IEnumerable<AssociateRM>>(GetREST(GetAssociatesAPI))).ToList();
 
             Console.WriteLine("Number of retrieved associates = " + (associates?.Count() ?? 0));
 
-            return associates;
+            return associates.ToList();
         }
 
         #endregion Query Methods
@@ -564,17 +572,14 @@ namespace EFTest
                 ShortName = "AGL",
                 StatusCodeId = (int)StatusCodeLookup.StatusCodeEnum.Active
             };
+            
+            return _technologyType == 1 ? (AssociateRM)_appService.Handle(createAssociateCommand).Result :
+                CreateAssociateWithREST(createAssociateCommand);
+        }
 
-            Console.WriteLine("EFTEST:  Getting AssociateRM");
-
-            AssociateRM associateRM;
-
-            if (_technologyType == 1)
-                associateRM = (AssociateRM)_appService.Handle(createAssociateCommand).Result;
-            else
-                associateRM = CreateAssociateWithREST(createAssociateCommand);
-
-            return associateRM;
+        private static PhoneRM AddPrimaryEmailForAssociate(AssociateRM associateRM, PhoneTypeLookup.PhoneTypeEnum phoneType)
+        {
+            return new PhoneRM();
         }
 
         private static ContactRM CreateContact_JoeFrancis(AssociateRM associateRM)
