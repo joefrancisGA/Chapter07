@@ -75,8 +75,12 @@ namespace EGMS.BusinessAssociates.Command
                     CreatePhoneForAssociate(cmd);
                     break;
 
+                case Commands.V1.Associate.EMail.CreateForAssociate cmd:
+                    CreateEMailForAssociate(cmd);
+                    break;
+
                 #endregion
-                    
+
                 #region AgentRelationship
 
                 case Commands.V1.AgentRelationship.CreateForPrincipal cmd:
@@ -398,7 +402,7 @@ namespace EGMS.BusinessAssociates.Command
 
         private EMailRM CreateEMailForContact(Commands.V1.Contact.EMail.CreateForContact cmd)
         {
-            EMail eMail = EMail.Create(_emails++, cmd.UserId, EMailAddress.Create(cmd.EMailAddress), cmd.IsPrimary,
+            EMail eMail = EMail.CreateForContact(_emails++, EMailAddress.Create(cmd.EMailAddress), cmd.IsPrimary,
                 cmd.ContactId);
 
             if (_repository.EMailExistsForContact(eMail, cmd.ContactId))
@@ -439,6 +443,20 @@ namespace EGMS.BusinessAssociates.Command
             _repository.AddPhoneForAssociate(phone, cmd.AssociateId);
 
             return Conversions.GetPhoneRM(phone);
+        }
+
+        private EMailRM CreateEMailForAssociate(Commands.V1.Associate.EMail.CreateForAssociate cmd)
+        {
+            EMail email = EMail.CreateForAssociate(_emails++, EMailAddress.Create(cmd.EMailAddress), cmd.IsPrimary, cmd.AssociateId);
+
+            if (_repository.EMailExistsForAssociate(email, cmd.AssociateId))
+            {
+                throw new InvalidOperationException($"EMail already exists for Associate {cmd.AssociateId}");
+            }
+
+            _repository.AddEMailForAssociate(email, cmd.AssociateId);
+
+            return Conversions.GetEMailRM(email);
         }
 
         private PhoneRM CreatePhoneForContact(Commands.V1.Contact.Phone.CreateForContact cmd)

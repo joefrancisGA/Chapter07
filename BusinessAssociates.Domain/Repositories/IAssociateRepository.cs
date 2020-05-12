@@ -57,6 +57,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         bool ContactConfigurationExistsForContact(ContactConfiguration contactConfiguration, int contactId);
         bool CustomerExistsForAssociate(Customer customer, int associateId);
         bool CustomerExistsForOperatingContext(Customer customer, int operatingContextId);
+        bool EMailExistsForAssociate(EMail eMail, int associateId);
         bool EMailExistsForContact(EMail eMail, int contactId);
         bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId);
         bool OperatingContextExistsForAssociate(OperatingContext operatingContext, int associateId);

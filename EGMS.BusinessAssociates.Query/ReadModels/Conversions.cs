@@ -57,7 +57,6 @@ namespace EGMS.BusinessAssociates.Query.ReadModels
                 ContactId = email.ContactId,
                 EMailAddress = email.EMailAddress,
                 IsPrimary = email.IsPrimary,
-                UserId = email.UserId
             };
         }
 

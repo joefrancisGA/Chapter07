@@ -331,6 +331,8 @@ namespace EFTest
             AssociateRM agl = CreateAssociate_AtlantaGasLight();
 
             AddPrimaryPhoneForAssociate(agl, PhoneTypeLookup.PhoneTypeEnum.Office, 6783242548);
+
+            AddPrimaryEMailForAssociate(agl, "x2jafran@southernco.com");
         }
 
         private static PhoneRM AddPrimaryPhoneForAssociate(AssociateRM associateRM, PhoneTypeLookup.PhoneTypeEnum phoneType, long phoneNumber)
@@ -352,6 +354,25 @@ namespace EFTest
 
             return (PhoneRM) _appService.Handle(createPhoneCommand).Result;
         }
+
+        private static EMailRM AddPrimaryEMailForAssociate(AssociateRM associateRM, string eMailAddress)
+        {
+            Console.WriteLine("EFTEST:  Setting up primary email for Associate " + associateRM.LongName);
+
+            Commands.V1.Associate.EMail.CreateForAssociate createEMailCommand =
+                new Commands.V1.Associate.EMail.CreateForAssociate
+                {
+                    AssociateId = associateRM.Id,
+                    EMailAddress = eMailAddress,
+                    IsPrimary = true
+                };
+
+            if (_technologyType != 1)
+                throw new InvalidOperationException("AddPrimaryEMailForAssociate not supported for REST");
+
+            return (EMailRM)_appService.Handle(createEMailCommand).Result;
+        }
+
 
         private static void AddInternalBusinessAssociate()
         {

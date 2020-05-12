@@ -528,6 +528,29 @@ namespace EGMS.BusinessAssociates.Data.EF
             return (_context.EGMSPermissions.FirstOrDefault(p => p.PermissionName == permissionName) != null);
         }
 
+        public bool EMailExistsForAssociate(EMail email, int associateId)
+        {
+            Associate associate = _context.Associates.FirstOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+                return false;
+
+            List<AssociateEMail> associateEMails = _context.AssociateEMails.FindAll(ap => ap.AssociateId == associateId);
+
+            if (associateEMails.Count == 0)
+                return false;
+
+            foreach (AssociateEMail associateEMail in associateEMails)
+            {
+                EMail foundEMail = _context.EMails.Find(e => e.Id == associateEMail.EMailId);
+
+                if (foundEMail != null && foundEMail.EMailAddress == email.EMailAddress)
+                    return true;
+            }
+
+            return false;
+        }
+
         public bool PhoneExistsForAssociate(Phone phone, int associateId)
         {
             Associate associate = _context.Associates.FirstOrDefault(a => a.Id == associateId);

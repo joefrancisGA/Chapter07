@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.Data.SqlClient;
 
 
 namespace EGMS.BusinessAssociates.Command
@@ -86,6 +85,29 @@ namespace EGMS.BusinessAssociates.Command
                         public long PhoneNumber { get; set; }
                         public int PhoneTypeId { get; set; }
                         public string Extension { get; set; }
+                        public bool IsPrimary { get; set; }
+                    }
+                }
+
+                public static class EMail
+                {
+                    public class CreateForAssociate : Create
+                    {
+                        public CreateForAssociate() { }
+
+                        public CreateForAssociate(int associateId, Create create)
+                        {
+                            AssociateId = associateId;
+                            EMailAddress = create.EMailAddress;
+                            IsPrimary = create.IsPrimary;
+                        }
+
+                        public int AssociateId { get; set; }
+                    }
+
+                    public class Create
+                    {
+                        public string EMailAddress { get; set; }
                         public bool IsPrimary { get; set; }
                     }
                 }

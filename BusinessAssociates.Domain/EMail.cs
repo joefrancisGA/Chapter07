@@ -7,7 +7,6 @@ namespace EGMS.BusinessAssociates.Domain
 {
     public class EMail : Entity<int>
     {
-        // TO DO:  Do we need to initialize the aggregates here?
         private EMail()
         {
             OperatingContexts = new HashSet<OperatingContext>();
@@ -18,9 +17,6 @@ namespace EGMS.BusinessAssociates.Domain
             OperatingContexts = new HashSet<OperatingContext>();
         }
 
-        public User User { get; set; }
-        public int UserId { get; set; }
-
         public EMailAddress EMailAddress { get; set; }
         
         public bool IsPrimary { get; set; }
@@ -28,21 +24,36 @@ namespace EGMS.BusinessAssociates.Domain
         public Contact Contact { get; set; }
         public int ContactId { get; set; }
 
+        public Associate Associate { get; set; }
+        public int AssociateId { get; set; }
+
         public HashSet<OperatingContext> OperatingContexts { get; set; }
 
         // TO DO:  Do we need both user id and contact id?
-        public static EMail Create(int emailId, int userId, EMailAddress emailAddress, bool isPrimary,
+        public static EMail CreateForContact(int emailId, EMailAddress emailAddress, bool isPrimary,
             int contactId)
         {
             return new EMail
             {
                 Id = emailId,
-                UserId = userId,
                 EMailAddress = emailAddress,
                 IsPrimary = isPrimary,
                 ContactId = contactId
             };
         }
+
+        public static EMail CreateForAssociate(int emailId, EMailAddress emailAddress, bool isPrimary,
+            int associateId)
+        {
+            return new EMail
+            {
+                Id = emailId,
+                EMailAddress = emailAddress,
+                IsPrimary = isPrimary,
+                AssociateId = associateId
+            };
+        }
+
 
         protected override void When(object @event)
         {
