@@ -229,8 +229,6 @@ namespace EFTest
                 throw new Exception("Must choose 1 or 2 for technology type");
             }
 
-            int testType;
-
             Console.WriteLine("1 = Direct Test");
             Console.WriteLine("2 = Landing Page");
             Console.WriteLine("3 = Add Business Associate");
@@ -247,7 +245,7 @@ namespace EFTest
             input = Console.ReadLine();
 
 
-            if (!int.TryParse(input, out testType) || testType < 1 || testType > 12)
+            if (!int.TryParse(input, out var testType) || testType < 1 || testType > 12)
             {
                 throw new Exception("Must choose 1 through 12 for test type");
             }
@@ -602,14 +600,8 @@ namespace EFTest
 
             Console.WriteLine("EFTEST:  Getting ContactRM");
 
-            ContactRM contactRM;
-
-            if (_technologyType == 1)
-                contactRM = (ContactRM)_appService.Handle(createContactForAssociateCommand).Result;
-            else
-                contactRM = CreateContactForAssociateWithREST(associateRM.Id, createContactCommand);
-
-            return contactRM;
+            return _technologyType == 1 ? (ContactRM)_appService.Handle(createContactForAssociateCommand).Result :
+                CreateContactForAssociateWithREST(associateRM.Id, createContactCommand);
         }
 
         private static UserRM CreateUserForContact(AssociateRM associateRM, ContactRM contactRM)
@@ -629,14 +621,8 @@ namespace EFTest
             Commands.V1.User.CreateForAssociate createUserForAssociateCommand =
                 new Commands.V1.User.CreateForAssociate(associateRM.Id, createUserCommand);
 
-            UserRM userRM;
-
-            if (_technologyType == 1)
-                userRM = (UserRM)_appService.Handle(createUserForAssociateCommand).Result;
-            else
-                userRM = CreateUserForAssociateWithREST(createUserForAssociateCommand);
-
-            return userRM;
+            return _technologyType == 1 ? (UserRM)_appService.Handle(createUserForAssociateCommand).Result :
+                CreateUserForAssociateWithREST(createUserForAssociateCommand);
         }
 
         private static CustomerRM CreateCustomer_WalMart(AssociateRM associateRM)
