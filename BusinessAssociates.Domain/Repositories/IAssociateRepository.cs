@@ -37,7 +37,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         void AddEMailForCustomer(EMail eMail, int customerId);
         void AddOperatingContextForAssociate(OperatingContext operatingContext, int associateId);
         void AddOperatingContextForCustomer(OperatingContext operatingContext, int customerId);
-        void AddPhoneForAssociate(Phone phone, int contactId);
+        void AddPhoneForAssociate(Phone phone, int associateId);
         void AddPhoneForContact(Phone phone, int contactId);
         void AddPhoneForCustomer(Phone phone, int customerId);
         void AddUserForAssociate(User user, int associateId);
@@ -61,6 +61,7 @@ namespace EGMS.BusinessAssociates.Domain.Repositories
         bool OperatingContextExistsForCustomer(OperatingContext operatingContext, int customerId);
         bool OperatingContextExistsForAssociate(OperatingContext operatingContext, int associateId);
         bool PermissionExists(string permissionName);
+        bool PhoneExistsForAssociate(Phone phone, int associateId);
         bool PhoneExistsForContact(Phone phone, int contactId);
         bool RoleEGMSPermissionExists(int roleId, int permissionId);
         bool RoleExists(string roleName);

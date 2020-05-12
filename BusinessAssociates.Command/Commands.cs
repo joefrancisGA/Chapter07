@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Data.SqlClient;
 
 
 namespace EGMS.BusinessAssociates.Command
@@ -57,6 +58,36 @@ namespace EGMS.BusinessAssociates.Command
                 {
                     public int Id { get; set; }
                     public int Status { get; set; }
+                }
+
+
+                public static class Phone
+                {
+                    public class CreateForAssociate : Create
+                    {
+                        private readonly Create _create;
+
+                        public CreateForAssociate() { }
+
+                        public CreateForAssociate(int associateId, Create create)
+                        {
+                            _create = create; 
+                            AssociateId = associateId;
+                            PhoneNumber = create.PhoneNumber;
+                            PhoneTypeId = create.PhoneTypeId;
+                            Extension = create.Extension;
+                            IsPrimary = create.IsPrimary;
+                        }
+                        public int AssociateId { get; set; }
+                    }
+
+                    public class Create
+                    {
+                        public long PhoneNumber { get; set; }
+                        public int PhoneTypeId { get; set; }
+                        public string Extension { get; set; }
+                        public bool IsPrimary { get; set; }
+                    }
                 }
 
                 public static class Address
@@ -233,6 +264,7 @@ namespace EGMS.BusinessAssociates.Command
                         public CreateForContact(int contactId, Create create)
                         {
                             ContactId = contactId;
+                            PhoneNumber = create.PhoneNumber;
                             PhoneTypeId = create.PhoneTypeId;
                             Extension = create.Extension;
                             IsPrimary = create.IsPrimary;
@@ -243,6 +275,7 @@ namespace EGMS.BusinessAssociates.Command
 
                     public class Create
                     {
+                        public int PhoneNumber { get; set; }
                         public int PhoneTypeId { get; set; }
                         public string Extension { get; set; }
                         public bool IsPrimary { get; set; }

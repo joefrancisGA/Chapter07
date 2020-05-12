@@ -267,49 +267,49 @@ namespace EFTest
                 Initialize();
 
             switch (testType)
-            {
+            { 
                 case 1:
-                    LandingPage();
+                    DirectTest();
                     break;
 
                 case 2:
-                    AddBusinessAssociate();
+                    LandingPage();
                     break;
 
                 case 3:
-                    AddInternalBusinessAssociate();
+                    AddBusinessAssociate();
                     break;
 
                 case 4:
-                    AddInternalOperatingContext();
+                    AddInternalBusinessAssociate();
                     break;
 
                 case 5:
-                    AddAssetManager();
+                    AddInternalOperatingContext();
                     break;
 
                 case 6:
-                    AddExternalBusinessAssociate();
+                    AddAssetManager();
                     break;
 
                 case 7:
-                    AddExternalOperatingContext();
+                    AddExternalBusinessAssociate();
                     break;
 
                 case 8:
-                    AddAgent();
+                    AddExternalOperatingContext();
                     break;
 
                 case 9:
-                    AddContact();
+                    AddAgent();
                     break;
 
                 case 10:
-                    AddCustomer();
+                    AddContact();
                     break;
 
                 case 11:
-                    AddInternalBusinessAssociate();
+                    AddCustomer();
                     break;
 
                 case 12:
@@ -328,8 +328,29 @@ namespace EFTest
 
         private static void AddBusinessAssociate()
         {
-            // Just need to post a business associate
-            CreateAssociate_AtlantaGasLight();
+            AssociateRM agl = CreateAssociate_AtlantaGasLight();
+
+            AddPrimaryPhoneForAssociate(agl, PhoneTypeLookup.PhoneTypeEnum.Office, 6783242548);
+        }
+
+        private static PhoneRM AddPrimaryPhoneForAssociate(AssociateRM associateRM, PhoneTypeLookup.PhoneTypeEnum phoneType, long phoneNumber)
+        {
+            Console.WriteLine("EFTEST:  Setting up primary phone for Associate " + associateRM.LongName);
+
+            Commands.V1.Associate.Phone.CreateForAssociate createPhoneCommand =
+                new Commands.V1.Associate.Phone.CreateForAssociate
+                {
+                    AssociateId = associateRM.Id,
+                    IsPrimary = true,
+                    Extension = null,
+                    PhoneTypeId = (int) phoneType,
+                    PhoneNumber = phoneNumber
+                };
+
+            if (_technologyType != 1)
+                throw new InvalidOperationException("AddPrimaryPhoneForAssociate not supported for REST");
+
+            return (PhoneRM) _appService.Handle(createPhoneCommand).Result;
         }
 
         private static void AddInternalBusinessAssociate()

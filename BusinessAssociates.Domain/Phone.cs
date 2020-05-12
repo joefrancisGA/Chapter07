@@ -24,13 +24,17 @@ namespace EGMS.BusinessAssociates.Domain
         public PhoneTypeLookup PhoneType { get; set; }
         public int PhoneTypeId { get; set; }
 
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
 
         public Extension Extension { get; set; }
         public bool IsPrimary { get; set; }
 
         public Contact Contact { get; set; }
         public int ContactId { get; set; }
+
+        public Associate Associate { get; set; }
+        public int AssociateId { get; set; }
+
 
         public HashSet<OperatingContext> OperatingContexts { get; set; }
 
@@ -59,7 +63,7 @@ namespace EGMS.BusinessAssociates.Domain
             return !(phone1 == phone2);
         }
 
-        public static Phone Create(int phoneId, bool isPrimary, int contactId, Extension extension,
+        public static Phone CreateForContact(int phoneId, bool isPrimary, int contactId, Extension extension,
             PhoneTypeLookup phoneType)
         {
             return new Phone
@@ -67,6 +71,19 @@ namespace EGMS.BusinessAssociates.Domain
                 Id = phoneId,
                 IsPrimary = isPrimary,
                 ContactId = contactId,
+                Extension = extension,
+                PhoneType = phoneType
+            };
+        }
+
+        public static Phone CreateForAssociate(int phoneId, bool isPrimary, int associateId, Extension extension,
+            PhoneTypeLookup phoneType)
+        {
+            return new Phone
+            {
+                Id = phoneId,
+                IsPrimary = isPrimary,
+                AssociateId = associateId,
                 Extension = extension,
                 PhoneType = phoneType
             };

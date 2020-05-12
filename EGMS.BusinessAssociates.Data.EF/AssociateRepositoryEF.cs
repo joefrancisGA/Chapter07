@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using EGMS.BusinessAssociates.Domain;
@@ -526,7 +527,31 @@ namespace EGMS.BusinessAssociates.Data.EF
         {
             return (_context.EGMSPermissions.FirstOrDefault(p => p.PermissionName == permissionName) != null);
         }
-        
+
+        public bool PhoneExistsForAssociate(Phone phone, int associateId)
+        {
+            Associate associate = _context.Associates.FirstOrDefault(a => a.Id == associateId);
+
+            if (associate == null)
+                return false;
+
+            List<AssociatePhone> associatePhones = _context.AssociatePhones.FindAll(ap => ap.AssociateId == associateId);
+
+            if (associatePhones.Count == 0)
+                return false;
+
+            foreach (AssociatePhone associatePhone in associatePhones)
+            {
+                Phone foundPhone = _context.Phones.Find(p => p.Id == associatePhone.PhoneId);
+
+                if (foundPhone != null && foundPhone.PhoneNumber == phone.PhoneNumber)
+                    return true;
+            }
+
+            return false;
+        }
+
+
         public bool PhoneExistsForContact(Phone phone, int contactId)
         {
             Contact contact = _context.Contacts.FirstOrDefault(c => c.Id == contactId);

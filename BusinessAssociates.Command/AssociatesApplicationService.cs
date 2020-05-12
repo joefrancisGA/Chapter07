@@ -71,6 +71,10 @@ namespace EGMS.BusinessAssociates.Command
                     UpdateAssociate(cmd.Id, ia => ia.UpdateShortName(ShortName.Create(cmd.ShortName)));
                     break;
 
+                case Commands.V1.Associate.Phone.CreateForAssociate cmd:
+                    CreatePhoneForAssociate(cmd);
+                    break;
+
                 #endregion
                     
                 #region AgentRelationship
@@ -422,9 +426,24 @@ namespace EGMS.BusinessAssociates.Command
             return Conversions.GetCertificationRM(certification);
         }
 
+        private PhoneRM CreatePhoneForAssociate(Commands.V1.Associate.Phone.CreateForAssociate cmd)
+        {
+            Phone phone = Phone.CreateForAssociate(_phones++, cmd.IsPrimary, cmd.AssociateId, Extension.Create(cmd.Extension), 
+                PhoneTypeLookup.PhoneTypes[cmd.PhoneTypeId]);
+
+            if (_repository.PhoneExistsForAssociate(phone, cmd.AssociateId))
+            {
+                throw new InvalidOperationException($"Phone already exists for Associate {cmd.AssociateId}");
+            }
+
+            _repository.AddPhoneForAssociate(phone, cmd.AssociateId);
+
+            return Conversions.GetPhoneRM(phone);
+        }
+
         private PhoneRM CreatePhoneForContact(Commands.V1.Contact.Phone.CreateForContact cmd)
         {
-            Phone phone = Phone.Create(_phones++, cmd.IsPrimary, cmd.ContactId, Extension.Create(cmd.Extension), 
+            Phone phone = Phone.CreateForContact(_phones++, cmd.IsPrimary, cmd.ContactId, Extension.Create(cmd.Extension),
                 PhoneTypeLookup.PhoneTypes[cmd.PhoneTypeId]);
 
             if (_repository.PhoneExistsForContact(phone, cmd.ContactId))
