@@ -155,6 +155,16 @@ namespace EGMS.BusinessAssociates.API.Controllers
             return CreatedAtAction("PostPhoneForContact", (PhoneRM)_appService.Handle(createForContact).Result);
         }
 
+        [Route("{associateId}/phones/")]
+        [HttpPost]
+        public IActionResult PostPhoneForAssociate(int contactId, [FromBody]Commands.V1.Associate.Phone.Create request)
+        {
+            Commands.V1.Associate.Phone.CreateForAssociate createForAssociate =
+                new Commands.V1.Associate.Phone.CreateForAssociate(contactId, request);
+
+            return CreatedAtAction("PostPhoneForAssociate", (PhoneRM)_appService.Handle(createForAssociate).Result);
+        }
+
         // TO DO:  Do we want to return Ok() under all circumstances?
         [Route("{associateId}/customers/{customerId}/AlternateFuels")]
         [HttpPost]

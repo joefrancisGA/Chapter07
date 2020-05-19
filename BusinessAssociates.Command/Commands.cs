@@ -118,9 +118,9 @@ namespace EGMS.BusinessAssociates.Command
                     {
                         public CreateForAssociate() { }
 
-                        public CreateForAssociate(int operatingContextId, Create create)
+                        public CreateForAssociate(int associateId, Create create)
                         {
-                            OperatingContextId = operatingContextId;
+                            AssociateId = associateId;
                             AddressType = create.AddressType;
                             Address1 = create.Address1;
                             Address2 = create.Address2;
@@ -138,7 +138,7 @@ namespace EGMS.BusinessAssociates.Command
                             IsActive = create.IsActive;
                         }
 
-                        public int OperatingContextId;
+                        public int AssociateId;
                     }
 
 

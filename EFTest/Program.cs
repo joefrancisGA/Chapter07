@@ -316,8 +316,6 @@ namespace EFTest
                     AddPipelineCompany();
                     break;
             }
-
-            DirectTest();
         }
 
         private static void LandingPage()
@@ -329,11 +327,25 @@ namespace EFTest
         private static void AddBusinessAssociate()
         {
             AssociateRM agl = CreateAssociate_AtlantaGasLight();
-
             AddPrimaryPhoneForAssociate(agl, PhoneTypeLookup.PhoneTypeEnum.Office, 6783242548);
-
             AddPrimaryEMailForAssociate(agl, "x2jafran@southernco.com");
         }
+
+        private static void AddInternalBusinessAssociate()
+        {
+            // Generic business associate setup first
+            AssociateRM agl = CreateAssociate_AtlantaGasLight();
+            PhoneRM phoneRM = AddPrimaryPhoneForAssociate(agl, PhoneTypeLookup.PhoneTypeEnum.Office, 6783242548);
+            EMailRM emailRM = AddPrimaryEMailForAssociate(agl, "x2jafran@southernco.com");
+            AddressRM addressRM = AddPrimaryAddressForAssociate(agl);
+
+            // Add contact
+            ContactRM contactRM = AddContactForAssociate(agl, addressRM.Id, phoneRM.Id, emailRM.Id, "Joe", "Francis");
+
+            // Add address
+            // Add operating context
+        }
+
 
         private static PhoneRM AddPrimaryPhoneForAssociate(AssociateRM associateRM, PhoneTypeLookup.PhoneTypeEnum phoneType, long phoneNumber)
         {
@@ -373,11 +385,54 @@ namespace EFTest
             return (EMailRM)_appService.Handle(createEMailCommand).Result;
         }
 
-
-        private static void AddInternalBusinessAssociate()
+        private static AddressRM AddPrimaryAddressForAssociate(AssociateRM associateRM)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("EFTEST:  Setting up primary address for Associate " + associateRM.LongName);
+
+            Commands.V1.Associate.Address.CreateForAssociate createAddressCommand =
+                new Commands.V1.Associate.Address.CreateForAssociate
+                {
+                    AssociateId = associateRM.Id,
+                    AddressType = (int)AddressTypeLookup.AddressTypeEnum.Physical,
+                    Address1 = "401 Bloombridge Way",
+                    City = "Marietta",
+                    GeographicState = 1,
+                    PostalCode = "30066",
+                    Country = 1,
+                    StartDate = DateTime.Now.Date,
+                    IsPrimary = true,
+                    IsActive = true
+                };
+
+            if (_technologyType != 1)
+                throw new InvalidOperationException("AddPrimaryAddressForAssociate not supported for REST");
+
+            return (AddressRM)_appService.Handle(createAddressCommand).Result;
         }
+
+        private static ContactRM AddContactForAssociate(AssociateRM associateRM, int primaryAddressId, int primaryPhoneId, 
+            int primaryEMailId, string firstName, string lastName)
+        {
+            Console.WriteLine("EFTEST:  Adding contact for Associate " + associateRM.LongName);
+
+            Commands.V1.Contact.CreateForAssociate createContactCommand =
+                new Commands.V1.Contact.CreateForAssociate
+                {
+                    PrimaryAddressId = primaryAddressId,
+                    IsActive = true,
+                    PrimaryPhoneId = primaryPhoneId,
+                    LastName = lastName,
+                    PrimaryEmailId = primaryEMailId,
+                    FirstName = firstName,
+                    Title = "Mr."
+                };
+
+            if (_technologyType != 1)
+                throw new InvalidOperationException("AddContactForAssociate not supported for REST");
+
+            return (ContactRM)_appService.Handle(createContactCommand).Result;
+        }
+
 
         private static void AddInternalOperatingContext()
         {

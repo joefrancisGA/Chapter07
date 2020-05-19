@@ -72,12 +72,10 @@ namespace EGMS.BusinessAssociates.Command
                     break;
 
                 case Commands.V1.Associate.Phone.CreateForAssociate cmd:
-                    CreatePhoneForAssociate(cmd);
-                    break;
+                    return CreatePhoneForAssociate(cmd);
 
                 case Commands.V1.Associate.EMail.CreateForAssociate cmd:
-                    CreateEMailForAssociate(cmd);
-                    break;
+                    return CreateEMailForAssociate(cmd);
 
                 #endregion
 
@@ -347,12 +345,12 @@ namespace EGMS.BusinessAssociates.Command
                 City.Create(cmd.City), cmd.Comments, PostalCode.Create(cmd.PostalCode),
                 StateCodeLookup.StateCodes[cmd.GeographicState]);
 
-            if (_repository.AddressExistsForAssociate(address, cmd.OperatingContextId))
+            if (_repository.AddressExistsForAssociate(address, cmd.AssociateId))
             {
-                throw new InvalidOperationException($"Address already exists for Operating Context {cmd.OperatingContextId}");
+                throw new InvalidOperationException($"Address already exists for Operating Context {cmd.AssociateId}");
             }
 
-            _repository.AddAddressForAssociate(address, cmd.OperatingContextId);
+            _repository.AddAddressForAssociate(address, cmd.AssociateId);
 
             return Conversions.GetAddressRM(address);
         }

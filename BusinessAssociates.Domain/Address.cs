@@ -63,10 +63,10 @@ namespace EGMS.BusinessAssociates.Domain
 
         public static bool operator == (Address address1, Address address2)
         {
-            if ((address1 == null) && (address2 == null))
-                return true;
+            if (ReferenceEquals(null, address1))
+                return ReferenceEquals(null, address2);
 
-            if ((address1 == null) || (address2 == null))
+            if (ReferenceEquals(null, address2))
                 return false;
 
             if (address1.AddressType != address2.AddressType)
