@@ -342,10 +342,34 @@ namespace EFTest
             // Add contact
             ContactRM contactRM = AddContactForAssociate(agl, addressRM.Id, phoneRM.Id, emailRM.Id, "Joe", "Francis");
 
-            // Add address
             // Add operating context
+            OperatingContextRM operatingContextRM = AddOperatingContextForAssociate(agl);
         }
 
+        private static OperatingContextRM AddOperatingContextForAssociate(AssociateRM associateRM)
+        {
+            Console.WriteLine("EFTEST:  Setting up operating context for Associate " + associateRM.LongName);
+
+            Commands.V1.OperatingContext.CreateForAssociate createOperatingContextCommand =
+                new Commands.V1.OperatingContext.CreateForAssociate
+                {
+                    AssociateId = associateRM.Id,
+                    ActingBATypeID = 1,
+                    PrimaryAddressId = 1,
+                    Status = 1,
+                    FacilityId = associateRM.Id,
+                    PrimaryPhoneId = 1,
+                    OperatingContextType = (int)OperatingContextTypeLookup.OperatingContextTypeEnum.Internal,
+                    IsDeactivating = false,
+                    PrimaryEmailId = 1,
+                    StartDate = DateTime.Now
+                    };
+
+            if (_technologyType != 1)
+                throw new InvalidOperationException("AddOperatingContextForAssociate not supported for REST");
+
+            return (OperatingContextRM)_appService.Handle(createOperatingContextCommand).Result;
+        }
 
         private static PhoneRM AddPrimaryPhoneForAssociate(AssociateRM associateRM, PhoneTypeLookup.PhoneTypeEnum phoneType, long phoneNumber)
         {

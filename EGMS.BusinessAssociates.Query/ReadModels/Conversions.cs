@@ -242,25 +242,24 @@ namespace EGMS.BusinessAssociates.Query.ReadModels
 
         public static OperatingContextRM GetOperatingContextRM(OperatingContext operatingContext)
         {
-            OperatingContextRM operatingContextRM = new OperatingContextRM
-            {
-                Id = operatingContext.Id,
-                ActingBAType = operatingContext.ActingBATypeId,
-                CertificationId = operatingContext.CertificationId,
-                FacilityId = operatingContext.FacilityId,
-                IsDeactivating = operatingContext.IsDeactivating,
-                LegacyId = operatingContext.LegacyId,
-                OperatingContextType = operatingContext.OperatingContextTypeId,
-                PrimaryAddress = operatingContext.PrimaryAddressId,
-                PrimaryEmail = operatingContext.PrimaryEmailId,
-                PrimaryPhone = operatingContext.PrimaryPhoneId,
-                ProviderType = operatingContext.ProviderTypeId,
-                StartDate = operatingContext.StartDate,
-                Status = operatingContext.StatusCodeId,
-                ThirdPartySupplierId = operatingContext.ThirdPartySupplierId
-            };
+            // ReSharper disable once UseObjectOrCollectionInitializer
+            OperatingContextRM operatingContextRM = new OperatingContextRM();
 
-
+            operatingContextRM.Id = operatingContext.Id;
+            operatingContextRM.ActingBAType = operatingContext.ActingBATypeId;
+            operatingContextRM.CertificationId = operatingContext.CertificationId;
+            operatingContextRM.FacilityId = operatingContext.FacilityId;
+            operatingContextRM.IsDeactivating = operatingContext.IsDeactivating;
+            operatingContextRM.LegacyId = operatingContext.LegacyId;
+            operatingContextRM.OperatingContextType = operatingContext.OperatingContextTypeId;
+            operatingContextRM.PrimaryAddress = operatingContext.PrimaryAddressId;
+            operatingContextRM.PrimaryEmail = operatingContext.PrimaryEmailId;
+            operatingContextRM.PrimaryPhone = operatingContext.PrimaryPhoneId;
+            operatingContextRM.ProviderType = operatingContext.ProviderTypeId;
+            operatingContextRM.StartDate = operatingContext.StartDate;
+            operatingContextRM.Status = operatingContext.StatusCodeId;
+            operatingContextRM.ThirdPartySupplierId = operatingContext.ThirdPartySupplierId;
+            
             return operatingContextRM;
         }
     }

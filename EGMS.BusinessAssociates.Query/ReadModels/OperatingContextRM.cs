@@ -8,11 +8,11 @@ namespace EGMS.BusinessAssociates.Query.ReadModels
         public int OperatingContextType { get; set; }
 
         public int FacilityId { get; set; }
-        public int ThirdPartySupplierId { get; set; }
+        public int? ThirdPartySupplierId { get; set; }
 
-        public int LegacyId { get; set; }
-        public int ProviderType { get; set; }
-        public int ActingBAType { get; set; }
+        public int? LegacyId { get; set; }
+        public int? ProviderType { get; set; }
+        public int? ActingBAType { get; set; }
         public int? CertificationId { get; set; }
 
         public int Status { get; set; }

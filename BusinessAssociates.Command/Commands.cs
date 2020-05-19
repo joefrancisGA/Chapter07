@@ -806,8 +806,8 @@ namespace EGMS.BusinessAssociates.Command
 
                     public int OperatingContextType { get; set; }
                     public int FacilityId { get; set; }
-                    public int ThirdPartySupplierId { get; set; }
-                    public int ProviderType { get; set; }
+                    public int? ThirdPartySupplierId { get; set; }
+                    public int? ProviderType { get; set; }
                     public int ActingBATypeID { get; set; }
                     public int? CertificationId { get; set; }
                     public int Status { get; set; }

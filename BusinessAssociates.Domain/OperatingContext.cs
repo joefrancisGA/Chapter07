@@ -31,21 +31,33 @@ namespace EGMS.BusinessAssociates.Domain
 
         public OperatingContext(int operatingContextId, OperatingContextTypeLookup operatingContextType,
             DatabaseId facilityId, DatabaseId thirdPartySupplierId, ExternalAssociateTypeLookup externalBATypeId, 
-            NullableDatabaseId certificationId, bool isDeactivating, int legacyId, DatabaseId primaryAddressId, 
+            NullableDatabaseId certificationId, bool isDeactivating, int? legacyId, DatabaseId primaryAddressId, 
             DatabaseId primaryEmailId, DatabaseId primaryPhoneId, DatabaseId providerTypeId,
             DateTime startDate, StatusCodeLookup status) : this()
         {
             Id = operatingContextId;
             OperatingContextType = operatingContextType;
             FacilityId = facilityId;
-            ThirdPartySupplierId = thirdPartySupplierId;
-            ExternalBAType = externalBATypeId;
-            CertificationId = certificationId;
-            LegacyId = legacyId;
+
+            if (thirdPartySupplierId != null)
+                ThirdPartySupplierId = thirdPartySupplierId;
+
+            if (externalBATypeId != null)
+                ExternalBAType = externalBATypeId;
+
+            if (certificationId != null)
+                CertificationId = certificationId;
+
+            if (legacyId != null)
+                LegacyId = legacyId;
+
             PrimaryAddressId = primaryAddressId;
             PrimaryEmailId = primaryEmailId;
             PrimaryPhoneId = primaryPhoneId;
-            ProviderType = ProviderTypeLookup.ProviderTypes[providerTypeId];
+
+            if (providerTypeId != null)
+                ProviderType = ProviderTypeLookup.ProviderTypes[providerTypeId];
+
             IsDeactivating = isDeactivating;
             StartDate = startDate != default ? startDate : DateTime.Now;
             Status = status;
@@ -58,19 +70,19 @@ namespace EGMS.BusinessAssociates.Domain
         public DatabaseId FacilityId { get; set; }
 
         public Associate ThirdPartySupplier { get; set; }
-        public int ThirdPartySupplierId { get; set; }
+        public int? ThirdPartySupplierId { get; set; }
 
         // TO DO:  Not sure what to do with the type for LegacyId
-        public int LegacyId { get; set; }
+        public int? LegacyId { get; set; }
 
         public ProviderTypeLookup ProviderType { get; set; }
-        public int ProviderTypeId { get; set; }
+        public int? ProviderTypeId { get; set; }
 
         public Role Role { get; set; }
         public int RoleId { get; set; }
 
         public ExternalAssociateTypeLookup ExternalBAType { get; set; }
-        public int ActingBATypeId { get; set; }
+        public int? ActingBATypeId { get; set; }
 
         public Certification Certification { get; set; }
         public NullableDatabaseId CertificationId { get; set; }
